@@ -1,0 +1,139 @@
+{
+  "axioms": [
+    {
+      "id": "physics.gravity",
+      "name": "Gravitational Constant",
+      "tier": 0,
+      "dimension": "physics",
+      "impact": ["movement.speed_y_limit", "structural.integrity"],
+      "default_value": 1.0,
+      "description": "Standard Newtonian gravity. High values slow vertical movement and increase fall damage."
+    },
+    {
+      "id": "physics.time_dilation",
+      "name": "Temporal Flow Ratio",
+      "tier": 0,
+      "dimension": "physics",
+      "impact": ["system.update_tick_rate", "actor.aging_speed"],
+      "default_value": 1.0,
+      "description": "Speed of time relative to the baseline world. High values accelerate simulation events."
+    },
+    {
+      "id": "physics.entropy",
+      "name": "Entropy Decay",
+      "tier": 0,
+      "dimension": "physics",
+      "impact": ["system.degradation_rate", "resource.waste_coefficient"],
+      "default_value": 1.0,
+      "description": "The inevitable decay of energy and order. Higher values increase resource consumption."
+    },
+    {
+      "id": "physics.causality",
+      "name": "Causal Determinism",
+      "tier": 0,
+      "dimension": "physics",
+      "impact": ["engine.event_consistency", "actor.free_will_modifier"],
+      "default_value": "strict",
+      "description": "How strictly effects follow causes. Lower determinism allows for more chaotic outcomes."
+    },
+    {
+      "id": "metaphysics.qi_resistance",
+      "name": "Qi Fluidity",
+      "tier": 1,
+      "dimension": "metaphysics",
+      "impact": ["vocation.ki_flow_speed", "engine.internal_resonance"],
+      "default_value": 0.05,
+      "description": "Resistance to inner energy flow. Critical for Wuxia/Kiếm Hiệp worlds."
+    },
+    {
+      "id": "metaphysics.soul_permanence",
+      "name": "Soul Stability",
+      "tier": 2,
+      "dimension": "metaphysics",
+      "impact": ["actor.reincarnation_chance", "spirit.ghost_manifestation"],
+      "default_value": 0.1,
+      "description": "Probability of a soul surviving the death of the biological shell."
+    },
+    {
+      "id": "metaphysics.spirit_root",
+      "name": "Spirit Root Affinity",
+      "tier": 4,
+      "dimension": "metaphysics",
+      "impact": ["actor.spiritual_absorption", "vocation.immortality_progress"],
+      "default_value": "limited",
+      "description": "Determines how easily souls can absorb external energy for cultivation."
+    },
+    {
+      "id": "metaphysics.tribulation",
+      "name": "Heavenly Tribulation",
+      "tier": 4,
+      "dimension": "metaphysics",
+      "impact": ["actor.ascension_risk", "world.cataclysm_event_rate"],
+      "default_value": 0.0,
+      "description": "Severity of challenges imposed by the 'Dao' when entities attempt to reach higher tiers."
+    },
+    {
+      "id": "energy.spiritual_qi_density",
+      "name": "Spiritual Qi Density",
+      "tier": 4,
+      "dimension": "energy",
+      "impact": ["world.ambient_energy", "creature.mutation_rate"],
+      "default_value": 0.1,
+      "description": "Ambient magical or spiritual energy available in the environment."
+    },
+    {
+      "id": "energy.mana_stability",
+      "name": "Mana Coherence",
+      "tier": 2,
+      "dimension": "energy",
+      "impact": ["spell.fumble_rate", "artifact.power_loss_rate"],
+      "default_value": 0.5,
+      "description": "The stability of magical fields. Low coherence causes unpredictable spell backfires."
+    },
+    {
+      "id": "social.power_dictates_law",
+      "name": "Might is Right",
+      "tier": 1,
+      "dimension": "social",
+      "impact": ["governance.stability_modifier", "actor.social_mobility"],
+      "default_value": true,
+      "description": "Direct correlation between physical/metaphysical power and legal authority."
+    },
+    {
+      "id": "social.knowledge_propagation",
+      "name": "Information Velocity",
+      "tier": 0,
+      "dimension": "social",
+      "impact": ["tech.innovation_speed", "idea.infection_rate"],
+      "default_value": 0.2,
+      "description": "The speed at which new concepts and skills spread throughout the population."
+    },
+    {
+      "id": "social.caste_rigidity",
+      "name": "Hierarchical Inertia",
+      "tier": 0,
+      "dimension": "social",
+      "impact": ["rebellion.probability", "class.mobility_friction"],
+      "default_value": 0.5,
+      "description": "The resistance to changing one's social standing or vocation tier."
+    },
+    {
+      "id": "reality.concept_dominance",
+      "name": "Concept Over Matter",
+      "tier": 6,
+      "dimension": "metaphysics",
+      "impact": ["engine.causality_override", "actor.reality_warping"],
+      "default_value": 0.0,
+      "description": "The ability of will or abstract concepts to override physical constants."
+    },
+    {
+      "id": "reality.narrative_weight",
+      "name": "Destiny Pull",
+      "tier": 5,
+      "dimension": "reality",
+      "impact": ["actor.plot_armor", "event.convergence_rate"],
+      "default_value": 0.0,
+      "description": "The influence of 'Story Logic' over standard simulation logic. Higher tiers force epic conclusions."
+    }
+  ]
+}

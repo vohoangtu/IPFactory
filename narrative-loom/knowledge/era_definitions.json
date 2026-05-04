@@ -1,0 +1,138 @@
+{
+  "paleo": {
+    "name": "Thời Tiền sử",
+    "themes": ["Bộ lạc", "sinh tồn", "thần linh", "lửa", "săn bắt"],
+    "emoji": "🦕",
+    "vibe": "Nguyên thủy, bản năng, tôn thờ sức mạnh tự nhiên.",
+    "sociology": "Cấu trúc bộ lạc, đứng đầu bởi Tù trưởng và Pháp sư (Shaman).",
+    "materiality": {
+      "clothing": "Da thú, vòng cổ xương, sơn vẽ mình.",
+      "weapons": "Rìu đá, giáo xương, gậy gỗ.",
+      "housing": "Hang động, lều da thú."
+    },
+    "conflicts": ["Thú dữ tấn công", "Sự khan hiếm thức ăn", "Xung đột giữa các bộ tộc."],
+    "vfx_hints": {
+      "primary_color": "#FF8C00",
+      "particle_style": "organic_chaotic"
+    }
+  },
+  "medieval": {
+    "name": "Thời Trung cổ / Phong kiến",
+    "themes": ["Vương quốc", "hiệp sĩ", "chiến tranh", "âm mưu triều đình"],
+    "emoji": "⚔️",
+    "vibe": "Trang trọng, danh dự, mâu thuẫn chính trị sâu sắc.",
+    "sociology": "Hệ thống phong kiến pháp định: Vua, Quý tộc, Hiệp sĩ, Nông nô.",
+    "materiality": {
+      "clothing": "Giáp tấm (Plate mail), áo choàng nhung, lụa quý tộc.",
+      "weapons": "Trường kiếm, thương, cung tên.",
+      "housing": "Lâu đài đá, pháo đài gỗ."
+    },
+    "conflicts": ["Tranh giành quyền lực", "Phản bội triều đình", "Giải cứu con tin."],
+    "vfx_hints": {
+      "primary_color": "#DC143C",
+      "particle_style": "royal_clustered"
+    }
+  },
+  "ancient_east": {
+    "name": "Đông phương Cổ đại",
+    "themes": ["Giang hồ", "kiếm khách", "triều đại", "võ lâm"],
+    "emoji": "🏯",
+    "vibe": "Cổ kính, hiệp nghĩa, triết lý võ thuật.",
+    "sociology": "Triều đình trung ương và các môn phái Võ lâm (Sects).",
+    "materiality": {
+      "clothing": "Hán phục, Đạo bào, khăn đóng.",
+      "weapons": "Kiếm, Đao, Côn (Staff).",
+      "housing": "Đền chùa, lầu các gỗ."
+    },
+    "conflicts": ["Huyết hải thâm thù", "Võ lâm tranh bá", "Sự suy tàn của vương triều."],
+    "vfx_hints": {
+      "primary_color": "#008080",
+      "particle_style": "zen_flow"
+    }
+  },
+  "modern_war": {
+    "name": "Thế chiến / Cận đại",
+    "themes": ["Chiến tranh", "gián điệp", "cách mạng"],
+    "emoji": "🔫",
+    "vibe": "Khốc liệt, kịch tính, sự thay đổi của thời đại.",
+    "sociology": "Quân đội chính quy, giới tình báo, phong trào cách mạng.",
+    "materiality": {
+      "clothing": "Quân phục, măng tô, mũ phớt.",
+      "weapons": "Súng trường, lựu đạn, xe tăng.",
+      "housing": "Hầm hào, pháo đài thép, nhà gạch cũ."
+    },
+    "conflicts": ["Nội gián", "Đảo chính", "Trận chiến sinh tử."],
+    "vfx_hints": {
+      "primary_color": "#4682B4",
+      "particle_style": "heavy_impact"
+    }
+  },
+  "modern": {
+    "name": "Hiện đại",
+    "themes": ["Đô thị", "công nghệ", "tội phạm", "drama xã hội"],
+    "emoji": "🌆",
+    "vibe": "Nhanh, thực dụng, mâu thuẫn cá nhân và hệ thống.",
+    "sociology": "Cấu trúc xã hội tư bản: Tập đoàn, Tầng lớp trung lưu, Cảnh sát.",
+    "materiality": {
+      "clothing": "Com-lê, đồ jeans, thời trang đường phố (Streetwear).",
+      "weapons": "Súng ngắn, dùi cui điện, công nghệ cao.",
+      "housing": "Nhà chọc trời, căn hộ chung cư."
+    },
+    "conflicts": ["Tham nhũng", "Tội phạm có tổ chức", "Áp lực cuộc sống đô thị."],
+    "vfx_hints": {
+      "primary_color": "#483D8B",
+      "particle_style": "geometric_urban"
+    }
+  },
+  "sci_fi": {
+    "name": "Tương lai / Sci-Fi",
+    "themes": ["AI", "vũ trụ", "dystopia", "cyberpunk"],
+    "emoji": "🚀",
+    "vibe": "Kỹ thuật cao, suy đồi xã hội, khám phá vô tận.",
+    "sociology": "AI quản trị, Thực thể siêu cường, Người biến đổi gen.",
+    "materiality": {
+      "clothing": "Sợi tổng hợp, giáp exoskeleton, đèn neon phát sáng.",
+      "weapons": "Súng Plasma, kiếm vật lý nano, drone chiến đấu.",
+      "housing": "Trạm không gian, thành phố nổi."
+    },
+    "conflicts": ["AI phản loạn", "Hố đen thực tại", "Sự biến mất của nhân tính."],
+    "vfx_hints": {
+      "primary_color": "#FF00FF",
+      "particle_style": "digital_grid"
+    }
+  },
+  "post_apocalypse": {
+    "name": "Hậu tận thế",
+    "themes": ["Zombie", "sinh tồn", "hoang mạc", "tàn tích"],
+    "emoji": "🧟",
+    "vibe": "Hoang tàn, tàn khốc, nỗ lực duy trì sự sống.",
+    "sociology": "Kẻ nhặt rác (Scavengers), Lãnh chúa hoang mạc, Nhóm sinh tồn.",
+    "materiality": {
+      "clothing": "Vải rách, giáp phế liệu, mặt nạ chống độc.",
+      "weapons": "Gậy bóng chày gắn đinh, nỏ tự chế, xà beng.",
+      "housing": "Căn cứ ngầm, pháo đài phế thải."
+    },
+    "conflicts": ["Dịch bệnh bùng phát", "Phe phái tranh giành tài nguyên", "Sa mạc hóa thực tại."],
+    "vfx_hints": {
+      "primary_color": "#ADFF2F",
+      "particle_style": "toxic_unstable"
+    }
+  },
+  "fantasy": {
+    "name": "Fantasy / Thần thoại",
+    "themes": ["Ma thuật", "rồng", "tiên tộc", "quest"],
+    "emoji": "🧙",
+    "vibe": "Huyền bí, kỳ ảo, sử thi anh hùng.",
+    "sociology": "Hội đồng pháp sư, chủng tộc cổ xưa (Elves, Dwarves), Vua tà ác.",
+    "materiality": {
+      "clothing": "Áo choàng pháp sư, váy lụa huyền bí, giáp bạc.",
+      "weapons": "Trượng phép, kiếm cổ xưa, cổ vật ma thuật.",
+      "housing": "Thánh điện, đảo nổi trên không."
+    },
+    "conflicts": ["Thức tỉnh Ma vương", "Truy tìm cổ vật", "Lời nguyền ngàn năm."],
+    "vfx_hints": {
+      "primary_color": "#8A2BE2",
+      "particle_style": "mystical_silver_bloom"
+    }
+  }
+}

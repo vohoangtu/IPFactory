@@ -1,0 +1,12 @@
+[package]
+name = "worldos-core"
+version = "0.1.0"
+edition = "2021"
+description = "WorldOS V6 simulation core types and logic"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+rand = "0.8"
+smallvec = { version = "1.15.1", features = ["serde"] }

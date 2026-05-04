@@ -1,0 +1,62 @@
+{
+  "element_matrix": {
+    "FIRE": { "METAL": 1.5, "WATER": 0.7 },
+    "METAL": { "WOOD": 1.5, "FIRE": 0.7 },
+    "WOOD": { "EARTH": 1.5, "METAL": 0.7 },
+    "EARTH": { "WATER": 1.5, "WOOD": 0.7 },
+    "WATER": { "FIRE": 1.5, "EARTH": 0.7 }
+  },
+  "vocations": [
+    {
+      "id": "martial_artist",
+      "name": "Martial Artist (Võ sư)",
+      "tier": 0,
+      "base_stats": { "strength": 1.2, "agility": 1.1, "vitality": 1.3, "intelligence": 0.8, "wisdom": 0.9 },
+      "description": "Masters of physical combat and bodily discipline.",
+      "skills": [
+        {
+          "id": "iron_fist",
+          "name": "Thiết Sa Chưởng",
+          "type": "ACTIVE",
+          "element": "FIRE",
+          "energy_nature": "PURE_KI",
+          "resonance_rate": 0.85,
+          "fate_resonance": { "THIEN_SAT": 1.5 },
+          "physique_affinity": { "CUU_DUONG": 1.3 },
+          "rule": "rule iron_fist\n  when\n    actor.stamina > 15\n  then\n    add target.health (-250 * actor.resonance_rate * element_mult(\"FIRE\", target.element))\n    set actor.stamina (actor.stamina - 15)",
+          "cost": { "stamina": 15 },
+          "description": "Dồn nén kình lực hỏa hệ vào lòng bàn tay.",
+          "effects": { "damage": 250 }
+        },
+        {
+          "id": "dragon_roar",
+          "name": "Long Ngâm Độc Bộ",
+          "type": "ULTIMATE",
+          "element": "YANG",
+          "energy_nature": "DRAGON_SPIRIT",
+          "required_lineage": "DRAGON_BLOOD",
+          "bloodline_scaling": 1.5,
+          "rule": "rule dragon_roar\n  when\n    actor.lineage == \"DRAGON_BLOOD\"\n    actor.ki > 100\n  then\n    emit_event DRAGON_AWAKENING\n    add target.health (-1200 * actor.bloodline_purity)\n    set actor.ki 0",
+          "description": "Uy áp của rồng thần hóa thành kình lực chấn động bát hoang."
+        }
+      ]
+    },
+    {
+      "id": "blacksmith",
+      "name": "Blacksmith (Thợ rèn)",
+      "tier": 0,
+      "base_stats": { "strength": 1.4, "agility": 0.7, "vitality": 1.5, "intelligence": 0.9, "wisdom": 1.1 },
+      "description": "Creators of legendary tools and armor.",
+      "skills": [
+        {
+          "id": "reforge",
+          "name": "Toán Hỏa Đúc Kiếm",
+          "type": "ACTIVE",
+          "element": "METAL",
+          "rule": "rule reforge\n  when\n    actor.stamina > 40\n    room.has_forge == true\n  then\n    add item.quality (0.2 * actor.strength)\n    set actor.stamina (actor.stamina - 40)",
+          "description": "Sử dụng hỏa hệ để tôi luyện kim loại."
+        }
+      ]
+    }
+  ]
+}

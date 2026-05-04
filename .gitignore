@@ -1,0 +1,122 @@
+# =============================================================================
+# WORLDOS - .gitignore
+# =============================================================================
+
+# ─── Environment & Secrets ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ─── Laravel (backend/) ───────────────────────────────────────────────────────
+backend/vendor/
+backend/.env
+backend/.env.*
+backend/.phpunit.result.cache
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/testing/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+backend/public/hot
+backend/public/storage
+
+# ─── Next.js (frontend/, bloom/) ──────────────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.*.local
+
+bloom/node_modules/
+bloom/.next/
+bloom/out/
+bloom/.env.local
+bloom/.env.*.local
+
+# ─── Rust Engine (engine/) ────────────────────────────────────────────────────
+engine/target/
+
+# ─── Python / Narrative Loom (narrative-loom/) ────────────────────────────────
+narrative-loom/__pycache__/
+narrative-loom/*.pyc
+narrative-loom/*.pyo
+narrative-loom/.venv/
+narrative-loom/venv/
+narrative-loom/.env
+narrative-loom/.pytest_cache/
+narrative-loom/.ruff_cache/
+
+# ─── Node.js (general) ────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json.backup
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+.docker/data/
+docker-compose.override.yml
+
+# ─── IDE & Editor ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+.agent/
+.agents/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.cursor/
+.gemini/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.skill-staging/
+.trae/
+.windsurf/
+*.swp
+*.swo
+*.swn
+*~
+
+# ─── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Logs & Debug ─────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Test & Coverage ──────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+.phpunit.cache/
+
+# ─── Build Artifacts ──────────────────────────────────────────────────────────
+dist/
+build/
+*.bak
+*.cache
+*.tmp
+_tmp_*.py
+fix_final.py
+append.txt
+tmp/
+frontend/eslint_report.*
+frontend/tsconfig.tsbuildinfo
+
+# ─── Composer ─────────────────────────────────────────────────────────────────
+.composer/

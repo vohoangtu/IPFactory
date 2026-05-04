@@ -1,0 +1,86 @@
+{
+  "magitech_nano_resonance": {
+    "name": "Nano-Resonance (Cộng hưởng Nano)",
+    "description": "Thực tại vận hành dựa trên các hạt máy móc siêu nhỏ (Nanites). Chúng phản ứng với tần số âm thanh.",
+    "rules": [
+      "Magic thực chất là Molecular Resonance (Cộng hưởng phân tử).",
+      "Spellcasting yêu cầu Incantations (Tần số âm thanh chuẩn xác).",
+      "Overuse (Vượt ngưỡng Entropy) gây ra Resonance Scars (Sẹo thực tại phân tử).",
+      "Màu sắc đặc trưng: Etheric Silver (Bạc ánh kim)."
+    ],
+    "era_mappings": {
+      "paleo": {
+        "terminology": {
+          "nanites": "Bụi Thần",
+          "resonance": "Tiếng Gầm Của Đất",
+          "entropy_scars": "Sự Giận Dữ Của Tự Nhiên",
+          "spellcasting": "Nghi Lễ Nhảy Múa"
+        },
+        "vibe": "Nguyên thủy, coi Nano là hơi thở của các linh hồn bảo hộ."
+      },
+      "medieval": {
+        "terminology": {
+          "nanites": "Linh Diệp",
+          "resonance": "Thiên Âm",
+          "entropy_scars": "Sự Trừng Phạt Của Thần Linh",
+          "spellcasting": "Lời Chú Linh Ứng"
+        },
+        "vibe": "Huyền bí, tôn giáo hóa các hiện tượng kỹ thuật cao."
+      },
+      "ancient_east": {
+        "terminology": {
+          "nanites": "Kiếm Ý Bạc",
+          "resonance": "Tâm Pháp Rung Động",
+          "entropy_scars": "Nội Thương Thực Tại",
+          "spellcasting": "Vận Công Điều Khí"
+        },
+        "vibe": "Hiệp nghĩa, coi Nano là đỉnh cao của tu luyện nội lực."
+      },
+      "modern_war": {
+        "terminology": {
+          "nanites": "Bụi Thép",
+          "resonance": "Sóng Siêu Tần",
+          "entropy_scars": "Vết Rạn Chiến Trường",
+          "spellcasting": "Kích Hoạt Tín Hiệu"
+        },
+        "vibe": "Căng thẳng, coi Nano là vũ khí bí mật của quốc gia."
+      },
+      "modern": {
+        "terminology": {
+          "nanites": "Smart Dust",
+          "resonance": "Sonic Pulse",
+          "entropy_scars": "Reality Glitch",
+          "spellcasting": "Trigger Command"
+        },
+        "vibe": "Thực dụng, coi Nano là một đột phá công nghệ chưa được công bố."
+      },
+      "sci_fi": {
+        "terminology": {
+          "nanites": "N-Fog",
+          "resonance": "Acoustic Overdrive",
+          "entropy_scars": "Molecular Decay",
+          "spellcasting": "Firmware Execution"
+        },
+        "vibe": "Tiêu chuẩn hóa, coi Nano là nền tảng của mọi quy trình sản xuất."
+      },
+      "post_apocalypse": {
+        "terminology": {
+          "nanites": "Phóng Xạ Bạc",
+          "resonance": "Tiếng Rít Hoang Mạc",
+          "entropy_scars": "Vùng Chết Tĩnh Lặng",
+          "spellcasting": "Đánh Đổi Sự Sống"
+        },
+        "vibe": "Tàn khốc, coi Nano là nguyên nhân gây ra ngày tận thế."
+      },
+      "fantasy": {
+        "terminology": {
+          "nanites": "Bụi Tiên",
+          "resonance": "Thánh Ca Cổ Đại",
+          "entropy_scars": "Vết Nứt Hỗn Mang",
+          "spellcasting": "Hòa Âm Ma Pháp"
+        },
+        "vibe": "Huyền diệu, coi Nano là tinh hoa của khởi nguyên vũ trụ."
+      }
+    }
+  }
+}

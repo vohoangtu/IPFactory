@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Tokens ─────────────────────────────────────── */
+@theme {
+  /* Backgrounds */
+  --color-bg-base:     var(--bg-base);
+  --color-bg-surface:  var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-overlay:  var(--bg-overlay);
+
+  /* Semantic text */
+  --color-text-primary:   hsl(220, 20%, 96%);
+  --color-text-secondary: hsl(220, 13%, 72%);
+  --color-text-muted:     hsl(220, 10%, 52%);
+  --color-text-disabled:  hsl(220, 9%, 38%);
+
+  /* Brand / accent */
+  --color-brand-primary:  var(--color-primary);
+  --color-brand-accent:   var(--color-accent);
+  --color-brand-emerald:  var(--color-emerald);
+  --color-brand-amber:    var(--color-amber);
+  --color-brand-danger:   var(--color-danger);
+  --color-brand-info:     var(--color-info);
+
+  /* Borders */
+  --color-border-subtle:  var(--border-subtle);
+  --color-border-muted:   var(--border-muted);
+  --color-border-primary: var(--border-primary);
+
+  /* Radius scale (project-specific) */
+  --radius-sm:   0.5rem;    /* 8px  */
+  --radius-md:   0.625rem;  /* 10px */
+  --radius-lg:   0.75rem;   /* 12px */
+  --radius-xl:   1rem;      /* 16px */
+  --radius-2xl:  1.25rem;   /* 20px */
+  --radius-3xl:  2rem;      /* 32px */
+
+  /* Glow shadows */
+  --shadow-glow-cyan:    0 0 24px rgba(110, 231, 247, 0.08);
+  --shadow-glow-violet:  0 0 24px rgba(167, 139, 250, 0.08);
+  --shadow-glow-amber:   0 0 24px rgba(245, 158, 11, 0.08);
+  --shadow-glow-emerald: 0 0 24px rgba(52, 211, 153, 0.08);
+  --shadow-glow-danger:  0 0 24px rgba(248, 113, 113, 0.08);
+
+  /* Font families (mirror :root definitions) */
+  --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* ─── Design Tokens (runtime + backward compat) ────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base:      #080810;
+  --bg-surface:   #0e0e18;
+  --bg-elevated:  #161625;
+  --bg-overlay:   #1c1c30;
+
+  /* Brand Colors */
+  --color-primary:   hsl(188, 91%, 70%);  /* electric cyan  #6EE7F7 */
+  --color-accent:    hsl(263, 90%, 75%);  /* violet         #A78BFA */
+  --color-emerald:   hsl(160, 84%, 55%);  /* emerald        #34D399 */
+  --color-amber:     hsl(38,  92%, 59%);  /* amber          #F59E0B */
+  --color-danger:    hsl(0,   91%, 68%);  /* danger red     #F87171 */
+  --color-info:      hsl(217, 91%, 68%);  /* info blue      #60A5FA */
+
+  /* Borders */
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-muted:   rgba(255, 255, 255, 0.10);
+  --border-primary: rgba(110, 231, 247, 0.20);
+
+  /* Typography */
+  --font-sans:  "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono", "Fira Code", monospace;
+
+  /* Z-Layers */
+  --z-sidebar: 50;
+  --z-header:  40;
+  --z-modal:   80;
+  --z-toast:   90;
+}
+
+/* ─── Base Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family:              var(--font-sans);
+  background-color:         var(--bg-base);
+  color:                    var(--color-text-secondary);
+  -webkit-font-smoothing:   antialiased;
+  -moz-osx-font-smoothing:  grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+code, kbd, pre, samp, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────── */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(110, 231, 247, 0.15) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar        { width: 4px; height: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track  { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb  {
+  background: rgba(110, 231, 247, 0.15);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 231, 247, 0.30);
+}
+
+/* ─── Keyframe Animations ──────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 6px rgba(110, 231, 247, 0.25); }
+  50%       { box-shadow: 0 0 18px rgba(110, 231, 247, 0.55); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Utility Classes ──────────────────────────────────────────────── */
+.animate-pulse-glow  { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-float       { animation: float 4s ease-in-out infinite; }
+.animate-fade-in-up  { animation: fade-in-up 0.4s ease forwards; }
+
+/* Shimmer skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-overlay) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 0.5rem;
+}
+
+/* Glass surface used across cards and panels */
+.glass {
+  background: rgba(14, 14, 24, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Neon text glow helpers */
+.text-glow-cyan   { text-shadow: 0 0 12px rgba(110, 231, 247, 0.55); }
+.text-glow-violet { text-shadow: 0 0 12px rgba(167, 139, 250, 0.55); }
+
+/* Scan-line overlay (decorative — apply to parent) */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(0, 0, 0, 0.06) 3px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+}

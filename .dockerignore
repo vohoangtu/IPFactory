@@ -1,0 +1,44 @@
+# Dependency directories
+backend/vendor
+frontend/node_modules
+bloom/node_modules
+narrative-loom/venv
+engine/target
+
+# Local configuration and environment
+.env*
+!.env.example
+backend/.env*
+frontend/.env*
+auth.json
+
+# Octane Binaries (Do not copy host architecture binaries to Docker)
+backend/frankenphp
+backend/frankenphp.exe
+backend/frankenphp-*
+
+# Caches and temporary files
+backend/bootstrap/cache/*.php
+!backend/bootstrap/cache/.gitignore
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*.php
+.phpunit.result.cache
+
+# Logs
+backend/storage/logs/*.log
+*.log
+
+# Version control and IDE
+.git
+.idea
+.vscode
+.cursor
+.agents
+
+# Docker files (if copied as part of context)
+docker-compose.yml
+docker-compose.override.yml
+
+# Testing artifacts
+backend/tests/Feature/Api/UniverseSnapshotApiTest.php

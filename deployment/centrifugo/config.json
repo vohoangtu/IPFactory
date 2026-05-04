@@ -1,0 +1,48 @@
+{
+  "client": {
+    "insecure": true,
+    "allowed_origins": [
+      "*"
+    ],
+    "token": {
+      "hmac_secret_key": "worldos_centrifugo_hmac_secret_key_32bytes_min"
+    }
+  },
+  "http_api": {
+    "key": "changeme_centrifugo_api"
+  },
+  "channel": {
+    "without_namespace": {
+      "presence": true,
+      "history_size": 10,
+      "history_ttl": "30s"
+    },
+    "namespaces": [
+      {
+        "name": "public",
+        "history_size": 10,
+        "history_ttl": "300s"
+      },
+      {
+        "name": "universes",
+        "history_size": 10,
+        "history_ttl": "300s"
+      },
+      {
+        "name": "narrative",
+        "history_size": 10,
+        "history_ttl": "300s"
+      },
+      {
+        "name": "worlds",
+        "history_size": 10,
+        "history_ttl": "300s"
+      },
+      {
+        "name": "loom",
+        "history_size": 10,
+        "history_ttl": "300s"
+      }
+    ]
+  }
+}

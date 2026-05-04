@@ -1,0 +1,19 @@
+# WorldOS Cursor Rules
+
+## Project Context
+- **Runtime:** Docker-first. NEVER run `composer` or `npm` on the host machine.
+- **Backend (Orchestrator):** Laravel 12 (PHP ^8.3). Use DDD, Action, and Repository patterns.
+- **Engine (Core Engine):** Rust simulation core.
+- **Frontend:** Next.js (React 19, Tailwind ^4).
+- **Language:** Always respond in Vietnamese (Tiếng Việt).
+
+## Development Workflow
+- **Artisan Commands:** Must be executed inside the container:
+  `docker compose -f deployment/docker-compose.dev.yml exec backend php artisan ...`
+- **PHP Version:** Do not upgrade PHP beyond 8.3 in `composer.json`.
+- **Styling:** Use Vanilla CSS or Tailwind. Avoid standard UI kits unless requested.
+
+## Coding Standards
+- Follow SOLID and KISS principles.
+- Use Event Driven Programming where applicable.
+- PHP classes should be strict and well-typed.

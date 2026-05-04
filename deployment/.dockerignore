@@ -1,0 +1,15 @@
+backend/
+frontend/
+narrative-loom/
+bloom/
+docs/
+deployment/
+.git/
+.agents/
+.cursor/
+tests_output.txt
+test_results.txt
+tmp.md
+tmp2.md
+*.json
+!engine/

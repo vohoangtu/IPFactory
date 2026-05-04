@@ -1,0 +1,110 @@
+{
+  "behaviors": [
+    {
+      "name": "withdraw",
+      "base_score": "fear * 0.6 + stress * 0.3 - trust * 0.2",
+      "tags": ["passive", "self_protective"]
+    },
+    {
+      "name": "resist",
+      "base_score": "anger * 0.5 - fear * 0.3 + trust * 0.2",
+      "tags": ["active", "assertive"]
+    },
+    {
+      "name": "cooperate",
+      "base_score": "trust * 0.7 + joy * 0.3 - stress * 0.2",
+      "tags": ["social", "prosocial"]
+    },
+    {
+      "name": "isolate",
+      "base_score": "sadness * 0.6 + fear * 0.2 - joy * 0.3",
+      "tags": ["passive", "avoidant"]
+    },
+    {
+      "name": "passive",
+      "base_score": "stress * 0.2 + sadness * 0.1",
+      "tags": ["passive"]
+    }
+  ],
+  "goals": [
+    {
+      "type": "survive",
+      "priority": "fear * 0.7 + stress * 0.5",
+      "influences": [
+        { "behavior": "withdraw",  "score": "0.6 * fear" },
+        { "behavior": "resist",    "score": "-0.3 * fear" },
+        { "behavior": "cooperate", "score": "-0.2 * fear" }
+      ]
+    },
+    {
+      "type": "belong",
+      "priority": "1 - trust",
+      "influences": [
+        { "behavior": "cooperate", "score": "0.5 * (1 - trust)" },
+        { "behavior": "isolate",   "score": "-0.3" },
+        { "behavior": "withdraw",  "score": "-0.2 * trust" }
+      ]
+    },
+    {
+      "type": "esteem",
+      "priority": "sadness * 0.6",
+      "influences": [
+        { "behavior": "resist",   "score": "0.4 * anger" },
+        { "behavior": "passive",  "score": "-0.2" },
+        { "behavior": "isolate",  "score": "0.2 * sadness" }
+      ]
+    },
+    {
+      "type": "safety",
+      "priority": "stress * 0.8",
+      "influences": [
+        { "behavior": "withdraw",  "score": "0.4 * stress" },
+        { "behavior": "cooperate", "score": "0.2 * trust" }
+      ]
+    }
+  ],
+  "event_meanings": {
+    "threat_encountered": {
+      "type": "threat",
+      "valence": -0.7,
+      "intensity": 0.7,
+      "certainty": 0.8,
+      "tags": ["threat"]
+    },
+    "resource_gained": {
+      "type": "opportunity",
+      "valence": 0.6,
+      "intensity": 0.4,
+      "certainty": 0.9,
+      "tags": ["reward"]
+    },
+    "social_conflict": {
+      "type": "threat",
+      "valence": -0.5,
+      "intensity": 0.5,
+      "certainty": 0.7,
+      "tags": ["social_threat"]
+    },
+    "social_bond": {
+      "type": "support",
+      "valence": 0.5,
+      "intensity": 0.4,
+      "certainty": 0.8,
+      "tags": ["social"]
+    },
+    "catastrophe": {
+      "type": "threat",
+      "valence": -0.9,
+      "intensity": 0.9,
+      "certainty": 0.95,
+      "tags": ["threat", "trauma_risk"]
+    },
+    "default": {
+      "type": "neutral",
+      "valence": 0.0,
+      "intensity": 0.1,
+      "certainty": 0.5,
+      "tags": []
+    }
+  }
+}

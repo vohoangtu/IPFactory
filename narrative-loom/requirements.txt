@@ -1,0 +1,46 @@
+# ── Web Framework ──────────────────────────────────────
+fastapi==0.115.12
+uvicorn[standard]==0.34.0
+uvloop==0.21.0
+
+# ── HTTP Client ─────────────────────────────────────────
+httpx==0.28.1
+
+# ── Config ──────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── LangChain / LangGraph ───────────────────────────────
+langchain==0.3.28
+langchain-core==0.3.84
+langchain-openai==0.3.35
+langchain-anthropic==0.3.22
+langchain-google-genai==2.1.2
+langchain-community==0.3.31
+langgraph==0.3.21
+
+# ── LLM Caching ─────────────────────────────────────────
+langchain-chroma==0.2.4
+chromadb==1.5.7
+fastembed==0.8.0
+
+# ── Task Queue ──────────────────────────────────────────
+celery[redis]==5.5.0
+redis==5.2.1
+
+# ── Realtime (Centrifugo) ───────────────────────────────
+cent==5.2.0
+
+# ── Observability ───────────────────────────────────────
+langfuse==2.60.2
+structlog==24.4.0
+
+# ── Reliability ─────────────────────────────────────────
+tenacity==9.1.2
+
+# ── Data Validation ─────────────────────────────────────
+pydantic==2.11.3
+
+# ── Test ────────────────────────────────────────────────
+pytest
+pytest-asyncio
+pytest-mock

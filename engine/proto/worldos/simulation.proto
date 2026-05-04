@@ -1,0 +1,356 @@
+syntax = "proto3";
+
+package worldos.simulation;
+
+option java_multiple_files = true;
+option java_package = "worldos.simulation";
+
+// Simulation engine service: advance universe by N ticks, return snapshot.
+service SimulationEngine {
+  rpc Advance(AdvanceRequest) returns (AdvanceResponse);
+  rpc Merge(MergeRequest) returns (MergeResponse);
+  rpc Observe(ObserveRequest) returns (ObserveResponse);
+  rpc BatchAdvance(BatchAdvanceRequest) returns (BatchAdvanceResponse);
+  rpc AnalyzeTrajectory(TrajectoryAnalysisRequest) returns (TrajectoryAnalysisResponse);
+  
+  // V10+ Vectorized Simulation (Replaces PHP FFI)
+  rpc EvaluateRules(EvaluateRulesRequest) returns (EvaluateRulesResponse);
+  rpc ProcessActorsSoa(ProcessActorsSoaRequest) returns (ProcessActorsSoaResponse);
+  rpc ProcessFieldsV7(ProcessFieldsV7Request) returns (ProcessFieldsV7Response);
+  rpc ComputeMetabolismGrid(ComputeMetabolismGridRequest) returns (ComputeMetabolismGridResponse);
+  rpc CalculateVocationAlignment(CalculateVocationAlignmentRequest) returns (CalculateVocationAlignmentResponse);
+  rpc GetCombinedGravity(GetCombinedGravityRequest) returns (GetCombinedGravityResponse);
+}
+
+message ObserveRequest {
+  uint64 universe_id = 1;
+  uint32 zone_index = 2;
+  double intensity = 3; // 1.0 = Full observation (Force collapse)
+  bytes state_input = 4;
+}
+
+message ObserveResponse {
+  bool ok = 1;
+  string error_message = 2;
+  UniverseSnapshot snapshot = 3;
+}
+
+message MergeRequest {
+  bytes state_a = 1;
+  bytes state_b = 2;
+}
+
+message MergeResponse {
+  bool ok = 1;
+  string error_message = 2;
+  UniverseSnapshot snapshot = 3;
+}
+
+message AdvanceRequest {
+  uint64 universe_id = 1;
+  uint64 ticks = 2;
+  // Optional: serialized state to load (e.g. from Laravel). Empty = load from store.
+  bytes state_input = 3;
+  // Metadata about the World (Axioms, Origin, etc.)
+  WorldConfig world_config = 4;
+}
+
+message WorldConfig {
+  uint64 world_id = 1;
+  string origin = 2;
+  string axiom_json = 3;
+  string world_seed_json = 4;
+  KernelGenome genome = 5;
+}
+
+message KernelGenome {
+  double diffusion_rate = 1;
+  double entropy_coefficient = 2;
+  double mutation_rate = 3;
+  double attractor_gravity = 4;
+  double complexity_bonus = 5;
+}
+
+message AdvanceResponse {
+  bool ok = 1;
+  string error_message = 2;
+  UniverseSnapshot snapshot = 3;
+}
+
+message UniverseSnapshot {
+  uint64 universe_id = 1;
+  uint64 tick = 2;
+  string state_vector_json = 3;
+  double entropy = 4;
+  double stability_index = 5;
+  string metrics_json = 6;
+  double sci = 7;
+  double instability_gradient = 8;
+  string global_fields_json = 9;
+}
+
+message BatchAdvanceRequest {
+  repeated AdvanceRequest requests = 1;
+}
+
+message BatchAdvanceResponse {
+  repeated AdvanceResponse responses = 1;
+}
+
+message TrajectoryPoint {
+  uint64 tick = 1;
+  repeated double state = 2;  // flattened state vector (selected dimensions)
+}
+
+message TrajectoryAnalysisRequest {
+  repeated TrajectoryPoint points = 1;
+  double recurrence_threshold = 2;  // distance threshold for recurrence (default 0.1)
+}
+
+message TrajectoryAnalysisResponse {
+  bool is_bounded = 1;              // trajectory stays within finite region
+  bool is_recurrent = 2;            // has structured recurrence patterns
+  double recurrence_rate = 3;       // % of R(i,j) pairs below threshold
+  double max_lyapunov_estimate = 4; // positive = chaotic, negative = stable
+  double trajectory_variance = 5;   // overall variance (0 = converged)
+  repeated double basin_center = 6; // mean position in phase space
+  double basin_radius = 7;          // max distance from center
+  repeated RegimeTransition regime_transitions = 8;
+}
+
+message RegimeTransition {
+  uint64 from_tick = 1;
+  uint64 to_tick = 2;
+  double distance = 3;  // how far the jump was
+}
+
+// ═══════════════════════════════════════════════════════
+// Vectorized Methods (Replaces FFI)
+// ═══════════════════════════════════════════════════════
+
+message EvaluateRulesRequest {
+    string state_json = 1;
+    string rules_dsl = 2;
+}
+
+message EvaluateRulesResponse {
+    bool ok = 1;
+    string error_message = 2;
+    string outputs_json = 3;
+}
+
+message BehaviorNode {
+    int32 id = 1;
+    string name = 2;
+    string action_type = 3;
+}
+
+message BehaviorTransition {
+    int32 from_node_id = 1;
+    int32 to_node_id = 2;
+    string condition = 3; // e.g., "fear > 0.6"
+    float weight = 4;
+}
+
+message BehaviorGraph {
+    string archetype = 1;
+    repeated BehaviorNode nodes = 2;
+    repeated BehaviorTransition transitions = 3;
+}
+
+message SocialEdge {
+    int32 source_id = 1;
+    int32 target_id = 2;
+    float weight = 3;
+}
+
+message Edict {
+    string name = 1;
+    string modifier_type = 2; // e.g. "hunger_delta", "trauma_gain"
+    float value = 3;
+}
+
+message FactionRelation {
+    int32 faction_a = 1;
+    int32 faction_b = 2;
+    float tension = 3; // 0.0 = Alliance, 1.0 = War
+}
+
+message BeliefDefinition {
+    int32 id = 1;
+    string name = 2;
+    string type = 3; // e.g. "Religion", "Ideology"
+    repeated float trait_weights = 4; // 17D weights for ideal profile
+}
+
+message TechnologyDefinition {
+    string id = 1;
+    string name = 2;
+    string code = 3;
+    repeated string requirements = 4;
+    string effects_json = 5;
+}
+
+/**
+ * Request for batch actor processing (SoA style)
+ */
+message ProcessActorsSoaRequest {
+    int32 tick = 1;
+    repeated int32 ids = 2;
+    repeated int32 zone_ids = 3;
+    repeated float hunger = 4;
+    repeated float energy = 5;
+    repeated float fear = 6;
+    repeated float trauma = 7;
+    repeated int32 heroic_types = 8;
+    repeated int32 lineage_ids = 9;
+    repeated int32 memes = 10;
+    repeated float traits_matrix = 11; // 17D traits per actor
+    repeated int32 behavior_states = 12; // Current node ID in graph
+    repeated BehaviorGraph behavior_graphs = 13; // Set of graphs to evaluate
+    repeated SocialEdge social_graph = 14; 
+    repeated Edict edicts = 15;
+    repeated WorldSaga active_sagas = 16;
+    repeated string archetypes = 17;
+    repeated int32 faction_ids = 18;
+    repeated float faction_loyalty = 19;
+    bool is_observed = 20;
+    repeated FactionRelation faction_relations = 21;
+    repeated BeliefDefinition belief_definitions = 22;
+    repeated float belief_alignments = 23; // Matrix [ActorCount * BeliefCount]
+    repeated TechnologyDefinition tech_definitions = 24;
+    repeated float actor_tech_levels = 25; // Matrix [ActorCount * TechCount]
+}
+
+message WorldLegend {
+    uint64 id = 1;
+    string category = 2; // e.g. "Catastrophe", "Golden Age"
+    string title = 3;
+    string description = 4;
+    uint64 tick_start = 5;
+    uint64 tick_end = 6;
+    float importance = 7;
+    repeated uint64 involved_actor_ids = 8;
+}
+
+message WorldSaga {
+    uint64 id = 1;
+    string name = 2;
+    string theme = 3;
+    repeated WorldLegend legends = 4;
+}
+
+message AgentScar {
+    uint64 tick = 1;
+    uint64 actor_id = 2;
+    string category = 3; // e.g. "combat", "trade", "birth"
+    string description = 4;
+    string raw_payload_json = 5;
+    uint64 caused_by_id = 6; // Causal link to parent event
+    string metadata_json = 7; // Environmental context snapshot
+}
+
+message NewActor {
+    uint64 parent_id = 1;
+    uint32 zone_id = 2;
+    string archetype = 3;
+    repeated float trait_vector = 4;
+}
+
+message ActorSoaOutput {
+    uint64 actor_id = 1;
+    uint32 action_id = 2;
+    float new_hunger = 3;
+    float new_energy = 4;
+    float new_trauma = 5;
+    float resource_delta = 6; 
+    repeated float new_traits = 7;
+    repeated int32 new_faction_ids = 8;
+    repeated float new_faction_loyalty = 9;
+    repeated float new_belief_alignments = 10;
+    repeated float new_tech_levels = 11;
+    string intent_slug = 12; // Decision intent (e.g. "FEAR_ESCAPE", "HUNGER_HUNT")
+    string mental_state_json = 13; // Detailed SoA snapshot
+}
+
+message ZoneMetrics {
+    uint32 zone_id = 1;
+    float avg_hunger = 2;
+    float avg_energy = 3;
+    float avg_fear = 4;
+    float avg_trauma = 5;
+    float total_resource_extracted = 6;
+    float social_cohesion = 7;
+}
+
+message EmergentCalamity {
+    string type = 1; // "PANDEMIC", "ECOLOGICAL_COLLAPSE", "TOTAL_WAR", "SYSTEM_OVERLOAD"
+    uint32 epicenter_zone_id = 2; // Mức độ ảnh hưởng trung tâm
+    float intensity = 3; // 0.0 -> 1.0
+    string description = 4; // Kịch bản/Truyền thuyết do Rust sinh ra
+    uint64 trigger_tick = 5;
+}
+
+message CivilizationMetrics {
+    float global_entropy = 1;
+    repeated ZoneMetrics zone_stats = 2;
+    repeated float urban_density = 3; // Density per zone or cell (vectorized)
+}
+
+/**
+ * Response for batch actor processing
+ */
+message ProcessActorsSoaResponse {
+    bool ok = 1;
+    string error_message = 2;
+    repeated ActorSoaOutput outputs = 3;
+    repeated AgentScar scars = 4;
+    repeated NewActor spawned_actors = 5;
+    CivilizationMetrics civilization_metrics = 6;
+    repeated EmergentCalamity calamities = 7;
+}
+
+message ProcessFieldsV7Request {
+    repeated double fields = 1; // Flattened [count * 8]
+    repeated uint32 neighbor_counts = 2;
+    repeated uint32 neighbor_offsets = 3;
+    repeated uint32 neighbors = 4;
+    double diffusion_rate = 5;
+    double preservation_rate = 6;
+}
+
+message ProcessFieldsV7Response {
+    repeated double fields = 1;
+}
+
+message ComputeMetabolismGridRequest {
+    repeated double populations = 1;
+    repeated double biomasses = 2;
+    repeated double industries = 3;
+    double efficiency = 4;
+    double base_energy = 5;
+}
+
+message ComputeMetabolismGridResponse {
+    double total_waste = 1;
+    repeated double populations = 2;
+    repeated double biomasses = 3;
+    repeated double net_energies = 4;
+}
+
+message CalculateVocationAlignmentRequest {
+    string actor_motivation_json = 1;
+    string target_profile_json = 2;
+}
+
+message CalculateVocationAlignmentResponse {
+    float alignment = 1;
+}
+
+message GetCombinedGravityRequest {
+    string rulesets_json = 1;
+}
+
+message GetCombinedGravityResponse {
+    float gravity = 1;
+}

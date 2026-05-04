@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package worldos;
+
+// ─────────────────────────────────────────
+// Core Types
+// ─────────────────────────────────────────
+
+message SimResponse {
+    bool ok = 1;
+    string message = 2;
+}
+
+// ─────────────────────────────────────────
+// Simulation Control
+// ─────────────────────────────────────────
+
+message StartRequest {
+    uint64 universe_id = 1;
+    uint64 seed        = 2;
+    uint32 zone_count  = 3;   // default 64
+    uint32 actor_count = 4;   // default 1000
+}
+
+message AdvanceRequest {
+    uint64 universe_id = 1;
+    uint32 ticks       = 2;   // số ticks cần chạy
+}
+
+message PauseRequest {
+    uint64 universe_id = 1;
+}
+
+// ─────────────────────────────────────────
+// Snapshot
+// ─────────────────────────────────────────
+
+message SnapshotRequest {
+    uint64 universe_id = 1;
+    uint64 at_tick     = 2;   // 0 = latest
+}
+
+message ZoneSnapshot {
+    uint32 zone_id          = 1;
+    float  population       = 2;
+    float  food             = 3;
+    float  wealth           = 4;
+    float  entropy          = 5;
+    float  stability        = 6;
+    string phase            = 7;   // "primitive", "feudal", "industrial", ...
+}
+
+message SnapshotResponse {
+    uint64 universe_id  = 1;
+    uint64 tick         = 2;
+    string state_hash   = 3;
+    repeated ZoneSnapshot zones = 4;
+}
+
+// ─────────────────────────────────────────
+// Metrics
+// ─────────────────────────────────────────
+
+message MetricsRequest {
+    uint64 universe_id = 1;
+}
+
+message MetricsResponse {
+    uint64 universe_id      = 1;
+    uint64 tick             = 2;
+    float  mean_entropy     = 3;
+    float  mean_stability   = 4;
+    float  mean_wealth      = 5;
+    float  population_total = 6;
+    float  variance_pressure = 7;
+}
+
+// ─────────────────────────────────────────
+// Event Injection
+// ─────────────────────────────────────────
+
+message InjectEventRequest {
+    uint64 universe_id = 1;
+    string event_type  = 2;   // "famine", "plague", "discovery", ...
+    uint32 zone_id     = 3;
+    float  intensity   = 4;
+}
+
+// ─────────────────────────────────────────
+// Service Definition
+// ─────────────────────────────────────────
+
+service SimulationService {
+    rpc StartSimulation (StartRequest)       returns (SimResponse);
+    rpc PauseSimulation (PauseRequest)       returns (SimResponse);
+    rpc Advance         (AdvanceRequest)     returns (SnapshotResponse);
+    rpc GetSnapshot     (SnapshotRequest)    returns (SnapshotResponse);
+    rpc GetMetrics      (MetricsRequest)     returns (MetricsResponse);
+    rpc InjectEvent     (InjectEventRequest) returns (SimResponse);
+}

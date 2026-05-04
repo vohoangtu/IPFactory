@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = ["worldos-core", "worldos-grpc", "worldos-rules"]
+
+[patch.crates-io]
+tempfile = { git = "https://github.com/Stebalien/tempfile", rev = "v3.15.0" }

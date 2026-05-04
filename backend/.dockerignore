@@ -1,0 +1,16 @@
+vendor
+node_modules
+.git
+.env
+auth.json
+.phpunit.result.cache
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*.php
+public/hot
+public/storage
+docker-compose.yml
+docker-compose.override.yml
+.antigravityignore
