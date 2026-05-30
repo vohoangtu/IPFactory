@@ -1,0 +1,6 @@
+# .understandignore
+node_modules/
+.next/
+out/
+dist/
+*.lock

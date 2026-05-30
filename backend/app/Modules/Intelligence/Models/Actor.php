@@ -112,4 +112,12 @@ class Actor extends Model
             ->withPivot('unlocked_at')
             ->withTimestamps();
     }
+
+    /** Beliefs held by this actor, inherited from parents or acquired over time. */
+    public function beliefs(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(\App\Modules\World\Models\Belief::class, 'actor_beliefs')
+            ->withPivot('alignment')
+            ->withTimestamps();
+    }
 }

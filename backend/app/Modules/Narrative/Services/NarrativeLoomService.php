@@ -1,16 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\Narrative\Services;
 
 use App\Modules\Intelligence\Models\AiKeyPool;
 use App\Modules\Intelligence\Services\AI\AiGateway;
 use App\Services\CircuitBreaker;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 /**
  * NarrativeLoomService: Laravel client for the Python NarrativeLoom microservice.
+ *
+ * ## Resilience Features
+ *
+ * - **Circuit Breaker**: Opens after 3 consecutive failures, closes after 60s cooldown.
+ * - **Retry Policy**: Automatically retries on transient errors (HTTP 5xx, timeout, connection refused)
+ *   up to 2 times with exponential backoff (2s, 4s).
+ * - **Alert Threshold**: Logs a CRITICAL alert when failure rate exceeds 50% in the last 5 minutes.
+ * - **Health Check**: Exposes `isHealthy()` for monitoring dashboards.
+ *
  * Runtime provider selection is sourced from AiGateway so Loom follows pool/direct routing too.
  */
 class NarrativeLoomService
@@ -19,12 +31,37 @@ class NarrativeLoomService
     protected int $timeout;
     protected CircuitBreaker $circuitBreaker;
 
+    private const MAX_RETRIES = 2;
+    private const RETRY_BASE_DELAY_MS = 2000;
+    private const ALERT_WINDOW_MINUTES = 5;
+    private const ALERT_FAILURE_RATE_THRESHOLD = 0.5;
+
     public function __construct(
         protected AiGateway $aiGateway
     ) {
         $this->baseUrl = rtrim((string) config('services.loom.url', 'http://narrative_loom:8001'), '/');
         $this->timeout = (int) config('services.loom.timeout', 600);
         $this->circuitBreaker = new CircuitBreaker('narrative_loom', 3, 60);
+    }
+
+    /**
+     * Check if the NarrativeLoom service is healthy.
+     */
+    public function isHealthy(): bool
+    {
+        return $this->circuitBreaker->isAvailable()
+            && $this->getFailureRate() < self::ALERT_FAILURE_RATE_THRESHOLD;
+    }
+
+    /**
+     * Get the failure rate over the alert window.
+     */
+    public function getFailureRate(): float
+    {
+        $failures = (int) Cache::get('narrative_loom:failure_count', 0);
+        $successes = (int) Cache::get('narrative_loom:success_count', 0);
+        $total = $failures + $successes;
+        return $total > 0 ? $failures / $total : 0.0;
     }
 
     /**
@@ -250,5 +287,122 @@ class NarrativeLoomService
         }
 
         return null;
+    }
+
+    /**
+     * Execute a Loom HTTP call with automatic retry on transient errors.
+     *
+     * Retries on: HTTP 5xx, connection timeout, DNS failure, connection refused.
+     * Does NOT retry on: HTTP 4xx (client errors), circuit breaker OPEN.
+     *
+     * @template T
+     * @param callable(): T $callable
+     * @return T|array{ok: false, error: string}
+     */
+    protected function executeWithRetry(callable $callable): mixed
+    {
+        $lastException = null;
+
+        for ($attempt = 0; $attempt <= self::MAX_RETRIES; $attempt++) {
+            try {
+                $result = $callable();
+                $this->recordSuccessMetric();
+                return $result;
+            } catch (\Throwable $e) {
+                $lastException = $e;
+
+                if (! $this->isRetryableError($e)) {
+                    $this->recordFailureMetric();
+                    break;
+                }
+
+                if ($attempt < self::MAX_RETRIES) {
+                    $delayMs = self::RETRY_BASE_DELAY_MS * pow(2, $attempt);
+                    Log::warning('NarrativeLoom: retrying after error', [
+                        'attempt' => $attempt + 1,
+                        'max_retries' => self::MAX_RETRIES,
+                        'delay_ms' => $delayMs,
+                        'error' => $e->getMessage(),
+                    ]);
+                    usleep($delayMs * 1000);
+                } else {
+                    $this->recordFailureMetric();
+                }
+            }
+        }
+
+        $this->checkAlertThreshold();
+
+        Log::error('NarrativeLoom: all retries exhausted', [
+            'attempts' => self::MAX_RETRIES + 1,
+            'last_error' => $lastException ? $lastException->getMessage() : 'unknown',
+        ]);
+
+        return ['ok' => false, 'error' => 'NarrativeLoom unavailable after ' . (self::MAX_RETRIES + 1) . ' attempts'];
+    }
+
+    /**
+     * Determine if an error is retryable.
+     */
+    private function isRetryableError(\Throwable $e): bool
+    {
+        $message = strtolower($e->getMessage());
+
+        // Connection-level errors are retryable.
+        if (str_contains($message, 'connection refused')
+            || str_contains($message, 'connection reset')
+            || str_contains($message, 'connection timed out')
+            || str_contains($message, 'dns')
+            || str_contains($message, 'could not resolve host')
+            || str_contains($message, 'operation timed out')
+            || str_contains($message, 'cURL error 28')) { // timeout
+            return true;
+        }
+
+        // HTTP 5xx from the response body is retryable.
+        if (method_exists($e, 'getCode')) {
+            $code = (int) $e->getCode();
+            if ($code >= 500 && $code < 600) {
+                return true;
+            }
+        }
+
+        // HTTP 429 (rate limit) is NOT retried — we back off instead.
+        return false;
+    }
+
+    /**
+     * Record a success in the sliding window for alert threshold calculation.
+     */
+    private function recordSuccessMetric(): void
+    {
+        $key = 'narrative_loom:success_count';
+        Cache::increment($key);
+        Cache::expire($key, self::ALERT_WINDOW_MINUTES * 60);
+    }
+
+    /**
+     * Record a failure in the sliding window.
+     */
+    private function recordFailureMetric(): void
+    {
+        $key = 'narrative_loom:failure_count';
+        Cache::increment($key);
+        Cache::expire($key, self::ALERT_WINDOW_MINUTES * 60);
+    }
+
+    /**
+     * Check if failure rate exceeds the alert threshold and log a CRITICAL alert.
+     */
+    private function checkAlertThreshold(): void
+    {
+        $rate = $this->getFailureRate();
+        if ($rate >= self::ALERT_FAILURE_RATE_THRESHOLD) {
+            Log::critical('NarrativeLoom: HIGH FAILURE RATE ALERT', [
+                'failure_rate' => round($rate * 100, 1) . '%',
+                'window_minutes' => self::ALERT_WINDOW_MINUTES,
+                'circuit_breaker_open' => ! $this->circuitBreaker->isAvailable(),
+            ]);
+        }
     }
 }

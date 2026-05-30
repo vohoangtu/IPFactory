@@ -1,0 +1,5370 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "6e5935c8c7b78f5003d06a8a522792b4249c17d3",
+  "generatedAt": "2026-05-30T05:19:46.598Z",
+  "files": {
+    ".dockerignore": {
+      "filePath": ".dockerignore",
+      "contentHash": "82fb5d77ccf4b3945bf5aac60999f7960ba02e7d3f4f3646d5d28d56d24eee06",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "Cargo.toml": {
+      "filePath": "Cargo.toml",
+      "contentHash": "ba99560422e8ed23e412b2209a4fcba584ac48899496ab4a5bfb5958ddb867a3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "Dockerfile": {
+      "filePath": "Dockerfile",
+      "contentHash": "7e693d07376dc81fa81e8feb599e09ce6de10c92131c3bd18754e1f3b2bc7e3a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "proto/worldos/simulation.proto": {
+      "filePath": "proto/worldos/simulation.proto",
+      "contentHash": "7367ab150ee5ea14428ad207703e54d7afaac70d7ddafa10bb107e051d866b93",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 357,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/Cargo.toml": {
+      "filePath": "worldos-core/Cargo.toml",
+      "contentHash": "249e894b3de0d198c9885e31d2f0a44f2f6084fd8eb3dd776ad8e0dbebfd1935",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/depth.py": {
+      "filePath": "worldos-core/depth.py",
+      "contentHash": "752809de310c74c5534416d34d6dc69369d78021e56e5e2f692ccb7c21531cb4",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/split_universe.py": {
+      "filePath": "worldos-core/split_universe.py",
+      "contentHash": "151eeb010d0f714c0b013c5fadcbbbdf7d1bd18fd32767756b7b77398f2d117f",
+      "functions": [
+        {
+          "name": "get_lines",
+          "params": [
+            "start",
+            "end"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        }
+      ],
+      "exports": [
+        "get_lines"
+      ],
+      "totalLines": 95,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/agent.rs": {
+      "filePath": "worldos-core/src/agent.rs",
+      "contentHash": "c6f7098fab192c1f0715de7b7a066017d1d59d526509650e52c4aad86847e3bd",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "id",
+            "traits",
+            "archetype"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "calculate_utility",
+          "params": [
+            "base_score",
+            "context_weight",
+            "noise"
+          ],
+          "returnType": "f64",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "push_memory",
+          "params": [
+            "event"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "Archetype",
+          "methods": [],
+          "properties": [
+            "Warlord",
+            "Zealot",
+            "Opportunist",
+            "Sage",
+            "Commoner"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "Agent",
+          "methods": [
+            "new",
+            "calculate_utility",
+            "push_memory"
+          ],
+          "properties": [
+            "id",
+            "trait_vector",
+            "archetype",
+            "memory",
+            "vocation_id",
+            "motivation_profile"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        }
+      ],
+      "exports": [
+        "Archetype",
+        "Agent",
+        "new",
+        "calculate_utility",
+        "push_memory"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/behavior_graph.rs": {
+      "filePath": "worldos-core/src/behavior_graph.rs",
+      "contentHash": "9db8643d731088af01d7fc32c93efcf4a5526aaf700d82d5d02c450213c036eb",
+      "functions": [
+        {
+          "name": "check",
+          "params": [
+            "table",
+            "actor_idx",
+            "field"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "apply",
+          "params": [
+            "table",
+            "actor_idx"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "rebuild",
+          "params": [
+            "table",
+            "node_count"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "new",
+          "params": [
+            "nodes"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "evaluate",
+          "params": [
+            "table",
+            "context"
+          ],
+          "exported": true,
+          "lineCount": 46
+        }
+      ],
+      "classes": [
+        {
+          "name": "Condition",
+          "methods": [
+            "check"
+          ],
+          "properties": [
+            "HungerGt",
+            "FearGt",
+            "EnergyLt",
+            "TraitMask",
+            "EmotionFearGt"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "Action",
+          "methods": [
+            "apply"
+          ],
+          "properties": [
+            "Eat",
+            "StealFood",
+            "Flee"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Transition",
+          "methods": [],
+          "properties": [
+            "condition",
+            "target"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "BehaviorNode",
+          "methods": [],
+          "properties": [
+            "id",
+            "action",
+            "transitions"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "NodeBuckets",
+          "methods": [
+            "rebuild"
+          ],
+          "properties": [
+            "buckets"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "BehaviorGraphEngine",
+          "methods": [
+            "new",
+            "evaluate"
+          ],
+          "properties": [
+            "nodes",
+            "buckets"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ActorTable",
+            "EmotionField",
+            "BehaviorContext"
+          ]
+        },
+        {
+          "source": "smallvec",
+          "specifiers": [
+            "SmallVec"
+          ]
+        },
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        }
+      ],
+      "exports": [
+        "Condition",
+        "check",
+        "Action",
+        "apply",
+        "Transition",
+        "BehaviorNode",
+        "NodeBuckets",
+        "rebuild",
+        "BehaviorGraphEngine",
+        "new",
+        "evaluate"
+      ],
+      "totalLines": 194,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/cascade.rs": {
+      "filePath": "worldos-core/src/cascade.rs",
+      "contentHash": "009a6d2155973969153bd995117be1f044572b925380703620486c1163531ef7",
+      "functions": [
+        {
+          "name": "phase_name",
+          "params": [
+            "p"
+          ],
+          "returnType": "&'static str",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "tick_with_cascade",
+          "params": [
+            "state",
+            "world",
+            "max_cascade",
+            "macro_idx"
+          ],
+          "returnType": "Vec<SimEvent>",
+          "exported": true,
+          "lineCount": 265
+        }
+      ],
+      "classes": [
+        {
+          "name": "SimEvent",
+          "methods": [],
+          "properties": [
+            "Crisis",
+            "Famine",
+            "Riots",
+            "Collapse",
+            "RegimeShift",
+            "MicroMode",
+            "MetaCycle",
+            "DeityIntervention",
+            "WavefunctionCollapse",
+            "Cosmogenesis",
+            "BlackSwanMeteor",
+            "BlackSwanPlague",
+            "BlackSwanProphet"
+          ],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate",
+          "specifiers": [
+            "constants"
+          ]
+        },
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "CascadePhase",
+            "WorldConfig",
+            "UniverseState"
+          ]
+        },
+        {
+          "source": "serde",
+          "specifiers": [
+            "Serialize",
+            "Deserialize"
+          ]
+        }
+      ],
+      "exports": [
+        "SimEvent",
+        "tick_with_cascade"
+      ],
+      "totalLines": 361,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/constants.rs": {
+      "filePath": "worldos-core/src/constants.rs",
+      "contentHash": "058044057f54fea99b89d745f9eb789cc350bf99599938299b5abd7555446029",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "Fix"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/culture_engine.rs": {
+      "filePath": "worldos-core/src/culture_engine.rs",
+      "contentHash": "c4b2a2a5a701493e8ae1b4c537d5d25207b45bdc7e7ff677c98807699175838f",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "drift_rate"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "update",
+          "params": [
+            "table",
+            "_context",
+            "zones"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "generate_narrative_tags",
+          "params": [
+            "zones"
+          ],
+          "returnType": "Vec<NarrativeTag>",
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "classes": [
+        {
+          "name": "CultureEngine",
+          "methods": [
+            "new",
+            "update",
+            "generate_narrative_tags"
+          ],
+          "properties": [
+            "drift_rate"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ActorTable",
+            "BehaviorContext",
+            "ZoneStateSerial",
+            "NarrativeTag"
+          ]
+        }
+      ],
+      "exports": [
+        "CultureEngine",
+        "new",
+        "update",
+        "generate_narrative_tags"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/ecological_engine.rs": {
+      "filePath": "worldos-core/src/ecological_engine.rs",
+      "contentHash": "bf81badf46c2d48e7daa6bb135e151e550ce493340f529b5e1912dd0c66da50b",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "instability_threshold"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "update",
+          "params": [
+            "zone"
+          ],
+          "returnType": "Option<String>",
+          "exported": true,
+          "lineCount": 54
+        }
+      ],
+      "classes": [
+        {
+          "name": "EcologicalEngine",
+          "methods": [
+            "new",
+            "update"
+          ],
+          "properties": [
+            "instability_threshold"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ZoneState",
+            "Biome",
+            "CascadePhase"
+          ]
+        }
+      ],
+      "exports": [
+        "EcologicalEngine",
+        "new",
+        "update"
+      ],
+      "totalLines": 96,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/emotion_field.rs": {
+      "filePath": "worldos-core/src/emotion_field.rs",
+      "contentHash": "3dc89ee11a974f1386e5dd7b90b582da9ad266cb785e2fd8dc4c63f7798b93d0",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "decay_rate"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "update",
+          "params": [
+            "context",
+            "_table"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "add_impulse",
+          "params": [
+            "context",
+            "zone_id",
+            "impulse"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmotionFieldEngine",
+          "methods": [
+            "new",
+            "update",
+            "add_impulse"
+          ],
+          "properties": [
+            "decay_rate"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "EmotionField",
+            "BehaviorContext",
+            "ActorTable"
+          ]
+        }
+      ],
+      "exports": [
+        "EmotionFieldEngine",
+        "new",
+        "update",
+        "add_impulse"
+      ],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/lib.rs": {
+      "filePath": "worldos-core/src/lib.rs",
+      "contentHash": "7df93c87a1b9aecca7f66ee36533e4bec9a2c130de377b27c30d96b4378d7474",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "agent",
+          "specifiers": [
+            "Agent",
+            "TraitVector"
+          ]
+        },
+        {
+          "source": "behavior_graph",
+          "specifiers": [
+            "BehaviorGraphEngine"
+          ]
+        },
+        {
+          "source": "mass_behavior",
+          "specifiers": [
+            "MassBehaviorEngine"
+          ]
+        },
+        {
+          "source": "emotion_field",
+          "specifiers": [
+            "EmotionFieldEngine"
+          ]
+        },
+        {
+          "source": "social_layers",
+          "specifiers": [
+            "BeliefSystemEngine",
+            "PowerStructureEngine"
+          ]
+        },
+        {
+          "source": "ecological_engine",
+          "specifiers": [
+            "EcologicalEngine"
+          ]
+        },
+        {
+          "source": "macro_fields",
+          "specifiers": [
+            "MacroFieldEngine"
+          ]
+        },
+        {
+          "source": "potential_fields",
+          "specifiers": [
+            "PotentialFieldEngine"
+          ]
+        },
+        {
+          "source": "cascade",
+          "specifiers": [
+            "tick_with_cascade",
+            "SimEvent"
+          ]
+        },
+        {
+          "source": "constants",
+          "specifiers": [
+            "COLLAPSE_THRESHOLD",
+            "K1_ENTROPY_PER_STRUCTURED"
+          ]
+        },
+        {
+          "source": "memory",
+          "specifiers": [
+            "SocialGraphCsr",
+            "ZoneActorIndex",
+            "ZoneIndex"
+          ]
+        },
+        {
+          "source": "",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "types",
+          "specifiers": [
+            "UniverseState",
+            "ZoneId",
+            "ZoneStateSerial"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/macro_fields.rs": {
+      "filePath": "worldos-core/src/macro_fields.rs",
+      "contentHash": "bb158a1704b3d8df17ee417db77228f761f2735261ec722916aff4d487e14677",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "update",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "evolve",
+          "params": [
+            "prev",
+            "signal",
+            "interaction",
+            "noise"
+          ],
+          "returnType": "Fix",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "compute_signals",
+          "params": [
+            "state"
+          ],
+          "returnType": "CivilizationFields",
+          "exported": false,
+          "lineCount": 33
+        }
+      ],
+      "classes": [
+        {
+          "name": "MacroFieldEngine",
+          "methods": [
+            "new",
+            "update",
+            "evolve",
+            "compute_signals"
+          ],
+          "properties": [
+            "evolution_factor"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "CivilizationFields",
+            "Fix"
+          ]
+        }
+      ],
+      "exports": [
+        "MacroFieldEngine",
+        "new",
+        "update"
+      ],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/mass_behavior.rs": {
+      "filePath": "worldos-core/src/mass_behavior.rs",
+      "contentHash": "fcce801f17d0c67e5e4ef5d53b19bf8ba8de070171c6927568f0ede7984db9df",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "detect_crowds",
+          "params": [
+            "table",
+            "context"
+          ],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "apply_dynamics",
+          "params": [
+            "table",
+            "context"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "MassBehaviorEngine",
+          "methods": [
+            "new",
+            "detect_crowds",
+            "apply_dynamics"
+          ],
+          "properties": [
+            "active_crowds"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ActorTable",
+            "Crowd",
+            "EmotionField",
+            "BehaviorContext"
+          ]
+        }
+      ],
+      "exports": [
+        "MassBehaviorEngine",
+        "new",
+        "detect_crowds",
+        "apply_dynamics"
+      ],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/memory.rs": {
+      "filePath": "worldos-core/src/memory.rs",
+      "contentHash": "c450c707120884c7b19102f9cd6f4801c8d1e34d838d5aa0aeb9169a6cc0e215",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "num_zones"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "num_zones",
+          "params": [],
+          "returnType": "usize",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "actors_in_zone",
+          "params": [
+            "zone_index"
+          ],
+          "returnType": "&[ActorId]",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "add_actor_to_zone",
+          "params": [
+            "zone_index",
+            "actor_id"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "clear_zone",
+          "params": [
+            "zone_index"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "rebuild_from_zones",
+          "params": [
+            "zone_agent_ids"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "num_actors",
+          "params": [],
+          "returnType": "usize",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "neighbors",
+          "params": [
+            "actor_index"
+          ],
+          "returnType": "impl Iterator<Item = (ActorId, f32)> + '_",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "set_edges",
+          "params": [
+            "actor_index",
+            "edges"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "ZoneActorIndex",
+          "methods": [
+            "new",
+            "num_zones",
+            "actors_in_zone",
+            "add_actor_to_zone",
+            "clear_zone",
+            "rebuild_from_zones"
+          ],
+          "properties": [
+            "zone_to_actors"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "SocialGraphCsr",
+          "methods": [
+            "new",
+            "num_actors",
+            "neighbors",
+            "set_edges"
+          ],
+          "properties": [
+            "offsets",
+            "edges",
+            "weights"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        }
+      ],
+      "exports": [
+        "ZoneActorIndex",
+        "new",
+        "num_zones",
+        "actors_in_zone",
+        "add_actor_to_zone",
+        "clear_zone",
+        "rebuild_from_zones",
+        "SocialGraphCsr",
+        "new",
+        "num_actors",
+        "neighbors",
+        "set_edges"
+      ],
+      "totalLines": 138,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/potential_fields.rs": {
+      "filePath": "worldos-core/src/potential_fields.rs",
+      "contentHash": "fabadfd84852efef3ea315808b1c6e76a8ac0b9e3bbc82b821ae4f0fe6e73ea4",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "update",
+          "params": [
+            "universe"
+          ],
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "classes": [
+        {
+          "name": "PotentialFieldEngine",
+          "methods": [
+            "new",
+            "update"
+          ],
+          "properties": [
+            "decay",
+            "diffusion_rate"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        }
+      ],
+      "exports": [
+        "PotentialFieldEngine",
+        "new",
+        "update"
+      ],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/ruleset.rs": {
+      "filePath": "worldos-core/src/ruleset.rs",
+      "contentHash": "dc1710407ef51c4624d75433e38524c55784b56a2993985b31c4365392a9b141",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "get_combined_gravity",
+          "params": [],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "RuleSet",
+          "methods": [],
+          "properties": [
+            "id",
+            "tier",
+            "physics",
+            "energy"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "PhysicsRules",
+          "methods": [],
+          "properties": [
+            "gravity",
+            "entropy",
+            "reality_stability"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "EnergyRules",
+          "methods": [],
+          "properties": [
+            "ambient_density",
+            "system_type"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "RuleSetEngine",
+          "methods": [
+            "new",
+            "get_combined_gravity"
+          ],
+          "properties": [
+            "active_rulesets"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Serialize",
+            "Deserialize"
+          ]
+        }
+      ],
+      "exports": [
+        "RuleSet",
+        "PhysicsRules",
+        "EnergyRules",
+        "RuleSetEngine",
+        "new",
+        "get_combined_gravity"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/sharding.rs": {
+      "filePath": "worldos-core/src/sharding.rs",
+      "contentHash": "04db2ffa54005c6f728289c7e61892aa8bd335a1759b097ee86e9838a5346e39",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "id",
+            "shard_id",
+            "state_snapshot"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "ShardMap",
+          "methods": [],
+          "properties": [
+            "zone_to_shard"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "GhostZone",
+          "methods": [
+            "new"
+          ],
+          "properties": [
+            "id",
+            "shard_id",
+            "state_snapshot"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        },
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ZoneStateSerial"
+          ]
+        }
+      ],
+      "exports": [
+        "ShardMap",
+        "GhostZone",
+        "new"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/social_layers.rs": {
+      "filePath": "worldos-core/src/social_layers.rs",
+      "contentHash": "7451394981ee6e7223aa5e7690ba5469962c243ef386ea1d8b33f0aa173284d0",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "conversion_rate"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "update",
+          "params": [
+            "table",
+            "context"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "new",
+          "params": [
+            "instability_feedback"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "apply_coercion",
+          "params": [
+            "_table",
+            "_context"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "BeliefSystemEngine",
+          "methods": [
+            "new",
+            "update"
+          ],
+          "properties": [
+            "conversion_rate"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "PowerStructureEngine",
+          "methods": [
+            "new",
+            "apply_coercion"
+          ],
+          "properties": [
+            "instability_feedback"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "ActorTable",
+            "BehaviorContext"
+          ]
+        }
+      ],
+      "exports": [
+        "BeliefSystemEngine",
+        "new",
+        "update",
+        "PowerStructureEngine",
+        "new",
+        "apply_coercion"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/diffusion.rs": {
+      "filePath": "worldos-core/src/systems/diffusion.rs",
+      "contentHash": "7377f6c436adbbe5c248928c8abb5a69df070ac159f871ea2aeae1590ced8bdb",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state",
+            "world",
+            "_macro_idx"
+          ],
+          "exported": true,
+          "lineCount": 203
+        },
+        {
+          "name": "phase_diffusion_factor",
+          "params": [
+            "phase"
+          ],
+          "returnType": "Fix",
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "constants"
+          ]
+        },
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "WorldConfig",
+            "CulturalVector",
+            "CivilizationFields",
+            "CascadePhase",
+            "Fix"
+          ]
+        },
+        {
+          "source": "crate::memory",
+          "specifiers": [
+            "ZoneActorIndex"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 220,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/global_update.rs": {
+      "filePath": "worldos-core/src/systems/global_update.rs",
+      "contentHash": "52229480962224f56d2336216e4ac7b7ce227be37b36e4d049b8752e25b00928",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state",
+            "_world"
+          ],
+          "exported": true,
+          "lineCount": 61
+        },
+        {
+          "name": "refresh_aggregates",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "WorldConfig",
+            "StructuredScar"
+          ]
+        }
+      ],
+      "exports": [
+        "run",
+        "refresh_aggregates"
+      ],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/history_tracker.rs": {
+      "filePath": "worldos-core/src/systems/history_tracker.rs",
+      "contentHash": "2248d0bc82009bb9ca75301759db89b9acd52d445aa97d3f6b68c8524bb25ec1",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 74
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "rand",
+          "specifiers": [
+            "Rng"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/layer_behavior.rs": {
+      "filePath": "worldos-core/src/systems/layer_behavior.rs",
+      "contentHash": "31b341780e51c124dd6e5f356741f56bba0c7f8624391b055883c2f8cbe63519",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state",
+            "world"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "WorldConfig",
+            "EmotionField"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/local_update.rs": {
+      "filePath": "worldos-core/src/systems/local_update.rs",
+      "contentHash": "f86a56324a679a79aff8a0b7db6f73f0795aaab9d261e29ccc499e353dfc4a2e",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state",
+            "world",
+            "macro_idx"
+          ],
+          "exported": true,
+          "lineCount": 141
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "constants"
+          ]
+        },
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "WorldConfig",
+            "StructuredScar",
+            "MacroAgentType"
+          ]
+        },
+        {
+          "source": "crate::memory",
+          "specifiers": [
+            "ZoneActorIndex"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 149,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/mod.rs": {
+      "filePath": "worldos-core/src/systems/mod.rs",
+      "contentHash": "8f45217d045e2eabef5873933750c0a6615839a2db5be9ebc7a2eebb1d14b269",
+      "functions": [
+        {
+          "name": "run_all_systems",
+          "params": [
+            "state",
+            "world",
+            "macro_idx"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState",
+            "WorldConfig"
+          ]
+        },
+        {
+          "source": "crate::memory",
+          "specifiers": [
+            "ZoneActorIndex"
+          ]
+        }
+      ],
+      "exports": [
+        "run_all_systems"
+      ],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/systems/post_process.rs": {
+      "filePath": "worldos-core/src/systems/post_process.rs",
+      "contentHash": "41811e6c56bf488fc6e06c4a02f8ee8b753c963b480c17d3dcaff55d4f97c8ca",
+      "functions": [
+        {
+          "name": "run",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "UniverseState"
+          ]
+        },
+        {
+          "source": "crate::systems",
+          "specifiers": [
+            "global_update"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/types.rs": {
+      "filePath": "worldos-core/src/types.rs",
+      "contentHash": "26549a373a8edfcaa873ffbf4f61ac820c47d3ecb48d09849fa0223f9aadf166",
+      "functions": [
+        {
+          "name": "default",
+          "params": [],
+          "returnType": "Self",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "clamp_mut",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "clamp_mut",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "clamp_mut",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "push",
+          "params": [
+            "id",
+            "zone"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "new",
+          "params": [
+            "base_mass"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "enforce_invariant",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "update_material_stress",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "empty",
+          "params": [
+            "universe_id",
+            "tick"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "WorldConfig",
+          "methods": [],
+          "properties": [
+            "world_id",
+            "axiom",
+            "world_seed",
+            "origin",
+            "genome",
+            "behavior_graph",
+            "sharding_config"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "UniverseState",
+          "methods": [],
+          "properties": [
+            "universe_id",
+            "tick",
+            "zones",
+            "global_entropy",
+            "knowledge_core",
+            "instability_gradient",
+            "sci",
+            "global_fields",
+            "scars",
+            "attractors",
+            "dark_attractors",
+            "macro_agents",
+            "actor_table",
+            "behavior_context",
+            "local_shard_id",
+            "ghost_zones",
+            "archetype_discovery",
+            "narrative_tags",
+            "fork_recommendation",
+            "axioms",
+            "pending_history_events",
+            "pending_celebrities",
+            "pending_artifacts"
+          ],
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "HistoricalEventRaw",
+          "methods": [],
+          "properties": [
+            "tick",
+            "zone_id",
+            "event_type",
+            "impact_score",
+            "trigger_data"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "CelebrityRaw",
+          "methods": [],
+          "properties": [
+            "id",
+            "zone_id",
+            "fame",
+            "vocation",
+            "origin_tick"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ArtifactRaw",
+          "methods": [],
+          "properties": [
+            "id",
+            "zone_id",
+            "mass",
+            "knowledge_encoded",
+            "origin_tick"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ZoneStateSerial",
+          "methods": [],
+          "properties": [
+            "id",
+            "state",
+            "neighbors"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ZoneId",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "KernelGenome",
+          "methods": [
+            "default"
+          ],
+          "properties": [
+            "diffusion_rate",
+            "entropy_coefficient",
+            "mutation_rate",
+            "attractor_gravity",
+            "complexity_bonus"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "CulturalVector",
+          "methods": [
+            "clamp_mut"
+          ],
+          "properties": [
+            "tradition_rigidity",
+            "innovation_openness",
+            "collective_trust",
+            "violence_tolerance",
+            "institutional_respect",
+            "myth_belief"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "ZonePressures",
+          "methods": [
+            "clamp_mut"
+          ],
+          "properties": [
+            "war",
+            "economic",
+            "religious",
+            "migration",
+            "innovation"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "NarrativeTag",
+          "methods": [],
+          "properties": [
+            "slug",
+            "weight"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "StructuredScar",
+          "methods": [],
+          "properties": [
+            "tick",
+            "category",
+            "description",
+            "actor_id",
+            "zone_id",
+            "caused_by_id",
+            "metadata"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "CivilizationFields",
+          "methods": [
+            "clamp_mut"
+          ],
+          "properties": [
+            "survival",
+            "reproduction",
+            "wealth",
+            "power",
+            "knowledge",
+            "meaning",
+            "status",
+            "belonging",
+            "authority",
+            "fear_macro",
+            "order_macro",
+            "entropy_macro",
+            "resonance"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "CascadePhase",
+          "methods": [],
+          "properties": [
+            "Normal",
+            "Famine",
+            "Riots",
+            "Collapse"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "MacroAgentType",
+          "methods": [],
+          "properties": [
+            "Army",
+            "Ruler",
+            "Trader"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "MacroAgent",
+          "methods": [],
+          "properties": [
+            "zone_id",
+            "agent_type",
+            "strength",
+            "leader_id"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "CivilizationPhase",
+          "methods": [],
+          "properties": [
+            "Tribal",
+            "Agrarian",
+            "Kingdom",
+            "Empire",
+            "Industrial",
+            "Information"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "ArchetypeProfile",
+          "methods": [],
+          "properties": [
+            "name",
+            "survival",
+            "reproduction",
+            "wealth",
+            "power",
+            "knowledge",
+            "meaning",
+            "status",
+            "belonging"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "DiscoveryResult",
+          "methods": [],
+          "properties": [
+            "name",
+            "distance",
+            "is_novel"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Biome",
+          "methods": [],
+          "properties": [
+            "Barren",
+            "Tundra",
+            "Forest",
+            "Steppe",
+            "Desert",
+            "Ocean"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "EcologicalFields",
+          "methods": [],
+          "properties": [
+            "biodiversity",
+            "biomass",
+            "resource_stress"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "CivilizationAttractor",
+          "methods": [],
+          "properties": [
+            "id",
+            "zone_id",
+            "power",
+            "wealth",
+            "knowledge",
+            "meaning",
+            "survival",
+            "radius",
+            "decay"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "DarkAttractor",
+          "methods": [],
+          "properties": [
+            "id",
+            "entropy_threshold",
+            "trauma_threshold",
+            "inequality_threshold",
+            "pull_strength",
+            "collapse_probability"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "FutureOutcome",
+          "methods": [],
+          "properties": [
+            "entropy",
+            "knowledge",
+            "sci",
+            "tick"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "ZoneState",
+          "methods": [
+            "new",
+            "enforce_invariant",
+            "update_material_stress"
+          ],
+          "properties": [
+            "base_mass",
+            "structured_mass",
+            "free_energy",
+            "entropy",
+            "cultural",
+            "material_stress",
+            "embodied_knowledge",
+            "inequality",
+            "trauma",
+            "tech_ceiling",
+            "knowledge_frontier",
+            "active_materials",
+            "agents",
+            "regional_scars",
+            "quantum_overlay",
+            "cascade_phase",
+            "civ_fields",
+            "phase",
+            "population_proxy",
+            "resource_capacity",
+            "wealth_proxy",
+            "eco_fields",
+            "pressures",
+            "biome"
+          ],
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "QuantumOverlay",
+          "methods": [],
+          "properties": [
+            "superposition_depth",
+            "observer_presence",
+            "probability_decay"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ActiveMaterial",
+          "methods": [],
+          "properties": [
+            "slug",
+            "output",
+            "pressure_coefficients",
+            "recursive_core"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "EmotionField",
+          "methods": [],
+          "properties": [
+            "fear",
+            "anger",
+            "hope",
+            "trust"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "Crowd",
+          "methods": [],
+          "properties": [
+            "id",
+            "zone_id",
+            "size",
+            "emotion",
+            "dominant_meme"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "BehaviorNode",
+          "methods": [],
+          "properties": [
+            "id",
+            "action_id"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ActorTable",
+          "methods": [
+            "new",
+            "push"
+          ],
+          "properties": [
+            "ids",
+            "hunger",
+            "energy",
+            "fear",
+            "traits_mask",
+            "memes_mask",
+            "zone_ids",
+            "current_node",
+            "heroic_type",
+            "lineage_id",
+            "intents",
+            "mental_states"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "BehaviorContext",
+          "methods": [],
+          "properties": [
+            "emotion_fields",
+            "crowd_rules",
+            "social_rules"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "CrowdRule",
+          "methods": [],
+          "properties": [
+            "min_anger",
+            "min_fear",
+            "min_size",
+            "influence"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "CrowdInfluence",
+          "methods": [],
+          "properties": [
+            "SetNode",
+            "AddFear",
+            "AddAnger"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "SocialRule",
+          "methods": [],
+          "properties": [
+            "condition",
+            "action"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "SocialCondition",
+          "methods": [],
+          "properties": [
+            "FearGt",
+            "TrustLt",
+            "AngerGt"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "SocialAction",
+          "methods": [],
+          "properties": [
+            "SetTraitMask",
+            "SetNode"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "RecursiveCore",
+          "methods": [],
+          "properties": [
+            "layer",
+            "virtual_entropy",
+            "virtual_knowledge",
+            "feedback_loop"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "PressureCoefficients",
+          "methods": [],
+          "properties": [
+            "entropy",
+            "order",
+            "innovation",
+            "growth"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "UniverseSnapshot",
+          "methods": [
+            "empty"
+          ],
+          "properties": [
+            "universe_id",
+            "tick",
+            "state_vector",
+            "entropy",
+            "stability_index",
+            "metrics"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "SimulationMetrics",
+          "methods": [],
+          "properties": [
+            "order",
+            "energy",
+            "ip_score",
+            "knowledge_core",
+            "tech_ceiling_avg",
+            "knowledge_frontier_avg",
+            "instability_gradient",
+            "zone_count",
+            "civ_fields",
+            "scars"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "WorldSnapshot",
+          "methods": [],
+          "properties": [
+            "world_id",
+            "axiom"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        },
+        {
+          "source": "crate::agent",
+          "specifiers": [
+            "Agent"
+          ]
+        },
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        },
+        {
+          "source": "crate::sharding",
+          "specifiers": [
+            "ShardId",
+            "ShardMap",
+            "GhostZone"
+          ]
+        }
+      ],
+      "exports": [
+        "WorldConfig",
+        "UniverseState",
+        "HistoricalEventRaw",
+        "CelebrityRaw",
+        "ArtifactRaw",
+        "ZoneStateSerial",
+        "ZoneId",
+        "KernelGenome",
+        "CulturalVector",
+        "ZonePressures",
+        "NarrativeTag",
+        "StructuredScar",
+        "CivilizationFields",
+        "CascadePhase",
+        "MacroAgentType",
+        "MacroAgent",
+        "CivilizationPhase",
+        "ArchetypeProfile",
+        "DiscoveryResult",
+        "Biome",
+        "EcologicalFields",
+        "CivilizationAttractor",
+        "DarkAttractor",
+        "FutureOutcome",
+        "clamp_mut",
+        "clamp_mut",
+        "clamp_mut",
+        "ZoneState",
+        "QuantumOverlay",
+        "ActiveMaterial",
+        "EmotionField",
+        "Crowd",
+        "BehaviorNode",
+        "ActorTable",
+        "new",
+        "push",
+        "BehaviorContext",
+        "CrowdRule",
+        "CrowdInfluence",
+        "SocialRule",
+        "SocialCondition",
+        "SocialAction",
+        "RecursiveCore",
+        "PressureCoefficients",
+        "new",
+        "enforce_invariant",
+        "update_material_stress",
+        "UniverseSnapshot",
+        "empty",
+        "SimulationMetrics",
+        "WorldSnapshot"
+      ],
+      "totalLines": 712,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/universe.rs": {
+      "filePath": "worldos-core/src/universe.rs",
+      "contentHash": "70c325701257802f9eafd022ddcfb9fd0e8e8ec7544383e34dc5b7bf31098f72",
+      "functions": [
+        {
+          "name": "apply_ghost_update",
+          "params": [
+            "snapshot"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "build_macro_index",
+          "params": [],
+          "returnType": "crate::memory::ZoneActorIndex",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "new",
+          "params": [
+            "universe_id"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "with_one_zone",
+          "params": [
+            "universe_id",
+            "base_mass"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "tick",
+          "params": [
+            "world",
+            "macro_idx"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "to_snapshot",
+          "params": [],
+          "returnType": "UniverseSnapshot",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "calculate_metrics",
+          "params": [],
+          "returnType": "SimulationMetrics",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "merge",
+          "params": [
+            "other"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "resolve_collision_static",
+          "params": [
+            "existing",
+            "other"
+          ],
+          "exported": false,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "constants"
+          ]
+        },
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "systems"
+          ]
+        }
+      ],
+      "exports": [
+        "apply_ghost_update",
+        "build_macro_index",
+        "new",
+        "with_one_zone",
+        "tick",
+        "to_snapshot",
+        "calculate_metrics",
+        "merge"
+      ],
+      "totalLines": 458,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/universe_meta.rs": {
+      "filePath": "worldos-core/src/universe_meta.rs",
+      "contentHash": "263c2cc74da90140feae88b956327ae8a359977e9db3dee62341b9e15b910ead",
+      "functions": [
+        {
+          "name": "run_archetype_discovery",
+          "params": [],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "get_standard_archetypes",
+          "params": [],
+          "returnType": "Vec<ArchetypeProfile>",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "apply_dark_attractors",
+          "params": [],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "apply_intelligence_explosion",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "check_phase_transition",
+          "params": [
+            "zone"
+          ],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "explore_futures",
+          "params": [
+            "world",
+            "horizon",
+            "num_branches"
+          ],
+          "returnType": "Vec<crate::types::FutureOutcome>",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "check_meta_cycle",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        }
+      ],
+      "exports": [
+        "run_archetype_discovery",
+        "get_standard_archetypes",
+        "apply_dark_attractors",
+        "apply_intelligence_explosion",
+        "check_phase_transition",
+        "explore_futures",
+        "check_meta_cycle"
+      ],
+      "totalLines": 227,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/universe_narrative.rs": {
+      "filePath": "worldos-core/src/universe_narrative.rs",
+      "contentHash": "4750cc07dfc6a3bf9d13deb99497caf3c8aa004dd4f411fdff614162831aef1b",
+      "functions": [
+        {
+          "name": "apply_narrative_influence",
+          "params": [
+            "influence"
+          ],
+          "exported": true,
+          "lineCount": 40
+        },
+        {
+          "name": "perform_deity_intervention",
+          "params": [
+            "zone_index",
+            "trait_index"
+          ],
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        }
+      ],
+      "exports": [
+        "apply_narrative_influence",
+        "perform_deity_intervention"
+      ],
+      "totalLines": 162,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/universe_quantum.rs": {
+      "filePath": "worldos-core/src/universe_quantum.rs",
+      "contentHash": "bd5d584cb1875f49bacca8648fbb876f5a62a1195852bcbe5b048c180b0da498",
+      "functions": [
+        {
+          "name": "tick_quantum_overlays",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "observe_zone",
+          "params": [
+            "zone_id",
+            "entropy_cost"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        }
+      ],
+      "exports": [
+        "tick_quantum_overlays",
+        "observe_zone"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/universe_social.rs": {
+      "filePath": "worldos-core/src/universe_social.rs",
+      "contentHash": "0bb39e4f1321bbf96ea9ee459f04312bd8c1657407ea26d5299e219f173f262a",
+      "functions": [
+        {
+          "name": "tick_vocation_drift",
+          "params": [],
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "trigger_micro_mode",
+          "params": [
+            "zone_index"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "resolve_micro_mode",
+          "params": [
+            "zone_index"
+          ],
+          "returnType": "Vec<String>",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "pressure_at_zone",
+          "params": [
+            "zone_index",
+            "macro_idx"
+          ],
+          "returnType": "f64",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "apply_attractor_fields",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "crate::types",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "constants"
+          ]
+        }
+      ],
+      "exports": [
+        "tick_vocation_drift",
+        "trigger_micro_mode",
+        "resolve_micro_mode",
+        "pressure_at_zone",
+        "apply_attractor_fields"
+      ],
+      "totalLines": 135,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/vocation/definitions.rs": {
+      "filePath": "worldos-core/src/vocation/definitions.rs",
+      "contentHash": "56c619aa9910ec6aeea5c7cb610b4f2cbd801d57532ce2922ede5dd8edb64aa0",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Profession",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "min_tier",
+            "motivation_profile"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "MotivationProfile",
+          "methods": [],
+          "properties": [
+            "creation",
+            "destruction",
+            "order",
+            "chaos",
+            "self_preservation",
+            "altruism",
+            "physical",
+            "metaphysical"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Serialize",
+            "Deserialize"
+          ]
+        }
+      ],
+      "exports": [
+        "Profession",
+        "MotivationProfile"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/vocation/mod.rs": {
+      "filePath": "worldos-core/src/vocation/mod.rs",
+      "contentHash": "2425dcc4a40bce48a648ea0bf6346e580862c4e721af918375413e39b6f8fd8e",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "id"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "VocationState",
+          "methods": [
+            "new"
+          ],
+          "properties": [
+            "current_vocation_id",
+            "motivation_scores",
+            "expertise_level"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Serialize",
+            "Deserialize"
+          ]
+        },
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        }
+      ],
+      "exports": [
+        "VocationState",
+        "new"
+      ],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-core/src/vocation/scoring.rs": {
+      "filePath": "worldos-core/src/vocation/scoring.rs",
+      "contentHash": "ff98786d4aa3d6fc0e65e43202ebf2c7663abb95fecd221b8e85571cd564781b",
+      "functions": [
+        {
+          "name": "calculate_vocation_alignment",
+          "params": [
+            "actor_motivation",
+            "target_profile"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "super::definitions",
+          "specifiers": [
+            "MotivationProfile"
+          ]
+        }
+      ],
+      "exports": [
+        "calculate_vocation_alignment"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/Cargo.toml": {
+      "filePath": "worldos-grpc/Cargo.toml",
+      "contentHash": "49888d1183b47aa2fa546ef9b07ed6d8816ae1e7762f9d6a827a2ce5b3d06a6e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/build.rs": {
+      "filePath": "worldos-grpc/build.rs",
+      "contentHash": "c0b4981b047b3d898c6890d092f1f6e2f1d936f35b122dffe7e4857c93e9ddf0",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "Result<(), Box<dyn std::error::Error>>",
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/behavior_graph.rs": {
+      "filePath": "worldos-grpc/src/behavior_graph.rs",
+      "contentHash": "91506ffaa2138fc83b1ff82b080e4bfa10f6291f04ff2027ad3693591aa9e7aa",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "add_graph",
+          "params": [
+            "graph"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "evaluate",
+          "params": [
+            "archetype",
+            "current_state_id",
+            "traits",
+            "metrics"
+          ],
+          "returnType": "i32",
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "eval_condition",
+          "params": [
+            "condition",
+            "traits",
+            "metrics"
+          ],
+          "returnType": "bool",
+          "exported": false,
+          "lineCount": 47
+        }
+      ],
+      "classes": [
+        {
+          "name": "BehaviorNode",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "action_type"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "BehaviorTransition",
+          "methods": [],
+          "properties": [
+            "from_node_id",
+            "to_node_id",
+            "condition",
+            "weight"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "BehaviorGraph",
+          "methods": [],
+          "properties": [
+            "archetype",
+            "nodes",
+            "transitions"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "BehaviorGraphEngine",
+          "methods": [
+            "new",
+            "add_graph",
+            "evaluate",
+            "eval_condition"
+          ],
+          "properties": [
+            "graphs"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        }
+      ],
+      "exports": [
+        "BehaviorNode",
+        "BehaviorTransition",
+        "BehaviorGraph",
+        "BehaviorGraphEngine",
+        "new",
+        "add_graph",
+        "evaluate"
+      ],
+      "totalLines": 118,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/belief.rs": {
+      "filePath": "worldos-grpc/src/belief.rs",
+      "contentHash": "1e53ded45bc65aef436cfb201cd241474d3b2257963fdb44fae5e3dd5fabb8c1",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "definitions"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "update_alignments",
+          "params": [
+            "trait_matrix",
+            "current_alignments",
+            "actor_count"
+          ],
+          "returnType": "Vec<f32>",
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "classes": [
+        {
+          "name": "BeliefEngine",
+          "methods": [
+            "new",
+            "update_alignments"
+          ],
+          "properties": [
+            "definitions"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::worldos::simulation",
+          "specifiers": [
+            "BeliefDefinition"
+          ]
+        }
+      ],
+      "exports": [
+        "BeliefEngine",
+        "new",
+        "update_alignments"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/bin/server.rs": {
+      "filePath": "worldos-grpc/src/bin/server.rs",
+      "contentHash": "938273013bef92544b86deb965034415b9512afbb95ae26c63c64f070ed83076",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "Result<(), Box<dyn std::error::Error>>",
+          "exported": false,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "std::net",
+          "specifiers": [
+            "SocketAddr"
+          ]
+        },
+        {
+          "source": "worldos_grpc::simulation_engine_server",
+          "specifiers": [
+            "SimulationEngineServer"
+          ]
+        },
+        {
+          "source": "worldos_grpc::transport_grpc",
+          "specifiers": [
+            "EngineService"
+          ]
+        },
+        {
+          "source": "worldos_grpc",
+          "specifiers": [
+            "transport_http"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/calamity.rs": {
+      "filePath": "worldos-grpc/src/calamity.rs",
+      "contentHash": "4aa04522818abf7f64962d07274ed5bcb2601279b83700a66e4b55d2f11ae0bf",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "assess_risks",
+          "params": [
+            "tick",
+            "global_entropy",
+            "max_urban_density",
+            "max_extraction_rate",
+            "min_cohesion",
+            "peak_tech_level"
+          ],
+          "returnType": "Vec<EmergentCalamity>",
+          "exported": true,
+          "lineCount": 64
+        },
+        {
+          "name": "calculate_trauma_and_hunger_deltas",
+          "params": [
+            "active_calamities"
+          ],
+          "returnType": "(f32, f32)",
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [
+        {
+          "name": "CalamityEngine",
+          "methods": [
+            "new",
+            "assess_risks",
+            "calculate_trauma_and_hunger_deltas"
+          ],
+          "properties": [
+            "pandemic_threshold",
+            "war_threshold",
+            "ecological_collapse_threshold",
+            "base_trigger_chance"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::worldos::simulation",
+          "specifiers": [
+            "EmergentCalamity"
+          ]
+        },
+        {
+          "source": "rand",
+          "specifiers": [
+            "Rng"
+          ]
+        }
+      ],
+      "exports": [
+        "CalamityEngine",
+        "new",
+        "assess_risks",
+        "calculate_trauma_and_hunger_deltas"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/civilization.rs": {
+      "filePath": "worldos-grpc/src/civilization.rs",
+      "contentHash": "bb8a29b171d0cb7acc859d54fa2a1333c81daf88e894819d48bd4f6501b25a6e",
+      "functions": [
+        {
+          "name": "aggregate",
+          "params": [
+            "zone_ids",
+            "new_hungers",
+            "new_energies",
+            "new_fears",
+            "new_traumas",
+            "resource_deltas"
+          ],
+          "returnType": "CivilizationMetrics",
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "classes": [
+        {
+          "name": "CivilizationAggregator",
+          "methods": [
+            "aggregate"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        },
+        {
+          "source": "crate::worldos::simulation",
+          "specifiers": [
+            "CivilizationMetrics",
+            "ZoneMetrics"
+          ]
+        }
+      ],
+      "exports": [
+        "CivilizationAggregator",
+        "aggregate"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/diplomacy.rs": {
+      "filePath": "worldos-grpc/src/diplomacy.rs",
+      "contentHash": "5f5a04467527e12bb9c8e7fa5f923d2528b3b27d5d3c67e5437fa689384c546f",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "relations_list"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "get_tension",
+          "params": [
+            "f1",
+            "f2"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "adjust_behavior_weights",
+          "params": [
+            "f1",
+            "f2",
+            "base_socialize",
+            "base_conflict"
+          ],
+          "returnType": "(f32, f32)",
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "classes": [
+        {
+          "name": "FactionRelation",
+          "methods": [],
+          "properties": [
+            "from_id",
+            "to_id",
+            "tension"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "DiplomacyEngine",
+          "methods": [
+            "new",
+            "get_tension",
+            "adjust_behavior_weights"
+          ],
+          "properties": [
+            "relations"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        }
+      ],
+      "exports": [
+        "FactionRelation",
+        "DiplomacyEngine",
+        "new",
+        "get_tension",
+        "adjust_behavior_weights"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/engine.rs": {
+      "filePath": "worldos-grpc/src/engine.rs",
+      "contentHash": "205e9c4737d1b5c201e40d6bb1a3e5c3bfbe9fb58891b6302b702078ea3e87be",
+      "functions": [
+        {
+          "name": "deserialize_state",
+          "params": [
+            "state_input"
+          ],
+          "returnType": "Result<UniverseState, String>",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "run_advance",
+          "params": [
+            "universe_id",
+            "ticks",
+            "state_input",
+            "world_meta"
+          ],
+          "returnType": "Result<AdvanceResult, String>",
+          "exported": true,
+          "lineCount": 80
+        },
+        {
+          "name": "run_merge",
+          "params": [
+            "state_a_input",
+            "state_b_input"
+          ],
+          "returnType": "Result<AdvanceResult, String>",
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "run_observe",
+          "params": [
+            "universe_id",
+            "zone_index",
+            "intensity",
+            "state_input"
+          ],
+          "returnType": "Result<ObserveResult, String>",
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "run_evaluate_rules",
+          "params": [
+            "state_json",
+            "dsl"
+          ],
+          "returnType": "(bool, String, String)",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "prepare_actor_inputs",
+          "params": [
+            "i",
+            "ids",
+            "zone_ids",
+            "hunger",
+            "energy",
+            "fear",
+            "trauma",
+            "behavior_states",
+            "actor_archetypes",
+            "faction_ids",
+            "faction_loyalty",
+            "traits_matrix",
+            "chunk_size"
+          ],
+          "returnType": "ActorInputs",
+          "exported": false,
+          "lineCount": 45
+        },
+        {
+          "name": "compute_trait_outputs",
+          "params": [
+            "tick",
+            "inputs",
+            "h_delta",
+            "_e_delta",
+            "t_delta",
+            "resource_delta",
+            "fear_surge",
+            "fear_mult",
+            "_is_observed"
+          ],
+          "returnType": "(Vec<AgentScar>, Vec<f32>, bool, f32, f32, f32)",
+          "exported": false,
+          "lineCount": 67
+        },
+        {
+          "name": "compute_belief_outputs",
+          "params": [
+            "i",
+            "count",
+            "belief_engine",
+            "traits_matrix",
+            "belief_alignments"
+          ],
+          "returnType": "Vec<f32>",
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "assemble_actor_outputs",
+          "params": [
+            "i",
+            "inputs",
+            "_new_b_state",
+            "final_hunger",
+            "e_delta",
+            "drift",
+            "energy_bonus",
+            "final_trauma",
+            "resource_delta",
+            "mutated_traits",
+            "traits_mutated",
+            "current_faction",
+            "current_loyalty",
+            "actor_new_beliefs",
+            "tech_count",
+            "new_tech_levels_matrix",
+            "saga_fear"
+          ],
+          "returnType": "ActorSoaOutput",
+          "exported": false,
+          "lineCount": 39
+        },
+        {
+          "name": "run_process_actors_soa",
+          "params": [
+            "tick",
+            "ids",
+            "zone_ids",
+            "hunger",
+            "energy",
+            "fear",
+            "trauma",
+            "_heroic_types",
+            "_lineage_ids",
+            "_memes",
+            "traits_matrix",
+            "behavior_states",
+            "behavior_graphs",
+            "actor_archetypes",
+            "social_graph",
+            "edicts",
+            "active_sagas",
+            "faction_ids",
+            "faction_loyalty",
+            "is_observed",
+            "faction_relations",
+            "belief_definitions",
+            "belief_alignments",
+            "tech_definitions",
+            "actor_tech_levels"
+          ],
+          "returnType": "ProcessActorsSoaResponse",
+          "exported": true,
+          "lineCount": 299
+        },
+        {
+          "name": "run_process_fields_v7",
+          "params": [
+            "fields",
+            "neighbor_counts",
+            "neighbor_offsets",
+            "neighbors",
+            "diffusion_rate",
+            "preservation_rate"
+          ],
+          "returnType": "Vec<f64>",
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "run_compute_metabolism_grid",
+          "params": [
+            "populations",
+            "biomasses",
+            "industries",
+            "efficiency",
+            "base_energy"
+          ],
+          "returnType": "ComputeMetabolismGridResponse",
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "run_calculate_vocation_alignment",
+          "params": [
+            "actor_motivation_json",
+            "target_profile_json"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "run_get_combined_gravity",
+          "params": [
+            "rulesets_json"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "euclidean_distance",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "f64",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "run_trajectory_analysis",
+          "params": [
+            "points",
+            "threshold"
+          ],
+          "returnType": "TrajectoryAnalysisResponse",
+          "exported": true,
+          "lineCount": 126
+        },
+        {
+          "name": "estimate_lyapunov",
+          "params": [
+            "points"
+          ],
+          "returnType": "f64",
+          "exported": false,
+          "lineCount": 39
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdvanceResult",
+          "methods": [],
+          "properties": [
+            "tick",
+            "state_vector_json",
+            "entropy",
+            "stability_index",
+            "metrics_json",
+            "sci",
+            "instability_gradient",
+            "global_fields_json"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "ObserveResult",
+          "methods": [],
+          "properties": [
+            "tick",
+            "state_vector_json",
+            "entropy",
+            "stability_index",
+            "metrics_json",
+            "sci",
+            "instability_gradient",
+            "global_fields_json"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "ActorInputs",
+          "methods": [],
+          "properties": [
+            "id",
+            "z_id",
+            "h_val",
+            "e_val",
+            "f_val",
+            "t_val",
+            "current_b_state",
+            "archetype",
+            "current_faction",
+            "current_loyalty",
+            "actor_traits"
+          ],
+          "exported": false,
+          "lineCount": 13
+        }
+      ],
+      "imports": [
+        {
+          "source": "worldos_core",
+          "specifiers": [
+            "tick_with_cascade",
+            "KernelGenome",
+            "UniverseState",
+            "WorldConfig"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "RegimeTransition",
+            "TrajectoryAnalysisResponse",
+            "TrajectoryPoint",
+            "ActorSoaOutput",
+            "ProcessActorsSoaResponse",
+            "ComputeMetabolismGridResponse"
+          ]
+        },
+        {
+          "source": "crate::worldos::simulation",
+          "specifiers": [
+            "AgentScar",
+            "NewActor"
+          ]
+        },
+        {
+          "source": "rayon::prelude",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "rand",
+          "specifiers": [
+            "SeedableRng"
+          ]
+        },
+        {
+          "source": "rand",
+          "specifiers": [
+            "Rng"
+          ]
+        }
+      ],
+      "exports": [
+        "AdvanceResult",
+        "ObserveResult",
+        "deserialize_state",
+        "run_advance",
+        "run_merge",
+        "run_observe",
+        "run_evaluate_rules",
+        "run_process_actors_soa",
+        "run_process_fields_v7",
+        "run_compute_metabolism_grid",
+        "run_calculate_vocation_alignment",
+        "run_get_combined_gravity",
+        "run_trajectory_analysis"
+      ],
+      "totalLines": 1061,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/kafka.rs": {
+      "filePath": "worldos-grpc/src/kafka.rs",
+      "contentHash": "b50c774a8e0f1b5b6271278bacfe9a522d6d6d0f915ff0a7fdd4a92aa4a35ec7",
+      "functions": [
+        {
+          "name": "send_state_update",
+          "params": [
+            "topic",
+            "key",
+            "payload"
+          ],
+          "returnType": "Result<(), String>",
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "KafkaRecord",
+          "methods": [],
+          "properties": [
+            "key",
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "KafkaBatchRequest",
+          "methods": [],
+          "properties": [
+            "records"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Serialize"
+          ]
+        },
+        {
+          "source": "std::sync",
+          "specifiers": [
+            "OnceLock"
+          ]
+        }
+      ],
+      "exports": [
+        "send_state_update"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/lib.rs": {
+      "filePath": "worldos-grpc/src/lib.rs",
+      "contentHash": "28a0750c07e82dfe923e158896b1ee9d5d60cc7eda7c1e60f8d6592f9055b9ef",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "worldos::simulation",
+          "specifiers": [
+            "simulation_engine_server"
+          ]
+        },
+        {
+          "source": "worldos::simulation",
+          "specifiers": [
+            "AdvanceRequest",
+            "AdvanceResponse",
+            "UniverseSnapshot",
+            "WorldConfig",
+            "KernelGenome",
+            "MergeRequest",
+            "MergeResponse",
+            "ObserveRequest",
+            "ObserveResponse",
+            "BatchAdvanceRequest",
+            "BatchAdvanceResponse",
+            "TrajectoryAnalysisRequest",
+            "TrajectoryAnalysisResponse",
+            "TrajectoryPoint",
+            "RegimeTransition",
+            "EvaluateRulesRequest",
+            "EvaluateRulesResponse",
+            "ProcessActorsSoaRequest",
+            "ProcessActorsSoaResponse",
+            "ActorSoaOutput",
+            "ProcessFieldsV7Request",
+            "ProcessFieldsV7Response",
+            "ComputeMetabolismGridRequest",
+            "ComputeMetabolismGridResponse",
+            "CalculateVocationAlignmentRequest",
+            "CalculateVocationAlignmentResponse",
+            "GetCombinedGravityRequest",
+            "GetCombinedGravityResponse"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/social_impact.rs": {
+      "filePath": "worldos-grpc/src/social_impact.rs",
+      "contentHash": "b47285ecca5d7ea4637d11b9e09557795edaaf534d37ca42eb85326a4d911d8f",
+      "functions": [
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "calculate_fear_surge",
+          "params": [
+            "neighbor_ids",
+            "neighbor_weights",
+            "fears_map"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "from_proto",
+          "params": [
+            "edicts"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "get_modifier",
+          "params": [
+            "key"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "SocialImpactEngine",
+          "methods": [
+            "new",
+            "calculate_fear_surge"
+          ],
+          "properties": [
+            "fear_contagion",
+            "trust_diffusion"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "EdictRegistry",
+          "methods": [
+            "from_proto",
+            "get_modifier"
+          ],
+          "properties": [
+            "modifiers"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        }
+      ],
+      "exports": [
+        "SocialImpactEngine",
+        "new",
+        "calculate_fear_surge",
+        "EdictRegistry",
+        "from_proto",
+        "get_modifier"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/technology.rs": {
+      "filePath": "worldos-grpc/src/technology.rs",
+      "contentHash": "bc9f3917d3b7594198f2c9edaf8a83c81fa2c97cc3aeebb35549c034a24408f3",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "definitions"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "process_step",
+          "params": [
+            "actor_count",
+            "trait_matrix",
+            "current_tech_levels",
+            "belief_alignments",
+            "social_graph"
+          ],
+          "returnType": "Vec<f32>",
+          "exported": true,
+          "lineCount": 63
+        },
+        {
+          "name": "get_metabolism_multiplier",
+          "params": [
+            "actor_index",
+            "tech_levels",
+            "tech_count"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "TechnologyEngine",
+          "methods": [
+            "new",
+            "process_step",
+            "get_metabolism_multiplier"
+          ],
+          "properties": [
+            "definitions"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::worldos::simulation",
+          "specifiers": [
+            "TechnologyDefinition"
+          ]
+        }
+      ],
+      "exports": [
+        "TechnologyEngine",
+        "new",
+        "process_step",
+        "get_metabolism_multiplier"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/transport_grpc.rs": {
+      "filePath": "worldos-grpc/src/transport_grpc.rs",
+      "contentHash": "57b91273ac498415986926285500b3c83a2db66e2370ceba723ae96d3ce6211a",
+      "functions": [
+        {
+          "name": "advance",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<AdvanceResponse>, Status>",
+          "exported": false,
+          "lineCount": 28
+        },
+        {
+          "name": "merge",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<MergeResponse>, Status>",
+          "exported": false,
+          "lineCount": 27
+        },
+        {
+          "name": "observe",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<ObserveResponse>, Status>",
+          "exported": false,
+          "lineCount": 27
+        },
+        {
+          "name": "batch_advance",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<BatchAdvanceResponse>, Status>",
+          "exported": false,
+          "lineCount": 37
+        },
+        {
+          "name": "analyze_trajectory",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<TrajectoryAnalysisResponse>, Status>",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "evaluate_rules",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<EvaluateRulesResponse>, Status>",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "process_actors_soa",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<ProcessActorsSoaResponse>, Status>",
+          "exported": false,
+          "lineCount": 45
+        },
+        {
+          "name": "process_fields_v7",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<ProcessFieldsV7Response>, Status>",
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "compute_metabolism_grid",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<ComputeMetabolismGridResponse>, Status>",
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "calculate_vocation_alignment",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<CalculateVocationAlignmentResponse>, Status>",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "get_combined_gravity",
+          "params": [
+            "request"
+          ],
+          "returnType": "Result<Response<GetCombinedGravityResponse>, Status>",
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "EngineService",
+          "methods": [
+            "advance",
+            "merge",
+            "observe",
+            "batch_advance",
+            "analyze_trajectory",
+            "evaluate_rules",
+            "process_actors_soa",
+            "process_fields_v7",
+            "compute_metabolism_grid",
+            "calculate_vocation_alignment",
+            "get_combined_gravity"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "tonic",
+          "specifiers": [
+            "Request",
+            "Response",
+            "Status"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "engine"
+          ]
+        },
+        {
+          "source": "crate::simulation_engine_server",
+          "specifiers": [
+            "SimulationEngine"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "AdvanceRequest",
+            "AdvanceResponse",
+            "MergeRequest",
+            "MergeResponse",
+            "ObserveRequest",
+            "ObserveResponse",
+            "UniverseSnapshot",
+            "BatchAdvanceRequest",
+            "BatchAdvanceResponse",
+            "TrajectoryAnalysisRequest",
+            "TrajectoryAnalysisResponse",
+            "EvaluateRulesRequest",
+            "EvaluateRulesResponse",
+            "ProcessActorsSoaRequest",
+            "ProcessActorsSoaResponse",
+            "ProcessFieldsV7Request",
+            "ProcessFieldsV7Response",
+            "ComputeMetabolismGridRequest",
+            "ComputeMetabolismGridResponse",
+            "CalculateVocationAlignmentRequest",
+            "CalculateVocationAlignmentResponse",
+            "GetCombinedGravityRequest",
+            "GetCombinedGravityResponse"
+          ]
+        }
+      ],
+      "exports": [
+        "EngineService"
+      ],
+      "totalLines": 263,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/transport_http.rs": {
+      "filePath": "worldos-grpc/src/transport_http.rs",
+      "contentHash": "6e75798711638341cafbe2d6af87ff6a00733cae75b36a3d6fca4b214db48db0",
+      "functions": [
+        {
+          "name": "default",
+          "params": [],
+          "returnType": "Self",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "advance_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<AdvanceHttpResponse>",
+          "exported": false,
+          "lineCount": 49
+        },
+        {
+          "name": "observe_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<AdvanceHttpResponse>",
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "merge_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<AdvanceHttpResponse>",
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "batch_advance_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<BatchAdvanceHttpResponse>",
+          "exported": false,
+          "lineCount": 56
+        },
+        {
+          "name": "default_threshold",
+          "params": [],
+          "returnType": "f64",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "analyze_trajectory_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<TrajectoryAnalysisHttpResponse>",
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "evaluate_rules_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<EvaluateRulesHttpResponse>",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "process_actors_soa_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<ProcessActorsSoaHttpResponse>",
+          "exported": false,
+          "lineCount": 20
+        },
+        {
+          "name": "process_fields_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<Vec<f64>>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "compute_metabolism_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<ComputeMetabolismHttpResponse>",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "calculate_vocation_alignment_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<serde_json::Value>",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "get_combined_gravity_http",
+          "params": [
+            "Json(body)"
+          ],
+          "returnType": "Json<serde_json::Value>",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "router",
+          "params": [],
+          "returnType": "Router",
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdvanceHttpRequest",
+          "methods": [],
+          "properties": [
+            "universe_id",
+            "ticks",
+            "state_input",
+            "world_config"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "AdvanceHttpKernelGenome",
+          "methods": [
+            "default"
+          ],
+          "properties": [
+            "diffusion_rate",
+            "entropy_coefficient",
+            "mutation_rate",
+            "attractor_gravity",
+            "complexity_bonus"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "AdvanceHttpWorldConfig",
+          "methods": [],
+          "properties": [
+            "world_id",
+            "origin",
+            "axiom",
+            "world_seed",
+            "genome"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "AdvanceHttpSnapshot",
+          "methods": [],
+          "properties": [
+            "universe_id",
+            "tick",
+            "state_vector",
+            "entropy",
+            "stability_index",
+            "metrics",
+            "sci",
+            "instability_gradient",
+            "global_fields"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "AdvanceHttpResponse",
+          "methods": [],
+          "properties": [
+            "ok",
+            "error_message",
+            "snapshot"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ObserveHttpRequest",
+          "methods": [],
+          "properties": [
+            "universe_id",
+            "zone_index",
+            "intensity",
+            "state_input"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "MergeHttpRequest",
+          "methods": [],
+          "properties": [
+            "state_a",
+            "state_b"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "BatchAdvanceHttpRequest",
+          "methods": [],
+          "properties": [
+            "requests"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "BatchAdvanceHttpResponse",
+          "methods": [],
+          "properties": [
+            "responses"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "TrajectoryPointHttp",
+          "methods": [],
+          "properties": [
+            "tick",
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "TrajectoryAnalysisHttpRequest",
+          "methods": [],
+          "properties": [
+            "points",
+            "recurrence_threshold"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "RegimeTransitionHttp",
+          "methods": [],
+          "properties": [
+            "from_tick",
+            "to_tick",
+            "distance"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "TrajectoryAnalysisHttpResponse",
+          "methods": [],
+          "properties": [
+            "is_bounded",
+            "is_recurrent",
+            "recurrence_rate",
+            "max_lyapunov_estimate",
+            "trajectory_variance",
+            "basin_center",
+            "basin_radius",
+            "regime_transitions"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "EvaluateRulesHttpRequest",
+          "methods": [],
+          "properties": [
+            "state",
+            "rules_dsl"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "EvaluateRulesHttpResponse",
+          "methods": [],
+          "properties": [
+            "ok",
+            "error_message",
+            "outputs"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ProcessActorsSoaHttpRequest",
+          "methods": [],
+          "properties": [
+            "tick",
+            "ids",
+            "zone_ids",
+            "hunger",
+            "energy",
+            "fear",
+            "trauma",
+            "heroic_types",
+            "lineage_ids",
+            "memes",
+            "traits_matrix",
+            "behavior_states",
+            "actor_archetypes",
+            "faction_ids",
+            "faction_loyalty",
+            "is_observed",
+            "belief_alignments",
+            "actor_tech_levels"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "ActorSoaOutputHttp",
+          "methods": [],
+          "properties": [
+            "action_id",
+            "new_hunger",
+            "new_energy",
+            "new_trauma"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "ProcessActorsSoaHttpResponse",
+          "methods": [],
+          "properties": [
+            "ok",
+            "error_message",
+            "outputs"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ProcessFieldsHttpRequest",
+          "methods": [],
+          "properties": [
+            "fields",
+            "neighbor_counts",
+            "neighbor_offsets",
+            "neighbors",
+            "diffusion_rate",
+            "preservation_rate"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ComputeMetabolismHttpRequest",
+          "methods": [],
+          "properties": [
+            "populations",
+            "biomasses",
+            "industries",
+            "efficiency",
+            "base_energy"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ComputeMetabolismHttpResponse",
+          "methods": [],
+          "properties": [
+            "total_waste",
+            "net_energies",
+            "populations",
+            "biomasses"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "CalculationRequest",
+          "methods": [],
+          "properties": [
+            "actor_motivation",
+            "target_profile"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "GravityRequest",
+          "methods": [],
+          "properties": [
+            "rulesets"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "axum",
+          "specifiers": [
+            "routing::post",
+            "Json",
+            "Router"
+          ]
+        },
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "engine"
+          ]
+        },
+        {
+          "source": "crate",
+          "specifiers": [
+            "KernelGenome",
+            "TrajectoryPoint",
+            "WorldConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "AdvanceHttpRequest",
+        "AdvanceHttpKernelGenome",
+        "AdvanceHttpWorldConfig",
+        "AdvanceHttpSnapshot",
+        "AdvanceHttpResponse",
+        "ObserveHttpRequest",
+        "MergeHttpRequest",
+        "BatchAdvanceHttpRequest",
+        "BatchAdvanceHttpResponse",
+        "TrajectoryPointHttp",
+        "TrajectoryAnalysisHttpRequest",
+        "RegimeTransitionHttp",
+        "TrajectoryAnalysisHttpResponse",
+        "EvaluateRulesHttpRequest",
+        "EvaluateRulesHttpResponse",
+        "ProcessActorsSoaHttpRequest",
+        "ActorSoaOutputHttp",
+        "ProcessActorsSoaHttpResponse",
+        "ProcessFieldsHttpRequest",
+        "ComputeMetabolismHttpRequest",
+        "ComputeMetabolismHttpResponse",
+        "CalculationRequest",
+        "GravityRequest",
+        "router"
+      ],
+      "totalLines": 547,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/src/urban_growth.rs": {
+      "filePath": "worldos-grpc/src/urban_growth.rs",
+      "contentHash": "34c44ed9b448a5e7979bf49f65a987edacd124d3a9bc3171ef447ea9a9d47be0",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "grid_size"
+          ],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "compute_density",
+          "params": [
+            "population",
+            "biomass",
+            "industry",
+            "entropy"
+          ],
+          "returnType": "f32",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "generate_urban_grid",
+          "params": [
+            "pop_field",
+            "biomass_field",
+            "industry_field",
+            "entropy_field"
+          ],
+          "returnType": "Vec<f32>",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [
+        {
+          "name": "UrbanGrowthEngine",
+          "methods": [
+            "new",
+            "compute_density",
+            "generate_urban_grid"
+          ],
+          "properties": [
+            "grid_size"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "UrbanGrowthEngine",
+        "new",
+        "compute_density",
+        "generate_urban_grid"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-grpc/tests/serialization_roundtrip.rs": {
+      "filePath": "worldos-grpc/tests/serialization_roundtrip.rs",
+      "contentHash": "68cbe10d7830e29c09475be96e1f532be0f97dd9dd5ca6eb00b10375ed6136e3",
+      "functions": [
+        {
+          "name": "advance_request_roundtrip",
+          "params": [],
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "observe_response_roundtrip",
+          "params": [],
+          "exported": false,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "prost",
+          "specifiers": [
+            "Message"
+          ]
+        },
+        {
+          "source": "worldos_grpc",
+          "specifiers": [
+            "AdvanceRequest",
+            "UniverseSnapshot",
+            "WorldConfig",
+            "KernelGenome",
+            "ObserveResponse"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/Cargo.toml": {
+      "filePath": "worldos-rules/Cargo.toml",
+      "contentHash": "f9f5d3ec90921cd8fec3fcc994fb2101f7a1e7989266877b4b2837885e3a60a6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/rules/civilization.dsl": {
+      "filePath": "worldos-rules/rules/civilization.dsl",
+      "contentHash": "2cc74b3236c5e46fd4d4f76899541727be6647c61ef7da6c6d2c5ba61e5255c1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": false
+    },
+    "worldos-rules/src/ast.rs": {
+      "filePath": "worldos-rules/src/ast.rs",
+      "contentHash": "5cbddb1fedf436453405231ad00090d627ce96941ead973cf30639e0f84f1690",
+      "functions": [
+        {
+          "name": "expr_paths",
+          "params": [
+            "expr"
+          ],
+          "returnType": "HashSet<String>",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "condition_expr_paths",
+          "params": [
+            "cond"
+          ],
+          "returnType": "HashSet<String>",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "to_rules",
+          "params": [],
+          "returnType": "&[Rule]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "path_index",
+          "params": [],
+          "returnType": "HashMap<String, Vec<String>>",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [
+        {
+          "name": "Expr",
+          "methods": [],
+          "properties": [
+            "ConstFloat",
+            "ConstInt",
+            "ConstStr",
+            "Path",
+            "Add",
+            "Sub",
+            "Mul",
+            "Div",
+            "FunctionCall"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "Condition",
+          "methods": [],
+          "properties": [
+            "path",
+            "op",
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ConditionValue",
+          "methods": [],
+          "properties": [
+            "Float",
+            "Int",
+            "Str"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Op",
+          "methods": [],
+          "properties": [
+            "Lt",
+            "Le",
+            "Gt",
+            "Ge",
+            "Eq",
+            "Ne"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ConditionExpr",
+          "methods": [],
+          "properties": [
+            "Comparison",
+            "And",
+            "Or",
+            "Not"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "PressureOp",
+          "methods": [],
+          "properties": [
+            "Add",
+            "Set",
+            "Sub"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Action",
+          "methods": [],
+          "properties": [
+            "EmitEvent",
+            "AdjustStability",
+            "AdjustEntropy",
+            "Add",
+            "Set",
+            "Decay",
+            "Pressure",
+            "SpawnActor",
+            "Drift",
+            "Calc",
+            "Metadata"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "Rule",
+          "methods": [],
+          "properties": [
+            "name",
+            "priority",
+            "cooldown_ticks",
+            "scope",
+            "when",
+            "chance",
+            "actions"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "RuleGraph",
+          "methods": [
+            "to_rules",
+            "path_index"
+          ],
+          "properties": [
+            "rules",
+            "dependencies"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        },
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap",
+            "HashSet"
+          ]
+        }
+      ],
+      "exports": [
+        "Expr",
+        "expr_paths",
+        "Condition",
+        "ConditionValue",
+        "Op",
+        "ConditionExpr",
+        "condition_expr_paths",
+        "PressureOp",
+        "Action",
+        "Rule",
+        "RuleGraph",
+        "to_rules",
+        "path_index"
+      ],
+      "totalLines": 233,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/src/eval.rs": {
+      "filePath": "worldos-rules/src/eval.rs",
+      "contentHash": "c15c8455de46a9c201d6619e05512fe14f12101a9c5cdc5b6a417012a0e8cfd6",
+      "functions": [
+        {
+          "name": "get_path",
+          "params": [
+            "state",
+            "path"
+          ],
+          "returnType": "Option<Value>",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "as_f64",
+          "params": [
+            "v"
+          ],
+          "returnType": "Option<f64>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "as_str",
+          "params": [
+            "v"
+          ],
+          "returnType": "Option<&str>",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "eval_expr",
+          "params": [
+            "state",
+            "locals",
+            "expr",
+            "rng"
+          ],
+          "returnType": "Value",
+          "exported": true,
+          "lineCount": 93
+        },
+        {
+          "name": "eval_expr_to_f64",
+          "params": [
+            "state",
+            "locals",
+            "expr",
+            "rng"
+          ],
+          "returnType": "f64",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "eval_condition_expr",
+          "params": [
+            "state",
+            "locals",
+            "cond"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "new",
+          "params": [],
+          "returnType": "Self",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "load_rules",
+          "params": [
+            "dsl"
+          ],
+          "returnType": "Result<(), crate::parse::ParseError>",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "add_rule",
+          "params": [
+            "rule"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "evaluate",
+          "params": [
+            "state",
+            "current_tick",
+            "rng",
+            "changed_paths"
+          ],
+          "returnType": "Vec<RuleOutput>",
+          "exported": true,
+          "lineCount": 106
+        },
+        {
+          "name": "evaluate_rules",
+          "params": [
+            "dsl",
+            "state",
+            "rng"
+          ],
+          "returnType": "Result<Vec<RuleOutput>, crate::parse::ParseError>",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "RuleOutput",
+          "methods": [],
+          "properties": [
+            "Event",
+            "AdjustStability",
+            "AdjustEntropy",
+            "AddPath",
+            "SetPath",
+            "Decay",
+            "Pressure",
+            "SpawnActor",
+            "Drift",
+            "Calc",
+            "Metadata"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "RuleVm",
+          "methods": [
+            "new",
+            "load_rules",
+            "add_rule",
+            "evaluate"
+          ],
+          "properties": [
+            "rules",
+            "last_fired",
+            "path_index"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::ast",
+          "specifiers": [
+            "condition_expr_paths",
+            "expr_paths",
+            "Action",
+            "ConditionExpr",
+            "Expr",
+            "Op",
+            "Rule"
+          ]
+        },
+        {
+          "source": "rand",
+          "specifiers": [
+            "Rng"
+          ]
+        },
+        {
+          "source": "serde",
+          "specifiers": [
+            "Deserialize",
+            "Serialize"
+          ]
+        },
+        {
+          "source": "serde_json",
+          "specifiers": [
+            "Value"
+          ]
+        },
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap",
+            "HashSet"
+          ]
+        }
+      ],
+      "exports": [
+        "RuleOutput",
+        "get_path",
+        "eval_expr",
+        "eval_condition_expr",
+        "RuleVm",
+        "new",
+        "load_rules",
+        "add_rule",
+        "evaluate",
+        "evaluate_rules"
+      ],
+      "totalLines": 466,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/src/lib.rs": {
+      "filePath": "worldos-rules/src/lib.rs",
+      "contentHash": "f42da464d7df3e2c53d69bcc27f1d5c7baa3d4644f0c4b930798cc9b90dc2e86",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ast",
+          "specifiers": [
+            "condition_expr_paths",
+            "expr_paths",
+            "Action",
+            "Condition",
+            "ConditionExpr",
+            "ConditionValue",
+            "Expr",
+            "Op",
+            "Rule",
+            "RuleGraph"
+          ]
+        },
+        {
+          "source": "eval",
+          "specifiers": [
+            "evaluate_rules",
+            "RuleOutput",
+            "RuleVm"
+          ]
+        },
+        {
+          "source": "parse",
+          "specifiers": [
+            "parse_rules",
+            "parse_rules_to_graph"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/src/parse.rs": {
+      "filePath": "worldos-rules/src/parse.rs",
+      "contentHash": "0bf85d1e7d53f5b593e28cccda2aa9b34d419b9022aa095d45b3fb18b7378529",
+      "functions": [
+        {
+          "name": "condition_to_expr",
+          "params": [
+            "c"
+          ],
+          "returnType": "ConditionExpr",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "find_comparison_op",
+          "params": [
+            "line"
+          ],
+          "returnType": "Option<(usize, usize, Op)>",
+          "exported": false,
+          "lineCount": 35
+        },
+        {
+          "name": "parse_condition_line",
+          "params": [
+            "line"
+          ],
+          "returnType": "Result<ConditionExpr, ParseError>",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "conditions_to_when",
+          "params": [
+            "conditions"
+          ],
+          "returnType": "ConditionExpr",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "condition_exprs_to_and",
+          "params": [
+            "exprs"
+          ],
+          "returnType": "ConditionExpr",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "parse_one_rule",
+          "params": [
+            "name",
+            "lines"
+          ],
+          "returnType": "Result<Rule, ParseError>",
+          "exported": false,
+          "lineCount": 138
+        },
+        {
+          "name": "parse_condition",
+          "params": [
+            "line"
+          ],
+          "returnType": "Result<Condition, ParseError>",
+          "exported": false,
+          "lineCount": 25
+        },
+        {
+          "name": "parse_action",
+          "params": [
+            "line"
+          ],
+          "returnType": "Result<Action, ParseError>",
+          "exported": false,
+          "lineCount": 103
+        },
+        {
+          "name": "find_rightmost_binary_op",
+          "params": [
+            "s"
+          ],
+          "returnType": "Option<(usize, u8)>",
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "parse_expr",
+          "params": [
+            "s"
+          ],
+          "returnType": "Result<Expr, ParseError>",
+          "exported": false,
+          "lineCount": 65
+        },
+        {
+          "name": "parse_rules",
+          "params": [
+            "dsl"
+          ],
+          "returnType": "Result<Vec<Rule>, ParseError>",
+          "exported": true,
+          "lineCount": 57
+        },
+        {
+          "name": "parse_dependencies",
+          "params": [
+            "dsl"
+          ],
+          "returnType": "Vec<(String, String)>",
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "parse_rules_to_graph",
+          "params": [
+            "dsl"
+          ],
+          "returnType": "Result<RuleGraph, ParseError>",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "ParseError",
+          "methods": [],
+          "properties": [
+            "MissingRuleName",
+            "MissingWhen",
+            "MissingThen",
+            "InvalidCondition",
+            "InvalidAction",
+            "InvalidNumber",
+            "InvalidExpr"
+          ],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "imports": [
+        {
+          "source": "crate::ast",
+          "specifiers": [
+            "Action",
+            "Condition",
+            "ConditionExpr",
+            "ConditionValue",
+            "Expr",
+            "Op",
+            "Rule",
+            "RuleGraph"
+          ]
+        },
+        {
+          "source": "thiserror",
+          "specifiers": [
+            "Error"
+          ]
+        }
+      ],
+      "exports": [
+        "ParseError",
+        "parse_rules",
+        "parse_rules_to_graph"
+      ],
+      "totalLines": 707,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-rules/src/wasm_eval.rs": {
+      "filePath": "worldos-rules/src/wasm_eval.rs",
+      "contentHash": "054b27416767a774f925834bcba28cf001c5475e438c5713fb93ab1403edcce5",
+      "functions": [
+        {
+          "name": "new",
+          "params": [
+            "wasm_bytes"
+          ],
+          "returnType": "anyhow::Result<Self>",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "evaluate",
+          "params": [
+            "state"
+          ],
+          "returnType": "anyhow::Result<Vec<RuleOutput>>",
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [
+        {
+          "name": "WasmRuleStore",
+          "methods": [],
+          "properties": [
+            "state",
+            "outputs"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "WasmRuleEvaluator",
+          "methods": [
+            "new",
+            "evaluate"
+          ],
+          "properties": [
+            "engine",
+            "module"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "",
+          "specifiers": [
+            "*"
+          ]
+        },
+        {
+          "source": "serde_json",
+          "specifiers": [
+            "Value"
+          ]
+        },
+        {
+          "source": "crate::eval",
+          "specifiers": [
+            "RuleOutput",
+            "get_path"
+          ]
+        },
+        {
+          "source": "std::collections",
+          "specifiers": [
+            "HashMap"
+          ]
+        }
+      ],
+      "exports": [
+        "WasmRuleStore",
+        "WasmRuleEvaluator",
+        "new",
+        "evaluate"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use App\Modules\World\Models\Universe;
+use App\Modules\Intelligence\Models\LegendaryAgent;
+use App\Modules\Narrative\Models\Artifact;
 
 class GenerateVisualAssetJob implements ShouldQueue
 {
@@ -57,8 +58,8 @@ class GenerateVisualAssetJob implements ShouldQueue
                     Storage::disk('public')->put($filename, $imageContent);
                     $localUrl = Storage::url($filename);
 
-                    // TODO: Update Database record logic here if appropriate
-                    // For now, we will log it. Next.js can fetch it if we broadcast an event.
+                    $this->upsertAssetRecord($localUrl, $imageUrl, $filename);
+
                     Log::info("Visual Asset Generated: {$localUrl}");
                 }
             } else {
@@ -67,6 +68,49 @@ class GenerateVisualAssetJob implements ShouldQueue
 
         } catch (\Exception $e) {
             Log::error("GenerateVisualAssetJob Exception: " . $e->getMessage());
+        }
+    }
+
+    private function upsertAssetRecord(string $localUrl, string $sourceUrl, string $storagePath): void
+    {
+        $payload = [
+            'local_url' => $localUrl,
+            'source_url' => $sourceUrl,
+            'storage_path' => $storagePath,
+            'generated_at' => now()->toISOString(),
+            'prompt' => $this->prompt,
+        ];
+
+        if ($this->entityType === 'celebrity') {
+            LegendaryAgent::where('universe_id', $this->universeId)
+                ->where(function ($query) {
+                    $query->where('id', $this->entityId)
+                        ->orWhere('original_agent_id', $this->entityId);
+                })
+                ->update(['image_url' => $localUrl]);
+
+            Log::info('Visual Asset persisted to legendary_agents.image_url', [
+                'universe_id' => $this->universeId,
+                'entity_id' => $this->entityId,
+                'local_url' => $localUrl,
+            ]);
+
+            return;
+        }
+
+        if ($this->entityType === 'artifact') {
+            $artifact = Artifact::where('universe_id', $this->universeId)->find($this->entityId);
+            if ($artifact) {
+                $metadata = $artifact->metadata ?? [];
+                $metadata['visual_asset'] = $payload;
+                $artifact->forceFill(['metadata' => $metadata])->save();
+
+                Log::info('Visual Asset persisted to artifact metadata', [
+                    'universe_id' => $this->universeId,
+                    'artifact_id' => $this->entityId,
+                    'local_url' => $localUrl,
+                ]);
+            }
         }
     }
 }

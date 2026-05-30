@@ -1,0 +1,6303 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "NarrativeLoom",
+    "languages": [
+      "dockerfile",
+      "json",
+      "markdown",
+      "python",
+      "text"
+    ],
+    "frameworks": [
+      "LangGraph",
+      "LangChain",
+      "FastAPI",
+      "Celery",
+      "Centrifugo",
+      "LangFuse"
+    ],
+    "description": "Python LangGraph-based AI narrative generation pipeline with specialized agents, narrative engines, and chronicle production for WorldOS V6.",
+    "analyzedAt": "2026-05-30T00:00:00Z",
+    "gitCommitHash": "6e5935c8c7b78f5003d06a8a522792b4249c17d3"
+  },
+  "nodes": [
+    {
+      "id": "file:.dockerignore",
+      "type": "file",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Docker build ignore patterns for NarrativeLoom.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Dockerfile for the NarrativeLoom service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "NarrativeLoom service documentation and usage guide.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/archivist.py",
+      "type": "file",
+      "name": "agents/archivist.py",
+      "filePath": "agents/archivist.py",
+      "summary": "File archivist.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/archivist.py:archivist_agent",
+      "type": "function",
+      "name": "archivist_agent",
+      "filePath": "agents/archivist.py",
+      "summary": "Function archivist_agent() in agents/archivist.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/art_director.py",
+      "type": "file",
+      "name": "agents/art_director.py",
+      "filePath": "agents/art_director.py",
+      "summary": "File art_director.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/art_director.py:generate_visual_asset",
+      "type": "function",
+      "name": "generate_visual_asset",
+      "filePath": "agents/art_director.py",
+      "summary": "Function generate_visual_asset() in agents/art_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/artifact_forger.py",
+      "type": "file",
+      "name": "agents/artifact_forger.py",
+      "filePath": "agents/artifact_forger.py",
+      "summary": "File artifact_forger.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/artifact_forger.py:ArtifactOutput",
+      "type": "class",
+      "name": "ArtifactOutput",
+      "filePath": "agents/artifact_forger.py",
+      "summary": "Class ArtifactOutput in agents/artifact_forger.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/artifact_forger.py:forge_artifact",
+      "type": "function",
+      "name": "forge_artifact",
+      "filePath": "agents/artifact_forger.py",
+      "summary": "Function forge_artifact() in agents/artifact_forger.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/artifact_forger.py:artifact_forger_api",
+      "type": "function",
+      "name": "artifact_forger_api",
+      "filePath": "agents/artifact_forger.py",
+      "summary": "Function artifact_forger_api() in agents/artifact_forger.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/audio_director.py",
+      "type": "file",
+      "name": "agents/audio_director.py",
+      "filePath": "agents/audio_director.py",
+      "summary": "File audio_director.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/audio_director.py:AudioDirectorAgent",
+      "type": "class",
+      "name": "AudioDirectorAgent",
+      "filePath": "agents/audio_director.py",
+      "summary": "Class AudioDirectorAgent in agents/audio_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/audio_director.py:compose_soundtrack",
+      "type": "function",
+      "name": "compose_soundtrack",
+      "filePath": "agents/audio_director.py",
+      "summary": "Function compose_soundtrack() in agents/audio_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/celebrity_synthesizer.py",
+      "type": "file",
+      "name": "agents/celebrity_synthesizer.py",
+      "filePath": "agents/celebrity_synthesizer.py",
+      "summary": "File celebrity_synthesizer.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/celebrity_synthesizer.py:CelebrityOutput",
+      "type": "class",
+      "name": "CelebrityOutput",
+      "filePath": "agents/celebrity_synthesizer.py",
+      "summary": "Class CelebrityOutput in agents/celebrity_synthesizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/celebrity_synthesizer.py:synthesize_celebrity",
+      "type": "function",
+      "name": "synthesize_celebrity",
+      "filePath": "agents/celebrity_synthesizer.py",
+      "summary": "Function synthesize_celebrity() in agents/celebrity_synthesizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/celebrity_synthesizer.py:celebrity_synthesizer_api",
+      "type": "function",
+      "name": "celebrity_synthesizer_api",
+      "filePath": "agents/celebrity_synthesizer.py",
+      "summary": "Function celebrity_synthesizer_api() in agents/celebrity_synthesizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/chief_editor.py",
+      "type": "file",
+      "name": "agents/chief_editor.py",
+      "filePath": "agents/chief_editor.py",
+      "summary": "File chief_editor.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/chief_editor.py:chief_editor_agent",
+      "type": "function",
+      "name": "chief_editor_agent",
+      "filePath": "agents/chief_editor.py",
+      "summary": "Function chief_editor_agent() in agents/chief_editor.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/critic.py",
+      "type": "file",
+      "name": "agents/critic.py",
+      "filePath": "agents/critic.py",
+      "summary": "File critic.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/critic.py:critic_agent",
+      "type": "function",
+      "name": "critic_agent",
+      "filePath": "agents/critic.py",
+      "summary": "Function critic_agent() in agents/critic.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/director.py",
+      "type": "file",
+      "name": "agents/director.py",
+      "filePath": "agents/director.py",
+      "summary": "File director.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/director.py:director_agent",
+      "type": "function",
+      "name": "director_agent",
+      "filePath": "agents/director.py",
+      "summary": "Function director_agent() in agents/director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/historian.py",
+      "type": "file",
+      "name": "agents/historian.py",
+      "filePath": "agents/historian.py",
+      "summary": "File historian.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/historian.py:historian_agent",
+      "type": "function",
+      "name": "historian_agent",
+      "filePath": "agents/historian.py",
+      "summary": "Function historian_agent() in agents/historian.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/history_scribe.py",
+      "type": "file",
+      "name": "agents/history_scribe.py",
+      "filePath": "agents/history_scribe.py",
+      "summary": "File history_scribe.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/history_scribe.py:scribe_history",
+      "type": "function",
+      "name": "scribe_history",
+      "filePath": "agents/history_scribe.py",
+      "summary": "Function scribe_history() in agents/history_scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/history_scribe.py:history_scribe_api",
+      "type": "function",
+      "name": "history_scribe_api",
+      "filePath": "agents/history_scribe.py",
+      "summary": "Function history_scribe_api() in agents/history_scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/intent_agent.py",
+      "type": "file",
+      "name": "agents/intent_agent.py",
+      "filePath": "agents/intent_agent.py",
+      "summary": "File intent_agent.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/intent_agent.py:UniverseContextIn",
+      "type": "class",
+      "name": "UniverseContextIn",
+      "filePath": "agents/intent_agent.py",
+      "summary": "Class UniverseContextIn in agents/intent_agent.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/intent_agent.py:ActorIntentRequest",
+      "type": "class",
+      "name": "ActorIntentRequest",
+      "filePath": "agents/intent_agent.py",
+      "summary": "Class ActorIntentRequest in agents/intent_agent.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/intent_agent.py:ActorIntentResponse",
+      "type": "class",
+      "name": "ActorIntentResponse",
+      "filePath": "agents/intent_agent.py",
+      "summary": "Class ActorIntentResponse in agents/intent_agent.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/intent_agent.py:intent_agent",
+      "type": "function",
+      "name": "intent_agent",
+      "filePath": "agents/intent_agent.py",
+      "summary": "Function intent_agent() in agents/intent_agent.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/mythologist.py",
+      "type": "file",
+      "name": "agents/mythologist.py",
+      "filePath": "agents/mythologist.py",
+      "summary": "File mythologist.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/mythologist.py:mythologist_agent",
+      "type": "function",
+      "name": "mythologist_agent",
+      "filePath": "agents/mythologist.py",
+      "summary": "Function mythologist_agent() in agents/mythologist.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/news_anchor.py",
+      "type": "file",
+      "name": "agents/news_anchor.py",
+      "filePath": "agents/news_anchor.py",
+      "summary": "File news_anchor.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/news_anchor.py:NewsHeadline",
+      "type": "class",
+      "name": "NewsHeadline",
+      "filePath": "agents/news_anchor.py",
+      "summary": "Class NewsHeadline in agents/news_anchor.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/news_anchor.py:news_anchor_agent",
+      "type": "function",
+      "name": "news_anchor_agent",
+      "filePath": "agents/news_anchor.py",
+      "summary": "Function news_anchor_agent() in agents/news_anchor.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/psychologist.py",
+      "type": "file",
+      "name": "agents/psychologist.py",
+      "filePath": "agents/psychologist.py",
+      "summary": "File psychologist.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/psychologist.py:psychologist_agent",
+      "type": "function",
+      "name": "psychologist_agent",
+      "filePath": "agents/psychologist.py",
+      "summary": "Function psychologist_agent() in agents/psychologist.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/vfx_director.py",
+      "type": "file",
+      "name": "agents/vfx_director.py",
+      "filePath": "agents/vfx_director.py",
+      "summary": "File vfx_director.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/vfx_director.py:VFXConfig",
+      "type": "class",
+      "name": "VFXConfig",
+      "filePath": "agents/vfx_director.py",
+      "summary": "Class VFXConfig in agents/vfx_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:agents/vfx_director.py:VFXDirectorOutput",
+      "type": "class",
+      "name": "VFXDirectorOutput",
+      "filePath": "agents/vfx_director.py",
+      "summary": "Class VFXDirectorOutput in agents/vfx_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/vfx_director.py:vfx_director_agent",
+      "type": "function",
+      "name": "vfx_director_agent",
+      "filePath": "agents/vfx_director.py",
+      "summary": "Function vfx_director_agent() in agents/vfx_director.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:agents/wordsmith.py",
+      "type": "file",
+      "name": "agents/wordsmith.py",
+      "filePath": "agents/wordsmith.py",
+      "summary": "File wordsmith.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:agents/wordsmith.py:wordsmith_agent",
+      "type": "function",
+      "name": "wordsmith_agent",
+      "filePath": "agents/wordsmith.py",
+      "summary": "Function wordsmith_agent() in agents/wordsmith.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "agent",
+        "llm",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:benchmark_cache.py",
+      "type": "file",
+      "name": "benchmark_cache.py",
+      "filePath": "benchmark_cache.py",
+      "summary": "File benchmark_cache.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:benchmark_cache.py:MockRedis",
+      "type": "class",
+      "name": "MockRedis",
+      "filePath": "benchmark_cache.py",
+      "summary": "Class MockRedis in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:ping",
+      "type": "function",
+      "name": "ping",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function ping() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:get",
+      "type": "function",
+      "name": "get",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function get() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:set",
+      "type": "function",
+      "name": "set",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function set() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:delete",
+      "type": "function",
+      "name": "delete",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function delete() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:sadd",
+      "type": "function",
+      "name": "sadd",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function sadd() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:smembers",
+      "type": "function",
+      "name": "smembers",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function smembers() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:benchmark_cache.py:WorldOsCacheManager",
+      "type": "class",
+      "name": "WorldOsCacheManager",
+      "filePath": "benchmark_cache.py",
+      "summary": "Class WorldOsCacheManager in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:get_cached_narrative",
+      "type": "function",
+      "name": "get_cached_narrative",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function get_cached_narrative() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:set_cached_narrative",
+      "type": "function",
+      "name": "set_cached_narrative",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function set_cached_narrative() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark_cache.py:run_validation",
+      "type": "function",
+      "name": "run_validation",
+      "filePath": "benchmark_cache.py",
+      "summary": "Function run_validation() in benchmark_cache.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:configs/agent_routing.json",
+      "type": "config",
+      "name": "configs/agent_routing.json",
+      "filePath": "configs/agent_routing.json",
+      "summary": "File agent_routing.json in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "config"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/__init__.py",
+      "type": "file",
+      "name": "core/__init__.py",
+      "filePath": "core/__init__.py",
+      "summary": "File __init__.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/agent_wrapper.py",
+      "type": "file",
+      "name": "core/agent_wrapper.py",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "File agent_wrapper.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/agent_wrapper.py:historian_agent",
+      "type": "function",
+      "name": "historian_agent",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "Function historian_agent() in core/agent_wrapper.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/agent_wrapper.py:agent_node",
+      "type": "function",
+      "name": "agent_node",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "Function agent_node() in core/agent_wrapper.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/agent_wrapper.py:historian_agent",
+      "type": "function",
+      "name": "historian_agent",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "Function historian_agent() in core/agent_wrapper.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/agent_wrapper.py:decorator",
+      "type": "function",
+      "name": "decorator",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "Function decorator() in core/agent_wrapper.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/agent_wrapper.py:wrapper",
+      "type": "function",
+      "name": "wrapper",
+      "filePath": "core/agent_wrapper.py",
+      "summary": "Function wrapper() in core/agent_wrapper.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/celery_app.py",
+      "type": "file",
+      "name": "core/celery_app.py",
+      "filePath": "core/celery_app.py",
+      "summary": "File celery_app.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/centrifugo.py",
+      "type": "file",
+      "name": "core/centrifugo.py",
+      "filePath": "core/centrifugo.py",
+      "summary": "File centrifugo.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_event",
+      "type": "function",
+      "name": "publish_event",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_event() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_pipeline_started",
+      "type": "function",
+      "name": "publish_pipeline_started",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_pipeline_started() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_agent_started",
+      "type": "function",
+      "name": "publish_agent_started",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_agent_started() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_agent_done",
+      "type": "function",
+      "name": "publish_agent_done",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_agent_done() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_agent_error",
+      "type": "function",
+      "name": "publish_agent_error",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_agent_error() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_pipeline_done",
+      "type": "function",
+      "name": "publish_pipeline_done",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_pipeline_done() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/centrifugo.py:publish_pipeline_error",
+      "type": "function",
+      "name": "publish_pipeline_error",
+      "filePath": "core/centrifugo.py",
+      "summary": "Function publish_pipeline_error() in core/centrifugo.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/exceptions.py",
+      "type": "file",
+      "name": "core/exceptions.py",
+      "filePath": "core/exceptions.py",
+      "summary": "File exceptions.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/exceptions.py:NarrativeLoomError",
+      "type": "class",
+      "name": "NarrativeLoomError",
+      "filePath": "core/exceptions.py",
+      "summary": "Class NarrativeLoomError in core/exceptions.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/exceptions.py:TransientLLMError",
+      "type": "class",
+      "name": "TransientLLMError",
+      "filePath": "core/exceptions.py",
+      "summary": "Class TransientLLMError in core/exceptions.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/exceptions.py:PermanentLLMError",
+      "type": "class",
+      "name": "PermanentLLMError",
+      "filePath": "core/exceptions.py",
+      "summary": "Class PermanentLLMError in core/exceptions.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/exceptions.py:PipelineError",
+      "type": "class",
+      "name": "PipelineError",
+      "filePath": "core/exceptions.py",
+      "summary": "Class PipelineError in core/exceptions.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/langfuse_setup.py",
+      "type": "file",
+      "name": "core/langfuse_setup.py",
+      "filePath": "core/langfuse_setup.py",
+      "summary": "File langfuse_setup.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/langfuse_setup.py:get_langfuse_callback",
+      "type": "function",
+      "name": "get_langfuse_callback",
+      "filePath": "core/langfuse_setup.py",
+      "summary": "Function get_langfuse_callback() in core/langfuse_setup.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/langfuse_setup.py:flush_langfuse",
+      "type": "function",
+      "name": "flush_langfuse",
+      "filePath": "core/langfuse_setup.py",
+      "summary": "Function flush_langfuse() in core/langfuse_setup.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/logging.py",
+      "type": "file",
+      "name": "core/logging.py",
+      "filePath": "core/logging.py",
+      "summary": "File logging.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/logging.py:configure_logging",
+      "type": "function",
+      "name": "configure_logging",
+      "filePath": "core/logging.py",
+      "summary": "Function configure_logging() in core/logging.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/logging.py:get_logger",
+      "type": "function",
+      "name": "get_logger",
+      "filePath": "core/logging.py",
+      "summary": "Function get_logger() in core/logging.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/metrics.py",
+      "type": "file",
+      "name": "core/metrics.py",
+      "filePath": "core/metrics.py",
+      "summary": "File metrics.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/metrics.py:AgentMetric",
+      "type": "class",
+      "name": "AgentMetric",
+      "filePath": "core/metrics.py",
+      "summary": "Class AgentMetric in core/metrics.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:core/metrics.py:MetricsCollector",
+      "type": "class",
+      "name": "MetricsCollector",
+      "filePath": "core/metrics.py",
+      "summary": "Class MetricsCollector in core/metrics.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/metrics.py:record_agent",
+      "type": "function",
+      "name": "record_agent",
+      "filePath": "core/metrics.py",
+      "summary": "Function record_agent() in core/metrics.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/metrics.py:record_pipeline",
+      "type": "function",
+      "name": "record_pipeline",
+      "filePath": "core/metrics.py",
+      "summary": "Function record_pipeline() in core/metrics.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/metrics.py:snapshot",
+      "type": "function",
+      "name": "snapshot",
+      "filePath": "core/metrics.py",
+      "summary": "Function snapshot() in core/metrics.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:core/pipeline_manifest.py",
+      "type": "file",
+      "name": "core/pipeline_manifest.py",
+      "filePath": "core/pipeline_manifest.py",
+      "summary": "File pipeline_manifest.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "core",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/__init__.py",
+      "type": "file",
+      "name": "engines/__init__.py",
+      "filePath": "engines/__init__.py",
+      "summary": "File __init__.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/arc_engine.py",
+      "type": "file",
+      "name": "engines/arc_engine.py",
+      "filePath": "engines/arc_engine.py",
+      "summary": "File arc_engine.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/arc_engine.py:DramaticArcEngine",
+      "type": "class",
+      "name": "DramaticArcEngine",
+      "filePath": "engines/arc_engine.py",
+      "summary": "Class DramaticArcEngine in engines/arc_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/arc_engine.py:tension",
+      "type": "function",
+      "name": "tension",
+      "filePath": "engines/arc_engine.py",
+      "summary": "Function tension() in engines/arc_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/arc_engine.py:build",
+      "type": "function",
+      "name": "build",
+      "filePath": "engines/arc_engine.py",
+      "summary": "Function build() in engines/arc_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/arc_engine.py:arc_engine_node",
+      "type": "function",
+      "name": "arc_engine_node",
+      "filePath": "engines/arc_engine.py",
+      "summary": "Function arc_engine_node() in engines/arc_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/attractor_engine.py",
+      "type": "file",
+      "name": "engines/attractor_engine.py",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "File attractor_engine.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/attractor_engine.py:AttractorFieldEngine",
+      "type": "class",
+      "name": "AttractorFieldEngine",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "Class AttractorFieldEngine in engines/attractor_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/attractor_engine.py:classify",
+      "type": "function",
+      "name": "classify",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "Function classify() in engines/attractor_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/attractor_engine.py:group",
+      "type": "function",
+      "name": "group",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "Function group() in engines/attractor_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/attractor_engine.py:strength",
+      "type": "function",
+      "name": "strength",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "Function strength() in engines/attractor_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/attractor_engine.py:attractor_engine_node",
+      "type": "function",
+      "name": "attractor_engine_node",
+      "filePath": "engines/attractor_engine.py",
+      "summary": "Function attractor_engine_node() in engines/attractor_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/entropy_engine.py",
+      "type": "file",
+      "name": "engines/entropy_engine.py",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "File entropy_engine.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:temporal_weight",
+      "type": "function",
+      "name": "temporal_weight",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function temporal_weight() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/entropy_engine.py:NarrativeEntropyEngine",
+      "type": "class",
+      "name": "NarrativeEntropyEngine",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Class NarrativeEntropyEngine in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:rarity",
+      "type": "function",
+      "name": "rarity",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function rarity() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:character_impact",
+      "type": "function",
+      "name": "character_impact",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function character_impact() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:political_impact",
+      "type": "function",
+      "name": "political_impact",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function political_impact() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:chaos_delta",
+      "type": "function",
+      "name": "chaos_delta",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function chaos_delta() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:score_event",
+      "type": "function",
+      "name": "score_event",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function score_event() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:select_events",
+      "type": "function",
+      "name": "select_events",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function select_events() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/entropy_engine.py:entropy_engine_node",
+      "type": "function",
+      "name": "entropy_engine_node",
+      "filePath": "engines/entropy_engine.py",
+      "summary": "Function entropy_engine_node() in engines/entropy_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/event_normalizer.py",
+      "type": "file",
+      "name": "engines/event_normalizer.py",
+      "filePath": "engines/event_normalizer.py",
+      "summary": "File event_normalizer.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/event_normalizer.py:EventNormalizer",
+      "type": "class",
+      "name": "EventNormalizer",
+      "filePath": "engines/event_normalizer.py",
+      "summary": "Class EventNormalizer in engines/event_normalizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/event_normalizer.py:normalize_event",
+      "type": "function",
+      "name": "normalize_event",
+      "filePath": "engines/event_normalizer.py",
+      "summary": "Function normalize_event() in engines/event_normalizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/event_normalizer.py:event_normalizer_node",
+      "type": "function",
+      "name": "event_normalizer_node",
+      "filePath": "engines/event_normalizer.py",
+      "summary": "Function event_normalizer_node() in engines/event_normalizer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/phase_engine.py",
+      "type": "file",
+      "name": "engines/phase_engine.py",
+      "filePath": "engines/phase_engine.py",
+      "summary": "File phase_engine.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/phase_engine.py:NarrativePhaseEngine",
+      "type": "class",
+      "name": "NarrativePhaseEngine",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Class NarrativePhaseEngine in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/phase_engine.py:event_density",
+      "type": "function",
+      "name": "event_density",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Function event_density() in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/phase_engine.py:actor_diversity",
+      "type": "function",
+      "name": "actor_diversity",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Function actor_diversity() in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/phase_engine.py:tension_energy",
+      "type": "function",
+      "name": "tension_energy",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Function tension_energy() in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/phase_engine.py:detect",
+      "type": "function",
+      "name": "detect",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Function detect() in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/phase_engine.py:phase_engine_node",
+      "type": "function",
+      "name": "phase_engine_node",
+      "filePath": "engines/phase_engine.py",
+      "summary": "Function phase_engine_node() in engines/phase_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/singularity_engine.py",
+      "type": "file",
+      "name": "engines/singularity_engine.py",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "File singularity_engine.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:engines/singularity_engine.py:NarrativeSingularityEngine",
+      "type": "class",
+      "name": "NarrativeSingularityEngine",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Class NarrativeSingularityEngine in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/singularity_engine.py:actor_gravity",
+      "type": "function",
+      "name": "actor_gravity",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Function actor_gravity() in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/singularity_engine.py:event_energy",
+      "type": "function",
+      "name": "event_energy",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Function event_energy() in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/singularity_engine.py:attractor_convergence",
+      "type": "function",
+      "name": "attractor_convergence",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Function attractor_convergence() in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/singularity_engine.py:detect",
+      "type": "function",
+      "name": "detect",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Function detect() in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/singularity_engine.py:singularity_engine_node",
+      "type": "function",
+      "name": "singularity_engine_node",
+      "filePath": "engines/singularity_engine.py",
+      "summary": "Function singularity_engine_node() in engines/singularity_engine.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:engines/style_analyzer.py",
+      "type": "file",
+      "name": "engines/style_analyzer.py",
+      "filePath": "engines/style_analyzer.py",
+      "summary": "File style_analyzer.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:engines/style_analyzer.py:style_analyzer_node",
+      "type": "function",
+      "name": "style_analyzer_node",
+      "filePath": "engines/style_analyzer.py",
+      "summary": "Function style_analyzer_node() in engines/style_analyzer.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "engine",
+        "narrative",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:graph.py",
+      "type": "file",
+      "name": "graph.py",
+      "filePath": "graph.py",
+      "summary": "LangGraph state machine definition \u2014 the narrative generation workflow graph with conditional routing between phases.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:graph.py:check_revision",
+      "type": "function",
+      "name": "check_revision",
+      "filePath": "graph.py",
+      "summary": "Function check_revision() in graph.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:graph_builder.py",
+      "type": "file",
+      "name": "graph_builder.py",
+      "filePath": "graph_builder.py",
+      "summary": "Builds and wires the LangGraph narrative pipeline graph from node definitions and phase configuration.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:graph_builder.py:check_revision",
+      "type": "function",
+      "name": "check_revision",
+      "filePath": "graph_builder.py",
+      "summary": "Function check_revision() in graph_builder.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:graph_builder.py:build_graph",
+      "type": "function",
+      "name": "build_graph",
+      "filePath": "graph_builder.py",
+      "summary": "Function build_graph() in graph_builder.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:knowledge/era_definitions.json",
+      "type": "config",
+      "name": "knowledge/era_definitions.json",
+      "filePath": "knowledge/era_definitions.json",
+      "summary": "File era_definitions.json in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "knowledge",
+        "data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:knowledge/power_manifestos.json",
+      "type": "config",
+      "name": "knowledge/power_manifestos.json",
+      "filePath": "knowledge/power_manifestos.json",
+      "summary": "File power_manifestos.json in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "knowledge",
+        "data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "summary": "FastAPI entry point for NarrativeLoom, registering routers for actors, chronicle, scribe, and system endpoints.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mock_data.py",
+      "type": "file",
+      "name": "mock_data.py",
+      "filePath": "mock_data.py",
+      "summary": "Mock data generators and test fixtures for isolated development of narrative generation.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:mock_data.py:get_mock_historian_state",
+      "type": "function",
+      "name": "get_mock_historian_state",
+      "filePath": "mock_data.py",
+      "summary": "Function get_mock_historian_state() in mock_data.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:nodes/universe_bridge.py",
+      "type": "file",
+      "name": "nodes/universe_bridge.py",
+      "filePath": "nodes/universe_bridge.py",
+      "summary": "File universe_bridge.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:nodes/universe_bridge.py:universe_bridge_node",
+      "type": "function",
+      "name": "universe_bridge_node",
+      "filePath": "nodes/universe_bridge.py",
+      "summary": "Function universe_bridge_node() in nodes/universe_bridge.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:nodes/universe_bridge.py:record_universe_whisper",
+      "type": "function",
+      "name": "record_universe_whisper",
+      "filePath": "nodes/universe_bridge.py",
+      "summary": "Function record_universe_whisper() in nodes/universe_bridge.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:requirements.txt",
+      "type": "config",
+      "name": "requirements.txt",
+      "filePath": "requirements.txt",
+      "summary": "Python dependencies: LangGraph, LangChain, FastAPI, Celery, Redis, OpenAI/Anthropic clients, Centrifugo.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:requirements_windows.txt",
+      "type": "config",
+      "name": "requirements_windows.txt",
+      "filePath": "requirements_windows.txt",
+      "summary": "Windows-compatible Python dependencies variant.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:routers/__init__.py",
+      "type": "file",
+      "name": "routers/__init__.py",
+      "filePath": "routers/__init__.py",
+      "summary": "File __init__.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:routers/actors.py",
+      "type": "file",
+      "name": "routers/actors.py",
+      "filePath": "routers/actors.py",
+      "summary": "File actors.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/actors.py:actor_intent",
+      "type": "function",
+      "name": "actor_intent",
+      "filePath": "routers/actors.py",
+      "summary": "Function actor_intent() in routers/actors.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/actors.py:api_weave_celebrity",
+      "type": "function",
+      "name": "api_weave_celebrity",
+      "filePath": "routers/actors.py",
+      "summary": "Function api_weave_celebrity() in routers/actors.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/actors.py:api_forge_artifact",
+      "type": "function",
+      "name": "api_forge_artifact",
+      "filePath": "routers/actors.py",
+      "summary": "Function api_forge_artifact() in routers/actors.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:routers/chronicle.py",
+      "type": "file",
+      "name": "routers/chronicle.py",
+      "filePath": "routers/chronicle.py",
+      "summary": "File chronicle.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:routers/chronicle.py:ChronicleRequest",
+      "type": "class",
+      "name": "ChronicleRequest",
+      "filePath": "routers/chronicle.py",
+      "summary": "Class ChronicleRequest in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/chronicle.py:world_id_positive",
+      "type": "function",
+      "name": "world_id_positive",
+      "filePath": "routers/chronicle.py",
+      "summary": "Function world_id_positive() in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/chronicle.py:tick_end_after_start",
+      "type": "function",
+      "name": "tick_end_after_start",
+      "filePath": "routers/chronicle.py",
+      "summary": "Function tick_end_after_start() in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/chronicle.py:weave_chronicles",
+      "type": "function",
+      "name": "weave_chronicles",
+      "filePath": "routers/chronicle.py",
+      "summary": "Function weave_chronicles() in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/chronicle.py:get_task_status",
+      "type": "function",
+      "name": "get_task_status",
+      "filePath": "routers/chronicle.py",
+      "summary": "Function get_task_status() in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/chronicle.py:get_agent_config",
+      "type": "function",
+      "name": "get_agent_config",
+      "filePath": "routers/chronicle.py",
+      "summary": "Function get_agent_config() in routers/chronicle.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:routers/scribe.py",
+      "type": "file",
+      "name": "routers/scribe.py",
+      "filePath": "routers/scribe.py",
+      "summary": "File scribe.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:routers/scribe.py:ScribeHistoryRequest",
+      "type": "class",
+      "name": "ScribeHistoryRequest",
+      "filePath": "routers/scribe.py",
+      "summary": "Class ScribeHistoryRequest in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/scribe.py:scribe_history",
+      "type": "function",
+      "name": "scribe_history",
+      "filePath": "routers/scribe.py",
+      "summary": "Function scribe_history() in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:routers/scribe.py:PaintAssetRequest",
+      "type": "class",
+      "name": "PaintAssetRequest",
+      "filePath": "routers/scribe.py",
+      "summary": "Class PaintAssetRequest in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/scribe.py:paint_asset",
+      "type": "function",
+      "name": "paint_asset",
+      "filePath": "routers/scribe.py",
+      "summary": "Function paint_asset() in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:routers/scribe.py:ComposeTrackRequest",
+      "type": "class",
+      "name": "ComposeTrackRequest",
+      "filePath": "routers/scribe.py",
+      "summary": "Class ComposeTrackRequest in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/scribe.py:compose_track",
+      "type": "function",
+      "name": "compose_track",
+      "filePath": "routers/scribe.py",
+      "summary": "Function compose_track() in routers/scribe.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:routers/system.py",
+      "type": "file",
+      "name": "routers/system.py",
+      "filePath": "routers/system.py",
+      "summary": "File system.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:read_root",
+      "type": "function",
+      "name": "read_root",
+      "filePath": "routers/system.py",
+      "summary": "Function read_root() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:get_config",
+      "type": "function",
+      "name": "get_config",
+      "filePath": "routers/system.py",
+      "summary": "Function get_config() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:invalidate_cache",
+      "type": "function",
+      "name": "invalidate_cache",
+      "filePath": "routers/system.py",
+      "summary": "Function invalidate_cache() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:health_check",
+      "type": "function",
+      "name": "health_check",
+      "filePath": "routers/system.py",
+      "summary": "Function health_check() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:get_metrics",
+      "type": "function",
+      "name": "get_metrics",
+      "filePath": "routers/system.py",
+      "summary": "Function get_metrics() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:routers/system.py:get_pipeline_manifest",
+      "type": "function",
+      "name": "get_pipeline_manifest",
+      "filePath": "routers/system.py",
+      "summary": "Function get_pipeline_manifest() in routers/system.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "api",
+        "router",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:schemas.py",
+      "type": "file",
+      "name": "schemas.py",
+      "filePath": "schemas.py",
+      "summary": "Pydantic data schemas for narrative inputs, outputs, agents, events, and chronicle structures.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:NarrativeBeat",
+      "type": "class",
+      "name": "NarrativeBeat",
+      "filePath": "schemas.py",
+      "summary": "Class NarrativeBeat in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:HistoricalOutline",
+      "type": "class",
+      "name": "HistoricalOutline",
+      "filePath": "schemas.py",
+      "summary": "Class HistoricalOutline in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:Scene",
+      "type": "class",
+      "name": "Scene",
+      "filePath": "schemas.py",
+      "summary": "Class Scene in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VfxConfig",
+      "type": "class",
+      "name": "VfxConfig",
+      "filePath": "schemas.py",
+      "summary": "Class VfxConfig in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:Storyboard",
+      "type": "class",
+      "name": "Storyboard",
+      "filePath": "schemas.py",
+      "summary": "Class Storyboard in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:CriticReview",
+      "type": "class",
+      "name": "CriticReview",
+      "filePath": "schemas.py",
+      "summary": "Class CriticReview in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFBackground",
+      "type": "class",
+      "name": "VAFBackground",
+      "filePath": "schemas.py",
+      "summary": "Class VAFBackground in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFAtmosphere",
+      "type": "class",
+      "name": "VAFAtmosphere",
+      "filePath": "schemas.py",
+      "summary": "Class VAFAtmosphere in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFCameraMovement",
+      "type": "class",
+      "name": "VAFCameraMovement",
+      "filePath": "schemas.py",
+      "summary": "Class VAFCameraMovement in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFEffect",
+      "type": "class",
+      "name": "VAFEffect",
+      "filePath": "schemas.py",
+      "summary": "Class VAFEffect in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFTransition",
+      "type": "class",
+      "name": "VAFTransition",
+      "filePath": "schemas.py",
+      "summary": "Class VAFTransition in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:VAFScene",
+      "type": "class",
+      "name": "VAFScene",
+      "filePath": "schemas.py",
+      "summary": "Class VAFScene in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:schemas.py:AnimationScript",
+      "type": "class",
+      "name": "AnimationScript",
+      "filePath": "schemas.py",
+      "summary": "Class AnimationScript in schemas.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:state.py",
+      "type": "file",
+      "name": "state.py",
+      "filePath": "state.py",
+      "summary": "LangGraph state models for the narrative generation workflow with typed state transitions.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:state.py:NarrativeState",
+      "type": "class",
+      "name": "NarrativeState",
+      "filePath": "state.py",
+      "summary": "Class NarrativeState in state.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tasks/__init__.py",
+      "type": "file",
+      "name": "tasks/__init__.py",
+      "filePath": "tasks/__init__.py",
+      "summary": "File __init__.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "celery",
+        "task"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tasks/chronicle_task.py",
+      "type": "file",
+      "name": "tasks/chronicle_task.py",
+      "filePath": "tasks/chronicle_task.py",
+      "summary": "File chronicle_task.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "celery",
+        "task"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tasks/chronicle_task.py:weave_chronicle_task",
+      "type": "function",
+      "name": "weave_chronicle_task",
+      "filePath": "tasks/chronicle_task.py",
+      "summary": "Function weave_chronicle_task() in tasks/chronicle_task.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "celery",
+        "task",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test.txt",
+      "type": "file",
+      "name": "test.txt",
+      "filePath": "test.txt",
+      "summary": "File test.txt in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_ainvoke.py",
+      "type": "file",
+      "name": "test_ainvoke.py",
+      "filePath": "test_ainvoke.py",
+      "summary": "File test_ainvoke.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_ainvoke.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "test_ainvoke.py",
+      "summary": "Function main() in test_ainvoke.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_llm.py",
+      "type": "file",
+      "name": "test_llm.py",
+      "filePath": "test_llm.py",
+      "summary": "File test_llm.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_llm.py:test_local_llm",
+      "type": "function",
+      "name": "test_local_llm",
+      "filePath": "test_llm.py",
+      "summary": "Function test_local_llm() in test_llm.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_llm_standalone.py",
+      "type": "file",
+      "name": "test_llm_standalone.py",
+      "filePath": "test_llm_standalone.py",
+      "summary": "File test_llm_standalone.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_multi_ai.py",
+      "type": "file",
+      "name": "test_multi_ai.py",
+      "filePath": "test_multi_ai.py",
+      "summary": "File test_multi_ai.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_narrative_weave.py",
+      "type": "file",
+      "name": "test_narrative_weave.py",
+      "filePath": "test_narrative_weave.py",
+      "summary": "File test_narrative_weave.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_narrative_weave.py:run_test_weave",
+      "type": "function",
+      "name": "run_test_weave",
+      "filePath": "test_narrative_weave.py",
+      "summary": "Function run_test_weave() in test_narrative_weave.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_phase3.py",
+      "type": "file",
+      "name": "test_phase3.py",
+      "filePath": "test_phase3.py",
+      "summary": "File test_phase3.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_phase3.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "test_phase3.py",
+      "summary": "Function main() in test_phase3.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_pipeline_granular.py",
+      "type": "file",
+      "name": "test_pipeline_granular.py",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "File test_pipeline_granular.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_pipeline_granular.py:run_historian",
+      "type": "function",
+      "name": "run_historian",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "Function run_historian() in test_pipeline_granular.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_pipeline_granular.py:run_psychologist",
+      "type": "function",
+      "name": "run_psychologist",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "Function run_psychologist() in test_pipeline_granular.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_pipeline_granular.py:run_director",
+      "type": "function",
+      "name": "run_director",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "Function run_director() in test_pipeline_granular.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_pipeline_granular.py:run_wordsmith",
+      "type": "function",
+      "name": "run_wordsmith",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "Function run_wordsmith() in test_pipeline_granular.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:test_pipeline_granular.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "test_pipeline_granular.py",
+      "summary": "Function main() in test_pipeline_granular.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_agents.py",
+      "type": "file",
+      "name": "tests/test_agents.py",
+      "filePath": "tests/test_agents.py",
+      "summary": "File test_agents.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_llm",
+      "type": "function",
+      "name": "mock_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_narrative_state",
+      "type": "function",
+      "name": "mock_narrative_state",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_narrative_state() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_historian_agent",
+      "type": "function",
+      "name": "test_historian_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_historian_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_psychologist_agent",
+      "type": "function",
+      "name": "test_psychologist_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_psychologist_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_director_agent",
+      "type": "function",
+      "name": "test_director_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_director_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_wordsmith_agent",
+      "type": "function",
+      "name": "test_wordsmith_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_wordsmith_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_vfx_llm",
+      "type": "function",
+      "name": "mock_vfx_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_vfx_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:vfx_narrative_state",
+      "type": "function",
+      "name": "vfx_narrative_state",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function vfx_narrative_state() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_vfx_director_produces_animation_script",
+      "type": "function",
+      "name": "test_vfx_director_produces_animation_script",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_vfx_director_produces_animation_script() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_vfx_director_fallback_on_error",
+      "type": "function",
+      "name": "test_vfx_director_fallback_on_error",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_vfx_director_fallback_on_error() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:failing_invoke",
+      "type": "function",
+      "name": "failing_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function failing_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:extended_narrative_state",
+      "type": "function",
+      "name": "extended_narrative_state",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function extended_narrative_state() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_archivist_agent",
+      "type": "function",
+      "name": "test_archivist_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_archivist_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_chief_editor_llm",
+      "type": "function",
+      "name": "mock_chief_editor_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_chief_editor_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_chief_editor_agent",
+      "type": "function",
+      "name": "test_chief_editor_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_chief_editor_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_critic_agent_pass",
+      "type": "function",
+      "name": "test_critic_agent_pass",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_critic_agent_pass() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "function",
+      "name": "mock_structured_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_structured_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_critic_agent_fail",
+      "type": "function",
+      "name": "test_critic_agent_fail",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_critic_agent_fail() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "function",
+      "name": "mock_structured_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_structured_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_mythologist_llm",
+      "type": "function",
+      "name": "mock_mythologist_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_mythologist_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_mythologist_agent",
+      "type": "function",
+      "name": "test_mythologist_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_mythologist_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_news_anchor_llm",
+      "type": "function",
+      "name": "mock_news_anchor_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_news_anchor_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_news_anchor_agent",
+      "type": "function",
+      "name": "test_news_anchor_agent",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_news_anchor_agent() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_news_anchor_fallback",
+      "type": "function",
+      "name": "test_news_anchor_fallback",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_news_anchor_fallback() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:failing_invoke",
+      "type": "function",
+      "name": "failing_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function failing_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_artifact_llm",
+      "type": "function",
+      "name": "mock_artifact_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_artifact_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "function",
+      "name": "mock_structured_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_structured_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_celebrity_llm",
+      "type": "function",
+      "name": "mock_celebrity_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_celebrity_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "function",
+      "name": "mock_structured_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_structured_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_history_llm",
+      "type": "function",
+      "name": "mock_history_llm",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_history_llm() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "function",
+      "name": "mock_structured_invoke",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function mock_structured_invoke() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_artifact_forger",
+      "type": "function",
+      "name": "test_artifact_forger",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_artifact_forger() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_celebrity_synthesizer",
+      "type": "function",
+      "name": "test_celebrity_synthesizer",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_celebrity_synthesizer() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_history_scribe_high_impact",
+      "type": "function",
+      "name": "test_history_scribe_high_impact",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_history_scribe_high_impact() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_agents.py:test_history_scribe_low_impact_fallback",
+      "type": "function",
+      "name": "test_history_scribe_low_impact_fallback",
+      "filePath": "tests/test_agents.py",
+      "summary": "Function test_history_scribe_low_impact_fallback() in tests/test_agents.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_health.py",
+      "type": "file",
+      "name": "tests/test_health.py",
+      "filePath": "tests/test_health.py",
+      "summary": "File test_health.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/test_health.py:client_and_mocks",
+      "type": "function",
+      "name": "client_and_mocks",
+      "filePath": "tests/test_health.py",
+      "summary": "Function client_and_mocks() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:client",
+      "type": "function",
+      "name": "client",
+      "filePath": "tests/test_health.py",
+      "summary": "Function client() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_health_healthy",
+      "type": "function",
+      "name": "test_health_healthy",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_health_healthy() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_health_degraded_redis_down",
+      "type": "function",
+      "name": "test_health_degraded_redis_down",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_health_degraded_redis_down() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_health_redis_unavailable",
+      "type": "function",
+      "name": "test_health_redis_unavailable",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_health_redis_unavailable() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_health_celery_down",
+      "type": "function",
+      "name": "test_health_celery_down",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_health_celery_down() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_health_llm_pool_error",
+      "type": "function",
+      "name": "test_health_llm_pool_error",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_health_llm_pool_error() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_metrics_empty",
+      "type": "function",
+      "name": "test_metrics_empty",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_metrics_empty() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_metrics_with_data",
+      "type": "function",
+      "name": "test_metrics_with_data",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_metrics_with_data() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_health.py:test_metrics_pipeline_error_tracking",
+      "type": "function",
+      "name": "test_metrics_pipeline_error_tracking",
+      "filePath": "tests/test_health.py",
+      "summary": "Function test_metrics_pipeline_error_tracking() in tests/test_health.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_pipeline.py",
+      "type": "file",
+      "name": "tests/test_pipeline.py",
+      "filePath": "tests/test_pipeline.py",
+      "summary": "File test_pipeline.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_pipeline.py:mock_llm_factory",
+      "type": "function",
+      "name": "mock_llm_factory",
+      "filePath": "tests/test_pipeline.py",
+      "summary": "Function mock_llm_factory() in tests/test_pipeline.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_pipeline.py:mock_invoke",
+      "type": "function",
+      "name": "mock_invoke",
+      "filePath": "tests/test_pipeline.py",
+      "summary": "Function mock_invoke() in tests/test_pipeline.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_pipeline.py:test_complete_narrative_pipeline",
+      "type": "function",
+      "name": "test_complete_narrative_pipeline",
+      "filePath": "tests/test_pipeline.py",
+      "summary": "Function test_complete_narrative_pipeline() in tests/test_pipeline.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_validation.py",
+      "type": "file",
+      "name": "tests/test_validation.py",
+      "filePath": "tests/test_validation.py",
+      "summary": "File test_validation.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_valid_request",
+      "type": "function",
+      "name": "test_valid_request",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_valid_request() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_valid_request_minimal",
+      "type": "function",
+      "name": "test_valid_request_minimal",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_valid_request_minimal() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_world_id_zero_rejected",
+      "type": "function",
+      "name": "test_world_id_zero_rejected",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_world_id_zero_rejected() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_world_id_negative_rejected",
+      "type": "function",
+      "name": "test_world_id_negative_rejected",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_world_id_negative_rejected() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_tick_end_before_start_rejected",
+      "type": "function",
+      "name": "test_tick_end_before_start_rejected",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_tick_end_before_start_rejected() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_tick_end_equal_start_ok",
+      "type": "function",
+      "name": "test_tick_end_equal_start_ok",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_tick_end_equal_start_ok() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_tick_end_without_start_ok",
+      "type": "function",
+      "name": "test_tick_end_without_start_ok",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_tick_end_without_start_ok() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_tick_start_without_end_ok",
+      "type": "function",
+      "name": "test_tick_start_without_end_ok",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_tick_start_without_end_ok() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_defaults",
+      "type": "function",
+      "name": "test_defaults",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_defaults() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_whispers_list",
+      "type": "function",
+      "name": "test_whispers_list",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_whispers_list() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/test_validation.py:test_ai_runtime_dict",
+      "type": "function",
+      "name": "test_ai_runtime_dict",
+      "filePath": "tests/test_validation.py",
+      "summary": "Function test_ai_runtime_dict() in tests/test_validation.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "test",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:utils/cache_manager.py",
+      "type": "file",
+      "name": "utils/cache_manager.py",
+      "filePath": "utils/cache_manager.py",
+      "summary": "File cache_manager.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:utils/cache_manager.py:WorldOsCacheManager",
+      "type": "class",
+      "name": "WorldOsCacheManager",
+      "filePath": "utils/cache_manager.py",
+      "summary": "Class WorldOsCacheManager in utils/cache_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/cache_manager.py:get_cached_narrative",
+      "type": "function",
+      "name": "get_cached_narrative",
+      "filePath": "utils/cache_manager.py",
+      "summary": "Function get_cached_narrative() in utils/cache_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/cache_manager.py:set_cached_narrative",
+      "type": "function",
+      "name": "set_cached_narrative",
+      "filePath": "utils/cache_manager.py",
+      "summary": "Function set_cached_narrative() in utils/cache_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/cache_manager.py:invalidate_world_cache",
+      "type": "function",
+      "name": "invalidate_world_cache",
+      "filePath": "utils/cache_manager.py",
+      "summary": "Function invalidate_world_cache() in utils/cache_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:utils/llm_factory.py",
+      "type": "file",
+      "name": "utils/llm_factory.py",
+      "filePath": "utils/llm_factory.py",
+      "summary": "File llm_factory.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:utils/llm_factory.py:TickBasedCache",
+      "type": "class",
+      "name": "TickBasedCache",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Class TickBasedCache in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/llm_factory.py:lookup",
+      "type": "function",
+      "name": "lookup",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Function lookup() in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/llm_factory.py:update",
+      "type": "function",
+      "name": "update",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Function update() in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/llm_factory.py:clear",
+      "type": "function",
+      "name": "clear",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Function clear() in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/llm_factory.py:get_llm_for_agent",
+      "type": "function",
+      "name": "get_llm_for_agent",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Function get_llm_for_agent() in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/llm_factory.py:get_llm",
+      "type": "function",
+      "name": "get_llm",
+      "filePath": "utils/llm_factory.py",
+      "summary": "Function get_llm() in utils/llm_factory.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:utils/manifesto_loader.py",
+      "type": "file",
+      "name": "utils/manifesto_loader.py",
+      "filePath": "utils/manifesto_loader.py",
+      "summary": "File manifesto_loader.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:utils/manifesto_loader.py:ManifestoLoader",
+      "type": "class",
+      "name": "ManifestoLoader",
+      "filePath": "utils/manifesto_loader.py",
+      "summary": "Class ManifestoLoader in utils/manifesto_loader.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/manifesto_loader.py:get_era_context",
+      "type": "function",
+      "name": "get_era_context",
+      "filePath": "utils/manifesto_loader.py",
+      "summary": "Function get_era_context() in utils/manifesto_loader.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/manifesto_loader.py:get_vfx_hints",
+      "type": "function",
+      "name": "get_vfx_hints",
+      "filePath": "utils/manifesto_loader.py",
+      "summary": "Function get_vfx_hints() in utils/manifesto_loader.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/manifesto_loader.py:get_power_manifesto",
+      "type": "function",
+      "name": "get_power_manifesto",
+      "filePath": "utils/manifesto_loader.py",
+      "summary": "Function get_power_manifesto() in utils/manifesto_loader.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:utils/memory_manager.py",
+      "type": "file",
+      "name": "utils/memory_manager.py",
+      "filePath": "utils/memory_manager.py",
+      "summary": "File memory_manager.py in the NarrativeLoom AI narrative generation service.",
+      "tags": [
+        "narrative",
+        "ai"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:utils/memory_manager.py:EpisodicMemoryManager",
+      "type": "class",
+      "name": "EpisodicMemoryManager",
+      "filePath": "utils/memory_manager.py",
+      "summary": "Class EpisodicMemoryManager in utils/memory_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/memory_manager.py:store_memory",
+      "type": "function",
+      "name": "store_memory",
+      "filePath": "utils/memory_manager.py",
+      "summary": "Function store_memory() in utils/memory_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:utils/memory_manager.py:retrieve_memories",
+      "type": "function",
+      "name": "retrieve_memories",
+      "filePath": "utils/memory_manager.py",
+      "summary": "Function retrieve_memories() in utils/memory_manager.py",
+      "tags": [
+        "narrative",
+        "ai",
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "concept:narrative-pipeline",
+      "type": "concept",
+      "name": "Narrative Pipeline",
+      "filePath": null,
+      "summary": "LangGraph-based multi-phase pipeline that generates AI narratives through agent collaboration.",
+      "tags": [
+        "narrative",
+        "langgraph",
+        "pipeline"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "concept:specialized-agents",
+      "type": "concept",
+      "name": "Specialized AI Agents",
+      "filePath": null,
+      "summary": "Collection of LLM-powered agents (director, critic, historian, wordsmith, etc.) each handling a specific narrative task.",
+      "tags": [
+        "agents",
+        "llm",
+        "multi-agent"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "concept:narrative-engines",
+      "type": "concept",
+      "name": "Narrative Engines",
+      "filePath": null,
+      "summary": "Analysis and generation engines for arcs, attractors, entropy, style, singularity, and event normalization.",
+      "tags": [
+        "engines",
+        "analysis"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "concept:chronicle-production",
+      "type": "concept",
+      "name": "Chronicle Production",
+      "filePath": null,
+      "summary": "End-to-end chronicle assembly, editing, and delivery pipeline from raw simulation events to polished narrative.",
+      "tags": [
+        "chronicle",
+        "production"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:agents/archivist.py",
+      "target": "function:agents/archivist.py:archivist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/art_director.py",
+      "target": "function:agents/art_director.py:generate_visual_asset",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/artifact_forger.py",
+      "target": "class:agents/artifact_forger.py:ArtifactOutput",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/artifact_forger.py",
+      "target": "function:agents/artifact_forger.py:forge_artifact",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/artifact_forger.py",
+      "target": "function:agents/artifact_forger.py:artifact_forger_api",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/audio_director.py",
+      "target": "class:agents/audio_director.py:AudioDirectorAgent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/audio_director.py",
+      "target": "function:agents/audio_director.py:compose_soundtrack",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/celebrity_synthesizer.py",
+      "target": "class:agents/celebrity_synthesizer.py:CelebrityOutput",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/celebrity_synthesizer.py",
+      "target": "function:agents/celebrity_synthesizer.py:synthesize_celebrity",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/celebrity_synthesizer.py",
+      "target": "function:agents/celebrity_synthesizer.py:celebrity_synthesizer_api",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/chief_editor.py",
+      "target": "function:agents/chief_editor.py:chief_editor_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/critic.py",
+      "target": "function:agents/critic.py:critic_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/director.py",
+      "target": "function:agents/director.py:director_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/historian.py",
+      "target": "function:agents/historian.py:historian_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/history_scribe.py",
+      "target": "function:agents/history_scribe.py:scribe_history",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/history_scribe.py",
+      "target": "function:agents/history_scribe.py:history_scribe_api",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "class:agents/intent_agent.py:UniverseContextIn",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "class:agents/intent_agent.py:ActorIntentRequest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "class:agents/intent_agent.py:ActorIntentResponse",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "function:agents/intent_agent.py:intent_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/mythologist.py",
+      "target": "function:agents/mythologist.py:mythologist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/news_anchor.py",
+      "target": "class:agents/news_anchor.py:NewsHeadline",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/news_anchor.py",
+      "target": "function:agents/news_anchor.py:news_anchor_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/psychologist.py",
+      "target": "function:agents/psychologist.py:psychologist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/vfx_director.py",
+      "target": "class:agents/vfx_director.py:VFXConfig",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/vfx_director.py",
+      "target": "class:agents/vfx_director.py:VFXDirectorOutput",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/vfx_director.py",
+      "target": "function:agents/vfx_director.py:vfx_director_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:agents/wordsmith.py",
+      "target": "function:agents/wordsmith.py:wordsmith_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "class:benchmark_cache.py:MockRedis",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:ping",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:get",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:set",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:delete",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:sadd",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:smembers",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "class:benchmark_cache.py:WorldOsCacheManager",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:get_cached_narrative",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:set_cached_narrative",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:benchmark_cache.py",
+      "target": "function:benchmark_cache.py:run_validation",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/agent_wrapper.py",
+      "target": "function:core/agent_wrapper.py:historian_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/agent_wrapper.py",
+      "target": "function:core/agent_wrapper.py:agent_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/agent_wrapper.py",
+      "target": "function:core/agent_wrapper.py:historian_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/agent_wrapper.py",
+      "target": "function:core/agent_wrapper.py:decorator",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/agent_wrapper.py",
+      "target": "function:core/agent_wrapper.py:wrapper",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_event",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_pipeline_started",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_agent_started",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_agent_done",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_agent_error",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_pipeline_done",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/centrifugo.py",
+      "target": "function:core/centrifugo.py:publish_pipeline_error",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/exceptions.py",
+      "target": "class:core/exceptions.py:NarrativeLoomError",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/exceptions.py",
+      "target": "class:core/exceptions.py:TransientLLMError",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/exceptions.py",
+      "target": "class:core/exceptions.py:PermanentLLMError",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/exceptions.py",
+      "target": "class:core/exceptions.py:PipelineError",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/langfuse_setup.py",
+      "target": "function:core/langfuse_setup.py:get_langfuse_callback",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/langfuse_setup.py",
+      "target": "function:core/langfuse_setup.py:flush_langfuse",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/logging.py",
+      "target": "function:core/logging.py:configure_logging",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/logging.py",
+      "target": "function:core/logging.py:get_logger",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/metrics.py",
+      "target": "class:core/metrics.py:AgentMetric",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/metrics.py",
+      "target": "class:core/metrics.py:MetricsCollector",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/metrics.py",
+      "target": "function:core/metrics.py:record_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/metrics.py",
+      "target": "function:core/metrics.py:record_pipeline",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:core/metrics.py",
+      "target": "function:core/metrics.py:snapshot",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/arc_engine.py",
+      "target": "class:engines/arc_engine.py:DramaticArcEngine",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/arc_engine.py",
+      "target": "function:engines/arc_engine.py:tension",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/arc_engine.py",
+      "target": "function:engines/arc_engine.py:build",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/arc_engine.py",
+      "target": "function:engines/arc_engine.py:arc_engine_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "class:engines/attractor_engine.py:AttractorFieldEngine",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "function:engines/attractor_engine.py:classify",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "function:engines/attractor_engine.py:group",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "function:engines/attractor_engine.py:strength",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "function:engines/attractor_engine.py:attractor_engine_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:temporal_weight",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "class:engines/entropy_engine.py:NarrativeEntropyEngine",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:rarity",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:character_impact",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:political_impact",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:chaos_delta",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:score_event",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:select_events",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "function:engines/entropy_engine.py:entropy_engine_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/event_normalizer.py",
+      "target": "class:engines/event_normalizer.py:EventNormalizer",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/event_normalizer.py",
+      "target": "function:engines/event_normalizer.py:normalize_event",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/event_normalizer.py",
+      "target": "function:engines/event_normalizer.py:event_normalizer_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "class:engines/phase_engine.py:NarrativePhaseEngine",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "function:engines/phase_engine.py:event_density",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "function:engines/phase_engine.py:actor_diversity",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "function:engines/phase_engine.py:tension_energy",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "function:engines/phase_engine.py:detect",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "function:engines/phase_engine.py:phase_engine_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "class:engines/singularity_engine.py:NarrativeSingularityEngine",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "function:engines/singularity_engine.py:actor_gravity",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "function:engines/singularity_engine.py:event_energy",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "function:engines/singularity_engine.py:attractor_convergence",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "function:engines/singularity_engine.py:detect",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "function:engines/singularity_engine.py:singularity_engine_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:engines/style_analyzer.py",
+      "target": "function:engines/style_analyzer.py:style_analyzer_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:graph.py",
+      "target": "function:graph.py:check_revision",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "function:graph_builder.py:check_revision",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "function:graph_builder.py:build_graph",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mock_data.py",
+      "target": "function:mock_data.py:get_mock_historian_state",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:nodes/universe_bridge.py",
+      "target": "function:nodes/universe_bridge.py:universe_bridge_node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:nodes/universe_bridge.py",
+      "target": "function:nodes/universe_bridge.py:record_universe_whisper",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/actors.py",
+      "target": "function:routers/actors.py:actor_intent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/actors.py",
+      "target": "function:routers/actors.py:api_weave_celebrity",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/actors.py",
+      "target": "function:routers/actors.py:api_forge_artifact",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "class:routers/chronicle.py:ChronicleRequest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "function:routers/chronicle.py:world_id_positive",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "function:routers/chronicle.py:tick_end_after_start",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "function:routers/chronicle.py:weave_chronicles",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "function:routers/chronicle.py:get_task_status",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "function:routers/chronicle.py:get_agent_config",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "class:routers/scribe.py:ScribeHistoryRequest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "function:routers/scribe.py:scribe_history",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "class:routers/scribe.py:PaintAssetRequest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "function:routers/scribe.py:paint_asset",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "class:routers/scribe.py:ComposeTrackRequest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "function:routers/scribe.py:compose_track",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:read_root",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:get_config",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:invalidate_cache",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:health_check",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:get_metrics",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:routers/system.py",
+      "target": "function:routers/system.py:get_pipeline_manifest",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:NarrativeBeat",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:HistoricalOutline",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:Scene",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VfxConfig",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:Storyboard",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:CriticReview",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFBackground",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFAtmosphere",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFCameraMovement",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFEffect",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFTransition",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:VAFScene",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "class:schemas.py:AnimationScript",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:state.py",
+      "target": "class:state.py:NarrativeState",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tasks/chronicle_task.py",
+      "target": "function:tasks/chronicle_task.py:weave_chronicle_task",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_ainvoke.py",
+      "target": "function:test_ainvoke.py:main",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_llm.py",
+      "target": "function:test_llm.py:test_local_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_narrative_weave.py",
+      "target": "function:test_narrative_weave.py:run_test_weave",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_phase3.py",
+      "target": "function:test_phase3.py:main",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_pipeline_granular.py",
+      "target": "function:test_pipeline_granular.py:run_historian",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_pipeline_granular.py",
+      "target": "function:test_pipeline_granular.py:run_psychologist",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_pipeline_granular.py",
+      "target": "function:test_pipeline_granular.py:run_director",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_pipeline_granular.py",
+      "target": "function:test_pipeline_granular.py:run_wordsmith",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:test_pipeline_granular.py",
+      "target": "function:test_pipeline_granular.py:main",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_narrative_state",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_historian_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_psychologist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_director_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_wordsmith_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_vfx_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:vfx_narrative_state",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_vfx_director_produces_animation_script",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_vfx_director_fallback_on_error",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:failing_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:extended_narrative_state",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_archivist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_chief_editor_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_chief_editor_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_critic_agent_pass",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_critic_agent_fail",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_mythologist_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_mythologist_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_news_anchor_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_news_anchor_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_news_anchor_fallback",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:failing_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_artifact_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_celebrity_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_history_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:mock_structured_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_artifact_forger",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_celebrity_synthesizer",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_history_scribe_high_impact",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_agents.py",
+      "target": "function:tests/test_agents.py:test_history_scribe_low_impact_fallback",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:client_and_mocks",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:client",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_health_healthy",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_health_degraded_redis_down",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_health_redis_unavailable",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_health_celery_down",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_health_llm_pool_error",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_metrics_empty",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_metrics_with_data",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_health.py",
+      "target": "function:tests/test_health.py:test_metrics_pipeline_error_tracking",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_pipeline.py",
+      "target": "function:tests/test_pipeline.py:mock_llm_factory",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_pipeline.py",
+      "target": "function:tests/test_pipeline.py:mock_invoke",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_pipeline.py",
+      "target": "function:tests/test_pipeline.py:test_complete_narrative_pipeline",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_valid_request",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_valid_request_minimal",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_world_id_zero_rejected",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_world_id_negative_rejected",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_tick_end_before_start_rejected",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_tick_end_equal_start_ok",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_tick_end_without_start_ok",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_tick_start_without_end_ok",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_defaults",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_whispers_list",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_validation.py",
+      "target": "function:tests/test_validation.py:test_ai_runtime_dict",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/cache_manager.py",
+      "target": "class:utils/cache_manager.py:WorldOsCacheManager",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/cache_manager.py",
+      "target": "function:utils/cache_manager.py:get_cached_narrative",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/cache_manager.py",
+      "target": "function:utils/cache_manager.py:set_cached_narrative",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/cache_manager.py",
+      "target": "function:utils/cache_manager.py:invalidate_world_cache",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "class:utils/llm_factory.py:TickBasedCache",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "function:utils/llm_factory.py:lookup",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "function:utils/llm_factory.py:update",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "function:utils/llm_factory.py:clear",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "function:utils/llm_factory.py:get_llm_for_agent",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/llm_factory.py",
+      "target": "function:utils/llm_factory.py:get_llm",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/manifesto_loader.py",
+      "target": "class:utils/manifesto_loader.py:ManifestoLoader",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/manifesto_loader.py",
+      "target": "function:utils/manifesto_loader.py:get_era_context",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/manifesto_loader.py",
+      "target": "function:utils/manifesto_loader.py:get_vfx_hints",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/manifesto_loader.py",
+      "target": "function:utils/manifesto_loader.py:get_power_manifesto",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/memory_manager.py",
+      "target": "class:utils/memory_manager.py:EpisodicMemoryManager",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/memory_manager.py",
+      "target": "function:utils/memory_manager.py:store_memory",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:utils/memory_manager.py",
+      "target": "function:utils/memory_manager.py:retrieve_memories",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:routers/actors.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:routers/chronicle.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:routers/scribe.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:routers/system.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:graph.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:graph.py",
+      "target": "file:graph_builder.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "file:agents/director.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "file:agents/chief_editor.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "file:engines/phase_engine.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:agents/director.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/director.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/chief_editor.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/chief_editor.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/critic.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/critic.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/historian.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/historian.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/news_anchor.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/news_anchor.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/wordsmith.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/wordsmith.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/archivist.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/archivist.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/intent_agent.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/psychologist.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/psychologist.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/mythologist.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/mythologist.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/history_scribe.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/history_scribe.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/art_director.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/art_director.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/vfx_director.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/vfx_director.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/audio_director.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/audio_director.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/celebrity_synthesizer.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/celebrity_synthesizer.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/artifact_forger.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:agents/artifact_forger.py",
+      "target": "file:core/logging.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/arc_engine.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/attractor_engine.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/entropy_engine.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/event_normalizer.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/phase_engine.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/singularity_engine.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:engines/style_analyzer.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:routers/actors.py",
+      "target": "file:core/agent_wrapper.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:routers/chronicle.py",
+      "target": "file:tasks/chronicle_task.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:routers/scribe.py",
+      "target": "file:core/centrifugo.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tasks/chronicle_task.py",
+      "target": "file:core/celery_app.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tasks/chronicle_task.py",
+      "target": "file:graph.py",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/celery_app.py",
+      "target": "file:core/__init__.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:graph.py",
+      "target": "file:schemas.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:graph_builder.py",
+      "target": "file:schemas.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:schemas.py",
+      "target": "file:schemas.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:state.py",
+      "target": "file:schemas.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:state.py",
+      "target": "file:schemas.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "concept:narrative-pipeline",
+      "target": "file:graph.py",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "concept:specialized-agents",
+      "target": "file:agents/director.py",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "concept:narrative-engines",
+      "target": "file:engines/__init__.py",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "concept:chronicle-production",
+      "target": "file:tasks/chronicle_task.py",
+      "type": "contains",
+      "weight": 1.0
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:entrypoint-config",
+      "name": "Entrypoint & Configuration",
+      "description": "FastAPI entry point, Dockerfile, and dependency manifests.",
+      "nodeIds": [
+        "file:main.py",
+        "service:Dockerfile",
+        "file:.dockerignore",
+        "config:requirements.txt",
+        "config:requirements_windows.txt"
+      ]
+    },
+    {
+      "id": "layer:narrative-graph",
+      "name": "LangGraph Narrative Pipeline",
+      "description": "State machine, graph builder, state models, and schemas defining the narrative generation workflow.",
+      "nodeIds": [
+        "file:graph.py",
+        "file:graph_builder.py",
+        "file:state.py",
+        "file:schemas.py",
+        "file:mock_data.py"
+      ]
+    },
+    {
+      "id": "layer:specialized-agents",
+      "name": "Specialized AI Agents",
+      "description": "LLM-powered agents (16) handling directing, editing, criticism, history, myth, news, art, audio, VFX, and artifact generation.",
+      "nodeIds": [
+        "file:agents/archivist.py",
+        "file:agents/art_director.py",
+        "file:agents/artifact_forger.py",
+        "file:agents/audio_director.py",
+        "file:agents/celebrity_synthesizer.py",
+        "file:agents/chief_editor.py",
+        "file:agents/critic.py",
+        "file:agents/director.py",
+        "file:agents/historian.py",
+        "file:agents/history_scribe.py",
+        "file:agents/intent_agent.py",
+        "file:agents/mythologist.py",
+        "file:agents/news_anchor.py",
+        "file:agents/psychologist.py",
+        "file:agents/vfx_director.py",
+        "file:agents/wordsmith.py"
+      ]
+    },
+    {
+      "id": "layer:narrative-engines",
+      "name": "Narrative Engines",
+      "description": "Analysis engines for arcs, attractors, entropy, event normalization, phase management, singularity, and style.",
+      "nodeIds": [
+        "file:engines/__init__.py",
+        "file:engines/arc_engine.py",
+        "file:engines/attractor_engine.py",
+        "file:engines/entropy_engine.py",
+        "file:engines/event_normalizer.py",
+        "file:engines/phase_engine.py",
+        "file:engines/singularity_engine.py",
+        "file:engines/style_analyzer.py"
+      ]
+    },
+    {
+      "id": "layer:core-infrastructure",
+      "name": "Core Infrastructure",
+      "description": "Agent wrapper, Celery app, Centrifugo client, metrics, logging, exceptions, and LangFuse setup.",
+      "nodeIds": [
+        "file:core/__init__.py",
+        "file:core/agent_wrapper.py",
+        "file:core/celery_app.py",
+        "file:core/centrifugo.py",
+        "file:core/exceptions.py",
+        "file:core/langfuse_setup.py",
+        "file:core/logging.py",
+        "file:core/metrics.py",
+        "file:core/pipeline_manifest.py"
+      ]
+    },
+    {
+      "id": "layer:api-routers",
+      "name": "API Routers",
+      "description": "FastAPI route handlers for actors, chronicle, scribe, and system operations.",
+      "nodeIds": [
+        "file:routers/__init__.py",
+        "file:routers/actors.py",
+        "file:routers/chronicle.py",
+        "file:routers/scribe.py",
+        "file:routers/system.py"
+      ]
+    },
+    {
+      "id": "layer:background-tasks",
+      "name": "Background Tasks",
+      "description": "Celery task definitions for async chronicle generation.",
+      "nodeIds": [
+        "file:tasks/__init__.py",
+        "file:tasks/chronicle_task.py"
+      ]
+    },
+    {
+      "id": "layer:knowledge-data",
+      "name": "Knowledge & Configuration Data",
+      "description": "Structured knowledge data \u2014 era definitions, agent routing config, and power manifestos.",
+      "nodeIds": [
+        "config:knowledge/era_definitions.json",
+        "config:knowledge/power_manifestos.json",
+        "config:configs/agent_routing.json"
+      ]
+    },
+    {
+      "id": "layer:docs-and-tests",
+      "name": "Documentation & Tests",
+      "description": "README, test scripts, and benchmark utilities.",
+      "nodeIds": [
+        "document:README.md",
+        "file:test_ainvoke.py",
+        "file:test_llm.py",
+        "file:test_llm_standalone.py",
+        "file:test_multi_ai.py",
+        "file:test_narrative_weave.py",
+        "file:test_phase3.py",
+        "file:test_pipeline_granular.py",
+        "file:tests/test_agents.py",
+        "file:tests/test_health.py",
+        "file:tests/test_pipeline.py",
+        "file:tests/test_validation.py"
+      ]
+    },
+    {
+      "id": "layer:other",
+      "name": "Other",
+      "description": "Unassigned files.",
+      "nodeIds": [
+        "file:benchmark_cache.py",
+        "file:nodes/universe_bridge.py",
+        "file:test.txt",
+        "file:utils/cache_manager.py",
+        "file:utils/llm_factory.py",
+        "file:utils/manifesto_loader.py",
+        "file:utils/memory_manager.py"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Service Overview",
+      "description": "Start from the FastAPI entry point and README to understand NarrativeLoom purpose and architecture.",
+      "nodeIds": [
+        "file:main.py",
+        "document:README.md",
+        "service:Dockerfile"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "LangGraph Narrative Pipeline",
+      "description": "Explore the core narrative state machine and graph builder that orchestrate AI narrative generation.",
+      "nodeIds": [
+        "concept:narrative-pipeline",
+        "file:graph.py",
+        "file:graph_builder.py",
+        "file:state.py",
+        "file:schemas.py"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Director & Editorial Agents",
+      "description": "See how the Director and Chief Editor coordinate narrative flow and quality control.",
+      "nodeIds": [
+        "file:agents/director.py",
+        "file:agents/chief_editor.py",
+        "file:agents/critic.py",
+        "file:agents/intent_agent.py"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Narrative Creation Agents",
+      "description": "Wordsmith, Historian, News Anchor, and other agents that produce narrative content.",
+      "nodeIds": [
+        "file:agents/wordsmith.py",
+        "file:agents/historian.py",
+        "file:agents/news_anchor.py",
+        "file:agents/mythologist.py",
+        "file:agents/history_scribe.py"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Narrative Analysis Engines",
+      "description": "Analysis engines for style, arcs, attractors, entropy, and phase management.",
+      "nodeIds": [
+        "concept:narrative-engines",
+        "file:engines/style_analyzer.py",
+        "file:engines/arc_engine.py",
+        "file:engines/phase_engine.py",
+        "file:engines/entropy_engine.py"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "API & Background Tasks",
+      "description": "REST endpoints and Celery tasks that expose and execute narrative generation.",
+      "nodeIds": [
+        "file:routers/chronicle.py",
+        "file:routers/actors.py",
+        "file:tasks/chronicle_task.py",
+        "file:core/celery_app.py"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Knowledge & Configuration",
+      "description": "Knowledge data, era definitions, and agent routing configuration for world-building.",
+      "nodeIds": []
+    }
+  ]
+}

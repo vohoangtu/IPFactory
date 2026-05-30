@@ -76,12 +76,24 @@ impl UniverseState {
 mod tests {
     use super::*;
     use crate::types::WorldConfig;
+
+    fn make_zone(knowledge: f64, wealth: f64, entropy: f64) -> ZoneState {
+        let mut z = ZoneState::new(100.0);
+        z.knowledge_frontier = knowledge;
+        z.tech_ceiling = 1.0;
+        z.free_energy = 80.0;
+        z.entropy = entropy;
+        z.civ_fields.knowledge = knowledge;
+        z.civ_fields.wealth = wealth;
+        z.civ_fields.power = 0.4;
+        z
+    }
+
     /// Deity interventions must not break boundedness invariants.
     #[test]
     fn test_deity_intervention_boundedness() {
         let mut state = UniverseState::with_one_zone(1, 100.0);
 
-        // Apply many interventions of different types in succession
         let trait_indices = [0, 1, 2, 4, 5, 8, 11, 14, 99];
         for _ in 0..50 {
             for &ti in &trait_indices {
@@ -101,22 +113,35 @@ mod tests {
         assert!(z.material_stress >= 0.0 && z.material_stress <= 1.0,
             "After deity interventions: material_stress={} out of [0,1]", z.material_stress);
     }
+
+    #[test]
+    fn test_deity_intervention_single_invalid_index_is_noop() {
+        let mut state = UniverseState::with_one_zone(1, 100.0);
+        let before = state.zones[0].state.entropy;
+
+        // Invalid trait index should not panic.
+        state.perform_deity_intervention(0, 999);
+        state.perform_deity_intervention(0, usize::MAX);
+
+        assert!((state.zones[0].state.entropy - before).abs() < 1e-6,
+            "invalid indices should not change state");
+    }
+
+    #[test]
+    fn test_deity_intervention_zero_zones_is_noop() {
+        let mut state = UniverseState::new(1);
+        assert!(state.zones.is_empty());
+
+        // Should not panic with no zones.
+        state.perform_deity_intervention(0, 0);
+    }
+
     /// Level-8 Intelligence & Narrative: verify archetype discovery and tag generation.
     #[test]
     fn test_intelligence_and_narrative() {
         let world = WorldConfig { world_id: 1, ..Default::default() };
         let mut state = UniverseState::new(1);
-        
-        // Setup a Tech-heavy zone
-        let mut z = ZoneState::new(100.0);
-        z.knowledge_frontier = 0.8;
-        z.tech_ceiling = 1.0;
-        z.free_energy = 80.0;
-        z.entropy = 0.1;
-        
-        z.civ_fields.knowledge = 0.9;
-        z.civ_fields.wealth = 0.7;
-        z.civ_fields.power = 0.4;
+        let mut z = make_zone(0.8, 0.7, 0.1);
         z.civ_fields.survival = 0.4;
         z.civ_fields.meaning = 0.2;
         

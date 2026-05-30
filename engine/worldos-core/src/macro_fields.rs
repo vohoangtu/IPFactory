@@ -75,9 +75,10 @@ impl MacroFieldEngine {
             entropy_macro: avg_entropy.clamp(0.0, 1.0),
             resonance: (0.5 * state.global_fields.meaning + 0.5 * (1.0 - avg_entropy)).clamp(0.0, 1.0),
             
-            reproduction: 0.5, // placeholders for now
-            status: 0.5,
-            belonging: 0.5,
+            // Social dynamics: derived from population pressure, survival, and cohesion.
+            reproduction: (0.6 * avg_pop + 0.4 * (1.0 - avg_stress)).clamp(0.0, 1.0),
+            status: (0.5 * state.global_fields.authority + 0.3 * avg_wealth + 0.2 * state.global_fields.power).clamp(0.0, 1.0),
+            belonging: (0.4 * state.global_fields.order_macro + 0.4 * state.global_fields.meaning + 0.2 * resonance).clamp(0.0, 1.0),
         }
     }
 }

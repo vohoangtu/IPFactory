@@ -1,0 +1,4555 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "6e5935c8c7b78f5003d06a8a522792b4249c17d3",
+  "generatedAt": "2026-05-30T05:26:08.185Z",
+  "files": {
+    "common/worldos_cache.py": {
+      "filePath": "common/worldos_cache.py",
+      "contentHash": "8bdad877d2b20236a1bb32df2d93057cbcfb97eb127088f8fab46186bac74fce",
+      "functions": [],
+      "classes": [
+        {
+          "name": "WorldOsHybridCache",
+          "methods": [
+            "__init__",
+            "embedder",
+            "_generate_exact_key",
+            "get_response",
+            "set_response",
+            "wrap_llm_call"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 89
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Dict",
+            "Any",
+            "Optional",
+            "Union"
+          ]
+        },
+        {
+          "source": "redis",
+          "specifiers": [
+            "redis"
+          ]
+        },
+        {
+          "source": "fastembed",
+          "specifiers": [
+            "TextEmbedding"
+          ]
+        }
+      ],
+      "exports": [
+        "WorldOsHybridCache"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/Dockerfile": {
+      "filePath": "social-engine/Dockerfile",
+      "contentHash": "9ee129be45e9b1da992e43d4e414d52fd337fcb9a0682bf89c09cfc1d846e404",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/__init__.py": {
+      "filePath": "social-engine/app/__init__.py",
+      "contentHash": "c7a37461a65cc8afa085e08a325bbceab8cb6e0421e7d2ad83fee008af2d0629",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "warnings",
+          "specifiers": [
+            "warnings"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/api/__init__.py": {
+      "filePath": "social-engine/app/api/__init__.py",
+      "contentHash": "e0581bfd90498d734b013e6a2995ea3a29335609d397806d952c33315c46ed84",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/api/swarm_routes.py": {
+      "filePath": "social-engine/app/api/swarm_routes.py",
+      "contentHash": "a93498835f66f6b9e9bc0716b6b8ddf510033beacef8dd42c3119c494ab5ed3a",
+      "functions": [
+        {
+          "name": "run_swarm_simulation_task",
+          "params": [
+            "context",
+            "task_id"
+          ],
+          "exported": true,
+          "lineCount": 66
+        },
+        {
+          "name": "spawn_swarm",
+          "params": [
+            "context",
+            "background_tasks"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "WorldContext",
+          "methods": [],
+          "properties": [
+            "era",
+            "tech_level",
+            "social_structure",
+            "communication_method",
+            "event_trigger",
+            "agents_count"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "SpawnResponse",
+          "methods": [],
+          "properties": [
+            "success",
+            "task_id",
+            "message"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "HTTPException",
+            "BackgroundTasks"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        }
+      ],
+      "exports": [
+        "WorldContext",
+        "SpawnResponse",
+        "run_swarm_simulation_task",
+        "spawn_swarm"
+      ],
+      "totalLines": 125,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/config.py": {
+      "filePath": "social-engine/app/config.py",
+      "contentHash": "0c3bb1b1980482b3c87e6467b9c0bf1a5c7d0f14b60f3afd9a0a88bc27e96a15",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Config",
+          "methods": [
+            "validate"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 55
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        }
+      ],
+      "exports": [
+        "Config"
+      ],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/models/__init__.py": {
+      "filePath": "social-engine/app/models/__init__.py",
+      "contentHash": "96a34db0a666946383a5ef35541b99235b0e949e97ed968b39b17e571a422e8c",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".task",
+          "specifiers": [
+            "TaskManager",
+            "TaskStatus"
+          ]
+        },
+        {
+          "source": ".project",
+          "specifiers": [
+            "Project",
+            "ProjectStatus",
+            "ProjectManager"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/models/project.py": {
+      "filePath": "social-engine/app/models/project.py",
+      "contentHash": "5fd57c59a25e5c93beeef62496228dcf8182ee9660669780f1a38f71e2825db4",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ProjectStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "Project",
+          "methods": [
+            "to_dict",
+            "from_dict"
+          ],
+          "properties": [
+            "project_id",
+            "name",
+            "status",
+            "created_at",
+            "updated_at",
+            "files",
+            "total_text_length",
+            "ontology",
+            "analysis_summary",
+            "graph_id",
+            "graph_build_task_id",
+            "simulation_requirement",
+            "chunk_size",
+            "chunk_overlap",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 72
+        },
+        {
+          "name": "ProjectManager",
+          "methods": [
+            "_ensure_projects_dir",
+            "_get_project_dir",
+            "_get_project_meta_path",
+            "_get_project_files_dir",
+            "_get_project_text_path",
+            "create_project",
+            "save_project",
+            "get_project",
+            "list_projects",
+            "delete_project",
+            "save_file_to_project",
+            "save_extracted_text",
+            "get_extracted_text",
+            "get_project_files"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 204
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field",
+            "asdict"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        }
+      ],
+      "exports": [
+        "ProjectStatus",
+        "Project",
+        "ProjectManager"
+      ],
+      "totalLines": 306,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/models/task.py": {
+      "filePath": "social-engine/app/models/task.py",
+      "contentHash": "88ad8881c0d94165777b637fa038915cfc7014ad196cb015a2b9fda2e63afcc6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TaskStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "Task",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "task_id",
+            "task_type",
+            "status",
+            "created_at",
+            "updated_at",
+            "progress",
+            "message",
+            "result",
+            "error",
+            "metadata",
+            "progress_detail"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "TaskManager",
+          "methods": [
+            "__new__",
+            "create_task",
+            "get_task",
+            "update_task",
+            "complete_task",
+            "fail_task",
+            "list_tasks",
+            "cleanup_old_tasks"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 130
+        }
+      ],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        }
+      ],
+      "exports": [
+        "TaskStatus",
+        "Task",
+        "TaskManager"
+      ],
+      "totalLines": 185,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/__init__.py": {
+      "filePath": "social-engine/app/services/__init__.py",
+      "contentHash": "d771a27c904af463c4336f4337aee10b4eb3f02537a5d08374389a6feb66f94b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".ontology_generator",
+          "specifiers": [
+            "OntologyGenerator"
+          ]
+        },
+        {
+          "source": ".graph_builder",
+          "specifiers": [
+            "GraphBuilderService"
+          ]
+        },
+        {
+          "source": ".text_processor",
+          "specifiers": [
+            "TextProcessor"
+          ]
+        },
+        {
+          "source": ".zep_entity_reader",
+          "specifiers": [
+            "ZepEntityReader",
+            "EntityNode",
+            "FilteredEntities"
+          ]
+        },
+        {
+          "source": ".oasis_profile_generator",
+          "specifiers": [
+            "OasisProfileGenerator",
+            "OasisAgentProfile"
+          ]
+        },
+        {
+          "source": ".simulation_manager",
+          "specifiers": [
+            "SimulationManager",
+            "SimulationState",
+            "SimulationStatus"
+          ]
+        },
+        {
+          "source": ".simulation_config_generator",
+          "specifiers": [
+            "SimulationConfigGenerator",
+            "SimulationParameters",
+            "AgentActivityConfig",
+            "TimeSimulationConfig",
+            "EventConfig",
+            "PlatformConfig"
+          ]
+        },
+        {
+          "source": ".runner_models",
+          "specifiers": [
+            "SimulationRunState",
+            "RunnerStatus",
+            "AgentAction",
+            "RoundSummary"
+          ]
+        },
+        {
+          "source": ".simulation_runner",
+          "specifiers": [
+            "SimulationRunner"
+          ]
+        },
+        {
+          "source": ".process_manager",
+          "specifiers": [
+            "ProcessManager"
+          ]
+        },
+        {
+          "source": ".log_parser",
+          "specifiers": [
+            "LogParser"
+          ]
+        },
+        {
+          "source": ".timeline_builder",
+          "specifiers": [
+            "TimelineBuilder"
+          ]
+        },
+        {
+          "source": ".zep_graph_memory_updater",
+          "specifiers": [
+            "ZepGraphMemoryUpdater",
+            "ZepGraphMemoryManager",
+            "AgentActivity"
+          ]
+        },
+        {
+          "source": ".simulation_ipc",
+          "specifiers": [
+            "SimulationIPCClient",
+            "SimulationIPCServer",
+            "IPCCommand",
+            "IPCResponse",
+            "CommandType",
+            "CommandStatus"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/graph_builder.py": {
+      "filePath": "social-engine/app/services/graph_builder.py",
+      "contentHash": "b7f6855d82f6e7bb15cdfa89032afe0dd806be54fe4671feb00fa1422d9fc9df",
+      "functions": [],
+      "classes": [
+        {
+          "name": "GraphInfo",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "graph_id",
+            "node_count",
+            "edge_count",
+            "entity_types"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "GraphBuilderService",
+          "methods": [
+            "__init__",
+            "build_graph_async",
+            "_build_graph_worker",
+            "create_graph",
+            "set_ontology",
+            "add_text_batches",
+            "_wait_for_episodes",
+            "_get_graph_info",
+            "get_graph_data",
+            "delete_graph"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 461
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Callable"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": "zep_cloud",
+          "specifiers": [
+            "EpisodeData",
+            "EntityEdgeSourceTarget"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..models.task",
+          "specifiers": [
+            "TaskManager",
+            "TaskStatus"
+          ]
+        },
+        {
+          "source": "..utils.zep_paging",
+          "specifiers": [
+            "fetch_all_nodes",
+            "fetch_all_edges"
+          ]
+        },
+        {
+          "source": ".text_processor",
+          "specifiers": [
+            "TextProcessor"
+          ]
+        }
+      ],
+      "exports": [
+        "GraphInfo",
+        "GraphBuilderService"
+      ],
+      "totalLines": 501,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/log_parser.py": {
+      "filePath": "social-engine/app/services/log_parser.py",
+      "contentHash": "611ce0f3ae411199cc8896bb103159dff8d5cb3b8cbc2a5d71cedd564d98ff57",
+      "functions": [],
+      "classes": [
+        {
+          "name": "LogParser",
+          "methods": [
+            "read_action_log",
+            "read_actions_from_file",
+            "get_all_actions",
+            "get_actions"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 255
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".runner_models",
+          "specifiers": [
+            "AgentAction",
+            "SimulationRunState"
+          ]
+        }
+      ],
+      "exports": [
+        "LogParser"
+      ],
+      "totalLines": 271,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/oasis_profile_generator.py": {
+      "filePath": "social-engine/app/services/oasis_profile_generator.py",
+      "contentHash": "d959244eda89b05edb77419f1e5c8fb862254b0242292891acd516cb8c244edd",
+      "functions": [],
+      "classes": [
+        {
+          "name": "OasisAgentProfile",
+          "methods": [
+            "to_reddit_format",
+            "to_twitter_format",
+            "to_dict"
+          ],
+          "properties": [
+            "user_id",
+            "user_name",
+            "name",
+            "bio",
+            "persona",
+            "karma",
+            "friend_count",
+            "follower_count",
+            "statuses_count",
+            "age",
+            "gender",
+            "mbti",
+            "country",
+            "profession",
+            "interested_topics",
+            "source_entity_uuid",
+            "source_entity_type",
+            "created_at"
+          ],
+          "exported": true,
+          "lineCount": 111
+        },
+        {
+          "name": "OasisProfileGenerator",
+          "methods": [
+            "__init__",
+            "generate_profile_from_entity",
+            "_generate_username",
+            "_search_zep_for_entity",
+            "_build_entity_context",
+            "_is_individual_entity",
+            "_is_group_entity",
+            "_generate_profile_with_llm",
+            "_fix_truncated_json",
+            "_try_fix_json",
+            "_get_system_prompt",
+            "_build_individual_persona_prompt",
+            "_build_group_persona_prompt",
+            "_generate_profile_rule_based",
+            "set_graph_id",
+            "generate_profiles_from_entities",
+            "_print_generated_profile",
+            "save_profiles",
+            "_save_twitter_csv",
+            "_normalize_gender",
+            "_save_reddit_json",
+            "save_profiles_to_json"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1077
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".zep_entity_reader",
+          "specifiers": [
+            "EntityNode",
+            "ZepEntityReader"
+          ]
+        },
+        {
+          "source": "..utils.reality_loader",
+          "specifiers": [
+            "reality_loader"
+          ]
+        },
+        {
+          "source": "..utils.worldos_cache",
+          "specifiers": [
+            "worldos_cache"
+          ]
+        }
+      ],
+      "exports": [
+        "OasisAgentProfile",
+        "OasisProfileGenerator"
+      ],
+      "totalLines": 1222,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/ontology_generator.py": {
+      "filePath": "social-engine/app/services/ontology_generator.py",
+      "contentHash": "90e01e60cbd98aa1aceb75933a47088807a017eca89742f61c97d63c4851b7f2",
+      "functions": [],
+      "classes": [
+        {
+          "name": "OntologyGenerator",
+          "methods": [
+            "__init__",
+            "generate",
+            "_build_user_message",
+            "_validate_and_process",
+            "generate_python_code"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 295
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "..utils.llm_client",
+          "specifiers": [
+            "LLMClient"
+          ]
+        }
+      ],
+      "exports": [
+        "OntologyGenerator"
+      ],
+      "totalLines": 454,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/process_manager.py": {
+      "filePath": "social-engine/app/services/process_manager.py",
+      "contentHash": "f47e78572857e21b382ed5ebb016dcc605991f870fb743af6b4d73042748a550",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ProcessManager",
+          "methods": [
+            "spawn",
+            "get_process",
+            "is_running",
+            "terminate",
+            "_terminate_process_impl",
+            "cleanup_simulation",
+            "get_running_simulations",
+            "cleanup_all"
+          ],
+          "properties": [
+            "_processes",
+            "_stdout_files",
+            "_stderr_files"
+          ],
+          "exported": true,
+          "lineCount": 214
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "atexit",
+          "specifiers": [
+            "atexit"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "ProcessManager"
+      ],
+      "totalLines": 235,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/report_agent.py": {
+      "filePath": "social-engine/app/services/report_agent.py",
+      "contentHash": "3334ec9fb98c46c7e7f69b545e823f82c14ae5e77a749c7318122413f80a640e",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ReportLogger",
+          "methods": [
+            "__init__",
+            "_ensure_log_file",
+            "_get_elapsed_time",
+            "log",
+            "log_start",
+            "log_planning_start",
+            "log_planning_context",
+            "log_planning_complete",
+            "log_section_start",
+            "log_react_thought",
+            "log_tool_call",
+            "log_tool_result",
+            "log_llm_response",
+            "log_section_content",
+            "log_section_full_complete",
+            "log_report_complete",
+            "log_error"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 269
+        },
+        {
+          "name": "ReportConsoleLogger",
+          "methods": [
+            "__init__",
+            "_ensure_log_file",
+            "_setup_file_handler",
+            "close",
+            "__del__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 80
+        },
+        {
+          "name": "ReportStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ReportSection",
+          "methods": [
+            "to_dict",
+            "to_markdown"
+          ],
+          "properties": [
+            "title",
+            "content"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "ReportOutline",
+          "methods": [
+            "to_dict",
+            "to_markdown"
+          ],
+          "properties": [
+            "title",
+            "summary",
+            "sections"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "Report",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "report_id",
+            "simulation_id",
+            "graph_id",
+            "simulation_requirement",
+            "status",
+            "outline",
+            "markdown_content",
+            "created_at",
+            "completed_at",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "ReportAgent",
+          "methods": [
+            "__init__",
+            "_define_tools",
+            "_execute_tool",
+            "_parse_tool_calls",
+            "_is_valid_tool_call",
+            "_get_tools_description",
+            "plan_outline",
+            "_generate_section_react",
+            "generate_report",
+            "chat"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1017
+        },
+        {
+          "name": "ReportManager",
+          "methods": [
+            "_ensure_reports_dir",
+            "_get_report_folder",
+            "_ensure_report_folder",
+            "_get_report_path",
+            "_get_report_markdown_path",
+            "_get_outline_path",
+            "_get_progress_path",
+            "_get_section_path",
+            "_get_agent_log_path",
+            "_get_console_log_path",
+            "get_console_log",
+            "get_console_log_stream",
+            "get_agent_log",
+            "get_agent_log_stream",
+            "save_outline",
+            "save_section",
+            "_clean_section_content",
+            "update_progress",
+            "get_progress",
+            "get_generated_sections",
+            "assemble_full_report",
+            "_post_process_report",
+            "save_report",
+            "get_report",
+            "get_report_by_simulation",
+            "list_reports",
+            "delete_report"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 689
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Callable"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.llm_client",
+          "specifiers": [
+            "LLMClient"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".zep_tools",
+          "specifiers": [
+            "ZepToolsService",
+            "SearchResult",
+            "InsightForgeResult",
+            "PanoramaResult",
+            "InterviewResult"
+          ]
+        }
+      ],
+      "exports": [
+        "ReportLogger",
+        "ReportConsoleLogger",
+        "ReportStatus",
+        "ReportSection",
+        "ReportOutline",
+        "Report",
+        "ReportAgent",
+        "ReportManager"
+      ],
+      "totalLines": 2572,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/runner_models.py": {
+      "filePath": "social-engine/app/services/runner_models.py",
+      "contentHash": "ceb39fa69cdd63ad4a233a3790710c5c9ff7ca4011d91744433ca64c7a3a34e6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "RunnerStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "AgentAction",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "round_num",
+            "timestamp",
+            "platform",
+            "agent_id",
+            "agent_name",
+            "action_type",
+            "action_args",
+            "result",
+            "success"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "RoundSummary",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "round_num",
+            "start_time",
+            "end_time",
+            "simulated_hour",
+            "twitter_actions",
+            "reddit_actions",
+            "active_agents",
+            "actions"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "SimulationRunState",
+          "methods": [
+            "add_action",
+            "to_dict",
+            "to_detail_dict"
+          ],
+          "properties": [
+            "simulation_id",
+            "runner_status",
+            "current_round",
+            "total_rounds",
+            "simulated_hours",
+            "total_simulation_hours",
+            "twitter_current_round",
+            "reddit_current_round",
+            "twitter_simulated_hours",
+            "reddit_simulated_hours",
+            "twitter_running",
+            "reddit_running",
+            "twitter_actions_count",
+            "reddit_actions_count",
+            "twitter_completed",
+            "reddit_completed",
+            "rounds",
+            "recent_actions",
+            "max_recent_actions",
+            "started_at",
+            "updated_at",
+            "completed_at",
+            "error",
+            "process_pid"
+          ],
+          "exported": true,
+          "lineCount": 91
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        }
+      ],
+      "exports": [
+        "RunnerStatus",
+        "AgentAction",
+        "RoundSummary",
+        "SimulationRunState"
+      ],
+      "totalLines": 169,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/simulation_config_generator.py": {
+      "filePath": "social-engine/app/services/simulation_config_generator.py",
+      "contentHash": "93693b7aa62bb6ea157c81885443adab39991d382983e12829021ac9aebe225d",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AgentActivityConfig",
+          "methods": [],
+          "properties": [
+            "agent_id",
+            "entity_uuid",
+            "entity_name",
+            "entity_type",
+            "activity_level",
+            "posts_per_hour",
+            "comments_per_hour",
+            "active_hours",
+            "response_delay_min",
+            "response_delay_max",
+            "sentiment_bias",
+            "stance",
+            "influence_weight"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "TimeSimulationConfig",
+          "methods": [],
+          "properties": [
+            "total_simulation_hours",
+            "minutes_per_round",
+            "agents_per_hour_min",
+            "agents_per_hour_max",
+            "peak_hours",
+            "peak_activity_multiplier",
+            "off_peak_hours",
+            "off_peak_activity_multiplier",
+            "morning_hours",
+            "morning_activity_multiplier",
+            "work_hours",
+            "work_activity_multiplier"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "EventConfig",
+          "methods": [],
+          "properties": [
+            "initial_posts",
+            "scheduled_events",
+            "hot_topics",
+            "narrative_direction"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "PlatformConfig",
+          "methods": [],
+          "properties": [
+            "platform",
+            "recency_weight",
+            "popularity_weight",
+            "relevance_weight",
+            "viral_threshold",
+            "echo_chamber_strength"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "SimulationParameters",
+          "methods": [
+            "to_dict",
+            "to_json"
+          ],
+          "properties": [
+            "simulation_id",
+            "project_id",
+            "graph_id",
+            "simulation_requirement",
+            "time_config",
+            "agent_configs",
+            "event_config",
+            "twitter_config",
+            "reddit_config",
+            "llm_model",
+            "llm_base_url",
+            "generated_at",
+            "generation_reasoning"
+          ],
+          "exported": true,
+          "lineCount": 51
+        },
+        {
+          "name": "SimulationConfigGenerator",
+          "methods": [
+            "__init__",
+            "generate_config",
+            "_build_context",
+            "_summarize_entities",
+            "_call_llm_with_retry",
+            "_fix_truncated_json",
+            "_try_fix_config_json",
+            "_generate_time_config",
+            "_get_default_time_config",
+            "_parse_time_config",
+            "_generate_event_config",
+            "_parse_event_config",
+            "_assign_initial_post_agents",
+            "_generate_agent_configs_batch",
+            "_generate_agent_config_by_rule"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 787
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "math",
+          "specifiers": [
+            "math"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Callable"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field",
+            "asdict"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".zep_entity_reader",
+          "specifiers": [
+            "EntityNode",
+            "ZepEntityReader"
+          ]
+        }
+      ],
+      "exports": [
+        "AgentActivityConfig",
+        "TimeSimulationConfig",
+        "EventConfig",
+        "PlatformConfig",
+        "SimulationParameters",
+        "SimulationConfigGenerator"
+      ],
+      "totalLines": 988,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/simulation_ipc.py": {
+      "filePath": "social-engine/app/services/simulation_ipc.py",
+      "contentHash": "2cd596faed552c29f8e486b6641677787c2c38eeab822a82512be07e9b4088d9",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CommandType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "CommandStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "IPCCommand",
+          "methods": [
+            "to_dict",
+            "from_dict"
+          ],
+          "properties": [
+            "command_id",
+            "command_type",
+            "args",
+            "timestamp"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "IPCResponse",
+          "methods": [
+            "to_dict",
+            "from_dict"
+          ],
+          "properties": [
+            "command_id",
+            "status",
+            "result",
+            "error",
+            "timestamp"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "SimulationIPCClient",
+          "methods": [
+            "__init__",
+            "send_command",
+            "send_interview",
+            "send_batch_interview",
+            "send_close_env",
+            "check_env_alive"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 191
+        },
+        {
+          "name": "SimulationIPCServer",
+          "methods": [
+            "__init__",
+            "start",
+            "stop",
+            "_update_env_status",
+            "poll_commands",
+            "send_response",
+            "send_success",
+            "send_error"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 107
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "Optional",
+            "List"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "CommandType",
+        "CommandStatus",
+        "IPCCommand",
+        "IPCResponse",
+        "SimulationIPCClient",
+        "SimulationIPCServer"
+      ],
+      "totalLines": 395,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/simulation_manager.py": {
+      "filePath": "social-engine/app/services/simulation_manager.py",
+      "contentHash": "28de30614360929c5d8e62ed9bf6540500974e2803be2b23d866dd2db76ee4f8",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SimulationStatus",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "PlatformType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "SimulationState",
+          "methods": [
+            "to_dict",
+            "to_simple_dict"
+          ],
+          "properties": [
+            "simulation_id",
+            "project_id",
+            "graph_id",
+            "enable_twitter",
+            "enable_reddit",
+            "status",
+            "entities_count",
+            "profiles_count",
+            "entity_types",
+            "config_generated",
+            "config_reasoning",
+            "current_round",
+            "twitter_status",
+            "reddit_status",
+            "created_at",
+            "updated_at",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 69
+        },
+        {
+          "name": "SimulationManager",
+          "methods": [
+            "__init__",
+            "_get_simulation_dir",
+            "_save_simulation_state",
+            "_load_simulation_state",
+            "create_simulation",
+            "prepare_simulation",
+            "get_simulation",
+            "list_simulations",
+            "get_profiles",
+            "get_simulation_config",
+            "get_run_instructions"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 415
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".zep_entity_reader",
+          "specifiers": [
+            "ZepEntityReader",
+            "FilteredEntities"
+          ]
+        },
+        {
+          "source": ".oasis_profile_generator",
+          "specifiers": [
+            "OasisProfileGenerator",
+            "OasisAgentProfile"
+          ]
+        },
+        {
+          "source": ".simulation_config_generator",
+          "specifiers": [
+            "SimulationConfigGenerator",
+            "SimulationParameters"
+          ]
+        }
+      ],
+      "exports": [
+        "SimulationStatus",
+        "PlatformType",
+        "SimulationState",
+        "SimulationManager"
+      ],
+      "totalLines": 529,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/simulation_runner.py": {
+      "filePath": "social-engine/app/services/simulation_runner.py",
+      "contentHash": "b261d1a8e27263d9432b1f5a9e819c6a80081a0b1fdc5b954371fe83d8dbb9fc",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SimulationRunner",
+          "methods": [
+            "get_run_state",
+            "_load_run_state",
+            "_save_run_state",
+            "start_simulation",
+            "_monitor_simulation",
+            "_check_all_platforms_completed",
+            "stop_simulation",
+            "get_all_actions",
+            "get_actions",
+            "get_timeline",
+            "get_agent_stats",
+            "cleanup_simulation_logs",
+            "cleanup_all_simulations",
+            "register_cleanup",
+            "get_running_simulations",
+            "check_env_alive",
+            "get_env_status_detail",
+            "interview_agent",
+            "interview_agents_batch",
+            "interview_all_agents",
+            "close_simulation_env",
+            "_get_interview_history_from_db",
+            "get_interview_history"
+          ],
+          "properties": [
+            "_run_states",
+            "_action_queues",
+            "_monitor_threads",
+            "_graph_memory_enabled"
+          ],
+          "exported": true,
+          "lineCount": 958
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "atexit",
+          "specifiers": [
+            "atexit"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "queue",
+          "specifiers": [
+            "Queue"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".zep_graph_memory_updater",
+          "specifiers": [
+            "ZepGraphMemoryManager"
+          ]
+        },
+        {
+          "source": ".simulation_ipc",
+          "specifiers": [
+            "SimulationIPCClient",
+            "CommandType",
+            "IPCResponse"
+          ]
+        },
+        {
+          "source": ".runner_models",
+          "specifiers": [
+            "RunnerStatus",
+            "AgentAction",
+            "RoundSummary",
+            "SimulationRunState"
+          ]
+        },
+        {
+          "source": ".process_manager",
+          "specifiers": [
+            "ProcessManager"
+          ]
+        },
+        {
+          "source": ".log_parser",
+          "specifiers": [
+            "LogParser"
+          ]
+        },
+        {
+          "source": ".timeline_builder",
+          "specifiers": [
+            "TimelineBuilder"
+          ]
+        }
+      ],
+      "exports": [
+        "SimulationRunner"
+      ],
+      "totalLines": 998,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/swarm_profile_factory.py": {
+      "filePath": "social-engine/app/services/swarm_profile_factory.py",
+      "contentHash": "3483de927061d86f0e7c07a79eb0c0a76974dad665f7a61ff1cf3e45f6a339ca",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SwarmAgentProfile",
+          "methods": [
+            "to_dict",
+            "to_twitter_format",
+            "to_reddit_format"
+          ],
+          "properties": [
+            "user_id",
+            "user_name",
+            "name",
+            "bio",
+            "persona",
+            "age",
+            "gender",
+            "profession",
+            "interested_topics"
+          ],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "SwarmProfileFactory",
+          "methods": [
+            "generate_profiles"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 55
+        }
+      ],
+      "imports": [
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Dict",
+            "Any"
+          ]
+        }
+      ],
+      "exports": [
+        "SwarmAgentProfile",
+        "SwarmProfileFactory"
+      ],
+      "totalLines": 141,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/text_processor.py": {
+      "filePath": "social-engine/app/services/text_processor.py",
+      "contentHash": "0760c306c7aebdb3d1457dbbdbfa503549fa9cb3b5201cb6a83845c7b9a5c046",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TextProcessor",
+          "methods": [
+            "extract_from_files",
+            "split_text",
+            "preprocess_text",
+            "get_text_stats"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "..utils.file_parser",
+          "specifiers": [
+            "FileParser",
+            "split_text_into_chunks"
+          ]
+        }
+      ],
+      "exports": [
+        "TextProcessor"
+      ],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/timeline_builder.py": {
+      "filePath": "social-engine/app/services/timeline_builder.py",
+      "contentHash": "4e457e5c5fe6ea1845e81fe32547242b0c9fcd9da54f8c30dde3bca28cc5666a",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TimelineBuilder",
+          "methods": [
+            "get_timeline",
+            "get_agent_stats"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 113
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": ".runner_models",
+          "specifiers": [
+            "AgentAction"
+          ]
+        }
+      ],
+      "exports": [
+        "TimelineBuilder"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/zep_entity_reader.py": {
+      "filePath": "social-engine/app/services/zep_entity_reader.py",
+      "contentHash": "cdc6f4773d190aa5f1bce8ac3eb1953aaea6ca0c05b5ee8ef41c9db8cb801f80",
+      "functions": [],
+      "classes": [
+        {
+          "name": "EntityNode",
+          "methods": [
+            "to_dict",
+            "get_entity_type"
+          ],
+          "properties": [
+            "uuid",
+            "name",
+            "labels",
+            "summary",
+            "attributes",
+            "related_edges",
+            "related_nodes"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "FilteredEntities",
+          "methods": [
+            "to_dict"
+          ],
+          "properties": [
+            "entities",
+            "entity_types",
+            "total_count",
+            "filtered_count"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "ZepEntityReader",
+          "methods": [
+            "__init__",
+            "_call_with_retry",
+            "get_all_nodes",
+            "get_all_edges",
+            "get_node_edges",
+            "filter_defined_entities",
+            "get_entity_with_context",
+            "get_entities_by_type"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 365
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Set",
+            "Callable",
+            "TypeVar"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "..utils.zep_paging",
+          "specifiers": [
+            "fetch_all_nodes",
+            "fetch_all_edges"
+          ]
+        }
+      ],
+      "exports": [
+        "EntityNode",
+        "FilteredEntities",
+        "ZepEntityReader"
+      ],
+      "totalLines": 438,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/zep_graph_memory_updater.py": {
+      "filePath": "social-engine/app/services/zep_graph_memory_updater.py",
+      "contentHash": "a14b0a31e93777d0432051c60765055f4a9d7a19b235b870712ec56632e50bed",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AgentActivity",
+          "methods": [
+            "to_episode_text",
+            "_describe_create_post",
+            "_describe_like_post",
+            "_describe_dislike_post",
+            "_describe_repost",
+            "_describe_quote_post",
+            "_describe_follow",
+            "_describe_create_comment",
+            "_describe_like_comment",
+            "_describe_dislike_comment",
+            "_describe_search",
+            "_describe_search_user",
+            "_describe_mute",
+            "_describe_generic"
+          ],
+          "properties": [
+            "platform",
+            "agent_id",
+            "agent_name",
+            "action_type",
+            "action_args",
+            "round_num",
+            "timestamp"
+          ],
+          "exported": true,
+          "lineCount": 175
+        },
+        {
+          "name": "ZepGraphMemoryUpdater",
+          "methods": [
+            "__init__",
+            "_get_platform_display_name",
+            "start",
+            "stop",
+            "add_activity",
+            "add_activity_from_dict",
+            "_worker_loop",
+            "_send_batch_activities",
+            "_flush_remaining",
+            "get_stats"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 270
+        },
+        {
+          "name": "ZepGraphMemoryManager",
+          "methods": [
+            "create_updater",
+            "get_updater",
+            "stop_updater",
+            "stop_all",
+            "get_all_stats"
+          ],
+          "properties": [
+            "_updaters"
+          ],
+          "exported": true,
+          "lineCount": 76
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Callable"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "queue",
+          "specifiers": [
+            "Queue",
+            "Empty"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "AgentActivity",
+        "ZepGraphMemoryUpdater",
+        "ZepGraphMemoryManager"
+      ],
+      "totalLines": 549,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/services/zep_tools.py": {
+      "filePath": "social-engine/app/services/zep_tools.py",
+      "contentHash": "872deaf7fceab0352ce26b944191d2862bd09d14dd1fffc1512cb4bbf5e9e954",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SearchResult",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "facts",
+            "edges",
+            "nodes",
+            "query",
+            "total_count"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "NodeInfo",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "uuid",
+            "name",
+            "labels",
+            "summary",
+            "attributes"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "EdgeInfo",
+          "methods": [
+            "to_dict",
+            "to_text",
+            "is_expired",
+            "is_invalid"
+          ],
+          "properties": [
+            "uuid",
+            "name",
+            "fact",
+            "source_node_uuid",
+            "target_node_uuid",
+            "source_node_name",
+            "target_node_name",
+            "created_at",
+            "valid_at",
+            "invalid_at",
+            "expired_at"
+          ],
+          "exported": true,
+          "lineCount": 54
+        },
+        {
+          "name": "InsightForgeResult",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "query",
+            "simulation_requirement",
+            "sub_queries",
+            "semantic_facts",
+            "entity_insights",
+            "relationship_chains",
+            "total_facts",
+            "total_entities",
+            "total_relationships"
+          ],
+          "exported": true,
+          "lineCount": 73
+        },
+        {
+          "name": "PanoramaResult",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "query",
+            "all_nodes",
+            "all_edges",
+            "active_facts",
+            "historical_facts",
+            "total_nodes",
+            "total_edges",
+            "active_count",
+            "historical_count"
+          ],
+          "exported": true,
+          "lineCount": 67
+        },
+        {
+          "name": "AgentInterview",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "agent_name",
+            "agent_role",
+            "agent_bio",
+            "question",
+            "response",
+            "key_quotes"
+          ],
+          "exported": true,
+          "lineCount": 53
+        },
+        {
+          "name": "InterviewResult",
+          "methods": [
+            "to_dict",
+            "to_text"
+          ],
+          "properties": [
+            "interview_topic",
+            "interview_questions",
+            "selected_agents",
+            "interviews",
+            "selection_reasoning",
+            "summary",
+            "total_agents",
+            "interviewed_count"
+          ],
+          "exported": true,
+          "lineCount": 58
+        },
+        {
+          "name": "ZepToolsService",
+          "methods": [
+            "__init__",
+            "llm",
+            "_call_with_retry",
+            "search_graph",
+            "_local_search",
+            "get_all_nodes",
+            "get_all_edges",
+            "get_node_detail",
+            "get_node_edges",
+            "get_entities_by_type",
+            "get_entity_summary",
+            "get_graph_statistics",
+            "get_simulation_context",
+            "insight_forge",
+            "_generate_sub_queries",
+            "panorama_search",
+            "quick_search",
+            "interview_agents",
+            "_clean_tool_call_response",
+            "_load_agent_profiles",
+            "_select_agents_for_interview",
+            "_generate_interview_questions",
+            "_generate_interview_summary"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1336
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "..utils.llm_client",
+          "specifiers": [
+            "LLMClient"
+          ]
+        },
+        {
+          "source": "..utils.zep_paging",
+          "specifiers": [
+            "fetch_all_nodes",
+            "fetch_all_edges"
+          ]
+        }
+      ],
+      "exports": [
+        "SearchResult",
+        "NodeInfo",
+        "EdgeInfo",
+        "InsightForgeResult",
+        "PanoramaResult",
+        "AgentInterview",
+        "InterviewResult",
+        "ZepToolsService"
+      ],
+      "totalLines": 1736,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/__init__.py": {
+      "filePath": "social-engine/app/utils/__init__.py",
+      "contentHash": "f6c032b9128aea0edbf0ac478fc93c9036549a7521d16e8af8b1192cbab12c98",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".file_parser",
+          "specifiers": [
+            "FileParser"
+          ]
+        },
+        {
+          "source": ".llm_client",
+          "specifiers": [
+            "LLMClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/file_parser.py": {
+      "filePath": "social-engine/app/utils/file_parser.py",
+      "contentHash": "8dfe2ed8c8c72745dce9f28d6299e14cace3654e77e53ba34d032f33134f7339",
+      "functions": [
+        {
+          "name": "_read_text_with_fallback",
+          "params": [
+            "file_path"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "split_text_into_chunks",
+          "params": [
+            "text",
+            "chunk_size",
+            "overlap"
+          ],
+          "returnType": "List[str]",
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [
+        {
+          "name": "FileParser",
+          "methods": [
+            "extract_text",
+            "_extract_from_pdf",
+            "_extract_from_md",
+            "_extract_from_txt",
+            "extract_from_multiple"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 84
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "_read_text_with_fallback",
+        "FileParser",
+        "split_text_into_chunks"
+      ],
+      "totalLines": 190,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/llm_client.py": {
+      "filePath": "social-engine/app/utils/llm_client.py",
+      "contentHash": "0b065e02d2128c49ed640093c85b6e1dd77d61a17b2671e213f700ecf2fd9d57",
+      "functions": [],
+      "classes": [
+        {
+          "name": "LLMClient",
+          "methods": [
+            "__init__",
+            "chat",
+            "chat_json"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 89
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional",
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        },
+        {
+          "source": "..config",
+          "specifiers": [
+            "Config"
+          ]
+        }
+      ],
+      "exports": [
+        "LLMClient"
+      ],
+      "totalLines": 104,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/logger.py": {
+      "filePath": "social-engine/app/utils/logger.py",
+      "contentHash": "8003712c0a61c9565a9029e4d5cfe3c1628c67e5971c3856cfcbde181c08b229",
+      "functions": [
+        {
+          "name": "_ensure_utf8_stdout",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "setup_logger",
+          "params": [
+            "name",
+            "level"
+          ],
+          "returnType": "logging.Logger",
+          "exported": true,
+          "lineCount": 59
+        },
+        {
+          "name": "get_logger",
+          "params": [
+            "name"
+          ],
+          "returnType": "logging.Logger",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "debug",
+          "params": [
+            "msg",
+            "*args",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "info",
+          "params": [
+            "msg",
+            "*args",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "warning",
+          "params": [
+            "msg",
+            "*args",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "error",
+          "params": [
+            "msg",
+            "*args",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "critical",
+          "params": [
+            "msg",
+            "*args",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "logging.handlers",
+          "specifiers": [
+            "RotatingFileHandler"
+          ]
+        }
+      ],
+      "exports": [
+        "_ensure_utf8_stdout",
+        "setup_logger",
+        "get_logger",
+        "debug",
+        "info",
+        "warning",
+        "error",
+        "critical"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/reality_loader.py": {
+      "filePath": "social-engine/app/utils/reality_loader.py",
+      "contentHash": "ded8bb3e7aee599507aabd2497e9ccfe3b8569aff7abb7f651d95ad449ca75e0",
+      "functions": [],
+      "classes": [
+        {
+          "name": "RealityLoader",
+          "methods": [
+            "__init__",
+            "_load_json",
+            "get_era_context",
+            "get_power_context"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 56
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "RealityLoader"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/retry.py": {
+      "filePath": "social-engine/app/utils/retry.py",
+      "contentHash": "9d6cedd532e500ad35a916f89ce61748c083d300478461ab17520cef19177e4d",
+      "functions": [
+        {
+          "name": "retry_with_backoff",
+          "params": [
+            "max_retries",
+            "initial_delay",
+            "max_delay",
+            "backoff_factor",
+            "jitter",
+            "exceptions",
+            "on_retry"
+          ],
+          "exported": true,
+          "lineCount": 63
+        },
+        {
+          "name": "retry_with_backoff_async",
+          "params": [
+            "max_retries",
+            "initial_delay",
+            "max_delay",
+            "backoff_factor",
+            "jitter",
+            "exceptions",
+            "on_retry"
+          ],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "classes": [
+        {
+          "name": "RetryableAPIClient",
+          "methods": [
+            "__init__",
+            "call_with_retry",
+            "call_batch_with_retry"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 106
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "functools",
+          "specifiers": [
+            "functools"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Callable",
+            "Any",
+            "Optional",
+            "Type",
+            "Tuple"
+          ]
+        },
+        {
+          "source": "..utils.logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "retry_with_backoff",
+        "retry_with_backoff_async",
+        "RetryableAPIClient"
+      ],
+      "totalLines": 239,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/worldos_cache.py": {
+      "filePath": "social-engine/app/utils/worldos_cache.py",
+      "contentHash": "8bdad877d2b20236a1bb32df2d93057cbcfb97eb127088f8fab46186bac74fce",
+      "functions": [],
+      "classes": [
+        {
+          "name": "WorldOsHybridCache",
+          "methods": [
+            "__init__",
+            "embedder",
+            "_generate_exact_key",
+            "get_response",
+            "set_response",
+            "wrap_llm_call"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 89
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Dict",
+            "Any",
+            "Optional",
+            "Union"
+          ]
+        },
+        {
+          "source": "redis",
+          "specifiers": [
+            "redis"
+          ]
+        },
+        {
+          "source": "fastembed",
+          "specifiers": [
+            "TextEmbedding"
+          ]
+        }
+      ],
+      "exports": [
+        "WorldOsHybridCache"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/app/utils/zep_paging.py": {
+      "filePath": "social-engine/app/utils/zep_paging.py",
+      "contentHash": "9ee6e8c9210d161149327fffb794baf3b70244daf8a77a5fc0c136525cf5efe3",
+      "functions": [
+        {
+          "name": "_fetch_page_with_retry",
+          "params": [
+            "api_call",
+            "max_retries",
+            "retry_delay",
+            "page_description"
+          ],
+          "returnType": "list[Any]",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "fetch_all_nodes",
+          "params": [
+            "client",
+            "graph_id",
+            "page_size",
+            "max_items",
+            "max_retries",
+            "retry_delay"
+          ],
+          "returnType": "list[Any]",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "fetch_all_edges",
+          "params": [
+            "client",
+            "graph_id",
+            "page_size",
+            "max_retries",
+            "retry_delay"
+          ],
+          "returnType": "list[Any]",
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "collections.abc",
+          "specifiers": [
+            "Callable"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "zep_cloud",
+          "specifiers": [
+            "InternalServerError"
+          ]
+        },
+        {
+          "source": "zep_cloud.client",
+          "specifiers": [
+            "Zep"
+          ]
+        },
+        {
+          "source": ".logger",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "_fetch_page_with_retry",
+        "fetch_all_nodes",
+        "fetch_all_edges"
+      ],
+      "totalLines": 144,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/main.py": {
+      "filePath": "social-engine/main.py",
+      "contentHash": "4e5eaad4e775a0f5a3a03b242ebb4e3933515dce5c978bf5bfcd79858d328761",
+      "functions": [
+        {
+          "name": "create_app",
+          "params": [],
+          "returnType": "FastAPI",
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "FastAPI"
+          ]
+        },
+        {
+          "source": "fastapi.middleware.cors",
+          "specifiers": [
+            "CORSMiddleware"
+          ]
+        },
+        {
+          "source": "uvicorn",
+          "specifiers": [
+            "uvicorn"
+          ]
+        },
+        {
+          "source": "app.api.swarm_routes",
+          "specifiers": [
+            "swarm_router"
+          ]
+        },
+        {
+          "source": "app.config",
+          "specifiers": [
+            "Config"
+          ]
+        }
+      ],
+      "exports": [
+        "create_app"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/pyproject.toml": {
+      "filePath": "social-engine/pyproject.toml",
+      "contentHash": "283de957c052db360981cad02ccd6fcf3ff67d34c40ab1d9797ca4a39b0142d7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/requirements.txt": {
+      "filePath": "social-engine/requirements.txt",
+      "contentHash": "2449b6d64eaffd75629c24184bbcfc831bca60012bb24e28f907fce1db3c2b8a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 42,
+      "hasStructuralAnalysis": false
+    },
+    "social-engine/scripts/action_logger.py": {
+      "filePath": "social-engine/scripts/action_logger.py",
+      "contentHash": "2f446d46d95b334fc2fa07f3cf1b69c11dbd33b625d8c4a0cd6b9d9b076d7632",
+      "functions": [
+        {
+          "name": "get_logger",
+          "params": [
+            "log_path"
+          ],
+          "returnType": "ActionLogger",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [
+        {
+          "name": "PlatformActionLogger",
+          "methods": [
+            "__init__",
+            "_ensure_dir",
+            "log_action",
+            "log_round_start",
+            "log_round_end",
+            "log_simulation_start",
+            "log_simulation_end"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 95
+        },
+        {
+          "name": "SimulationLogManager",
+          "methods": [
+            "__init__",
+            "_setup_main_logger",
+            "get_twitter_logger",
+            "get_reddit_logger",
+            "log",
+            "info",
+            "warning",
+            "error",
+            "debug"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 78
+        },
+        {
+          "name": "ActionLogger",
+          "methods": [
+            "__init__",
+            "_ensure_dir",
+            "log_action",
+            "log_round_start",
+            "log_round_end",
+            "log_simulation_start",
+            "log_simulation_end"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 88
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "PlatformActionLogger",
+        "SimulationLogManager",
+        "ActionLogger",
+        "get_logger"
+      ],
+      "totalLines": 306,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/scripts/run_parallel_simulation.py": {
+      "filePath": "social-engine/scripts/run_parallel_simulation.py",
+      "contentHash": "e1ee10de9a4599a8b18d01f0678f9f9caf4e0846c2355f302aaf0d56ed95e942",
+      "functions": [
+        {
+          "name": "disable_oasis_logging",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "init_logging_for_simulation",
+          "params": [
+            "simulation_dir"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "load_config",
+          "params": [
+            "config_path"
+          ],
+          "returnType": "Dict[str, Any]",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "get_agent_names_from_config",
+          "params": [
+            "config"
+          ],
+          "returnType": "Dict[int, str]",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "fetch_new_actions_from_db",
+          "params": [
+            "db_path",
+            "last_rowid",
+            "agent_names"
+          ],
+          "returnType": "Tuple[List[Dict[str, Any]], int]",
+          "exported": true,
+          "lineCount": 90
+        },
+        {
+          "name": "_enrich_action_context",
+          "params": [
+            "cursor",
+            "action_type",
+            "action_args",
+            "agent_names"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 106
+        },
+        {
+          "name": "_get_post_info",
+          "params": [
+            "cursor",
+            "post_id",
+            "agent_names"
+          ],
+          "returnType": "Optional[Dict[str, str]]",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "_get_user_name",
+          "params": [
+            "cursor",
+            "user_id",
+            "agent_names"
+          ],
+          "returnType": "Optional[str]",
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "_get_comment_info",
+          "params": [
+            "cursor",
+            "comment_id",
+            "agent_names"
+          ],
+          "returnType": "Optional[Dict[str, str]]",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "create_model",
+          "params": [
+            "config",
+            "use_boost"
+          ],
+          "exported": true,
+          "lineCount": 54
+        },
+        {
+          "name": "get_active_agents_for_round",
+          "params": [
+            "env",
+            "config",
+            "current_hour",
+            "round_num"
+          ],
+          "returnType": "List",
+          "exported": true,
+          "lineCount": 51
+        },
+        {
+          "name": "run_twitter_simulation",
+          "params": [
+            "config",
+            "simulation_dir",
+            "action_logger",
+            "main_logger",
+            "max_rounds"
+          ],
+          "returnType": "PlatformSimulation",
+          "exported": true,
+          "lineCount": 190
+        },
+        {
+          "name": "run_reddit_simulation",
+          "params": [
+            "config",
+            "simulation_dir",
+            "action_logger",
+            "main_logger",
+            "max_rounds"
+          ],
+          "returnType": "PlatformSimulation",
+          "exported": true,
+          "lineCount": 197
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 159
+        },
+        {
+          "name": "setup_signal_handlers",
+          "params": [
+            "loop"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "MaxTokensWarningFilter",
+          "methods": [
+            "filter"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "CommandType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ParallelIPCHandler",
+          "methods": [
+            "__init__",
+            "update_status",
+            "poll_command",
+            "send_response",
+            "_get_env_and_graph",
+            "_interview_single_platform",
+            "handle_interview",
+            "handle_batch_interview",
+            "_get_interview_result",
+            "process_commands"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 385
+        },
+        {
+          "name": "PlatformSimulation",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "multiprocessing",
+          "specifiers": [
+            "multiprocessing"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "sqlite3",
+          "specifiers": [
+            "sqlite3"
+          ]
+        },
+        {
+          "source": "warnings",
+          "specifiers": [
+            "warnings"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional",
+            "Tuple"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "action_logger",
+          "specifiers": [
+            "SimulationLogManager",
+            "PlatformActionLogger"
+          ]
+        }
+      ],
+      "exports": [
+        "MaxTokensWarningFilter",
+        "disable_oasis_logging",
+        "init_logging_for_simulation",
+        "CommandType",
+        "ParallelIPCHandler",
+        "load_config",
+        "get_agent_names_from_config",
+        "fetch_new_actions_from_db",
+        "_enrich_action_context",
+        "_get_post_info",
+        "_get_user_name",
+        "_get_comment_info",
+        "create_model",
+        "get_active_agents_for_round",
+        "PlatformSimulation",
+        "run_twitter_simulation",
+        "run_reddit_simulation",
+        "main",
+        "setup_signal_handlers"
+      ],
+      "totalLines": 1700,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/scripts/run_reddit_simulation.py": {
+      "filePath": "social-engine/scripts/run_reddit_simulation.py",
+      "contentHash": "edd537c023f8169d78054ecc261d7dca28b5a83af27bdd5bf5edcf2df68d361a",
+      "functions": [
+        {
+          "name": "setup_oasis_logging",
+          "params": [
+            "log_dir"
+          ],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 40
+        },
+        {
+          "name": "setup_signal_handlers",
+          "params": [],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [
+        {
+          "name": "UnicodeFormatter",
+          "methods": [
+            "format"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "MaxTokensWarningFilter",
+          "methods": [
+            "filter"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "CommandType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "IPCHandler",
+          "methods": [
+            "__init__",
+            "update_status",
+            "poll_command",
+            "send_response",
+            "handle_interview",
+            "handle_batch_interview",
+            "_get_interview_result",
+            "process_commands"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 237
+        },
+        {
+          "name": "RedditSimulationRunner",
+          "methods": [
+            "__init__",
+            "_load_config",
+            "_get_profile_path",
+            "_get_db_path",
+            "_create_model",
+            "_get_active_agents_for_round",
+            "run"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 308
+        }
+      ],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "sqlite3",
+          "specifiers": [
+            "sqlite3"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        }
+      ],
+      "exports": [
+        "UnicodeFormatter",
+        "MaxTokensWarningFilter",
+        "setup_oasis_logging",
+        "CommandType",
+        "IPCHandler",
+        "RedditSimulationRunner",
+        "main",
+        "setup_signal_handlers"
+      ],
+      "totalLines": 770,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/scripts/run_twitter_simulation.py": {
+      "filePath": "social-engine/scripts/run_twitter_simulation.py",
+      "contentHash": "cd766f1a55b5cec48a776ce5bb7b072dcfe7a07bd8b0f63f7c1b2b5464b772bf",
+      "functions": [
+        {
+          "name": "setup_oasis_logging",
+          "params": [
+            "log_dir"
+          ],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 40
+        },
+        {
+          "name": "setup_signal_handlers",
+          "params": [],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [
+        {
+          "name": "UnicodeFormatter",
+          "methods": [
+            "format"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "MaxTokensWarningFilter",
+          "methods": [
+            "filter"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "CommandType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "IPCHandler",
+          "methods": [
+            "__init__",
+            "update_status",
+            "poll_command",
+            "send_response",
+            "handle_interview",
+            "handle_batch_interview",
+            "_get_interview_result",
+            "process_commands"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 237
+        },
+        {
+          "name": "TwitterSimulationRunner",
+          "methods": [
+            "__init__",
+            "_load_config",
+            "_get_profile_path",
+            "_get_db_path",
+            "_create_model",
+            "_get_active_agents_for_round",
+            "run"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 320
+        }
+      ],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "sqlite3",
+          "specifiers": [
+            "sqlite3"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        }
+      ],
+      "exports": [
+        "UnicodeFormatter",
+        "MaxTokensWarningFilter",
+        "setup_oasis_logging",
+        "CommandType",
+        "IPCHandler",
+        "TwitterSimulationRunner",
+        "main",
+        "setup_signal_handlers"
+      ],
+      "totalLines": 781,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/scripts/test_profile_format.py": {
+      "filePath": "social-engine/scripts/test_profile_format.py",
+      "contentHash": "c60feaff8d5727c7c473d9879742c85c352151b208ec8ff72d48ad9ff9e88f17",
+      "functions": [
+        {
+          "name": "test_profile_formats",
+          "params": [],
+          "exported": true,
+          "lineCount": 108
+        },
+        {
+          "name": "show_expected_formats",
+          "params": [],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "csv",
+          "specifiers": [
+            "csv"
+          ]
+        },
+        {
+          "source": "tempfile",
+          "specifiers": [
+            "tempfile"
+          ]
+        },
+        {
+          "source": "app.services.oasis_profile_generator",
+          "specifiers": [
+            "OasisProfileGenerator",
+            "OasisAgentProfile"
+          ]
+        }
+      ],
+      "exports": [
+        "test_profile_formats",
+        "show_expected_formats"
+      ],
+      "totalLines": 167,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/tests/__init__.py": {
+      "filePath": "social-engine/tests/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/tests/conftest.py": {
+      "filePath": "social-engine/tests/conftest.py",
+      "contentHash": "885255cd0b1332aaa5d6d63ab353ea6ffb6c5bf4ba874adf70c6a956981ae36c",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "MagicMock"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/tests/test_simulation_ipc.py": {
+      "filePath": "social-engine/tests/test_simulation_ipc.py",
+      "contentHash": "37263ce7abfa105c09ce5ce19f8d892eeae844a783b35d031c533e21f05851df",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestSimulationIPCClient",
+          "methods": [
+            "test_init_creates_directories",
+            "test_send_command_writes_command_file",
+            "test_send_command_timeout",
+            "test_send_interview",
+            "test_check_env_alive"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 99
+        },
+        {
+          "name": "TestSimulationIPCServer",
+          "methods": [
+            "test_poll_commands_returns_none_when_empty",
+            "test_poll_commands_reads_command",
+            "test_send_response_creates_file_and_deletes_command",
+            "test_start_stop_env_status"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 69
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "app.services.simulation_ipc",
+          "specifiers": [
+            "SimulationIPCClient",
+            "SimulationIPCServer",
+            "CommandType",
+            "CommandStatus",
+            "IPCCommand",
+            "IPCResponse"
+          ]
+        }
+      ],
+      "exports": [
+        "TestSimulationIPCClient",
+        "TestSimulationIPCServer"
+      ],
+      "totalLines": 191,
+      "hasStructuralAnalysis": true
+    },
+    "social-engine/tests/test_simulation_manager.py": {
+      "filePath": "social-engine/tests/test_simulation_manager.py",
+      "contentHash": "e9e00b951bcb27b016ecb884d0e819b27dd35c6767c4f2330b8110f35e39ad5b",
+      "functions": [
+        {
+          "name": "manager",
+          "params": [
+            "tmpdir",
+            "monkeypatch"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestCreateSimulation",
+          "methods": [
+            "test_create_simulation"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "TestPrepareSimulation",
+          "methods": [
+            "_mock_zep_reader",
+            "_mock_profile_generator",
+            "_mock_config_generator",
+            "test_prepare_simulation_success",
+            "test_prepare_simulation_no_entities",
+            "test_prepare_simulation_progress_callback"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 130
+        },
+        {
+          "name": "TestListAndGet",
+          "methods": [
+            "test_list_simulations",
+            "test_get_simulation_not_found"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "TestGetProfilesAndConfig",
+          "methods": [
+            "test_get_profiles",
+            "test_get_simulation_config",
+            "test_get_run_instructions"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "MagicMock",
+            "patch"
+          ]
+        },
+        {
+          "source": "app.services.simulation_manager",
+          "specifiers": [
+            "SimulationManager",
+            "SimulationState",
+            "SimulationStatus"
+          ]
+        },
+        {
+          "source": "app.services.zep_entity_reader",
+          "specifiers": [
+            "EntityNode",
+            "FilteredEntities"
+          ]
+        }
+      ],
+      "exports": [
+        "manager",
+        "TestCreateSimulation",
+        "TestPrepareSimulation",
+        "TestListAndGet",
+        "TestGetProfilesAndConfig"
+      ],
+      "totalLines": 233,
+      "hasStructuralAnalysis": true
+    },
+    "worldos-sim/proto/simulation.proto": {
+      "filePath": "worldos-sim/proto/simulation.proto",
+      "contentHash": "a3cc81f04f48312cf31ad8148b74b93cc88e13fb1331a3cb3c251b5664f05a75",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

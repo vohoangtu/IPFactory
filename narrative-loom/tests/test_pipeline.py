@@ -1,32 +1,44 @@
+"""End-to-end LangGraph pipeline test with mocked LLM agents."""
 import pytest
-pytest.skip('Network-dependent test: requires LLM API connectivity.', allow_module_level=True)
-import pytest
-from langgraph.graph import StateGraph
-from langchain_core.runnables import RunnableLambda
+from unittest.mock import MagicMock, AsyncMock
+
 from state import NarrativeState
 
+
 @pytest.fixture
-def mock_llm_factory(mocker):
-    async def mock_invoke(prompt):
+def mock_all_llms(mocker):
+    """Mock get_llm_for_agent for every agent that participates in the pipeline."""
+
+    async def mock_ainvoke(prompt):
         if "Psychologist" in str(prompt) or "Tâm Lý Gia" in str(prompt):
             return '{"analysis": "Mocked LLM Response", "archetypes": []}'
         return "Mocked LLM Response"
-    
-    dummy_llm = RunnableLambda(mock_invoke)
-    
-    # Patch get_llm in each module scope where used
-    mocker.patch("agents.historian.get_llm", return_value=dummy_llm)
-    mocker.patch("agents.psychologist.get_llm", return_value=dummy_llm)
-    mocker.patch("agents.director.get_llm", return_value=dummy_llm)
-    mocker.patch("agents.wordsmith.get_llm", return_value=dummy_llm)
-    # The Critic doesn't use the LLM directly, so no need to mock agents.critic.get_llm
-    
+
+    dummy_llm = MagicMock()
+    dummy_llm.ainvoke = AsyncMock(side_effect=mock_ainvoke)
+    dummy_llm.invoke = mock_ainvoke
+
+    structured_mock = MagicMock()
+    structured_mock.ainvoke = AsyncMock(side_effect=mock_ainvoke)
+    structured_mock.invoke = mock_ainvoke
+    dummy_llm.with_structured_output.return_value = structured_mock
+
+    # Patch get_llm_for_agent (the current API, not deprecated get_llm).
+    agents = [
+        "historian", "psychologist", "director", "wordsmith",
+        "critic", "chief_editor", "news_anchor", "intent_agent",
+    ]
+    for agent in agents:
+        mocker.patch(f"agents.{agent}.get_llm_for_agent", return_value=dummy_llm)
+
     return dummy_llm
 
+
 @pytest.mark.asyncio
-async def test_complete_narrative_pipeline(mock_llm_factory):
+async def test_complete_narrative_pipeline(mock_all_llms):
+    """Verify the full LangGraph pipeline produces expected outputs with mocked LLMs."""
     from graph import app
-    
+
     initial_state = {
         "world_id": 1,
         "tick_start": 50,
@@ -39,7 +51,7 @@ async def test_complete_narrative_pipeline(mock_llm_factory):
         "storyboard": "",
         "final_prose": "",
         "current_agent": "start",
-        "feedback": {}
+        "feedback": {},
     }
 
     final_state = await app.ainvoke(initial_state)
@@ -48,5 +60,5 @@ async def test_complete_narrative_pipeline(mock_llm_factory):
     assert "Mocked LLM Response" in final_state["psychological_profiles"].get("analysis", "")
     assert "Mocked LLM Response" in final_state["storyboard"]
     assert "Mocked LLM Response" in final_state["final_prose"]
-    
+
     assert final_state["current_agent"] == "critic"

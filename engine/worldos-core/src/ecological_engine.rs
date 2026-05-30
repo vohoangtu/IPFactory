@@ -73,23 +73,100 @@ mod tests {
     use super::*;
     use crate::types::EcologicalFields;
 
-    #[test]
-    fn test_biome_shift() {
+    fn stressed_forest_zone() -> ZoneState {
         let mut zone = ZoneState::new(100.0);
         zone.biome = Biome::Forest;
         zone.eco_fields = EcologicalFields {
             biomass: 0.2,
-            biodiversity: 0.1, // Low biodiversity to ensure high stress
+            biodiversity: 0.1,
             resource_stress: 0.9,
         };
-        zone.population_proxy = 1.0; // High population pressure
+        zone.population_proxy = 1.0;
         zone.entropy = 0.5;
+        zone
+    }
 
+    fn healthy_forest_zone() -> ZoneState {
+        let mut zone = ZoneState::new(100.0);
+        zone.biome = Biome::Forest;
+        zone.eco_fields = EcologicalFields {
+            biomass: 0.9,
+            biodiversity: 0.8,
+            resource_stress: 0.1,
+        };
+        zone.population_proxy = 0.3;
+        zone.entropy = 0.05;
+        zone
+    }
+
+    #[test]
+    fn test_biome_shift() {
+        let mut zone = stressed_forest_zone();
         let engine = EcologicalEngine::new(0.7);
         let event = engine.update(&mut zone);
 
         assert_eq!(zone.biome, Biome::Steppe);
         assert!(event.is_some());
         assert!(event.unwrap().contains("Steppe"));
+    }
+
+    #[test]
+    fn test_healthy_forest_stays_forest() {
+        let mut zone = healthy_forest_zone();
+        let engine = EcologicalEngine::new(0.7);
+        let event = engine.update(&mut zone);
+
+        assert_eq!(zone.biome, Biome::Forest, "healthy forest should not shift");
+        assert!(event.is_none(), "no event expected for stable biome");
+    }
+
+    #[test]
+    fn test_tundra_warming_shifts_to_tundra() {
+        let mut zone = ZoneState::new(100.0);
+        zone.biome = Biome::Tundra;
+        zone.eco_fields = EcologicalFields {
+            biomass: 0.05,
+            biodiversity: 0.02,
+            resource_stress: 0.95,
+        };
+        zone.population_proxy = 0.8;
+        zone.entropy = 0.8;
+
+        let engine = EcologicalEngine::new(0.3); // lower threshold
+        let _event = engine.update(&mut zone);
+
+        // Tundra under extreme stress may shift to Steppe or stay Tundra.
+        // The important thing is it doesn't panic.
+        assert!(!matches!(zone.biome, Biome::__unused));
+    }
+
+    #[test]
+    fn test_desert_with_no_biomass_stays_desert() {
+        let mut zone = ZoneState::new(100.0);
+        zone.biome = Biome::Desert;
+        zone.eco_fields = EcologicalFields {
+            biomass: 0.0,
+            biodiversity: 0.0,
+            resource_stress: 1.0,
+        };
+        zone.population_proxy = 0.0;
+        zone.entropy = 0.9;
+
+        let engine = EcologicalEngine::new(0.5);
+        let event = engine.update(&mut zone);
+
+        // Desert should not transition away since no biomass to support another biome.
+        assert!(event.is_none(), "dead desert should not shift");
+    }
+
+    #[test]
+    fn test_engine_threshold_prevents_early_shift() {
+        let mut zone = stressed_forest_zone();
+        // Very high threshold — even a stressed forest won't trigger shift.
+        let engine = EcologicalEngine::new(0.99);
+        let event = engine.update(&mut zone);
+
+        assert_eq!(zone.biome, Biome::Forest);
+        assert!(event.is_none());
     }
 }

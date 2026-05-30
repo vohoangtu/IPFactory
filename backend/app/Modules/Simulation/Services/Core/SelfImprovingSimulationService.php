@@ -1,24 +1,102 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\Simulation\Services\Core;
 
 use App\Contracts\SimulationEngineClientInterface;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 /**
- * Self-Improving Simulation Architecture (Doc §30): closed loop placeholder.
- * Simulation → Data → AI Analysis → Rule Proposal → Sandbox Test → Deploy.
- * Phase 3: proposeRule config-based; sandboxTest used by handler.
+ * Self-Improving Simulation Architecture (Doc §30): closed-loop rule evolution.
+ *
+ * Pipeline: Simulation → Metrics → AI Analysis → Rule Proposal → Sandbox Test → Score → Deploy.
+ *
+ * This service orchestrates the full closed loop:
+ * 1. Collect metrics from the latest simulation run.
+ * 2. Identify patterns that suggest a rule change.
+ * 3. Propose a candidate DSL rule.
+ * 4. Sandbox-test the rule against historical state.
+ * 5. Score and optionally auto-deploy the rule if it passes thresholds.
  */
 final class SelfImprovingSimulationService
 {
+    /** Minimum sandbox score to auto-deploy a rule. */
+    private const AUTO_DEPLOY_THRESHOLD = 0.7;
+
+    /** Key prefix for storing evaluation history in cache. */
+    private const HISTORY_CACHE_PREFIX = 'worldos.self_improving.history.';
+
     public function __construct(
         protected SimulationEngineClientInterface $engine
     ) {}
 
     /**
+     * Run the full closed-loop improvement cycle for one pattern.
+     *
+     * Returns a result summary suitable for logging, metrics, or dashboard display.
+     */
+    public function runImprovementCycle(string $patternId, array $state, array $metrics = []): array
+    {
+        // 1. Propose a candidate rule for the detected pattern.
+        $candidate = $this->proposeRule($patternId);
+        if ($candidate === null) {
+            return [
+                'pattern_id'   => $patternId,
+                'action'       => 'skip',
+                'reason'       => 'no_candidate_rule',
+                'deployed'      => false,
+            ];
+        }
+
+        $dsl = $candidate['dsl'] ?? '';
+        if ($dsl === '') {
+            return [
+                'pattern_id'   => $patternId,
+                'action'       => 'skip',
+                'reason'       => 'empty_dsl',
+                'deployed'      => false,
+            ];
+        }
+
+        // 2. Sandbox-test the rule against a copy of the current state.
+        $result = $this->sandboxTest($state, $dsl);
+
+        // 3. Score the sandbox result using available metrics.
+        $score = $this->scoreSandboxResult($result, $metrics);
+
+        // 4. Record evaluation history.
+        $this->recordEvaluation($patternId, $dsl, $score, $result);
+
+        // 5. Auto-deploy if score exceeds threshold.
+        $deployed = false;
+        if ($score >= self::AUTO_DEPLOY_THRESHOLD) {
+            $deployed = $this->deployRule($patternId, $dsl);
+        }
+
+        Log::info('SelfImproving: cycle completed', [
+            'pattern_id' => $patternId,
+            'score'      => round($score, 3),
+            'deployed'   => $deployed,
+            'ok'         => $result['ok'],
+        ]);
+
+        return [
+            'pattern_id'    => $patternId,
+            'action'        => $deployed ? 'deployed' : ($result['ok'] ? 'evaluated' : 'failed'),
+            'score'         => round($score, 3),
+            'deployed'      => $deployed,
+            'ok'            => $result['ok'],
+            'error_message'  => $result['error_message'] ?? null,
+        ];
+    }
+
+    /**
      * Propose a rule: config-based (worldos.self_improving.candidate_rules[patternId]).
-     * Returns ['dsl' => '...'] or null if no candidate for patternId.
+     *
+     * @return array{dsl: string}|null
      */
     public function proposeRule(string $patternId): ?array
     {
@@ -34,8 +112,9 @@ final class SelfImprovingSimulationService
     }
 
     /**
-     * Run rule DSL against a state copy without applying to universe.
-     * Returns engine evaluate-rules result (ok, outputs, error_message).
+     * Run rule DSL against a state copy without affecting the live universe.
+     *
+     * @return array{ok: bool, outputs: array, error_message: string|null}
      */
     public function sandboxTest(array $state, string $rulesDsl): array
     {
@@ -46,5 +125,103 @@ final class SelfImprovingSimulationService
             'outputs' => $result['outputs'] ?? [],
             'error_message' => $result['error_message'] ?? null,
         ];
+    }
+
+    /**
+     * Score a sandbox result (0.0–1.0) based on outputs and metrics.
+     *
+     * Scoring heuristic:
+     * - Base 0.5 if sandbox passed (ok=true), 0.0 if failed.
+     * - +0.2 if outputs contain non-empty results (rule had effect).
+     * - +0.2 if no error message (clean execution).
+     * - +0.1 bonus if metrics show improvement vs baseline.
+     */
+    private function scoreSandboxResult(array $sandboxResult, array $metrics): float
+    {
+        $score = $sandboxResult['ok'] ? 0.5 : 0.0;
+
+        $outputs = $sandboxResult['outputs'] ?? [];
+        if (! empty($outputs) && ! (count($outputs) === 1 && empty($outputs[0]))) {
+            $score += 0.2;
+        }
+
+        if (empty($sandboxResult['error_message'])) {
+            $score += 0.2;
+        }
+
+        // Bonus if simulation metrics show improvement.
+        if (! empty($metrics)) {
+            $improvement = ($metrics['delta_positive'] ?? 0) - ($metrics['delta_negative'] ?? 0);
+            if ($improvement > 0) {
+                $score += min(0.1, $improvement * 0.01);
+            }
+        }
+
+        return max(0.0, min(1.0, $score));
+    }
+
+    /**
+     * Record the evaluation result so the system can learn over time.
+     */
+    private function recordEvaluation(string $patternId, string $dsl, float $score, array $result): void
+    {
+        $key = self::HISTORY_CACHE_PREFIX . $patternId;
+        $entry = [
+            'timestamp' => now()->toISOString(),
+            'pattern_id' => $patternId,
+            'dsl_preview' => mb_substr($dsl, 0, 200),
+            'score' => round($score, 3),
+            'ok' => $result['ok'],
+            'error' => $result['error_message'] ?? null,
+        ];
+
+        $history = Cache::get($key, []);
+        $history[] = $entry;
+
+        // Keep last 50 evaluations per pattern.
+        if (count($history) > 50) {
+            $history = array_slice($history, -50);
+        }
+
+        Cache::put($key, $history, now()->addDays(30));
+    }
+
+    /**
+     * Deploy an approved rule by storing it as the active version.
+     *
+     * In production this would persist to a rules table; currently uses cache.
+     */
+    private function deployRule(string $patternId, string $dsl): bool
+    {
+        try {
+            Cache::put(
+                "worldos.self_improving.deployed.{$patternId}",
+                ['dsl' => $dsl, 'deployed_at' => now()->toISOString()],
+                now()->addYear()
+            );
+            Log::info('SelfImproving: rule deployed', ['pattern_id' => $patternId]);
+            return true;
+        } catch (\Throwable $e) {
+            Log::error('SelfImproving: deploy failed', ['pattern_id' => $patternId, 'error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * Get evaluation history for a pattern.
+     *
+     * @return list<array{timestamp: string, score: float, ok: bool, error: string|null}>
+     */
+    public function getHistory(string $patternId): array
+    {
+        return Cache::get(self::HISTORY_CACHE_PREFIX . $patternId, []);
+    }
+
+    /**
+     * Get the currently deployed rule for a pattern, if any.
+     */
+    public function getDeployedRule(string $patternId): ?array
+    {
+        return Cache::get("worldos.self_improving.deployed.{$patternId}");
     }
 }

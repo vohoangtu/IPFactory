@@ -49,9 +49,16 @@ final class SimulationMetricsExporter
         }
 
         $lines[] = '';
-        $lines[] = '# HELP worldos_event_queue_depth Event queue depth (placeholder).';
+        $lines[] = '# HELP worldos_event_queue_depth Event queue depth (live measurement from Redis).';
         $lines[] = '# TYPE worldos_event_queue_depth gauge';
-        $lines[] = 'worldos_event_queue_depth 0';
+        // Measure from Redis pending events queue (if available), otherwise from cache fallback.
+        try {
+            $pendingDepth = \Illuminate\Support\Facades\Redis::llen('worldos:events:pending');
+            $lines[] = 'worldos_event_queue_depth ' . (int) $pendingDepth;
+        } catch (\Throwable) {
+            $depthFromCache = (int) Cache::get('worldos.event_queue_depth', 0);
+            $lines[] = 'worldos_event_queue_depth ' . $depthFromCache;
+        }
 
         $lines[] = '';
         $lines[] = '# HELP worldos_engine_execution_time_seconds Per-stage execution time (when tracing enabled).';
@@ -68,10 +75,16 @@ final class SimulationMetricsExporter
         }
 
         $lines[] = '';
-        $lines[] = '# HELP worldos_event_rate Events per minute (placeholder; wire to event bus for real count).';
+        $lines[] = '# HELP worldos_event_rate Events per minute (from Redis event counter).';
         $lines[] = '# TYPE worldos_event_rate gauge';
-        $eventRate = Cache::get('worldos.event_rate_last_minute');
-        $lines[] = 'worldos_event_rate ' . ($eventRate !== null ? number_format((float) $eventRate, 2, '.', '') : '0');
+        // Read from a dedicated Redis counter that increments per event and resets each minute.
+        try {
+            $eventRate = (int) \Illuminate\Support\Facades\Redis::get('worldos:events:rate_1min') ?: 0;
+            $lines[] = 'worldos_event_rate ' . $eventRate;
+        } catch (\Throwable) {
+            $eventRateFromCache = Cache::get('worldos.event_rate_last_minute');
+            $lines[] = 'worldos_event_rate ' . ($eventRateFromCache !== null ? number_format((float) $eventRateFromCache, 2, '.', '') : '0');
+        }
 
         return implode("\n", $lines);
     }

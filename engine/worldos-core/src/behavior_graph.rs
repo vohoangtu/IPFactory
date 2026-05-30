@@ -148,32 +148,34 @@ mod tests {
     use super::*;
     use crate::types::EmotionField;
 
+    fn make_idle_node(id: usize, next_on_hunger: usize) -> BehaviorNode {
+        BehaviorNode {
+            id,
+            action: None,
+            transitions: smallvec::smallvec![Transition {
+                condition: Condition::HungerGt(0.7),
+                target: next_on_hunger,
+            }],
+        }
+    }
+
+    fn make_eat_node(id: usize, return_to: usize) -> BehaviorNode {
+        BehaviorNode {
+            id,
+            action: Some(Action::Eat),
+            transitions: smallvec::smallvec![Transition {
+                condition: Condition::HungerGt(0.0),
+                target: return_to,
+            }],
+        }
+    }
+
     #[test]
     fn test_production_behavior_engine() {
-        // Setup nodes
-        let idle_node = BehaviorNode {
-            id: 0,
-            action: None,
-            transitions: smallvec::smallvec![
-                Transition {
-                    condition: Condition::HungerGt(0.7),
-                    target: 1,
-                }
-            ],
-        };
-        let eating_node = BehaviorNode {
-            id: 1,
-            action: Some(Action::Eat),
-            transitions: smallvec::smallvec![
-                Transition {
-                    condition: Condition::HungerGt(0.0), // Always transitions back if not done? 
-                    // Simpler: just back to idle after one eat action
-                    target: 0,
-                }
-            ],
-        };
-
-        let mut engine = BehaviorGraphEngine::new(vec![idle_node, eating_node]);
+        let engine = BehaviorGraphEngine::new(vec![
+            make_idle_node(0, 1),
+            make_eat_node(1, 0),
+        ]);
         let mut table = ActorTable::new();
         table.push(1, 0);
         table.hunger[0] = 0.8;
@@ -181,13 +183,79 @@ mod tests {
         let mut context = BehaviorContext::default();
         context.emotion_fields.push(EmotionField::default());
 
-        // Tick 1: Transition Idle -> Eating
         engine.evaluate(&mut table, &context);
         assert_eq!(table.current_node[0], 1);
 
-        // Tick 2: Perform Eat Action and Transition back to Idle
         engine.evaluate(&mut table, &context);
         assert_eq!(table.current_node[0], 0);
         assert!(table.hunger[0] < 0.8);
+    }
+
+    #[test]
+    fn test_stays_in_idle_when_hunger_below_threshold() {
+        let engine = BehaviorGraphEngine::new(vec![
+            make_idle_node(0, 1),
+            make_eat_node(1, 0),
+        ]);
+        let mut table = ActorTable::new();
+        table.push(1, 0);
+        table.hunger[0] = 0.3; // below 0.7 threshold
+
+        let context = BehaviorContext::default();
+
+        engine.evaluate(&mut table, &context);
+        assert_eq!(table.current_node[0], 0, "should stay idle when not hungry");
+    }
+
+    #[test]
+    fn test_multiple_actors_independent_behavior() {
+        let engine = BehaviorGraphEngine::new(vec![
+            make_idle_node(0, 1),
+            make_eat_node(1, 0),
+        ]);
+        let mut table = ActorTable::new();
+        table.push(1, 0); // actor A in zone 0
+        table.push(1, 0); // actor B in zone 0
+        table.hunger[0] = 0.9; // A is hungry
+        table.hunger[1] = 0.3; // B is not
+
+        let context = BehaviorContext::default();
+
+        engine.evaluate(&mut table, &context);
+        assert_eq!(table.current_node[0], 1, "actor A should be eating");
+        assert_eq!(table.current_node[1], 0, "actor B should stay idle");
+    }
+
+    #[test]
+    fn test_empty_graph_no_panic() {
+        let engine = BehaviorGraphEngine::new(vec![]);
+        let mut table = ActorTable::new();
+        table.push(1, 0);
+        let context = BehaviorContext::default();
+
+        // Should not panic with empty behavior graph.
+        engine.evaluate(&mut table, &context);
+        assert_eq!(table.current_node[0], 0);
+    }
+
+    #[test]
+    fn test_single_node_graph_never_transitions() {
+        let engine = BehaviorGraphEngine::new(vec![
+            BehaviorNode {
+                id: 0,
+                action: Some(Action::Eat),
+                transitions: smallvec::smallvec![],
+            },
+        ]);
+        let mut table = ActorTable::new();
+        table.push(1, 0);
+        table.hunger[0] = 0.9;
+
+        let context = BehaviorContext::default();
+
+        // Should perform action but never transition (no outgoing edges).
+        engine.evaluate(&mut table, &context);
+        assert_eq!(table.current_node[0], 0, "should stay on only node");
+        assert!(table.hunger[0] < 0.9, "eat action should still execute");
     }
 }

@@ -1,0 +1,105 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# .env
+# .env.*
+# !.env.example
+# *.key
+# *.pem
+# *.p12
+# *.pfx
+# backend/vendor/
+# backend/.env
+# backend/.env.*
+# backend/.phpunit.result.cache
+# backend/storage/logs/*
+# backend/storage/framework/cache/*
+# backend/storage/framework/sessions/*
+# backend/storage/framework/testing/*
+# backend/storage/framework/views/*
+# backend/bootstrap/cache/*
+# backend/public/hot
+# backend/public/storage
+# frontend/node_modules/
+# frontend/.next/
+# frontend/out/
+# frontend/.env.local
+# frontend/.env.*.local
+# bloom/node_modules/
+# bloom/.next/
+# bloom/out/
+# bloom/.env.local
+# bloom/.env.*.local
+# engine/target/
+# narrative-loom/__pycache__/
+# narrative-loom/*.pyc
+# narrative-loom/*.pyo
+# narrative-loom/.venv/
+# narrative-loom/venv/
+# narrative-loom/.env
+# narrative-loom/.pytest_cache/
+# narrative-loom/.ruff_cache/
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
+# .pnpm-debug.log*
+# package-lock.json.backup
+# .docker/data/
+# docker-compose.override.yml
+# .agent/
+# .agents/
+# .claude/
+# .codebuddy/
+# .codex/
+# .continue/
+# .cursor/
+# .gemini/
+# .kiro/
+# .opencode/
+# .qoder/
+# .roo/
+# .skill-staging/
+# .trae/
+# .windsurf/
+# *.swp
+# *.swo
+# *.swn
+# *~
+# .DS_Store
+# .DS_Store?
+# ._*
+# .Spotlight-V100
+# .Trashes
+# Thumbs.db
+# ehthumbs.db
+# Desktop.ini
+# logs/
+# .nyc_output/
+# .phpunit.cache/
+# *.bak
+# *.cache
+# *.tmp
+# _tmp_*.py
+# fix_final.py
+# append.txt
+# tmp/
+# frontend/eslint_report.*
+# frontend/tsconfig.tsbuildinfo
+# .composer/
+
+# --- Detected directories (uncomment to exclude) ---
+
+# scripts/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

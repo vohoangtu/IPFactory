@@ -1,0 +1,5150 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "6e5935c8c7b78f5003d06a8a522792b4249c17d3",
+  "generatedAt": "2026-05-30T05:28:25.233Z",
+  "files": {
+    ".dockerignore": {
+      "filePath": ".dockerignore",
+      "contentHash": "e579afee6d6569f6bf88e87e9518f2c7095efbba435b200eec3f8cef728d4d92",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    "Dockerfile": {
+      "filePath": "Dockerfile",
+      "contentHash": "e217a8c4882c42c31d7345516b441820cefba27b77743c07675cfa3e9180ccfd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "b89862197c044e5e9532f24941b06129a1b4f8203c652d84b3fb9b75e6fdf267",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "agents/archivist.py": {
+      "filePath": "agents/archivist.py",
+      "contentHash": "a67aa1ec5def6ab9d0394f550a66679f12599e2cbe7de4e84b5b9da259ee1aa4",
+      "functions": [
+        {
+          "name": "archivist_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 51
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.memory_manager",
+          "specifiers": [
+            "EpisodicMemoryManager"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "_get_pool_key",
+            "get_llm_for_agent"
+          ]
+        }
+      ],
+      "exports": [
+        "archivist_agent"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "agents/art_director.py": {
+      "filePath": "agents/art_director.py",
+      "contentHash": "4cd1900491fdd1732421d9883c2f6949119c98b2e9689e91cacbe367b726e00b",
+      "functions": [
+        {
+          "name": "generate_visual_asset",
+          "params": [
+            "prompt_text",
+            "is_portrait"
+          ],
+          "returnType": "Optional[str]",
+          "exported": true,
+          "lineCount": 57
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "_get_pool_key"
+          ]
+        }
+      ],
+      "exports": [
+        "generate_visual_asset"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "agents/artifact_forger.py": {
+      "filePath": "agents/artifact_forger.py",
+      "contentHash": "a08022f0d429dce75ee5302b28c7aa6c131a40e662ac05ea53726bc0dd225ded",
+      "functions": [
+        {
+          "name": "forge_artifact",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "artifact_forger_api",
+          "params": [
+            "req"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "ArtifactOutput",
+          "methods": [],
+          "properties": [
+            "name",
+            "lore"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm_for_agent"
+          ]
+        }
+      ],
+      "exports": [
+        "ArtifactOutput",
+        "forge_artifact",
+        "artifact_forger_api"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "agents/audio_director.py": {
+      "filePath": "agents/audio_director.py",
+      "contentHash": "ea8153fa4453cc1552b6ae4ad6d9cd68b043df8aa21a8ed7bdabdada3c748544",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AudioDirectorAgent",
+          "methods": [
+            "__init__",
+            "compose_soundtrack"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        }
+      ],
+      "exports": [
+        "AudioDirectorAgent"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "agents/celebrity_synthesizer.py": {
+      "filePath": "agents/celebrity_synthesizer.py",
+      "contentHash": "cffe3ff76a2afa7c3164174a1d0b1bb8a73686c0afc17d07dc333bfb6f2f52cd",
+      "functions": [
+        {
+          "name": "synthesize_celebrity",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "celebrity_synthesizer_api",
+          "params": [
+            "req"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "CelebrityOutput",
+          "methods": [],
+          "properties": [
+            "name",
+            "biography"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm_for_agent"
+          ]
+        }
+      ],
+      "exports": [
+        "CelebrityOutput",
+        "synthesize_celebrity",
+        "celebrity_synthesizer_api"
+      ],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "agents/chief_editor.py": {
+      "filePath": "agents/chief_editor.py",
+      "contentHash": "bd5a6e9ffd939125e8f2a243960e95f5b1fff9e460e9a31532f05054d41b5c01",
+      "functions": [
+        {
+          "name": "chief_editor_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        }
+      ],
+      "exports": [
+        "chief_editor_agent"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "agents/critic.py": {
+      "filePath": "agents/critic.py",
+      "contentHash": "21da15681a220655842d2db8ac32a0f43fdd469237cef9d1e5ef9c12e21d20d7",
+      "functions": [
+        {
+          "name": "critic_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "schemas",
+          "specifiers": [
+            "CriticReview"
+          ]
+        }
+      ],
+      "exports": [
+        "critic_agent"
+      ],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "agents/director.py": {
+      "filePath": "agents/director.py",
+      "contentHash": "ac7ca1bad6d6c88656f3ff59441fca418a7c88622b9bcb222115c3a565d36428",
+      "functions": [
+        {
+          "name": "director_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 73
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        },
+        {
+          "source": "schemas",
+          "specifiers": [
+            "Storyboard"
+          ]
+        }
+      ],
+      "exports": [
+        "director_agent"
+      ],
+      "totalLines": 120,
+      "hasStructuralAnalysis": true
+    },
+    "agents/historian.py": {
+      "filePath": "agents/historian.py",
+      "contentHash": "5bcf97a9b629103f9759fef9eac3c2b4f6f6531628af52256f51fcbb40ecb309",
+      "functions": [
+        {
+          "name": "historian_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 105
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "schemas",
+          "specifiers": [
+            "HistoricalOutline"
+          ]
+        },
+        {
+          "source": "utils.memory_manager",
+          "specifiers": [
+            "EpisodicMemoryManager"
+          ]
+        }
+      ],
+      "exports": [
+        "historian_agent"
+      ],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "agents/history_scribe.py": {
+      "filePath": "agents/history_scribe.py",
+      "contentHash": "db41c6791432648b1418522e8425d1b6516c7e86427b3ec86a2febf43f3b417e",
+      "functions": [
+        {
+          "name": "scribe_history",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "history_scribe_api",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm_for_agent"
+          ]
+        }
+      ],
+      "exports": [
+        "scribe_history",
+        "history_scribe_api"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "agents/intent_agent.py": {
+      "filePath": "agents/intent_agent.py",
+      "contentHash": "4e8892b2b53e814f28d928a29b7a47a01f02e7606f22796b986ce6e65ca5d4fb",
+      "functions": [
+        {
+          "name": "_entropy_label",
+          "params": [
+            "entropy"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "intent_agent",
+          "params": [
+            "req"
+          ],
+          "returnType": "ActorIntentResponse",
+          "exported": true,
+          "lineCount": 81
+        }
+      ],
+      "classes": [
+        {
+          "name": "UniverseContextIn",
+          "methods": [],
+          "properties": [
+            "entropy",
+            "stability_index",
+            "myth_intensity",
+            "tick"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ActorIntentRequest",
+          "methods": [],
+          "properties": [
+            "actor_id",
+            "actor_name",
+            "archetype",
+            "traits",
+            "universe_context",
+            "world_era",
+            "recent_biography",
+            "available_actions",
+            "provider",
+            "model_name"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "ActorIntentResponse",
+          "methods": [],
+          "properties": [
+            "action",
+            "intensity",
+            "target",
+            "reasoning",
+            "confidence"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Dict",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        }
+      ],
+      "exports": [
+        "UniverseContextIn",
+        "ActorIntentRequest",
+        "ActorIntentResponse",
+        "_entropy_label",
+        "intent_agent"
+      ],
+      "totalLines": 180,
+      "hasStructuralAnalysis": true
+    },
+    "agents/mythologist.py": {
+      "filePath": "agents/mythologist.py",
+      "contentHash": "a06e133084e0c6b2200f542fb714c07505747ea3031c453470a91498e0b6edbd",
+      "functions": [
+        {
+          "name": "mythologist_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        }
+      ],
+      "exports": [
+        "mythologist_agent"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "agents/news_anchor.py": {
+      "filePath": "agents/news_anchor.py",
+      "contentHash": "b6df53358c8ada2ce22ff864a351215ce510016c93e8d6547c4e2de3fe8f40e2",
+      "functions": [
+        {
+          "name": "news_anchor_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [
+        {
+          "name": "NewsHeadline",
+          "methods": [],
+          "properties": [
+            "headline",
+            "slogan"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "JsonOutputParser"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        }
+      ],
+      "exports": [
+        "NewsHeadline",
+        "news_anchor_agent"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "agents/psychologist.py": {
+      "filePath": "agents/psychologist.py",
+      "contentHash": "4d254296d75ed71e78945dbe7fe2dc7891b6065470e23227919e4f2d0ccec053",
+      "functions": [
+        {
+          "name": "psychologist_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 72
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        }
+      ],
+      "exports": [
+        "psychologist_agent"
+      ],
+      "totalLines": 105,
+      "hasStructuralAnalysis": true
+    },
+    "agents/vfx_director.py": {
+      "filePath": "agents/vfx_director.py",
+      "contentHash": "41971e18274040427f75a28c7ea5f6fa5c0c6b035df47c411e6cbba8c0be7814",
+      "functions": [
+        {
+          "name": "vfx_director_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 48
+        }
+      ],
+      "classes": [
+        {
+          "name": "VFXConfig",
+          "methods": [],
+          "properties": [
+            "primary_color",
+            "distortion",
+            "particle_density",
+            "atmosphere_filter"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "VFXDirectorOutput",
+          "methods": [],
+          "properties": [
+            "vfx_config",
+            "animation_script"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "nodes.universe_bridge",
+          "specifiers": [
+            "record_universe_whisper"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "JsonOutputParser"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "schemas",
+          "specifiers": [
+            "AnimationScript"
+          ]
+        }
+      ],
+      "exports": [
+        "VFXConfig",
+        "VFXDirectorOutput",
+        "vfx_director_agent"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "agents/wordsmith.py": {
+      "filePath": "agents/wordsmith.py",
+      "contentHash": "654084e932b8248b42112336a506a05c093676d50b144e30ec1a15e120d980f7",
+      "functions": [
+        {
+          "name": "wordsmith_agent",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 106
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm",
+            "get_llm_for_agent"
+          ]
+        },
+        {
+          "source": "langchain_core.prompts",
+          "specifiers": [
+            "ChatPromptTemplate"
+          ]
+        },
+        {
+          "source": "langchain_core.output_parsers",
+          "specifiers": [
+            "StrOutputParser"
+          ]
+        }
+      ],
+      "exports": [
+        "wordsmith_agent"
+      ],
+      "totalLines": 142,
+      "hasStructuralAnalysis": true
+    },
+    "benchmark_cache.py": {
+      "filePath": "benchmark_cache.py",
+      "contentHash": "d8b651428d99dccbfae2d57c91582578efdd8e13d84b01256e493ee3095f0254",
+      "functions": [
+        {
+          "name": "run_validation",
+          "params": [],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [
+        {
+          "name": "MockRedis",
+          "methods": [
+            "__init__",
+            "ping",
+            "get",
+            "set",
+            "delete",
+            "sadd",
+            "smembers"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "WorldOsCacheManager",
+          "methods": [
+            "__init__",
+            "_get_key",
+            "get_cached_narrative",
+            "set_cached_narrative"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        }
+      ],
+      "exports": [
+        "MockRedis",
+        "WorldOsCacheManager",
+        "run_validation"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "configs/agent_routing.json": {
+      "filePath": "configs/agent_routing.json",
+      "contentHash": "6073305bc3184cfeffa1ed217afba178d10d1de3bcabbd5360f580cbbb31c033",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "core/__init__.py": {
+      "filePath": "core/__init__.py",
+      "contentHash": "fd312a86f36b487d9a3c2503907019439bd917297cd34a04741bc4a9f856cb2c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "core/agent_wrapper.py": {
+      "filePath": "core/agent_wrapper.py",
+      "contentHash": "15d6776ff799c91a8177b063d9b2c69f961aa6db3069d51fcd1de9a1620cfebd",
+      "functions": [
+        {
+          "name": "_make_retrying",
+          "params": [
+            "fn"
+          ],
+          "returnType": "Callable",
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "agent_node",
+          "params": [
+            "name"
+          ],
+          "returnType": "Callable",
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "functools",
+          "specifiers": [
+            "wraps"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Callable",
+            "Coroutine"
+          ]
+        },
+        {
+          "source": "tenacity",
+          "specifiers": [
+            "retry",
+            "retry_if_exception_type",
+            "stop_after_attempt",
+            "wait_exponential"
+          ]
+        },
+        {
+          "source": "core.centrifugo",
+          "specifiers": [
+            "publish_agent_done",
+            "publish_agent_error",
+            "publish_agent_started"
+          ]
+        },
+        {
+          "source": "core.exceptions",
+          "specifiers": [
+            "TransientLLMError"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "core.metrics",
+          "specifiers": [
+            "metrics"
+          ]
+        }
+      ],
+      "exports": [
+        "_make_retrying",
+        "agent_node"
+      ],
+      "totalLines": 137,
+      "hasStructuralAnalysis": true
+    },
+    "core/celery_app.py": {
+      "filePath": "core/celery_app.py",
+      "contentHash": "938d5e4d52b86d3fab688c617cb2e5a749cacae2f48387134bc9e718d642f9d0",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "celery",
+          "specifiers": [
+            "Celery"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "core/centrifugo.py": {
+      "filePath": "core/centrifugo.py",
+      "contentHash": "f0b4a7053e6eec2cdbe093d382610ee3d49a095acd42525e95d81e65186e3086",
+      "functions": [
+        {
+          "name": "_channel",
+          "params": [
+            "world_id",
+            "task_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "publish_event",
+          "params": [
+            "world_id",
+            "task_id",
+            "event_type",
+            "payload"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "publish_pipeline_started",
+          "params": [
+            "world_id",
+            "task_id",
+            "total_agents"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "publish_agent_started",
+          "params": [
+            "world_id",
+            "task_id",
+            "agent"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "publish_agent_done",
+          "params": [
+            "world_id",
+            "task_id",
+            "agent",
+            "duration_ms",
+            "completed",
+            "total"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "publish_agent_error",
+          "params": [
+            "world_id",
+            "task_id",
+            "agent",
+            "error"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "publish_pipeline_done",
+          "params": [
+            "world_id",
+            "task_id",
+            "result"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "publish_pipeline_error",
+          "params": [
+            "world_id",
+            "task_id",
+            "error"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "_channel",
+        "publish_event",
+        "publish_pipeline_started",
+        "publish_agent_started",
+        "publish_agent_done",
+        "publish_agent_error",
+        "publish_pipeline_done",
+        "publish_pipeline_error"
+      ],
+      "totalLines": 117,
+      "hasStructuralAnalysis": true
+    },
+    "core/exceptions.py": {
+      "filePath": "core/exceptions.py",
+      "contentHash": "d2deadf20f0eebda5116b6ddac00fca1c547a406d8aff54c804dcad376ccc261",
+      "functions": [],
+      "classes": [
+        {
+          "name": "NarrativeLoomError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "TransientLLMError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "PermanentLLMError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "PipelineError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "NarrativeLoomError",
+        "TransientLLMError",
+        "PermanentLLMError",
+        "PipelineError"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "core/langfuse_setup.py": {
+      "filePath": "core/langfuse_setup.py",
+      "contentHash": "4bf203f63ecea5d536ea408de26d2ef565e279e312f661dea608ca4cebaaa961",
+      "functions": [
+        {
+          "name": "_get_langfuse_client",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "get_langfuse_callback",
+          "params": [
+            "task_id",
+            "world_id"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "flush_langfuse",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "_get_langfuse_client",
+        "get_langfuse_callback",
+        "flush_langfuse"
+      ],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "core/logging.py": {
+      "filePath": "core/logging.py",
+      "contentHash": "cd8e6ce46ef524f9cc38866642d1ebcce5be48b5d6b0a3bc7c093c1bc19f4039",
+      "functions": [
+        {
+          "name": "configure_logging",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "get_logger",
+          "params": [
+            "name"
+          ],
+          "returnType": "structlog.stdlib.BoundLogger",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "warnings",
+          "specifiers": [
+            "warnings"
+          ]
+        },
+        {
+          "source": "structlog",
+          "specifiers": [
+            "structlog"
+          ]
+        }
+      ],
+      "exports": [
+        "configure_logging",
+        "get_logger"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "core/metrics.py": {
+      "filePath": "core/metrics.py",
+      "contentHash": "51d5bcd232c0193f079a29d7dd27ea406a55f668fb782cb3ee372fd056572d40",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AgentMetric",
+          "methods": [],
+          "properties": [
+            "total_calls",
+            "total_duration_ms",
+            "errors",
+            "retries",
+            "last_duration_ms"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "MetricsCollector",
+          "methods": [
+            "__init__",
+            "record_agent",
+            "record_pipeline",
+            "snapshot"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 41
+        }
+      ],
+      "imports": [
+        {
+          "source": "collections",
+          "specifiers": [
+            "defaultdict"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "Lock"
+          ]
+        }
+      ],
+      "exports": [
+        "AgentMetric",
+        "MetricsCollector"
+      ],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "core/pipeline_manifest.py": {
+      "filePath": "core/pipeline_manifest.py",
+      "contentHash": "c73551ce317a417b8589f29f6be5d99f9fe0fc8c786718c3aefa0d27accbfba5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "engines/__init__.py": {
+      "filePath": "engines/__init__.py",
+      "contentHash": "86751f877b884dc996f366ce739d7d00f4aecf18f3f62697dca4524374742ec5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "engines/arc_engine.py": {
+      "filePath": "engines/arc_engine.py",
+      "contentHash": "888ded6900599028f5c29bf978a003bb110ae2e761116d4023357a24bf0fc52e",
+      "functions": [
+        {
+          "name": "arc_engine_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "DramaticArcEngine",
+          "methods": [
+            "tension",
+            "build"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "DramaticArcEngine",
+        "arc_engine_node"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "engines/attractor_engine.py": {
+      "filePath": "engines/attractor_engine.py",
+      "contentHash": "88fff0a6e23be2217bbf5a85a5d0c9970326b6f446158dd7e905231a347eae98",
+      "functions": [
+        {
+          "name": "attractor_engine_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "AttractorFieldEngine",
+          "methods": [
+            "classify",
+            "group",
+            "strength"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "AttractorFieldEngine",
+        "attractor_engine_node"
+      ],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "engines/entropy_engine.py": {
+      "filePath": "engines/entropy_engine.py",
+      "contentHash": "80a6dd00a29fbddd9d26b3aa2f6fecdccdb1b10ab58cccc6722b59af9fa03aa3",
+      "functions": [
+        {
+          "name": "temporal_weight",
+          "params": [
+            "event",
+            "events"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "entropy_engine_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "NarrativeEntropyEngine",
+          "methods": [
+            "__init__",
+            "rarity",
+            "character_impact",
+            "political_impact",
+            "chaos_delta",
+            "score_event",
+            "select_events"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 65
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Tuple"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "temporal_weight",
+        "NarrativeEntropyEngine",
+        "entropy_engine_node"
+      ],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    },
+    "engines/event_normalizer.py": {
+      "filePath": "engines/event_normalizer.py",
+      "contentHash": "d199272ff7312634653573169a2633440e4b031388dcd39da406e67ed8b729ca",
+      "functions": [
+        {
+          "name": "event_normalizer_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "EventNormalizer",
+          "methods": [
+            "normalize_event"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "EventNormalizer",
+        "event_normalizer_node"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "engines/phase_engine.py": {
+      "filePath": "engines/phase_engine.py",
+      "contentHash": "71ec41f8ac8de7a78791a03b9b3e186f9fa60ff34f46460e8c6c256be38d24a0",
+      "functions": [
+        {
+          "name": "phase_engine_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "NarrativePhaseEngine",
+          "methods": [
+            "event_density",
+            "actor_diversity",
+            "tension_energy",
+            "detect"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": ".arc_engine",
+          "specifiers": [
+            "TENSION_MAP"
+          ]
+        }
+      ],
+      "exports": [
+        "NarrativePhaseEngine",
+        "phase_engine_node"
+      ],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "engines/singularity_engine.py": {
+      "filePath": "engines/singularity_engine.py",
+      "contentHash": "481e37bd1ee96cef198703c0cd0ab61faa17ab860b4738c6fb4473e812b77b2b",
+      "functions": [
+        {
+          "name": "singularity_engine_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "NarrativeSingularityEngine",
+          "methods": [
+            "actor_gravity",
+            "event_energy",
+            "attractor_convergence",
+            "detect"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 38
+        }
+      ],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "NarrativeSingularityEngine",
+        "singularity_engine_node"
+      ],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "engines/style_analyzer.py": {
+      "filePath": "engines/style_analyzer.py",
+      "contentHash": "0c336c9bdcb7cef903d6e4d05e42f730534329e1f6f2a5a4a47dc7d6fcf87575",
+      "functions": [
+        {
+          "name": "style_analyzer_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        }
+      ],
+      "exports": [
+        "style_analyzer_node"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "graph.py": {
+      "filePath": "graph.py",
+      "contentHash": "7150daf316440e90e62d917dfffdf542988865add120f78994619cea48544c5e",
+      "functions": [
+        {
+          "name": "check_revision",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "langgraph.graph",
+          "specifiers": [
+            "StateGraph",
+            "END"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "engines.event_normalizer",
+          "specifiers": [
+            "event_normalizer_node"
+          ]
+        },
+        {
+          "source": "engines.entropy_engine",
+          "specifiers": [
+            "entropy_engine_node"
+          ]
+        },
+        {
+          "source": "engines.attractor_engine",
+          "specifiers": [
+            "attractor_engine_node"
+          ]
+        },
+        {
+          "source": "engines.arc_engine",
+          "specifiers": [
+            "arc_engine_node"
+          ]
+        },
+        {
+          "source": "engines.phase_engine",
+          "specifiers": [
+            "phase_engine_node"
+          ]
+        },
+        {
+          "source": "engines.singularity_engine",
+          "specifiers": [
+            "singularity_engine_node"
+          ]
+        },
+        {
+          "source": "engines.style_analyzer",
+          "specifiers": [
+            "style_analyzer_node"
+          ]
+        },
+        {
+          "source": "nodes.universe_bridge",
+          "specifiers": [
+            "universe_bridge_node"
+          ]
+        },
+        {
+          "source": "agents.chief_editor",
+          "specifiers": [
+            "chief_editor_agent"
+          ]
+        },
+        {
+          "source": "agents.historian",
+          "specifiers": [
+            "historian_agent"
+          ]
+        },
+        {
+          "source": "agents.psychologist",
+          "specifiers": [
+            "psychologist_agent"
+          ]
+        },
+        {
+          "source": "agents.director",
+          "specifiers": [
+            "director_agent"
+          ]
+        },
+        {
+          "source": "agents.wordsmith",
+          "specifiers": [
+            "wordsmith_agent"
+          ]
+        },
+        {
+          "source": "agents.critic",
+          "specifiers": [
+            "critic_agent"
+          ]
+        },
+        {
+          "source": "agents.archivist",
+          "specifiers": [
+            "archivist_agent"
+          ]
+        },
+        {
+          "source": "agents.mythologist",
+          "specifiers": [
+            "mythologist_agent"
+          ]
+        },
+        {
+          "source": "agents.news_anchor",
+          "specifiers": [
+            "news_anchor_agent"
+          ]
+        },
+        {
+          "source": "agents.vfx_director",
+          "specifiers": [
+            "vfx_director_agent"
+          ]
+        }
+      ],
+      "exports": [
+        "check_revision"
+      ],
+      "totalLines": 91,
+      "hasStructuralAnalysis": true
+    },
+    "graph_builder.py": {
+      "filePath": "graph_builder.py",
+      "contentHash": "eaa717896b0e1c3a9668a0361dfcbb360a7c2393ab7370178d64bfa9b1f6a493",
+      "functions": [
+        {
+          "name": "check_revision",
+          "params": [
+            "state"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "build_graph",
+          "params": [],
+          "returnType": "StateGraph",
+          "exported": true,
+          "lineCount": 79
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "langgraph.graph",
+          "specifiers": [
+            "END",
+            "StateGraph"
+          ]
+        },
+        {
+          "source": "agents.archivist",
+          "specifiers": [
+            "archivist_agent"
+          ]
+        },
+        {
+          "source": "agents.chief_editor",
+          "specifiers": [
+            "chief_editor_agent"
+          ]
+        },
+        {
+          "source": "agents.critic",
+          "specifiers": [
+            "critic_agent"
+          ]
+        },
+        {
+          "source": "agents.director",
+          "specifiers": [
+            "director_agent"
+          ]
+        },
+        {
+          "source": "agents.historian",
+          "specifiers": [
+            "historian_agent"
+          ]
+        },
+        {
+          "source": "agents.mythologist",
+          "specifiers": [
+            "mythologist_agent"
+          ]
+        },
+        {
+          "source": "agents.news_anchor",
+          "specifiers": [
+            "news_anchor_agent"
+          ]
+        },
+        {
+          "source": "agents.psychologist",
+          "specifiers": [
+            "psychologist_agent"
+          ]
+        },
+        {
+          "source": "agents.vfx_director",
+          "specifiers": [
+            "vfx_director_agent"
+          ]
+        },
+        {
+          "source": "agents.wordsmith",
+          "specifiers": [
+            "wordsmith_agent"
+          ]
+        },
+        {
+          "source": "engines.arc_engine",
+          "specifiers": [
+            "arc_engine_node"
+          ]
+        },
+        {
+          "source": "engines.attractor_engine",
+          "specifiers": [
+            "attractor_engine_node"
+          ]
+        },
+        {
+          "source": "engines.entropy_engine",
+          "specifiers": [
+            "entropy_engine_node"
+          ]
+        },
+        {
+          "source": "engines.event_normalizer",
+          "specifiers": [
+            "event_normalizer_node"
+          ]
+        },
+        {
+          "source": "engines.phase_engine",
+          "specifiers": [
+            "phase_engine_node"
+          ]
+        },
+        {
+          "source": "engines.singularity_engine",
+          "specifiers": [
+            "singularity_engine_node"
+          ]
+        },
+        {
+          "source": "engines.style_analyzer",
+          "specifiers": [
+            "style_analyzer_node"
+          ]
+        },
+        {
+          "source": "nodes.universe_bridge",
+          "specifiers": [
+            "universe_bridge_node"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "check_revision",
+        "build_graph"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "knowledge/era_definitions.json": {
+      "filePath": "knowledge/era_definitions.json",
+      "contentHash": "3ec5a53a3b4644fc269a29a0234c04c2bb1a45b7f3a973f9507ff0c0ac7a2517",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 139,
+      "hasStructuralAnalysis": true
+    },
+    "knowledge/power_manifestos.json": {
+      "filePath": "knowledge/power_manifestos.json",
+      "contentHash": "03f169c236f91ebd4620279aa6183bd21aba522cb7efff353b8756f9bc4ed994",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "main.py": {
+      "filePath": "main.py",
+      "contentHash": "7e27f50eadba3f4b0e79516f9532e629b0682fa37fe0951e5f00274032e899b5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "FastAPI"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "routers",
+          "specifiers": [
+            "chronicle",
+            "actors",
+            "scribe",
+            "system"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "mock_data.py": {
+      "filePath": "mock_data.py",
+      "contentHash": "3f7b0c9ad44e0c0c2ae1c2aba647066faba02b495654c0ddb88b979739efb7b0",
+      "functions": [
+        {
+          "name": "get_mock_historian_state",
+          "params": [
+            "noise"
+          ],
+          "returnType": "Dict[str, Any]",
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        }
+      ],
+      "exports": [
+        "get_mock_historian_state"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "nodes/universe_bridge.py": {
+      "filePath": "nodes/universe_bridge.py",
+      "contentHash": "18220c60b3bb6769d4747d238bcaa5bf90c6f74b02efa165e718e0f6aecc7175",
+      "functions": [
+        {
+          "name": "_get_redis",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "universe_bridge_node",
+          "params": [
+            "state",
+            "config"
+          ],
+          "returnType": "NarrativeState",
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "record_universe_whisper",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "core.agent_wrapper",
+          "specifiers": [
+            "agent_node"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "redis",
+          "specifiers": [
+            "redis"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any"
+          ]
+        }
+      ],
+      "exports": [
+        "_get_redis",
+        "universe_bridge_node",
+        "record_universe_whisper"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "requirements.txt": {
+      "filePath": "requirements.txt",
+      "contentHash": "25e1712627e61a5f91d0501f8c6f9cf146df5e073f14cfb02b64d82f490ae19b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": false
+    },
+    "requirements_windows.txt": {
+      "filePath": "requirements_windows.txt",
+      "contentHash": "bed039f42c53b3c99d097eb6c2836133f5294e3d2f42e8972f3cdc2d600bb52a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 46,
+      "hasStructuralAnalysis": false
+    },
+    "routers/__init__.py": {
+      "filePath": "routers/__init__.py",
+      "contentHash": "a0299d90857a59baaa427703287204c9774fe3310af57c4c0b201ef9ced71748",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "routers/actors.py": {
+      "filePath": "routers/actors.py",
+      "contentHash": "66e8a758b3a886f41fa59ac708019695800f0c845c629fa16fecb1ed598e08d5",
+      "functions": [
+        {
+          "name": "actor_intent",
+          "params": [
+            "req"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "api_weave_celebrity",
+          "params": [
+            "req"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "api_forge_artifact",
+          "params": [
+            "req"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "HTTPException"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "agents.intent_agent",
+          "specifiers": [
+            "ActorIntentRequest",
+            "ActorIntentResponse",
+            "intent_agent"
+          ]
+        },
+        {
+          "source": "agents.celebrity_synthesizer",
+          "specifiers": [
+            "celebrity_synthesizer_api"
+          ]
+        },
+        {
+          "source": "agents.artifact_forger",
+          "specifiers": [
+            "artifact_forger_api"
+          ]
+        }
+      ],
+      "exports": [
+        "actor_intent",
+        "api_weave_celebrity",
+        "api_forge_artifact"
+      ],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "routers/chronicle.py": {
+      "filePath": "routers/chronicle.py",
+      "contentHash": "972e2ebdbee4fdc9a42bbca4d26b518c958b6d076b8c022bad2946a1a53192ee",
+      "functions": [
+        {
+          "name": "weave_chronicles",
+          "params": [
+            "req"
+          ],
+          "exported": true,
+          "lineCount": 69
+        },
+        {
+          "name": "get_task_status",
+          "params": [
+            "task_id"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "get_agent_config",
+          "params": [
+            "agent_id"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [
+        {
+          "name": "ChronicleRequest",
+          "methods": [
+            "world_id_positive",
+            "tick_end_after_start"
+          ],
+          "properties": [
+            "world_id",
+            "world_era",
+            "tick_start",
+            "tick_end",
+            "genre",
+            "power_system",
+            "whispers",
+            "ai_runtime"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "HTTPException",
+            "Request"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "field_validator"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional",
+            "List",
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "core.celery_app",
+          "specifiers": [
+            "celery_app"
+          ]
+        },
+        {
+          "source": "tasks.chronicle_task",
+          "specifiers": [
+            "weave_chronicle_task"
+          ]
+        },
+        {
+          "source": "celery.result",
+          "specifiers": [
+            "AsyncResult"
+          ]
+        },
+        {
+          "source": "utils.manifesto_loader",
+          "specifiers": [
+            "loader"
+          ]
+        }
+      ],
+      "exports": [
+        "ChronicleRequest",
+        "weave_chronicles",
+        "get_task_status",
+        "get_agent_config"
+      ],
+      "totalLines": 161,
+      "hasStructuralAnalysis": true
+    },
+    "routers/scribe.py": {
+      "filePath": "routers/scribe.py",
+      "contentHash": "b406f0d7daaf587c2075fbbfa4226ec1bb735f7b78a5091b10df05582d6ee453",
+      "functions": [
+        {
+          "name": "scribe_history",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "paint_asset",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "compose_track",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "ScribeHistoryRequest",
+          "methods": [],
+          "properties": [
+            "event_type",
+            "impact_score",
+            "trigger_data",
+            "world_id"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "PaintAssetRequest",
+          "methods": [],
+          "properties": [
+            "prompt",
+            "is_portrait"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "ComposeTrackRequest",
+          "methods": [],
+          "properties": [
+            "epoch_name",
+            "core_theme"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "HTTPException"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "agents.history_scribe",
+          "specifiers": [
+            "history_scribe_api"
+          ]
+        },
+        {
+          "source": "agents.art_director",
+          "specifiers": [
+            "generate_visual_asset"
+          ]
+        },
+        {
+          "source": "agents.audio_director",
+          "specifiers": [
+            "AudioDirectorAgent"
+          ]
+        }
+      ],
+      "exports": [
+        "ScribeHistoryRequest",
+        "scribe_history",
+        "PaintAssetRequest",
+        "paint_asset",
+        "ComposeTrackRequest",
+        "compose_track"
+      ],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "routers/system.py": {
+      "filePath": "routers/system.py",
+      "contentHash": "9c6fcdf4fb12e0bfb9aa75d23ed436ace569e61e0d3392b7e54d7a09ce4e1caf",
+      "functions": [
+        {
+          "name": "read_root",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_load_agent_routing",
+          "params": [],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_get_agent_role",
+          "params": [
+            "agent_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "get_config",
+          "params": [],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "invalidate_cache",
+          "params": [
+            "world_id"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "health_check",
+          "params": [],
+          "exported": true,
+          "lineCount": 54
+        },
+        {
+          "name": "get_metrics",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "get_pipeline_manifest",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "HTTPException"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "core.pipeline_manifest",
+          "specifiers": [
+            "PIPELINE_MANIFEST"
+          ]
+        },
+        {
+          "source": "utils.cache_manager",
+          "specifiers": [
+            "cache_manager"
+          ]
+        }
+      ],
+      "exports": [
+        "read_root",
+        "_load_agent_routing",
+        "_get_agent_role",
+        "get_config",
+        "invalidate_cache",
+        "health_check",
+        "get_metrics",
+        "get_pipeline_manifest"
+      ],
+      "totalLines": 176,
+      "hasStructuralAnalysis": true
+    },
+    "schemas.py": {
+      "filePath": "schemas.py",
+      "contentHash": "de0858b7c58a785661e77f812d7fec12024183986683e7376be4f731208618c5",
+      "functions": [],
+      "classes": [
+        {
+          "name": "NarrativeBeat",
+          "methods": [],
+          "properties": [
+            "title",
+            "causality",
+            "impact_scale"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "HistoricalOutline",
+          "methods": [],
+          "properties": [
+            "summary",
+            "beats"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "Scene",
+          "methods": [],
+          "properties": [
+            "setting",
+            "camera_angle",
+            "central_conflict",
+            "involved_characters"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "VfxConfig",
+          "methods": [],
+          "properties": [
+            "primary_color",
+            "distortion",
+            "particle_density",
+            "atmosphere_filter"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Storyboard",
+          "methods": [],
+          "properties": [
+            "title",
+            "scenes",
+            "vfx_config"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "CriticReview",
+          "methods": [],
+          "properties": [
+            "score",
+            "feedbacks",
+            "is_passed"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "VAFBackground",
+          "methods": [],
+          "properties": [
+            "type",
+            "colors",
+            "description"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "VAFAtmosphere",
+          "methods": [],
+          "properties": [
+            "filter",
+            "intensity",
+            "weather"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "VAFCameraMovement",
+          "methods": [],
+          "properties": [
+            "type",
+            "speed",
+            "easing"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "VAFEffect",
+          "methods": [],
+          "properties": [
+            "type",
+            "intensity",
+            "color",
+            "trigger_at_ms"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "VAFTransition",
+          "methods": [],
+          "properties": [
+            "type",
+            "duration_ms"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "VAFScene",
+          "methods": [],
+          "properties": [
+            "id",
+            "type",
+            "duration_ms",
+            "background",
+            "atmosphere",
+            "camera",
+            "effects",
+            "narration",
+            "transition"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "AnimationScript",
+          "methods": [],
+          "properties": [
+            "total_duration_ms",
+            "scenes"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "NarrativeBeat",
+        "HistoricalOutline",
+        "Scene",
+        "VfxConfig",
+        "Storyboard",
+        "CriticReview",
+        "VAFBackground",
+        "VAFAtmosphere",
+        "VAFCameraMovement",
+        "VAFEffect",
+        "VAFTransition",
+        "VAFScene",
+        "AnimationScript"
+      ],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "state.py": {
+      "filePath": "state.py",
+      "contentHash": "43691e63ad125f1a51e743ef1c2ceff50441d52d473c9b779b5e7230b787142d",
+      "functions": [],
+      "classes": [
+        {
+          "name": "NarrativeState",
+          "methods": [],
+          "properties": [
+            "world_id",
+            "world_era",
+            "tick_start",
+            "tick_end",
+            "ai_runtime",
+            "task_id",
+            "completed_agents",
+            "raw_chronicles",
+            "normalized_events",
+            "filtered_events",
+            "event_scores",
+            "attractor_clusters",
+            "attractor_strength",
+            "dramatic_arc",
+            "narrative_phase",
+            "phase_score",
+            "singularity",
+            "genre",
+            "style_guidelines",
+            "cross_pollination_whispers",
+            "historical_outline",
+            "psychological_profiles",
+            "storyboard",
+            "final_prose",
+            "news_headline",
+            "news_slogan",
+            "vfx_config",
+            "vfx_hints",
+            "animation_script",
+            "feedback",
+            "revision_count",
+            "past_memories",
+            "epistemic_noise",
+            "epistemic_tier",
+            "resonance_scars",
+            "reality_stability",
+            "power_system",
+            "power_system_manifesto",
+            "era_context",
+            "current_agent"
+          ],
+          "exported": true,
+          "lineCount": 66
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Dict",
+            "List",
+            "Optional",
+            "TypedDict"
+          ]
+        }
+      ],
+      "exports": [
+        "NarrativeState"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "tasks/__init__.py": {
+      "filePath": "tasks/__init__.py",
+      "contentHash": "45fcf2a7e36d39aa707b98fd2a1bc4229033f961145d775e85c48cec5e45c073",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "tasks/chronicle_task.py": {
+      "filePath": "tasks/chronicle_task.py",
+      "contentHash": "15bdf8add23cb83855f52d4f7c98d0858c4e49f65689ab2e637696e4023f465e",
+      "functions": [
+        {
+          "name": "weave_chronicle_task",
+          "params": [
+            "initial_state",
+            "world_id",
+            "task_id"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 75
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "celery",
+          "specifiers": [
+            "Task"
+          ]
+        },
+        {
+          "source": "celery.exceptions",
+          "specifiers": [
+            "SoftTimeLimitExceeded"
+          ]
+        },
+        {
+          "source": "core.celery_app",
+          "specifiers": [
+            "celery_app"
+          ]
+        },
+        {
+          "source": "core.centrifugo",
+          "specifiers": [
+            "publish_pipeline_done",
+            "publish_pipeline_error",
+            "publish_pipeline_started"
+          ]
+        },
+        {
+          "source": "core.langfuse_setup",
+          "specifiers": [
+            "flush_langfuse",
+            "get_langfuse_callback"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "graph_builder",
+          "specifiers": [
+            "build_graph"
+          ]
+        }
+      ],
+      "exports": [
+        "weave_chronicle_task"
+      ],
+      "totalLines": 121,
+      "hasStructuralAnalysis": true
+    },
+    "test.txt": {
+      "filePath": "test.txt",
+      "contentHash": "f232ecfabbab01d7ff76fe652f19bb45744a5f76a7e0ca9a13df622d8706ca17",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    "test_ainvoke.py": {
+      "filePath": "test_ainvoke.py",
+      "contentHash": "5aa3bb0027f6c90d2bc0bf229c1513af59955466371c8837d7968ef2257a07b0",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "langchain_openai",
+          "specifiers": [
+            "ChatOpenAI"
+          ]
+        },
+        {
+          "source": "langchain_core.messages",
+          "specifiers": [
+            "HumanMessage"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "test_llm.py": {
+      "filePath": "test_llm.py",
+      "contentHash": "c8d0e1ad6a05d0897c65bec3dfb628ebe21c9c66d5a107523ef5ba0800d1d408",
+      "functions": [
+        {
+          "name": "test_local_llm",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm"
+          ]
+        }
+      ],
+      "exports": [
+        "test_local_llm"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "test_llm_standalone.py": {
+      "filePath": "test_llm_standalone.py",
+      "contentHash": "7b0d96501d79ecc3a492b9132e74961a60f6fc6b87151dba7ecbed2d004affa6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "utils.llm_factory",
+          "specifiers": [
+            "get_llm"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "test_multi_ai.py": {
+      "filePath": "test_multi_ai.py",
+      "contentHash": "ded3c1c9f15dd8fee095a97a3aa5bc1e392f49fa4edf03fdb7603abf5ab74bad",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "test_narrative_weave.py": {
+      "filePath": "test_narrative_weave.py",
+      "contentHash": "d95f7d7d80e04fbffd04efef885add146281f518fb77b411eb278b6d64c585b9",
+      "functions": [
+        {
+          "name": "run_test_weave",
+          "params": [],
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        }
+      ],
+      "exports": [
+        "run_test_weave"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "test_phase3.py": {
+      "filePath": "test_phase3.py",
+      "contentHash": "8fa07f709a0310957404c29ae3b8cd81434af614d04f0fc5c77b18ba4db5977e",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 54
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "graph",
+          "specifiers": [
+            "app"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "test_pipeline_granular.py": {
+      "filePath": "test_pipeline_granular.py",
+      "contentHash": "c158de0ffa15966a4efc00544ee035498c31416e700b52e7a171dc7f279e8a71",
+      "functions": [
+        {
+          "name": "run_historian",
+          "params": [
+            "noise"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "run_psychologist",
+          "params": [
+            "prev_state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "run_director",
+          "params": [
+            "prev_state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "run_wordsmith",
+          "params": [
+            "prev_state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "agents.historian",
+          "specifiers": [
+            "historian_agent"
+          ]
+        },
+        {
+          "source": "agents.psychologist",
+          "specifiers": [
+            "psychologist_agent"
+          ]
+        },
+        {
+          "source": "agents.director",
+          "specifiers": [
+            "director_agent"
+          ]
+        },
+        {
+          "source": "agents.wordsmith",
+          "specifiers": [
+            "wordsmith_agent"
+          ]
+        },
+        {
+          "source": "mock_data",
+          "specifiers": [
+            "get_mock_historian_state"
+          ]
+        }
+      ],
+      "exports": [
+        "run_historian",
+        "run_psychologist",
+        "run_director",
+        "run_wordsmith",
+        "main"
+      ],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_agents.py": {
+      "filePath": "tests/test_agents.py",
+      "contentHash": "72f6b28eeb010358bee16b972234dbdf0b580b15e4b68c4efe6eac64f318e40c",
+      "functions": [
+        {
+          "name": "mock_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "mock_narrative_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_historian_agent",
+          "params": [
+            "mocker",
+            "mock_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_psychologist_agent",
+          "params": [
+            "mocker",
+            "mock_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_director_agent",
+          "params": [
+            "mocker",
+            "mock_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_wordsmith_agent",
+          "params": [
+            "mocker",
+            "mock_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "mock_vfx_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "vfx_narrative_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_vfx_director_produces_animation_script",
+          "params": [
+            "mock_vfx_llm",
+            "vfx_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_vfx_director_fallback_on_error",
+          "params": [
+            "mocker",
+            "vfx_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "extended_narrative_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "test_archivist_agent",
+          "params": [
+            "mocker",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "mock_chief_editor_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_chief_editor_agent",
+          "params": [
+            "mock_chief_editor_llm",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_critic_agent_pass",
+          "params": [
+            "mocker",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_critic_agent_fail",
+          "params": [
+            "mocker",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "mock_mythologist_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_mythologist_agent",
+          "params": [
+            "mock_mythologist_llm",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "mock_news_anchor_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_news_anchor_agent",
+          "params": [
+            "mock_news_anchor_llm",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_news_anchor_fallback",
+          "params": [
+            "mocker",
+            "extended_narrative_state"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "mock_artifact_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "mock_celebrity_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "mock_history_llm",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_artifact_forger",
+          "params": [
+            "mock_artifact_llm"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_celebrity_synthesizer",
+          "params": [
+            "mock_celebrity_llm"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_history_scribe_high_impact",
+          "params": [
+            "mock_history_llm"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_history_scribe_low_impact_fallback",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "langchain_core.runnables",
+          "specifiers": [
+            "RunnableLambda"
+          ]
+        },
+        {
+          "source": "agents.historian",
+          "specifiers": [
+            "historian_agent"
+          ]
+        },
+        {
+          "source": "agents.psychologist",
+          "specifiers": [
+            "psychologist_agent"
+          ]
+        },
+        {
+          "source": "agents.director",
+          "specifiers": [
+            "director_agent"
+          ]
+        },
+        {
+          "source": "agents.wordsmith",
+          "specifiers": [
+            "wordsmith_agent"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        },
+        {
+          "source": "agents.vfx_director",
+          "specifiers": [
+            "vfx_director_agent"
+          ]
+        },
+        {
+          "source": "agents.archivist",
+          "specifiers": [
+            "archivist_agent"
+          ]
+        },
+        {
+          "source": "agents.chief_editor",
+          "specifiers": [
+            "chief_editor_agent"
+          ]
+        },
+        {
+          "source": "agents.critic",
+          "specifiers": [
+            "critic_agent"
+          ]
+        },
+        {
+          "source": "agents.mythologist",
+          "specifiers": [
+            "mythologist_agent"
+          ]
+        },
+        {
+          "source": "agents.news_anchor",
+          "specifiers": [
+            "news_anchor_agent"
+          ]
+        },
+        {
+          "source": "schemas",
+          "specifiers": [
+            "CriticReview"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "MagicMock"
+          ]
+        },
+        {
+          "source": "agents.artifact_forger",
+          "specifiers": [
+            "forge_artifact",
+            "artifact_forger_api"
+          ]
+        },
+        {
+          "source": "agents.celebrity_synthesizer",
+          "specifiers": [
+            "synthesize_celebrity",
+            "celebrity_synthesizer_api"
+          ]
+        },
+        {
+          "source": "agents.history_scribe",
+          "specifiers": [
+            "scribe_history",
+            "history_scribe_api"
+          ]
+        }
+      ],
+      "exports": [
+        "mock_llm",
+        "mock_narrative_state",
+        "test_historian_agent",
+        "test_psychologist_agent",
+        "test_director_agent",
+        "test_wordsmith_agent",
+        "mock_vfx_llm",
+        "vfx_narrative_state",
+        "test_vfx_director_produces_animation_script",
+        "test_vfx_director_fallback_on_error",
+        "extended_narrative_state",
+        "test_archivist_agent",
+        "mock_chief_editor_llm",
+        "test_chief_editor_agent",
+        "test_critic_agent_pass",
+        "test_critic_agent_fail",
+        "mock_mythologist_llm",
+        "test_mythologist_agent",
+        "mock_news_anchor_llm",
+        "test_news_anchor_agent",
+        "test_news_anchor_fallback",
+        "mock_artifact_llm",
+        "mock_celebrity_llm",
+        "mock_history_llm",
+        "test_artifact_forger",
+        "test_celebrity_synthesizer",
+        "test_history_scribe_high_impact",
+        "test_history_scribe_low_impact_fallback"
+      ],
+      "totalLines": 472,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_health.py": {
+      "filePath": "tests/test_health.py",
+      "contentHash": "1f69db34b8a87dcfbb208f4edc6a7cd55bd28533833a408595a59ff0c28ad5f8",
+      "functions": [
+        {
+          "name": "_make_client",
+          "params": [],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "client_and_mocks",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "client",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_health_healthy",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "test_health_degraded_redis_down",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "test_health_redis_unavailable",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_health_celery_down",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_health_llm_pool_error",
+          "params": [
+            "client_and_mocks"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_metrics_empty",
+          "params": [
+            "client"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_metrics_with_data",
+          "params": [
+            "client"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_metrics_pipeline_error_tracking",
+          "params": [
+            "client"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "patch",
+            "MagicMock"
+          ]
+        }
+      ],
+      "exports": [
+        "_make_client",
+        "client_and_mocks",
+        "client",
+        "test_health_healthy",
+        "test_health_degraded_redis_down",
+        "test_health_redis_unavailable",
+        "test_health_celery_down",
+        "test_health_llm_pool_error",
+        "test_metrics_empty",
+        "test_metrics_with_data",
+        "test_metrics_pipeline_error_tracking"
+      ],
+      "totalLines": 227,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_pipeline.py": {
+      "filePath": "tests/test_pipeline.py",
+      "contentHash": "16366300c0f5d4aeb50f15aeb7e15e72d61dc726abf4da9ea20fbf6fe08ad596",
+      "functions": [
+        {
+          "name": "mock_llm_factory",
+          "params": [
+            "mocker"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_complete_narrative_pipeline",
+          "params": [
+            "mock_llm_factory"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "langgraph.graph",
+          "specifiers": [
+            "StateGraph"
+          ]
+        },
+        {
+          "source": "langchain_core.runnables",
+          "specifiers": [
+            "RunnableLambda"
+          ]
+        },
+        {
+          "source": "state",
+          "specifiers": [
+            "NarrativeState"
+          ]
+        }
+      ],
+      "exports": [
+        "mock_llm_factory",
+        "test_complete_narrative_pipeline"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_validation.py": {
+      "filePath": "tests/test_validation.py",
+      "contentHash": "2925a6873034353574afbf778a0acfd84b196abebaeb655cd18bfd6ed880e8b9",
+      "functions": [
+        {
+          "name": "test_valid_request",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_valid_request_minimal",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_world_id_zero_rejected",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_world_id_negative_rejected",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_tick_end_before_start_rejected",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_tick_end_equal_start_ok",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_tick_end_without_start_ok",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_tick_start_without_end_ok",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_defaults",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_whispers_list",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_ai_runtime_dict",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "patch",
+            "MagicMock"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "ValidationError"
+          ]
+        }
+      ],
+      "exports": [
+        "test_valid_request",
+        "test_valid_request_minimal",
+        "test_world_id_zero_rejected",
+        "test_world_id_negative_rejected",
+        "test_tick_end_before_start_rejected",
+        "test_tick_end_equal_start_ok",
+        "test_tick_end_without_start_ok",
+        "test_tick_start_without_end_ok",
+        "test_defaults",
+        "test_whispers_list",
+        "test_ai_runtime_dict"
+      ],
+      "totalLines": 98,
+      "hasStructuralAnalysis": true
+    },
+    "utils/cache_manager.py": {
+      "filePath": "utils/cache_manager.py",
+      "contentHash": "df6ec98ba1f37eaa0f6cb9b6d92d04e3e0840e41d3349599f5d05c431cdfb3bc",
+      "functions": [],
+      "classes": [
+        {
+          "name": "WorldOsCacheManager",
+          "methods": [
+            "__init__",
+            "_get_key",
+            "get_cached_narrative",
+            "set_cached_narrative",
+            "invalidate_world_cache"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 78
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "redis",
+          "specifiers": [
+            "redis"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Optional"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "WorldOsCacheManager"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "utils/llm_factory.py": {
+      "filePath": "utils/llm_factory.py",
+      "contentHash": "80888ebfeb3e8c5d81fef89e3a2a04df8be120615340d0a9ed966a0107cf5583",
+      "functions": [
+        {
+          "name": "get_llm_for_agent",
+          "params": [
+            "agent_id",
+            "world_id",
+            "current_tick",
+            "ai_runtime"
+          ],
+          "returnType": "BaseChatModel",
+          "exported": true,
+          "lineCount": 92
+        },
+        {
+          "name": "_get_pool_key",
+          "params": [
+            "agent_id",
+            "provider",
+            "model",
+            "exclude_key_id"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "_normalize_ai_runtime",
+          "params": [
+            "ai_runtime"
+          ],
+          "returnType": "dict[str, str] | None",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "get_llm",
+          "params": [
+            "provider",
+            "model_name",
+            "world_id",
+            "current_tick",
+            "api_key",
+            "base_url"
+          ],
+          "returnType": "BaseChatModel",
+          "exported": true,
+          "lineCount": 129
+        }
+      ],
+      "classes": [
+        {
+          "name": "TickBasedCache",
+          "methods": [
+            "__init__",
+            "lookup",
+            "update",
+            "clear"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Optional"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "redis",
+          "specifiers": [
+            "redis"
+          ]
+        },
+        {
+          "source": "langchain.globals",
+          "specifiers": [
+            "set_llm_cache"
+          ]
+        },
+        {
+          "source": "langchain_community.cache",
+          "specifiers": [
+            "RedisCache",
+            "RedisSemanticCache"
+          ]
+        },
+        {
+          "source": "langchain_community.embeddings.fastembed",
+          "specifiers": [
+            "FastEmbedEmbeddings"
+          ]
+        },
+        {
+          "source": "langchain_anthropic",
+          "specifiers": [
+            "ChatAnthropic"
+          ]
+        },
+        {
+          "source": "langchain_core.caches",
+          "specifiers": [
+            "BaseCache"
+          ]
+        },
+        {
+          "source": "langchain_core.language_models.chat_models",
+          "specifiers": [
+            "BaseChatModel"
+          ]
+        },
+        {
+          "source": "langchain_google_genai",
+          "specifiers": [
+            "ChatGoogleGenerativeAI"
+          ]
+        },
+        {
+          "source": "langchain_openai",
+          "specifiers": [
+            "ChatOpenAI"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        },
+        {
+          "source": "core.exceptions",
+          "specifiers": [
+            "TransientLLMError"
+          ]
+        },
+        {
+          "source": "utils.cache_manager",
+          "specifiers": [
+            "cache_manager"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        }
+      ],
+      "exports": [
+        "TickBasedCache",
+        "get_llm_for_agent",
+        "_get_pool_key",
+        "_normalize_ai_runtime",
+        "get_llm"
+      ],
+      "totalLines": 336,
+      "hasStructuralAnalysis": true
+    },
+    "utils/manifesto_loader.py": {
+      "filePath": "utils/manifesto_loader.py",
+      "contentHash": "756ae45d448742dcb2ae687e325180c0acef181dff8f94fe3e614fac5e666081",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ManifestoLoader",
+          "methods": [
+            "__init__",
+            "_load_json",
+            "get_era_context",
+            "get_vfx_hints",
+            "get_power_manifesto"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Any",
+            "Optional"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "ManifestoLoader"
+      ],
+      "totalLines": 82,
+      "hasStructuralAnalysis": true
+    },
+    "utils/memory_manager.py": {
+      "filePath": "utils/memory_manager.py",
+      "contentHash": "baf18eb5c9074fc993191ac5bdc78b3dbf17f369908d2751e86398a223f13ff0",
+      "functions": [],
+      "classes": [
+        {
+          "name": "EpisodicMemoryManager",
+          "methods": [
+            "__init__",
+            "store_memory",
+            "retrieve_memories"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 47
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Dict",
+            "Any"
+          ]
+        },
+        {
+          "source": "core.logging",
+          "specifiers": [
+            "get_logger"
+          ]
+        }
+      ],
+      "exports": [
+        "EpisodicMemoryManager"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    }
+  }
+}
