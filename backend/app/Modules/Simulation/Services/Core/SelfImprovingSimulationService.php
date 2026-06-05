@@ -70,10 +70,12 @@ final class SelfImprovingSimulationService
         // 4. Record evaluation history.
         $this->recordEvaluation($patternId, $dsl, $score, $result);
 
-        // 5. Auto-deploy if score exceeds threshold.
+        // 5. Auto-deploy if score exceeds threshold AND the global
+        // auto-deploy gate is enabled. The gate defaults to OFF so a human
+        // must opt in via worldos.self_improving.auto_deploy config.
         $deployed = false;
         if ($score >= self::AUTO_DEPLOY_THRESHOLD) {
-            $deployed = $this->deployRule($patternId, $dsl);
+            $deployed = $this->deployRule($patternId, $dsl, autoDeploy: true);
         }
 
         Log::info('SelfImproving: cycle completed', [
@@ -189,21 +191,75 @@ final class SelfImprovingSimulationService
     /**
      * Deploy an approved rule by storing it as the active version.
      *
-     * In production this would persist to a rules table; currently uses cache.
+     * Auto-deploy is gated by config('worldos.self_improving.auto_deploy', false)
+     * — disabled by default so an operator must explicitly opt in. When the
+     * gate is closed the rule is recorded as "approved but not deployed" in
+     * the audit channel so a human can review and call deployRule() manually
+     * if they want to ship it. Every deploy (auto or manual) writes a
+     * timestamped, identifiable record to the dedicated `self_improving_audit`
+     * log channel so deployments are traceable end-to-end.
+     *
+     * In production this would persist to a rules table; cache is acceptable
+     * only as long as the audit log is the source of truth for who deployed
+     * what when.
      */
-    private function deployRule(string $patternId, string $dsl): bool
+    public function deployRule(string $patternId, string $dsl, bool $autoDeploy = false): bool
     {
+        if ($autoDeploy && ! (bool) Config::get('worldos.self_improving.auto_deploy', false)) {
+            $this->auditLog('approved_not_deployed', $patternId, $dsl, [
+                'reason' => 'auto_deploy_disabled_by_config',
+            ]);
+            return false;
+        }
+
+        $deploymentId = $patternId . ':' . now()->timestamp . ':' . substr(bin2hex(random_bytes(4)), 0, 8);
+
         try {
             Cache::put(
                 "worldos.self_improving.deployed.{$patternId}",
-                ['dsl' => $dsl, 'deployed_at' => now()->toISOString()],
+                [
+                    'dsl' => $dsl,
+                    'deployed_at' => now()->toISOString(),
+                    'deployment_id' => $deploymentId,
+                    'auto_deploy' => $autoDeploy,
+                ],
                 now()->addYear()
             );
-            Log::info('SelfImproving: rule deployed', ['pattern_id' => $patternId]);
+            $this->auditLog('deployed', $patternId, $dsl, [
+                'deployment_id' => $deploymentId,
+                'auto_deploy' => $autoDeploy,
+            ]);
             return true;
         } catch (\Throwable $e) {
-            Log::error('SelfImproving: deploy failed', ['pattern_id' => $patternId, 'error' => $e->getMessage()]);
+            $this->auditLog('deploy_failed', $patternId, $dsl, [
+                'deployment_id' => $deploymentId,
+                'error' => $e->getMessage(),
+            ]);
             return false;
+        }
+    }
+
+    /**
+     * Write to the dedicated self_improving_audit log channel if it exists,
+     * falling back to the default log channel. The dedicated channel makes
+     * it easy to route deployments to a separate stream, alert, or SIEM.
+     */
+    private function auditLog(string $event, string $patternId, string $dsl, array $context = []): void
+    {
+        $context = array_merge([
+            'event' => $event,
+            'pattern_id' => $patternId,
+            'dsl_length' => strlen($dsl),
+            'dsl_sha256' => hash('sha256', $dsl),
+        ], $context);
+
+        try {
+            Log::channel('self_improving_audit')->info("SelfImproving: {$event}", $context);
+        } catch (\Throwable) {
+            // Channel not configured — fall back to default log so we never
+            // lose the audit record. Operators can wire the channel later
+            // in config/logging.php without changing this code.
+            Log::info("SelfImproving: {$event}", $context);
         }
     }
 

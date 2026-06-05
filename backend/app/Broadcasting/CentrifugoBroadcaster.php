@@ -21,8 +21,11 @@ use Illuminate\Broadcasting\BroadcastException;
 class CentrifugoBroadcaster extends Broadcaster
 {
     private const DEAD_LETTER_KEY = 'centrifugo:dead_letter_queue';
+    private const DEAD_LETTER_LOCK_KEY = 'centrifugo:dead_letter_lock';
+    private const DEAD_LETTER_LOCK_TTL_SECONDS = 5;
     private const MAX_DEAD_LETTER_RETRIES = 3;
     private const DEAD_LETTER_TTL_SECONDS = 3600;
+    private const DEAD_LETTER_MAX_SIZE = 100;
     /**
      * Authenticate the incoming request for a given channel.
      *
@@ -157,6 +160,11 @@ class CentrifugoBroadcaster extends Broadcaster
 
     /**
      * Enqueue a failed broadcast for later retry.
+     *
+     * Wrapped in Cache::lock to make read-modify-write atomic across processes.
+     * Without the lock, concurrent broadcast() calls could lose newly-enqueued
+     * entries: thread A reads [X], thread B reads [X], both write [X, …] — the
+     * last writer wins and one of the new entries is silently dropped.
      */
     private function enqueueDeadLetter(array $channels, string $event, array $payload): void
     {
@@ -169,19 +177,24 @@ class CentrifugoBroadcaster extends Broadcaster
         ];
 
         try {
-            $queue = Cache::get(self::DEAD_LETTER_KEY, []);
-            if (count($queue) >= 100) {
-                // Drop oldest entry if queue is full to prevent unbounded growth.
-                array_shift($queue);
-            }
-            $queue[] = $entry;
-            Cache::put(self::DEAD_LETTER_KEY, $queue, self::DEAD_LETTER_TTL_SECONDS);
+            Cache::lock(self::DEAD_LETTER_LOCK_KEY, self::DEAD_LETTER_LOCK_TTL_SECONDS)->block(
+                self::DEAD_LETTER_LOCK_TTL_SECONDS,
+                function () use ($entry) {
+                    $queue = Cache::get(self::DEAD_LETTER_KEY, []);
+                    if (count($queue) >= self::DEAD_LETTER_MAX_SIZE) {
+                        // Drop oldest entry if queue is full to prevent unbounded growth.
+                        array_shift($queue);
+                    }
+                    $queue[] = $entry;
+                    Cache::put(self::DEAD_LETTER_KEY, $queue, self::DEAD_LETTER_TTL_SECONDS);
 
-            Log::warning('Centrifugo: broadcast enqueued to dead letter', [
-                'channels' => $channels,
-                'event' => $event,
-                'queue_size' => count($queue),
-            ]);
+                    Log::warning('Centrifugo: broadcast enqueued to dead letter', [
+                        'channels' => $entry['channels'],
+                        'event' => $entry['event'],
+                        'queue_size' => count($queue),
+                    ]);
+                }
+            );
         } catch (\Throwable $e) {
             Log::error('Centrifugo: failed to enqueue dead letter: ' . $e->getMessage());
         }
@@ -192,73 +205,89 @@ class CentrifugoBroadcaster extends Broadcaster
      *
      * This is called before each new broadcast so the queue self-heals
      * when connectivity recovers.
+     *
+     * Read-modify-write of the queue is wrapped in Cache::lock so concurrent
+     * flushes + enqueues from other broadcast() invocations cannot clobber
+     * each other (TOCTOU race on the shared Redis hash).
      */
     private function flushDeadLetterQueue(string $url, string $apiKey): void
     {
-        $queue = Cache::get(self::DEAD_LETTER_KEY, []);
+        try {
+            Cache::lock(self::DEAD_LETTER_LOCK_KEY, self::DEAD_LETTER_LOCK_TTL_SECONDS)->block(
+                self::DEAD_LETTER_LOCK_TTL_SECONDS,
+                function () use ($url, $apiKey) {
+                    $queue = Cache::get(self::DEAD_LETTER_KEY, []);
 
-        if (empty($queue)) {
-            return;
-        }
+                    if (empty($queue)) {
+                        return;
+                    }
 
-        $remaining = [];
-        $flushed = 0;
-        $dropped = 0;
+                    $remaining = [];
+                    $flushed = 0;
+                    $dropped = 0;
 
-        foreach ($queue as $entry) {
-            $retries = (int) ($entry['retries'] ?? 0);
+                    foreach ($queue as $entry) {
+                        $retries = (int) ($entry['retries'] ?? 0);
 
-            if ($retries >= self::MAX_DEAD_LETTER_RETRIES) {
-                $dropped++;
-                Log::warning('Centrifugo: dead letter discarded after max retries', [
-                    'channels' => $entry['channels'] ?? [],
-                    'event' => $entry['event'] ?? 'unknown',
-                    'retries' => $retries,
-                ]);
-                continue;
-            }
+                        if ($retries >= self::MAX_DEAD_LETTER_RETRIES) {
+                            $dropped++;
+                            Log::warning('Centrifugo: dead letter discarded after max retries', [
+                                'channels' => $entry['channels'] ?? [],
+                                'event' => $entry['event'] ?? 'unknown',
+                                'retries' => $retries,
+                            ]);
+                            continue;
+                        }
 
-            try {
-                $body = '';
-                foreach ($entry['channels'] as $channel) {
-                    $body .= json_encode([
-                        'method' => 'publish',
-                        'params' => [
-                            'channel' => $channel,
-                            'data' => $entry['payload'],
-                        ],
-                    ]) . "\n";
+                        try {
+                            $body = '';
+                            foreach ($entry['channels'] as $channel) {
+                                $body .= json_encode([
+                                    'method' => 'publish',
+                                    'params' => [
+                                        'channel' => $channel,
+                                        'data' => $entry['payload'],
+                                    ],
+                                ]) . "\n";
+                            }
+
+                            $response = Http::withHeaders([
+                                'X-API-Key' => $apiKey,
+                            ])->withBody($body, 'application/json')->post($url);
+
+                            if ($response->failed()) {
+                                $entry['retries'] = $retries + 1;
+                                $remaining[] = $entry;
+                            } else {
+                                $flushed++;
+                            }
+                        } catch (\Throwable $e) {
+                            $entry['retries'] = $retries + 1;
+                            $remaining[] = $entry;
+                        }
+                    }
+
+                    if ($flushed > 0 || $dropped > 0) {
+                        Log::info('Centrifugo: dead letter flush complete', [
+                            'flushed' => $flushed,
+                            'dropped' => $dropped,
+                            'remaining' => count($remaining),
+                        ]);
+                    }
+
+                    Cache::put(
+                        self::DEAD_LETTER_KEY,
+                        $remaining,
+                        $remaining ? self::DEAD_LETTER_TTL_SECONDS : 1 // expire immediately if empty
+                    );
                 }
-
-                $response = Http::withHeaders([
-                    'X-API-Key' => $apiKey,
-                ])->withBody($body, 'application/json')->post($url);
-
-                if ($response->failed()) {
-                    $entry['retries'] = $retries + 1;
-                    $remaining[] = $entry;
-                } else {
-                    $flushed++;
-                }
-            } catch (\Throwable $e) {
-                $entry['retries'] = $retries + 1;
-                $remaining[] = $entry;
-            }
+            );
+        } catch (\Throwable $e) {
+            // If we can't acquire the lock or anything else fails, leave the
+            // queue intact so the next broadcast can retry. We do not want a
+            // transient lock failure to lose pending messages.
+            Log::warning('Centrifugo: dead letter flush skipped due to lock failure: ' . $e->getMessage());
         }
-
-        if ($flushed > 0 || $dropped > 0) {
-            Log::info('Centrifugo: dead letter flush complete', [
-                'flushed' => $flushed,
-                'dropped' => $dropped,
-                'remaining' => count($remaining),
-            ]);
-        }
-
-        Cache::put(
-            self::DEAD_LETTER_KEY,
-            $remaining,
-            $remaining ? self::DEAD_LETTER_TTL_SECONDS : 1 // expire immediately if empty
-        );
     }
 
     /**

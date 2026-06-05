@@ -55,11 +55,26 @@ class NarrativeLoomService
 
     /**
      * Get the failure rate over the alert window.
+     *
+     * Reads the sliding window from a Redis sorted-set so the count is
+     * race-free across concurrent processes. Each call to record*Metric()
+     * adds a timestamped entry; entries older than ALERT_WINDOW_MINUTES are
+     * pruned on read.
      */
     public function getFailureRate(): float
     {
-        $failures = (int) Cache::get('narrative_loom:failure_count', 0);
-        $successes = (int) Cache::get('narrative_loom:success_count', 0);
+        $now = time();
+        $windowStart = $now - (self::ALERT_WINDOW_MINUTES * 60);
+        $store = Cache::store();
+
+        // Prune entries outside the window before counting.
+        // ZREMRANGEBYSCORE is O(log N + M) and atomic per key.
+        $store->getStore() instanceof \Illuminate\Cache\RedisStore
+            ? $this->pruneSlidingWindow($store, $windowStart)
+            : null;
+
+        $failures = $this->countSlidingWindow('failures', $windowStart, $now);
+        $successes = $this->countSlidingWindow('successes', $windowStart, $now);
         $total = $failures + $successes;
         return $total > 0 ? $failures / $total : 0.0;
     }
@@ -373,12 +388,14 @@ class NarrativeLoomService
 
     /**
      * Record a success in the sliding window for alert threshold calculation.
+     *
+     * Uses a Redis sorted-set (one entry per call, score=timestamp). Counting
+     * is done via ZCOUNT over [windowStart, now] which is race-free: there is
+     * no read-modify-write on a shared counter.
      */
     private function recordSuccessMetric(): void
     {
-        $key = 'narrative_loom:success_count';
-        Cache::increment($key);
-        Cache::expire($key, self::ALERT_WINDOW_MINUTES * 60);
+        $this->recordSlidingWindow('successes');
     }
 
     /**
@@ -386,9 +403,50 @@ class NarrativeLoomService
      */
     private function recordFailureMetric(): void
     {
-        $key = 'narrative_loom:failure_count';
-        Cache::increment($key);
-        Cache::expire($key, self::ALERT_WINDOW_MINUTES * 60);
+        $this->recordSlidingWindow('failures');
+    }
+
+    /**
+     * Add a single timestamped entry to the sliding window sorted-set.
+     * Falls back to a per-key counter for non-Redis cache stores (e.g. array
+     * driver in tests) so unit tests still work but production stays race-free.
+     */
+    private function recordSlidingWindow(string $bucket): void
+    {
+        $key = "narrative_loom:window:{$bucket}";
+        $now = (string) time();
+        $store = Cache::store();
+
+        if ($store->getStore() instanceof \Illuminate\Cache\RedisStore) {
+            $connection = $store->getStore()->connection();
+            $connection->zadd($key, $now, $now . ':' . bin2hex(random_bytes(4)));
+            // 2x window TTL gives us safety margin so old entries exist when
+            // the next prune runs; prune itself bounds the set size.
+            $connection->expire($key, self::ALERT_WINDOW_MINUTES * 60 * 2);
+        } else {
+            // Array/file cache fallback — same TOCTOU risk as before but only
+            // affects non-production test/dev environments.
+            Cache::increment($key);
+            Cache::expire($key, self::ALERT_WINDOW_MINUTES * 60);
+        }
+    }
+
+    private function countSlidingWindow(string $bucket, int $windowStart, int $windowEnd): int
+    {
+        $key = "narrative_loom:window:{$bucket}";
+        $store = Cache::store();
+
+        if ($store->getStore() instanceof \Illuminate\Cache\RedisStore) {
+            return (int) $store->getStore()->connection()->zcount($key, $windowStart, $windowEnd);
+        }
+        return (int) Cache::get($key, 0);
+    }
+
+    private function pruneSlidingWindow(\Illuminate\Cache\Repository $store, int $windowStart): void
+    {
+        $connection = $store->getStore()->connection();
+        $connection->zremrangebyscore('narrative_loom:window:successes', '-inf', '(' . $windowStart);
+        $connection->zremrangebyscore('narrative_loom:window:failures', '-inf', '(' . $windowStart);
     }
 
     /**

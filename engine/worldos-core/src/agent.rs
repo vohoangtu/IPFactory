@@ -29,6 +29,12 @@ pub const TRAIT_GRIEF: usize = 14;
 pub const TRAIT_PRIDE: usize = 15;
 pub const TRAIT_SHAME: usize = 16;
 
+/// Total number of trait dimensions. Derived from the highest indexed trait + 1.
+/// Use this constant in slice arithmetic (`i * TRAIT_COUNT..(i+1) * TRAIT_COUNT`)
+/// and loops (`for k in 0..TRAIT_COUNT`) so changing the trait set here propagates
+/// safely to all consumers (see worldos-grpc/src/belief.rs).
+pub const TRAIT_COUNT: usize = 17;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Archetype {
     Warlord,

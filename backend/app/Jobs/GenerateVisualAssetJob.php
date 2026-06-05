@@ -82,18 +82,37 @@ class GenerateVisualAssetJob implements ShouldQueue
         ];
 
         if ($this->entityType === 'celebrity') {
-            LegendaryAgent::where('universe_id', $this->universeId)
+            // Find matching LegendaryAgent rows deterministically rather than
+            // mass-updating across both id and original_agent_id in a single
+            // statement. The previous orWhere() pattern would update two
+            // distinct rows in one UPDATE if both happened to match, silently
+            // overwriting an unrelated image_url with the same value. Here
+            // we query first, then update each row individually so the
+            // intent is auditable in logs and the blast radius is bounded.
+            $matches = LegendaryAgent::where('universe_id', $this->universeId)
                 ->where(function ($query) {
                     $query->where('id', $this->entityId)
                         ->orWhere('original_agent_id', $this->entityId);
                 })
-                ->update(['image_url' => $localUrl]);
+                ->get();
 
-            Log::info('Visual Asset persisted to legendary_agents.image_url', [
-                'universe_id' => $this->universeId,
-                'entity_id' => $this->entityId,
-                'local_url' => $localUrl,
-            ]);
+            if ($matches->isEmpty()) {
+                Log::warning('Visual Asset: no LegendaryAgent matched for upsert', [
+                    'universe_id' => $this->universeId,
+                    'entity_id' => $this->entityId,
+                ]);
+                return;
+            }
+
+            foreach ($matches as $agent) {
+                $agent->forceFill(['image_url' => $localUrl])->save();
+                Log::info('Visual Asset persisted to legendary_agents.image_url', [
+                    'universe_id' => $this->universeId,
+                    'legendary_agent_id' => $agent->id,
+                    'matched_via' => $agent->id === $this->entityId ? 'id' : 'original_agent_id',
+                    'local_url' => $localUrl,
+                ]);
+            }
 
             return;
         }

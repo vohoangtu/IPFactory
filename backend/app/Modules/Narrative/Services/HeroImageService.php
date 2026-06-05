@@ -31,7 +31,15 @@ use Illuminate\Support\Facades\Log;
  */
 class HeroImageService
 {
-    private const CACHE_TTL_SECONDS = 3600; // 1 hour
+    /**
+     * AI-generated URL TTL: short on purpose. AI image providers occasionally
+     * return HTTP 200 with a broken image body, and we have no streaming way
+     * to detect that at cache-write time. A short TTL means a broken URL
+     * poisons the cache for at most 5 minutes before the next request
+     * re-tries generation. A broken fallback URL is harmless because the
+     * fallback is deterministic and regenerated on every miss.
+     */
+    private const AI_CACHE_TTL_SECONDS = 300; // 5 minutes
 
     public function __construct(
         protected VisualDnaEngine $dnaEngine,
@@ -46,13 +54,15 @@ class HeroImageService
      * 2. Merge active branch mutations if present.
      * 3. Build a cinematic prompt from DNA + roles + tags.
      * 4. Attempt AI image generation via AiGateway.
-     * 5. Fall back to deterministic placeholder if AI is unavailable.
+     * 5. Healthcheck the AI URL via HEAD; if it fails, do not cache and
+     *    fall back to the deterministic placeholder.
+     * 6. Fall back to deterministic placeholder if AI is unavailable.
      */
     public function generatePortrait(LegendaryAgent $legend): string
     {
-        $cacheKey = "hero_image.{$legend->id}.{$legend->tick_discovered}";
+        $cacheKey = $this->cacheKey($legend);
 
-        // Return cached URL if already generated this tick.
+        // Return cached AI URL if it passed healthcheck on a previous request.
         $cached = Cache::get($cacheKey);
         if ($cached !== null) {
             return $cached;
@@ -66,13 +76,48 @@ class HeroImageService
             'affinity' => $dna['mythic_affinity'] ?? 'unknown',
         ]);
 
-        // Attempt AI image generation.
-        $url = $this->generateViaAi($prompt)
-            ?? $this->generateFallbackUrl($legend);
+        // Attempt AI image generation, healthcheck the URL, then cache.
+        $aiUrl = $this->generateViaAi($prompt);
+        if ($aiUrl !== null && $this->isImageUrlReachable($aiUrl)) {
+            Cache::put($cacheKey, $aiUrl, self::AI_CACHE_TTL_SECONDS);
+            return $aiUrl;
+        }
 
-        Cache::put($cacheKey, $url, self::CACHE_TTL_SECONDS);
+        // Fallback URL is deterministic and cheap to recompute — do not cache.
+        return $this->generateFallbackUrl($legend);
+    }
 
-        return $url;
+    private function cacheKey(LegendaryAgent $legend): string
+    {
+        return "hero_image.{$legend->id}.{$legend->tick_discovered}";
+    }
+
+    /**
+     * Cheap HTTP HEAD probe to confirm the AI-provided image URL is actually
+     * reachable. Returns false on any non-2xx, timeout, or curl error so the
+     * caller can fall back to the deterministic placeholder instead of
+     * poisoning the cache for the next 5 minutes.
+     */
+    private function isImageUrlReachable(string $url): bool
+    {
+        try {
+            $response = \Illuminate\Support\Facades\Http::timeout(5)->head($url);
+            if ($response->successful()) {
+                return true;
+            }
+
+            Log::warning('HeroImage: AI URL failed HEAD healthcheck, using fallback', [
+                'url' => $url,
+                'status' => $response->status(),
+            ]);
+            return false;
+        } catch (\Throwable $e) {
+            Log::warning('HeroImage: AI URL HEAD probe threw, using fallback', [
+                'url' => $url,
+                'error' => $e->getMessage(),
+            ]);
+            return false;
+        }
     }
 
     /**

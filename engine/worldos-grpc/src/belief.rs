@@ -1,4 +1,5 @@
 use crate::worldos::simulation::BeliefDefinition;
+use worldos_core::agent::TRAIT_COUNT;
 
 /// Social contagion configuration for belief propagation.
 pub struct ContagionConfig {
@@ -33,10 +34,18 @@ impl BeliefEngine {
     /// 2. **Social contagion** — peer influence from actors with similar trait profiles.
     pub fn update_alignments(
         &self,
-        trait_matrix: &[f32],        // [ActorCount * 17]
+        trait_matrix: &[f32],        // [ActorCount * TRAIT_COUNT]
         current_alignments: &[f32],  // [ActorCount * BeliefCount]
         actor_count: usize,
     ) -> Vec<f32> {
+        debug_assert_eq!(
+            trait_matrix.len(),
+            actor_count * TRAIT_COUNT,
+            "trait_matrix length must equal actor_count * TRAIT_COUNT ({}); got len={} for actor_count={}",
+            TRAIT_COUNT,
+            trait_matrix.len(),
+            actor_count,
+        );
         self.update_alignments_with_contagion(
             trait_matrix,
             current_alignments,
@@ -76,14 +85,14 @@ impl BeliefEngine {
         let mut new_alignments = vec![0.0; actor_count * belief_count];
 
         for i in 0..actor_count {
-            let actor_traits = &trait_matrix[i * 17..(i + 1) * 17];
+            let actor_traits = &trait_matrix[i * TRAIT_COUNT..(i + 1) * TRAIT_COUNT];
 
             for (j, belief) in self.definitions.iter().enumerate() {
                 let current_val = current_alignments[i * belief_count + j];
 
                 // 1. Psychological Fit
                 let mut fit_score = 0.0;
-                for k in 0..17 {
+                for k in 0..TRAIT_COUNT {
                     let weight = belief.trait_weights.get(k).cloned().unwrap_or(0.0);
                     let trait_val = actor_traits.get(k).cloned().unwrap_or(0.5);
                     fit_score += weight * (trait_val - 0.5);
@@ -164,19 +173,19 @@ impl BeliefEngine {
         let mut similarities = vec![0.0; actor_count * actor_count];
 
         for i in 0..actor_count {
-            let traits_i = &trait_matrix[i * 17..(i + 1) * 17];
+            let traits_i = &trait_matrix[i * TRAIT_COUNT..(i + 1) * TRAIT_COUNT];
             for other in 0..actor_count {
                 if other == i {
                     similarities[i * actor_count + other] = 1.0;
                     continue;
                 }
-                let traits_other = &trait_matrix[other * 17..(other + 1) * 17];
+                let traits_other = &trait_matrix[other * TRAIT_COUNT..(other + 1) * TRAIT_COUNT];
 
                 // Cosine-like similarity bounded to [0, 1].
                 let mut dot = 0.0f32;
                 let mut norm_i = 0.0f32;
                 let mut norm_o = 0.0f32;
-                for k in 0..17 {
+                for k in 0..TRAIT_COUNT {
                     let a = traits_i.get(k).cloned().unwrap_or(0.5);
                     let b = traits_other.get(k).cloned().unwrap_or(0.5);
                     dot += a * b;

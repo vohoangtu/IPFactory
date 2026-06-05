@@ -9,6 +9,8 @@ use App\Modules\Simulation\Core\Contracts\SimulationEngine;
 use App\Modules\Simulation\Core\Domain\EngineResult;
 use App\Modules\Simulation\Core\Domain\TickContext;
 use App\Modules\Simulation\Core\Runtime\State\WorldState;
+use Random\Engine\Mt19937;
+use Random\Randomizer;
 
 /**
  * World layer (Physical): geography engine — terrain, climate zones, natural disasters.
@@ -123,19 +125,19 @@ final class GeographyEngine implements SimulationEngine
      */
     private function generateInitialTerrain(int $seed): array
     {
-        mt_srand($seed);
-        $continentCount = mt_rand(2, 7);
+        $rng = $this->makeRandomizer($seed);
+        $continentCount = $rng->getInt(2, 7);
         $continents = [];
 
         for ($i = 0; $i < $continentCount; $i++) {
             $continents[] = [
                 'id'       => "continent_{$i}",
                 'name'     => "Continent-" . chr(65 + $i), // A, B, C...
-                'size'     => round(mt_rand(100000, 50000000) / 1000000, 2), // km² in millions
-                'latitude' => round(mt_rand(-900, 900) / 10, 1),              // -90 to 90
-                'longitude'=> round(mt_rand(-1800, 1800) / 10, 1),            // -180 to 180
-                'elevation'=> round(mt_rand(0, 8848) / 1000, 2),             // km
-                'biome_count' => mt_rand(3, 12),
+                'size'     => round($rng->getInt(100000, 50000000) / 1000000, 2), // km² in millions
+                'latitude' => round($rng->getInt(-900, 900) / 10, 1),              // -90 to 90
+                'longitude'=> round($rng->getInt(-1800, 1800) / 10, 1),            // -180 to 180
+                'elevation'=> round($rng->getInt(0, 8848) / 1000, 2),             // km
+                'biome_count' => $rng->getInt(3, 12),
             ];
         }
 
@@ -155,25 +157,25 @@ final class GeographyEngine implements SimulationEngine
      */
     private function evolveTerrain(array $terrain, int $seed, int $tick): array
     {
-        mt_srand($seed + $tick);
+        $rng = $this->makeRandomizer($seed + $tick);
 
         $continents = $terrain['continents'] ?? [];
         foreach ($continents as &$c) {
             // Continental drift: shift latitude/longitude by tiny amounts.
-            $c['latitude']  = round($c['latitude']  + (mt_rand(-2, 2) / 10), 1);
-            $c['longitude'] = round($c['longitude'] + (mt_rand(-2, 2) / 10), 1);
+            $c['latitude']  = round($c['latitude']  + ($rng->getInt(-2, 2) / 10), 1);
+            $c['longitude'] = round($c['longitude'] + ($rng->getInt(-2, 2) / 10), 1);
 
             // Erosion: elevation decreases slightly over time (natural + rainfall).
             $erosionRate = 0.001 * (1 + ($c['latitude'] < 20 && $c['latitude'] > -20 ? 2 : 1)); // tropics erode faster
             $c['elevation'] = round(max(0, $c['elevation'] - $erosionRate), 2);
 
             // Occasional tectonic uplift.
-            if (mt_rand(0, 100) < 2) {
-                $c['elevation'] = round($c['elevation'] + (mt_rand(1, 20) / 100), 2);
+            if ($rng->getInt(0, 100) < 2) {
+                $c['elevation'] = round($c['elevation'] + ($rng->getInt(1, 20) / 100), 2);
             }
 
             // Biome count evolves with climate.
-            $c['biome_count'] = max(1, $c['biome_count'] + mt_rand(-1, 1));
+            $c['biome_count'] = max(1, $c['biome_count'] + $rng->getInt(-1, 1));
         }
         unset($c);
 
@@ -189,7 +191,7 @@ final class GeographyEngine implements SimulationEngine
      */
     private function generateInitialClimate(array $terrain, int $seed): array
     {
-        mt_srand($seed);
+        $rng = $this->makeRandomizer($seed);
         $zones = [];
 
         // Divide into 18 latitude bands (every 10 degrees).
@@ -203,8 +205,8 @@ final class GeographyEngine implements SimulationEngine
 
             // Vary precipitation randomly within the zone's range.
             $def    = self::CLIMATE_ZONES[$zoneIndex];
-            $temp   = round(mt_rand($def['temp_min'] * 10, $def['temp_max'] * 10) / 10, 1);
-            $precip = round(mt_rand($def['precip_min'], $def['precip_max']), 1);
+            $temp   = round($rng->getInt($def['temp_min'] * 10, $def['temp_max'] * 10) / 10, 1);
+            $precip = round($rng->getInt($def['precip_min'], $def['precip_max']), 1);
 
             $zones[] = [
                 'latitude_band'   => "{$lat}_" . ($lat + 10),
@@ -223,7 +225,7 @@ final class GeographyEngine implements SimulationEngine
      */
     private function updateClimateZones(array $zones, array $terrain, int $tick): array
     {
-        mt_srand($tick);
+        $rng = $this->makeRandomizer($tick);
         $updated = [];
 
         foreach ($zones as $zone) {
@@ -234,8 +236,8 @@ final class GeographyEngine implements SimulationEngine
             }
 
             // Natural climate variability: slowly drift temperature and precipitation.
-            $tempDrift   = (mt_rand(-20, 20) / 100);       // ±0.2°C per geo-tick
-            $precipDrift = (mt_rand(-50, 50) / 10);        // ±5 mm per geo-tick
+            $tempDrift   = ($rng->getInt(-20, 20) / 100);       // ±0.2°C per geo-tick
+            $precipDrift = ($rng->getInt(-50, 50) / 10);        // ±5 mm per geo-tick
 
             $newTemp   = round(max($def['temp_min'], min($def['temp_max'], $zone['temperature_avg'] + $tempDrift)), 1);
             $newPrecip = round(max($def['precip_min'], min($def['precip_max'], $zone['precipitation'] + $precipDrift)), 1);
@@ -262,7 +264,7 @@ final class GeographyEngine implements SimulationEngine
      */
     private function computeDisasters(array $climateZones, int $seed, int $tick): array
     {
-        mt_srand($seed + $tick);
+        $rng = $this->makeRandomizer($seed + $tick);
         $disasters = [];
         $intervalFactor = self::GEOGRAPHY_TICK_INTERVAL; // Scale annual probabilities to interval.
 
@@ -275,19 +277,19 @@ final class GeographyEngine implements SimulationEngine
                 // Modifiers based on climate zone.
                 $scaledProb *= match ($type) {
                     'earthquake' => 1.0,  // Equal everywhere.
-                    'volcano'    => abs($lat) > 40 ? 1.5 : 1.0, // More at plate boundaries (poles).
+                    'volcano'    => abs($lat) > 40 ? 1.5 : 1.0, // More likely at high latitudes (simplified plate-boundary heuristic).
                     'flood'      => $zone['precipitation'] > 1000 ? 2.0 : 1.0,
                     'drought'    => $zone['precipitation'] < 200 ? 3.0 : 1.0,
                     'wildfire'   => $zone['temperature_avg'] > 25 && $zone['precipitation'] < 500 ? 2.5 : 1.0,
                     default      => 1.0,
                 };
 
-                if ((mt_rand(0, 10000) / 10000) < $scaledProb) {
+                if (($rng->getInt(0, 10000) / 10000) < $scaledProb) {
                     $disasters[] = [
                         'type'      => $type,
-                        'latitude'  => round($lat + (mt_rand(-50, 50) / 10), 1),
-                        'longitude' => round((mt_rand(-1800, 1800) / 10), 1),
-                        'severity'  => round(mt_rand(10, 100) / 100, 2), // 0.1 to 1.0
+                        'latitude'  => round($lat + ($rng->getInt(-50, 50) / 10), 1),
+                        'longitude' => round(($rng->getInt(-1800, 1800) / 10), 1),
+                        'severity'  => round($rng->getInt(10, 100) / 100, 2), // 0.1 to 1.0
                     ];
                 }
             }
@@ -340,6 +342,20 @@ final class GeographyEngine implements SimulationEngine
     private function deriveSeed(int $seed, int $tick): int
     {
         return (int) crc32("{$seed}:{$tick}:geography");
+    }
+
+    /**
+     * Build a hermetic Randomizer seeded by the given integer.
+     *
+     * The engine state is encapsulated inside the Randomizer instance, so two
+     * ticks running concurrently (Octane workers, parallel FPM, async jobs)
+     * cannot bleed random values into each other the way mt_srand() does.
+     * Each call gets a fresh deterministic stream that is reproducible given
+     * the same seed.
+     */
+    private function makeRandomizer(int $seed): Randomizer
+    {
+        return new Randomizer(new Mt19937($seed));
     }
 
     private function dominantZone(array $climateZones): string

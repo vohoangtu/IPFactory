@@ -107,18 +107,37 @@ class ActorBornEventListener
                 Log::debug("Intelligence: Actor {$child->id} inherited {$inheritedCount} beliefs from parents.");
             }
 
-            // Also inherit a lightweight trait-weight blend from the first parent's beliefs.
+            // Inherit a blended trait vector from ALL parents, not just the
+            // first. Without aggregation the genetics skew toward whichever
+            // parent happens to be first() in the collection — which is
+            // non-deterministic under ORDER BY id vs insertion order.
+            // Each parent contributes (1/N) of their trait, plus a small
+            // random perturbation (max 0.5) to keep variation alive.
             if ($parents->isNotEmpty()) {
-                $firstParentTraits = $parents->first()->traits;
-                if (is_array($firstParentTraits) || is_string($firstParentTraits)) {
-                    $traits = is_array($firstParentTraits) ? $firstParentTraits : (json_decode($firstParentTraits, true) ?? []);
-                    if (! empty($traits)) {
-                        $blended = [];
-                        foreach ($traits as $trait => $value) {
-                            $blended[$trait] = round((float) $value * 0.7 + (mt_rand(0, 50) / 100), 2);
-                        }
-                        $child->forceFill(['traits' => $blended])->save();
+                $parentCount = $parents->count();
+                $blended = [];
+
+                foreach ($parents as $parent) {
+                    $parentTraits = $parent->traits;
+                    if (is_string($parentTraits)) {
+                        $parentTraits = json_decode($parentTraits, true) ?? [];
                     }
+                    if (! is_array($parentTraits)) {
+                        continue;
+                    }
+                    foreach ($parentTraits as $trait => $value) {
+                        $contribution = (float) $value / $parentCount;
+                        $blended[$trait] = ($blended[$trait] ?? 0.0) + $contribution;
+                    }
+                }
+
+                if (! empty($blended)) {
+                    foreach ($blended as $trait => $value) {
+                        // Add bounded random perturbation (0.0 - 0.5) so
+                        // children are not exact blends of their parents.
+                        $blended[$trait] = round($value + (mt_rand(0, 50) / 100), 2);
+                    }
+                    $child->forceFill(['traits' => $blended])->save();
                 }
             }
         } catch (\Throwable $e) {
