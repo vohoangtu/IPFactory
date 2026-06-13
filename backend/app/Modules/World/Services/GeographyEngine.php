@@ -6,7 +6,7 @@ namespace App\Modules\World\Services;
 
 use App\Modules\Simulation\Core\Concerns\DefaultSimulationEnginePhase;
 use App\Modules\Simulation\Core\Contracts\SimulationEngine;
-use App\Modules\Simulation\Core\Domain\EngineResult;
+use App\Modules\Simulation\Core\Engines\EngineResult;
 use App\Modules\Simulation\Core\Domain\TickContext;
 use App\Modules\Simulation\Core\Runtime\State\WorldState;
 use Random\Engine\Mt19937;
@@ -76,7 +76,7 @@ final class GeographyEngine implements SimulationEngine
 
         // Only recalculate on interval-aligned ticks; skip with empty result otherwise.
         if ($tick % self::GEOGRAPHY_TICK_INTERVAL !== 0) {
-            return EngineResult::skipped('geography tick interval not reached');
+            return EngineResult::empty();
         }
 
         $geography = $state->get('geography', []);
