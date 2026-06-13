@@ -40,6 +40,9 @@
   "exclude": [
     "node_modules",
     ".next",
-    "vitest.config.ts"
+    "vitest.config.ts",
+    "src/**/__tests__/**",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
   ]
 }
