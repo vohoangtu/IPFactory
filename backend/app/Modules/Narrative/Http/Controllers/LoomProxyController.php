@@ -23,6 +23,11 @@ class LoomProxyController extends Controller
      */
     public function proxy(string $path, Request $request): JsonResponse
     {
+        // Defense-in-depth: chặn path traversal (route regex đã loại '.', đây là lớp 2).
+        if (str_contains($path, '..') || str_contains($path, '://')) {
+            return response()->json(['ok' => false, 'error' => 'Invalid loom path'], 400);
+        }
+
         $loomUrl = rtrim((string) config('services.loom.url', 'http://narrative_loom:8001'), '/');
         $url = $loomUrl . '/' . ltrim($path, '/');
 

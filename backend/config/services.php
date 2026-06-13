@@ -43,6 +43,9 @@ return [
     'loom' => [
         'url' => env('NARRATIVE_LOOM_URL', 'http://narrative_loom:8001'),
         'timeout' => env('NARRATIVE_LOOM_TIMEOUT', 600),
+        // Shared secret cho auth service-to-service (loom-key, webhook). Phải khớp
+        // với LOOM_SHARED_SECRET của container narrative_loom / worker.
+        'shared_secret' => env('LOOM_SHARED_SECRET'),
     ],
 
     'narrative_loom' => [

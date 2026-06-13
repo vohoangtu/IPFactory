@@ -103,6 +103,8 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-secret}
       REDIS_HOST: redis
       SIMULATION_ENGINE_GRPC_URL: http://engine:50052
+      # Shared secret cho endpoint internal loom-key/webhook (phải khớp narrative_loom).
+      LOOM_SHARED_SECRET: ${LOOM_SHARED_SECRET:-worldos-loom-shared-secret-change-me}
       WORLDOS_GRAPH_URI: ${WORLDOS_GRAPH_URI:-http://neo4j:7474}
       WORLDOS_GRAPH_ENABLED: ${WORLDOS_GRAPH_ENABLED:-true}
       WORLDOS_GRAPH_USERNAME: ${WORLDOS_GRAPH_USERNAME:-neo4j}
@@ -267,6 +269,7 @@ services:
     environment:
       MODE: api
       WORLDOS_API_URL: http://nginx/api
+      LOOM_SHARED_SECRET: ${LOOM_SHARED_SECRET:-worldos-loom-shared-secret-change-me}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
@@ -321,7 +324,9 @@ services:
       LANGFUSE_HOST: ${LANGFUSE_HOST:-https://cloud.langfuse.com}
       SEMANTIC_CACHE_ENABLED: "false"
       LLM_CACHE_ENABLED: "true"
-      BACKEND_WEBHOOK_URL: http://nginx/api/worldos/narrative-loom/webhook
+      LOOM_SHARED_SECRET: ${LOOM_SHARED_SECRET:-worldos-loom-shared-secret-change-me}
+      # Endpoint Narrative (LoomWebhookController) — đúng thiết kế cho payload + bảo vệ bằng shared secret.
+      BACKEND_WEBHOOK_URL: http://nginx/api/narrative-loom/webhook
     depends_on:
       redis:
         condition: service_healthy

@@ -142,7 +142,11 @@ async def health_check():
     try:
         backend_url = os.getenv("WORLDOS_API_URL", "http://nginx/api")
         import httpx
-        r = httpx.get(f"{backend_url}/ai-settings/loom-key", timeout=5.0)
+        r = httpx.get(
+            f"{backend_url}/ai-settings/loom-key",
+            headers={"X-Loom-Secret": os.getenv("LOOM_SHARED_SECRET", "")},
+            timeout=5.0,
+        )
         if r.status_code == 200:
             checks["llm_pool"] = "reachable"
         else:

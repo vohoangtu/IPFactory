@@ -21,8 +21,11 @@ from graph_builder import build_graph
 
 log = get_logger(__name__)
 
-# Backend webhook URL configuration
-BACKEND_WEBHOOK_URL = os.getenv("BACKEND_WEBHOOK_URL", "http://backend:8000/api/worldos/narrative-loom/webhook")
+# Backend webhook URL configuration.
+# Trỏ tới endpoint Narrative (LoomWebhookController::receive) — được thiết kế đúng cho
+# payload này — thay vì bản WorldOS (yêu cầu auth:sanctum mà worker không có token).
+# Bảo vệ bằng shared secret qua header X-Loom-Secret.
+BACKEND_WEBHOOK_URL = os.getenv("BACKEND_WEBHOOK_URL", "http://nginx/api/narrative-loom/webhook")
 
 # Compile graph once per worker process instead of per task
 # ensuring it's ready in memory
@@ -93,7 +96,11 @@ def weave_chronicle_task(self: Task, initial_state: dict[str, Any], world_id: in
                 **pipeline_result
             }
             with httpx.Client(timeout=10) as client:
-                response = client.post(BACKEND_WEBHOOK_URL, json=webhook_payload)
+                response = client.post(
+                    BACKEND_WEBHOOK_URL,
+                    json=webhook_payload,
+                    headers={"X-Loom-Secret": os.getenv("LOOM_SHARED_SECRET", "")},
+                )
                 if response.status_code == 200:
                     log.info("webhook.success", task_id=task_id, status=response.status_code)
                 else:

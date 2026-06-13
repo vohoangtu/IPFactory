@@ -20,10 +20,16 @@ Route::get('/loom/v1/narrative/chronicles', [LoomChronicleController::class, 'in
 Route::get('/loom/v1/narrative/characters/{character_id}', [LoomCharacterController::class, 'show']);
 Route::get('/loom/v1/narrative/state-snapshot/{world_id}', [LoomWorldStateController::class, 'show']);
 
-// Webhook — Narrative Loom calls this after pipeline_done (M4 fix)
-Route::post('/narrative-loom/webhook', [LoomWebhookController::class, 'receive']);
+// Webhook — Narrative Loom calls this after pipeline_done.
+// Bảo vệ bằng shared secret: trước đây CÔNG KHAI → attacker tiêm final_prose/headline
+// vào Chronicle của world bất kỳ rồi broadcast cho mọi client (lỗ hổng P0).
+Route::post('/narrative-loom/webhook', [LoomWebhookController::class, 'receive'])
+    ->middleware('loom.secret');
 
-// Loom Utility Proxy — forward to Python microservice
-Route::match(['get', 'post', 'put', 'delete'], '/loom/{path}', [LoomProxyController::class, 'proxy'])
-    ->where('path', '.*');
+// Loom Utility Proxy — forward request của user tới NarrativeLoom (kích hoạt LLM/asset tốn phí).
+// Yêu cầu đăng nhập + throttle; regex chặn path traversal (loại '.'); chỉ GET/POST.
+// Trước đây mở cho mọi verb, không auth, path '.*' → ẩn danh điều khiển service nội bộ (P0).
+Route::match(['get', 'post'], '/loom/{path}', [LoomProxyController::class, 'proxy'])
+    ->where('path', '[A-Za-z0-9\-_/]+')
+    ->middleware(['auth:sanctum', 'throttle:30,1']);
 

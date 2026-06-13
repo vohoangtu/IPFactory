@@ -14,8 +14,11 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     // 0. Service Status (public)
     Route::get('service-status', ServiceStatusController::class)->name('worldos.service-status');
 
-    // Test route (tạm thời - không cần auth)
-    Route::post('test-weave/{id}', [TimelineController::class , 'generateChronicle'])->name('worldos.test-weave');
+    // Test route (tạm thời - không cần auth). Kích hoạt LLM nên phải throttle chống cost-DoS.
+    // TODO(bảo mật): xóa hoặc đưa vào auth:sanctum trước khi lên production.
+    Route::post('test-weave/{id}', [TimelineController::class , 'generateChronicle'])
+        ->middleware('throttle:10,1')
+        ->name('worldos.test-weave');
 
     // 1. Core Universe Management (GET — public)
     Route::get('universes', [UniverseController::class , 'index'])->name('worldos.universes.index');

@@ -731,13 +731,22 @@ pub fn run_process_fields_v7(
     let count = neighbor_counts.len();
     if count == 0 { return fields; }
     
+    // Bảo vệ chống panic out-of-bounds khi caller (Laravel/gRPC) gửi CSR/field-array sai.
+    // Trả về fields nguyên trạng (no-op an toàn) thay vì sập tiến trình gRPC server.
+    if fields.len() < count * 8 || neighbor_offsets.len() < count {
+        return fields;
+    }
+    let neighbors_len = neighbors.len();
+
     let mut deltas = vec![0.0; count * 8];
     for i in 0..count {
         let n_count = neighbor_counts[i] as f64;
         if n_count < 1e-9 { continue; }
         let offset = neighbor_offsets[i] as usize;
         for j in 0..(neighbor_counts[i] as usize) {
-            let neighbor_idx = neighbors[offset + j] as usize;
+            let pos = offset + j;
+            if pos >= neighbors_len { break; } // adjacency bị cắt cụt → dừng node này
+            let neighbor_idx = neighbors[pos] as usize;
             if neighbor_idx >= count { continue; }
             for f in 0..8 {
                 let diff = fields[neighbor_idx * 8 + f] - fields[i * 8 + f];

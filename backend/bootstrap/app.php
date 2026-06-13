@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ], append: [
             \Illuminate\Http\Middleware\HandleCors::class,
         ]);
+
+        // Shared-secret guard cho các endpoint internal (NarrativeLoom ↔ backend).
+        $middleware->alias([
+            'loom.secret' => \App\Http\Middleware\VerifyLoomSecret::class,
+        ]);
         
         $middleware->redirectTo(
             guests: function ($request) {

@@ -161,6 +161,7 @@ def _get_pool_key(agent_id: str, provider: str | None = None, model: str | None 
                 "model": model,
                 "exclude_key_id": exclude_key_id,
             },
+            headers={"X-Loom-Secret": os.getenv("LOOM_SHARED_SECRET", "")},
             timeout=10.0,
         )
         response.raise_for_status()

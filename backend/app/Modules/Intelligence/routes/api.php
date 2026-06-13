@@ -9,10 +9,10 @@ use App\Modules\Intelligence\Http\Controllers\AiDiagnosticsController;
 use App\Modules\Intelligence\Http\Controllers\AiKeyPoolController;
 use App\Modules\Intelligence\Http\Controllers\AiProviderModelsController;
 
-// Authentication (public)
+// Authentication (public — throttle chống brute-force / spam đăng ký)
 Route::middleware('api')->group(function () {
-    Route::post('auth/login', [AuthController::class, 'login']);
-    Route::post('auth/register', [AuthController::class, 'register']);
+    Route::post('auth/login', [AuthController::class, 'login'])->middleware('throttle:6,1');
+    Route::post('auth/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 });
 
 // Authentication (protected)
@@ -26,8 +26,6 @@ Route::middleware('api')->group(function () {
     Route::get('ai-settings', [AiSettingsController::class, 'index']);
     Route::get('ai-settings/drivers', [AiSettingsController::class, 'drivers']);
     Route::get('ai-settings/loom-agents', [AiSettingsController::class, 'loomAgents']);
-    Route::get('ai-settings/loom-key', [AiSettingsController::class, 'loomKey']);
-    Route::post('ai-settings/loom-key', [AiSettingsController::class, 'loomKey']);
 
     Route::get('ai-key-pool', [AiKeyPoolController::class, 'index']);
     Route::get('ai-key-pool/{ai_key_pool}', [AiKeyPoolController::class, 'show']);
@@ -60,4 +58,12 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () {
     Route::delete('ai-key-pool/{ai_key_pool}', [AiKeyPoolController::class, 'destroy']);
 
     Route::delete('/ai-logs/clear', [AiLogController::class, 'clear']);
+});
+
+// Internal service-to-service (NarrativeLoom → backend): cấp API key từ pool.
+// Bảo vệ bằng shared secret (caller là service, không có user token cho auth:sanctum).
+// Trước đây các route này CÔNG KHAI và trả về API key LLM đã giải mã (lỗ hổng P0).
+Route::middleware(['api', 'loom.secret'])->group(function () {
+    Route::get('ai-settings/loom-key', [AiSettingsController::class, 'loomKey']);
+    Route::post('ai-settings/loom-key', [AiSettingsController::class, 'loomKey']);
 });
