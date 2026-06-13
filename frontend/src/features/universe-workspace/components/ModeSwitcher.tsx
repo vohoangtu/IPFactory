@@ -18,7 +18,7 @@ export function ModeSwitcher() {
       {MODES.map((m) => (
         <button
           key={m.key}
-          aria-current={mode === m.key}
+          aria-current={mode === m.key ? 'page' : undefined}
           onClick={() => {
             if (m.key === 'multiverse') return router.push(routes.multiverse());
             if (id != null) router.push(m.key === 'live' ? routes.live(id) : routes.replay(id));

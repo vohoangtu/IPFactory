@@ -17,6 +17,7 @@ export function ContextBar() {
   return (
     <header className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
       <select
+        aria-label="Chọn Universe"
         className="rounded-lg border border-white/15 bg-black/40 px-2 py-1 text-sm text-gray-200"
         value={selectedId ?? ''}
         onChange={(e) => { const id = Number(e.target.value); router.push(routes.live(id)); }}
@@ -26,7 +27,7 @@ export function ContextBar() {
       </select>
       {selected && (
         <span className="text-sm text-gray-300">
-          {selected.name} · Era {selected.era} · Tick {tick || selected.current_tick}
+          {selected.name} · Era {selected.era} · Tick {tick > 0 ? tick : selected.current_tick}
         </span>
       )}
       <span className="ml-auto flex items-center gap-2">
