@@ -120,3 +120,5 @@ frontend/tsconfig.tsbuildinfo
 
 # ─── Composer ─────────────────────────────────────────────────────────────────
 .composer/
+# Superpowers brainstorm visual companion (local only)
+.superpowers/
