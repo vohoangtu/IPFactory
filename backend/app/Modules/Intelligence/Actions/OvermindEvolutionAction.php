@@ -3,7 +3,7 @@
 namespace App\Modules\Intelligence\Actions;
 
 use App\Modules\World\Models\Universe;
-use App\Modules\Institutions\Services\WorldEdictEngine;
+use App\Contracts\WorldEdictEngineInterface;
 use App\Modules\Intelligence\Services\AI\AnalyticalAiService;
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class OvermindEvolutionAction
 implements \App\Contracts\ActionInterface {
     public function __construct(
-        protected WorldEdictEngine $edictEngine,
+        protected WorldEdictEngineInterface $edictEngine,
         protected AnalyticalAiService $ai
     ) {}
 

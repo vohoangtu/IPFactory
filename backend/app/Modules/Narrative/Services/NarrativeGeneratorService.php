@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Modules\Narrative\Services;
+use App\Contracts\NarrativeGeneratorServiceInterface;
 
-class NarrativeGeneratorService
+class NarrativeGeneratorService implements NarrativeGeneratorServiceInterface
 {
     public function generate(): string { return ""; }
 

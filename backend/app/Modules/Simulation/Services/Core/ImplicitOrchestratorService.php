@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Modules\Simulation\Services\Core;
+use App\Contracts\ImplicitOrchestratorServiceInterface;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\World\Models\World;
 use App\Modules\Simulation\Services\Meta\UniverseRuntimeService;
 use Illuminate\Support\Facades\Log;
 
-class ImplicitOrchestratorService
+class ImplicitOrchestratorService implements ImplicitOrchestratorServiceInterface
 {
     public function __construct(
         protected \App\Modules\Simulation\Core\Domain\Pipelines\SpawnPipeline $spawnPipeline

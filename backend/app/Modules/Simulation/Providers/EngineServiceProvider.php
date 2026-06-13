@@ -14,6 +14,11 @@ class EngineServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Modules\Simulation\Services\Ecology\PressureCalculator::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Cosmology\CosmicPhaseDetector::class);
         $this->app->singleton(\App\Modules\Simulation\Services\ScenarioEngine::class);
+        // Cross-module contracts (P0-6): Narrative phụ thuộc interface → phá cycle Sim⇄Narr.
+        $this->app->bind(\App\Contracts\ScenarioEngineInterface::class, \App\Modules\Simulation\Services\ScenarioEngine::class);
+        $this->app->bind(\App\Contracts\ImplicitOrchestratorServiceInterface::class, \App\Modules\Simulation\Services\Core\ImplicitOrchestratorService::class);
+        $this->app->bind(\App\Contracts\WorldAxiomActionInterface::class, \App\Modules\Simulation\Actions\WorldAxiomAction::class);
+        $this->app->bind(\App\Contracts\Repositories\UniverseSnapshotRepositoryInterface::class, \App\Modules\Simulation\Repositories\UniverseSnapshotRepository::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Meta\MultiverseInteractionService::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Meta\WorldRegulatorEngine::class);
 
@@ -129,6 +134,8 @@ class EngineServiceProvider extends ServiceProvider
 
         // Batch 2: Social & Civilization
         $this->app->singleton(\App\Modules\Simulation\Services\Politics\CivilizationDiscoveryService::class);
+        // Cross-module contract (P0-6): entry point của Intelligence phụ thuộc interface → phá nốt cycle Sim⇄Intel.
+        $this->app->bind(\App\Contracts\CivilizationDiscoveryServiceInterface::class, \App\Modules\Simulation\Services\Politics\CivilizationDiscoveryService::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Society\DemographicRatesService::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Society\SocialGraphService::class);
         $this->app->singleton(\App\Modules\Simulation\Services\Society\LegitimacyEliteService::class);
@@ -145,7 +152,7 @@ class EngineServiceProvider extends ServiceProvider
 
         // Batch 4: Technical & Infrastructure
         $this->app->singleton(\App\Modules\Simulation\Services\Cosmology\SimulationClock::class);
-        $this->app->singleton(\App\Modules\Simulation\Services\Ecology\SimulationPRNG::class);
+        $this->app->singleton(\App\Support\Simulation\SimulationPRNG::class);
 
         // Batch 5: Intelligence & Emergence
         $this->app->singleton(\App\Modules\Simulation\Services\Ecology\AnomalyGeneratorService::class);

@@ -47,7 +47,7 @@ implements \App\Contracts\ActionInterface {
             // 2. Mutate the genome of the child
             // We use a temporary SimulationPRNG or similar for determinism if needed, 
             // but forking is a meta-event.
-            $rng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($child);
+            $rng = \App\Support\Simulation\SimulationPRNG::forUniverse($child);
             $this->mutationAction->mutate($child, $rng);
 
             Log::info("MULTIVERSE: Universe #{$parent->id} forked to #{$child->id} (Fitness: {$parent->fitness_score})");

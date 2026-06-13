@@ -5,7 +5,7 @@ namespace App\Modules\Intelligence\Services;
 use App\Modules\Intelligence\Contracts\ActorRepositoryInterface;
 use App\Modules\Intelligence\Actions\SpawnActorAction;
 use App\Modules\World\Models\Universe;
-use App\Modules\Narrative\Services\NarrativeGeneratorService;
+use App\Contracts\NarrativeGeneratorServiceInterface;
 use App\Modules\Intelligence\Services\ArchetypeResolverService;
 
 class ActorEvolutionService
@@ -13,7 +13,7 @@ class ActorEvolutionService
     public function __construct(
         private ActorRepositoryInterface $actorRepository,
         private SpawnActorAction $spawnAction,
-        private NarrativeGeneratorService $narrativeService,
+        private NarrativeGeneratorServiceInterface $narrativeService,
         private ArchetypeResolverService $archetypeResolver,
         private \App\Modules\Intelligence\Actions\RunMicroCycleAction $runMicroCycleAction
     ) {}

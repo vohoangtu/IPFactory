@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Modules\Simulation\Services;
+use App\Contracts\ScenarioEngineInterface;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
@@ -13,7 +14,7 @@ use App\Modules\Narrative\Services\NarrativeAiService;
  * Scenario Engine: Orchestrates complex multi-layer interventions.
  * Migrated to Simulation Module.
  */
-class ScenarioEngine
+class ScenarioEngine implements ScenarioEngineInterface
 {
     protected array $scenarios = [
         'great_flood' => [

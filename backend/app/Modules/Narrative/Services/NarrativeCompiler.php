@@ -120,8 +120,8 @@ class NarrativeCompiler
     protected function pick(array $items): string
     {
         $prng = $this->universe 
-            ? \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($this->universe)
-            : new \App\Modules\Simulation\Services\Ecology\SimulationPRNG(rand(1, 1000));
+            ? \App\Support\Simulation\SimulationPRNG::forUniverse($this->universe)
+            : new \App\Support\Simulation\SimulationPRNG(rand(1, 1000));
             
         if (count($items) === 0) return '';
         return $prng->randomElement($items);

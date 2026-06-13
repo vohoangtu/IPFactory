@@ -4,10 +4,11 @@ namespace App\Modules\Simulation\Actions;
 
 use App\Modules\World\Models\World;
 use App\Modules\Simulation\Models\BranchEvent;
+use App\Contracts\WorldAxiomActionInterface;
 use Illuminate\Support\Facades\DB;
 
 class WorldAxiomAction
-implements \App\Contracts\ActionInterface {
+implements \App\Contracts\ActionInterface, WorldAxiomActionInterface {
     /**
      * Cập nhật Axiom của World và lan tỏa tới toàn bộ Universe con.
      */

@@ -3,6 +3,7 @@
 namespace App\Modules\Simulation\Services\Ecology;
 
 use App\Modules\World\Models\Universe;
+use App\Support\Simulation\SimulationPRNG;
 
 /**
  * KernelMutationService – Quản lý "Genotype" của Thiên Đạo (Universe Kernel)

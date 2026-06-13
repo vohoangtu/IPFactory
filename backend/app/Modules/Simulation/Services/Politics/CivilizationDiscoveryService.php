@@ -6,6 +6,7 @@ use App\Contracts\Repositories\UniverseRepositoryInterface;
 use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\Simulation\Services\Core\ImplicitOrchestratorService;
+use App\Contracts\CivilizationDiscoveryServiceInterface;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Log;
  * Writes state_vector.civilization.discovery.fitness when run every N ticks.
  * Phase 3: runGeneration includes optional crossover (merge state of two parents) + mutate.
  */
-final class CivilizationDiscoveryService
+final class CivilizationDiscoveryService implements CivilizationDiscoveryServiceInterface
 {
     public const GOVERNANCE_TYPES = ['tribal', 'chiefdom', 'kingdom', 'republic', 'federation'];
     public const ECONOMIC_TYPES = ['subsistence', 'trade', 'industrial', 'knowledge'];
@@ -187,7 +188,7 @@ final class CivilizationDiscoveryService
         if ($rate <= 0) {
             return $vec;
         }
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         $r = fn () => ($prng->nextFloat()) * 2 * $rate - $rate;
         if (isset($vec['entropy']) && is_numeric($vec['entropy'])) {
             $vec['entropy'] = max(0, min(1, (float) $vec['entropy'] + $r()));

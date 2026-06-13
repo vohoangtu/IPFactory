@@ -1,9 +1,19 @@
 <?php
 
-namespace App\Modules\Simulation\Services\Ecology;
+declare(strict_types=1);
+
+namespace App\Support\Simulation;
 
 use App\Modules\World\Models\Universe;
 
+/**
+ * Deterministic seeded PRNG dùng chung cho mô phỏng.
+ *
+ * Đây là HẠ TẦNG module-neutral (App\Support), không thuộc module Simulation:
+ * nhiều module (Simulation, Intelligence, Narrative) cần sinh số ngẫu nhiên xác định.
+ * Trước đây nằm ở App\Modules\Simulation\Services\Ecology gây coupling concrete chéo
+ * module (Intelligence/Narrative → Simulation). Dời ra đây để phá phụ thuộc đó (P0-6).
+ */
 class SimulationPRNG
 {
     /**
@@ -78,4 +88,3 @@ class SimulationPRNG
         return $array[$key];
     }
 }
-

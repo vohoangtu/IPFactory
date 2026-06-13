@@ -7,8 +7,9 @@ use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\Institutions\Models\SupremeEntity;
 use App\Modules\Narrative\Models\Chronicle;
 use App\Modules\Simulation\Models\BranchEvent;
+use App\Contracts\WorldEdictEngineInterface;
 
-class WorldEdictEngine
+class WorldEdictEngine implements WorldEdictEngineInterface
 {
     /**
      * Define the dictionary of possible Edicts and their multipliers.

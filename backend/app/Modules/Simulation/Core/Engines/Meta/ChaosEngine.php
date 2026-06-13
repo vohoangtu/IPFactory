@@ -54,7 +54,7 @@ class ChaosEngine
             return;
         }
 
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
 
         // Rare full anomaly
         if ($prng->nextInt(0, 10000) > 1) {
@@ -71,7 +71,7 @@ class ChaosEngine
             'time_loop',
         ];
 
-        $prng = clone \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = clone \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         $paradox = $prng->randomElement($paradoxes);
 
         switch ($paradox) {

@@ -4,7 +4,7 @@ namespace App\Modules\Intelligence\Services\AI;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\World\Models\DiscoveredAxiom;
-use App\Modules\Narrative\Services\StateExtractorDSL;
+use App\Contracts\StateExtractorDslInterface;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class TheorySynthesisService
 {
     public function __construct(
-        protected StateExtractorDSL $archiveBuilder,
+        protected StateExtractorDslInterface $archiveBuilder,
         protected AnalyticalAiService $ai
     ) {}
 

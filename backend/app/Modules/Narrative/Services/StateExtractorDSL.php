@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Modules\Narrative\Services;
+use App\Contracts\StateExtractorDslInterface;
 
 use App\Modules\Simulation\Core\Support\RuleEngine;
 
@@ -8,7 +9,7 @@ use App\Modules\Simulation\Core\Support\RuleEngine;
  * Encapsulates the logic to extract "Narrative Tokens" from raw simulation data.
  * Replaces the old fragmented PerceivedArchiveBuilder.
  */
-class StateExtractorDSL
+class StateExtractorDSL implements StateExtractorDslInterface
 {
     public function __construct(
         protected RuleEngine $ruleEngine

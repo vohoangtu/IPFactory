@@ -47,7 +47,7 @@ class EpistemicService
         }
 
         // Initialize deterministic random for this specific universe state
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         
         $distorted = [];
         foreach ($data as $key => $value) {

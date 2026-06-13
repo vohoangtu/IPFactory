@@ -10,7 +10,7 @@ class SocietyAnalyzer
      * Checks triggers for emergent faction formation based on archetype ratios
      * and fragmented scores. Returns array of Faction configurations to spawn.
      */
-    public function detectEmergentFactions(Universe $universe, array $archetypeRatios, float $fragmentedScore, \App\Modules\Simulation\Services\Ecology\SimulationPRNG $rng): array
+    public function detectEmergentFactions(Universe $universe, array $archetypeRatios, float $fragmentedScore, \App\Support\Simulation\SimulationPRNG $rng): array
     {
         $newFactions = [];
         $axioms = $universe->axioms ?? [];
@@ -86,7 +86,7 @@ class SocietyAnalyzer
     /**
      * Store newly formed factions into the Universe state vector.
      */
-    public function storeFactions(Universe $universe, array $newFactions, int $tick, \App\Modules\Simulation\Services\Ecology\SimulationPRNG $rng): void
+    public function storeFactions(Universe $universe, array $newFactions, int $tick, \App\Support\Simulation\SimulationPRNG $rng): void
     {
         if (empty($newFactions)) return;
 

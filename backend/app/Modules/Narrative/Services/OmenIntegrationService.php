@@ -4,7 +4,7 @@ namespace App\Modules\Narrative\Services;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\Narrative\Contracts\ChronicleRepositoryInterface;
-use App\Modules\Simulation\Repositories\UniverseSnapshotRepository;
+use App\Contracts\Repositories\UniverseSnapshotRepositoryInterface;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Support\Facades\Log;
 use App\Modules\Intelligence\Services\AI\AnalyticalAiService;
@@ -17,7 +17,7 @@ class OmenIntegrationService
 {
     public function __construct(
         protected AnalyticalAiService $analyticalAi,
-        protected UniverseSnapshotRepository $snapshotRepository,
+        protected UniverseSnapshotRepositoryInterface $snapshotRepository,
         protected CacheRepository $cache,
         protected ChronicleRepositoryInterface $chronicleRepository
     ) {}
@@ -114,7 +114,7 @@ class OmenIntegrationService
     protected function getFallbackOmen(Universe $universe): array
     {
         $sentiments = ['positive', 'negative', 'neutral', 'volatile'];
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         $chosen = $prng->randomElement($sentiments);
 
         $omens = [

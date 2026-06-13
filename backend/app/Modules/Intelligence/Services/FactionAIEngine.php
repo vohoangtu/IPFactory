@@ -5,7 +5,7 @@ namespace App\Modules\Intelligence\Services;
 use App\Modules\World\Models\Universe;
 use App\Modules\Intelligence\Contracts\ActorRepositoryInterface;
 use App\Modules\Intelligence\Entities\ActorEntity;
-use App\Modules\Simulation\Services\Ecology\SimulationPRNG;
+use App\Support\Simulation\SimulationPRNG;
 use Illuminate\Support\Facades\Log;
 
 /**

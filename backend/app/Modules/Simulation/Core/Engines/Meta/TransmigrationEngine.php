@@ -112,7 +112,7 @@ class TransmigrationEngine
         }
 
         // Pick random zone
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         $zoneIdx = $prng->arrayRand($vec['zones']);
         
         // Reconstruct basic agent payload

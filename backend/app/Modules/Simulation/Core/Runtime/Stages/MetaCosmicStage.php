@@ -145,7 +145,7 @@ final class MetaCosmicStage implements SimulationStageInterface
     private function triggerManifoldMiracles(\App\Modules\Simulation\Core\Runtime\State\WorldState $state, int $tick): void
     {
         $rivals = \App\Modules\World\Models\Demiurge::where('is_active', true)->get();
-        $rng = new \App\Modules\Simulation\Services\Ecology\SimulationPRNG($state->get('seed', 0) + $tick);
+        $rng = new \App\Support\Simulation\SimulationPRNG($state->get('seed', 0) + $tick);
         
         foreach ($rivals as $demiurge) {
             $chance = ($demiurge->will_power / 5000) + (float)($state->get('meta.omen.sci_modifier', 0));
@@ -171,7 +171,7 @@ final class MetaCosmicStage implements SimulationStageInterface
         return $ratios;
     }
 
-    private function processAlignments(Universe $universe, \App\Modules\Simulation\Services\Ecology\SimulationPRNG $rng): void
+    private function processAlignments(Universe $universe, \App\Support\Simulation\SimulationPRNG $rng): void
     {
         $legends = \App\Modules\Intelligence\Models\LegendaryAgent::where('universe_id', $universe->id)->get();
         foreach ($legends as $legend) {
@@ -186,7 +186,7 @@ final class MetaCosmicStage implements SimulationStageInterface
         }
     }
 
-    private function triggerRandomMiracles(Universe $universe, \App\Modules\Simulation\Services\Ecology\SimulationPRNG $rng): void
+    private function triggerRandomMiracles(Universe $universe, \App\Support\Simulation\SimulationPRNG $rng): void
     {
         $rivals = \App\Modules\World\Models\Demiurge::where('is_active', true)->get();
         $omen = $this->etherOmen->generateInternalOmen($universe);

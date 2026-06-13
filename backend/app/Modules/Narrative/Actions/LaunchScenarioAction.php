@@ -3,12 +3,12 @@
 namespace App\Modules\Narrative\Actions;
 
 use App\Modules\World\Models\Universe;
-use App\Modules\Simulation\Services\ScenarioEngine;
+use App\Contracts\ScenarioEngineInterface;
 
 class LaunchScenarioAction
 implements \App\Contracts\ActionInterface {
     public function __construct(
-        protected ScenarioEngine $scenarioEngine
+        protected ScenarioEngineInterface $scenarioEngine
     ) {}
 
     public function execute(Universe $universe, string $scenarioId): array

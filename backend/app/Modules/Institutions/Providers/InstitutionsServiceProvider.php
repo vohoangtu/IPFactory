@@ -22,6 +22,8 @@ class InstitutionsServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Modules\Institutions\Services\InstitutionEvolutionService::class);
         $this->app->singleton(\App\Modules\Institutions\Services\SupremeEntityEvolutionService::class);
         $this->app->singleton(\App\Modules\Institutions\Services\WorldEdictEngine::class);
+        // Cross-module contract (P0-6): Intelligence phụ thuộc interface thay vì class cụ thể → phá cycle Intel⇄Inst.
+        $this->app->bind(\App\Contracts\WorldEdictEngineInterface::class, \App\Modules\Institutions\Services\WorldEdictEngine::class);
         $this->app->singleton(\App\Modules\Institutions\Services\GreatFilterEngine::class);
         $this->app->singleton(\App\Modules\Institutions\Services\OmegaPointEngine::class);
         $this->app->singleton(\App\Modules\Institutions\Services\AscensionEngine::class);

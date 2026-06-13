@@ -3,7 +3,7 @@
 namespace App\Modules\Intelligence\Actions;
 
 use App\Modules\World\Models\Universe;
-use App\Modules\Simulation\Services\Ecology\SimulationPRNG;
+use App\Support\Simulation\SimulationPRNG;
 
 /**
  * Phase 31: Universe Mutation Action.

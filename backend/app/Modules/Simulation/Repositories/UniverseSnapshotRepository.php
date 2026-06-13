@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Modules\Simulation\Repositories;
+use App\Contracts\Repositories\UniverseSnapshotRepositoryInterface;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\Simulation\Services\Core\ObserverService;
 
-class UniverseSnapshotRepository
+class UniverseSnapshotRepository implements UniverseSnapshotRepositoryInterface
 {
     public function __construct(
         protected ?ObserverService $observer = null,

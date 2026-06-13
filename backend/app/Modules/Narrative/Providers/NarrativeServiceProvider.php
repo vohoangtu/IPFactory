@@ -19,6 +19,9 @@ class NarrativeServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(StateExtractorDSL::class);
+        // Cross-module contracts (P0-6): Intelligence phụ thuộc interface → phá cycle Narr⇄Intel.
+        $this->app->bind(\App\Contracts\StateExtractorDslInterface::class, StateExtractorDSL::class);
+        $this->app->bind(\App\Contracts\NarrativeGeneratorServiceInterface::class, \App\Modules\Narrative\Services\NarrativeGeneratorService::class);
         $this->app->singleton(SignalExtractor::class);
         $this->app->singleton(StateMutationEngine::class);
         $this->app->singleton(ChronicleMemoryRepository::class);

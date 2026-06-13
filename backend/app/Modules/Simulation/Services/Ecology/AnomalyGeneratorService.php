@@ -92,7 +92,7 @@ class AnomalyGeneratorService
     {
         $details = ['description' => $description];
         $vec = $universe->state_vector ?? [];
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
 
         switch ($type) {
             case 'biological_hivemind':
@@ -185,7 +185,7 @@ class AnomalyGeneratorService
 
     protected function executeDisaster(Universe $universe, float $intensity, string $description, array $metadata = []): void
     {
-        $prng = \App\Modules\Simulation\Services\Ecology\SimulationPRNG::forUniverse($universe);
+        $prng = \App\Support\Simulation\SimulationPRNG::forUniverse($universe);
         $type = self::DISASTER_TYPES[$prng->arrayRand(self::DISASTER_TYPES)];
         $tick = $universe->current_tick ?? 0;
         $limit = (int) ($metadata['disaster_limit'] ?? 20);

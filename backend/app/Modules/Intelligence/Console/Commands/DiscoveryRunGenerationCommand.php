@@ -2,7 +2,7 @@
 
 namespace App\Modules\Intelligence\Console\Commands;
 
-use App\Modules\Simulation\Services\Politics\CivilizationDiscoveryService;
+use App\Contracts\CivilizationDiscoveryServiceInterface;
 use Illuminate\Console\Command;
 
 /**
@@ -17,7 +17,7 @@ class DiscoveryRunGenerationCommand extends Command
 
     protected $description = 'Run one GA generation: evaluate fitness, selection (top-k), optional crossover+mutate.';
 
-    public function handle(CivilizationDiscoveryService $discovery): int
+    public function handle(CivilizationDiscoveryServiceInterface $discovery): int
     {
         $idsOption = $this->option('ids');
         $universeIds = [];

@@ -4,13 +4,13 @@ namespace App\Modules\Narrative\Actions;
 
 use App\Modules\World\Models\World;
 use App\Modules\World\Models\Universe;
-use App\Modules\Simulation\Actions\WorldAxiomAction;
+use App\Contracts\WorldAxiomActionInterface;
 use Illuminate\Support\Facades\Log;
 
 class CorrectionAction
 implements \App\Contracts\ActionInterface {
     public function __construct(
-        protected WorldAxiomAction $axiomAction
+        protected WorldAxiomActionInterface $axiomAction
     ) {}
 
     /**

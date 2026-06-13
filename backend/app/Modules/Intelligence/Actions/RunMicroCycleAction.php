@@ -15,7 +15,7 @@ use App\Modules\Intelligence\Services\MacroStateEvolution;
 use App\Modules\Intelligence\Services\SocietyAnalyzer;
 use App\Modules\Intelligence\Services\PhaseMetricsComputer;
 use App\Modules\Intelligence\Services\DeterminismHasher;
-use App\Modules\Simulation\Services\Ecology\SimulationPRNG;
+use App\Support\Simulation\SimulationPRNG;
 use App\Modules\World\Models\Universe;
 
 class RunMicroCycleAction implements \App\Contracts\ActionInterface
