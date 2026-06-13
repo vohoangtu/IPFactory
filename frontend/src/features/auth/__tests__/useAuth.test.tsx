@@ -3,7 +3,7 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 
 vi.mock('@/shared/lib/apiClient', () => ({
   TOKEN_KEY: 'worldos_token',
-  apiClient: { post: vi.fn().mockResolvedValue({ data: { token: 'tok123' } }) },
+  apiClient: { post: vi.fn().mockResolvedValue({ data: { access_token: 'tok123', token_type: 'Bearer' } }) },
 }));
 
 import { useAuth } from '../hooks/useAuth';

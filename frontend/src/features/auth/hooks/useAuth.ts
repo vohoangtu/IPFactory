@@ -9,7 +9,7 @@ export function useAuth() {
 
   const login = useCallback(async (email: string, password: string) => {
     const res = await apiClient.post('/auth/login', { email, password });
-    const t = (res.data as { token: string }).token;
+    const t = (res.data as { access_token: string }).access_token;
     localStorage.setItem(TOKEN_KEY, t);
     setToken(t);
   }, []);
