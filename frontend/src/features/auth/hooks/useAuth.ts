@@ -1,10 +1,11 @@
 'use client';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { apiClient, TOKEN_KEY } from '@/shared/lib/apiClient';
 
 export function useAuth() {
-  const [token, setToken] = useState<string | null>(null);
-  useEffect(() => { setToken(localStorage.getItem(TOKEN_KEY)); }, []);
+  const [token, setToken] = useState<string | null>(
+    () => (typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null),
+  );
 
   const login = useCallback(async (email: string, password: string) => {
     const res = await apiClient.post('/auth/login', { email, password });
