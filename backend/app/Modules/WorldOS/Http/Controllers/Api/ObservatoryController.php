@@ -16,7 +16,7 @@ class ObservatoryController extends Controller
     ) {
     }
 
-    public function feed(Request $request, int $universeId): JsonResponse
+    public function feed(Request $request, int $id): JsonResponse
     {
         $validated = $request->validate([
             'after_tick' => ['sometimes', 'integer', 'min:0'],
@@ -29,7 +29,7 @@ class ObservatoryController extends Controller
             ? array_values(array_filter(array_map('trim', explode(',', $validated['types']))))
             : null;
 
-        return response()->json($this->getObservatoryFeedAction->handle($universeId, [
+        return response()->json($this->getObservatoryFeedAction->handle($id, [
             'after_tick' => $validated['after_tick'] ?? null,
             'before_tick' => $validated['before_tick'] ?? null,
             'types' => $types !== [] ? $types : null,
