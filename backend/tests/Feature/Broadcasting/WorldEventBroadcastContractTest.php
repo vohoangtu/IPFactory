@@ -85,6 +85,14 @@ class WorldEventBroadcastContractTest extends TestCase
         $this->assertEnvelope($data, 'anomaly.detected', 77, $universe->id);
         $this->assertSame('notable', $data['severity']); // medium → notable
         $this->assertSame('Entropy spike', $data['payload']['title']);
+
+        // Test uppercase WARN severity mapping to notable
+        $warnEvent = new AnomalyDetected($universe, [
+            'title' => 'Drift',
+            'description' => 'x',
+            'severity' => 'WARN',
+        ]);
+        $this->assertSame('notable', $warnEvent->broadcastWith()['severity']);
     }
 
     public function test_autopoiesis_mutation_contract(): void
