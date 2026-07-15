@@ -1292,7 +1292,7 @@ class GetObservatoryFeedAction implements ActionInterface
                 ->where('universe_id', $universeId)
                 ->when($afterTick !== null, fn ($q) => $q->whereRaw('COALESCE(to_tick, from_tick) > ?', [$afterTick]))
                 ->when($beforeTick !== null, fn ($q) => $q->whereRaw('COALESCE(to_tick, from_tick) < ?', [$beforeTick]))
-                ->orderByDesc('to_tick')
+                ->orderByRaw('COALESCE(to_tick, from_tick) DESC')
                 ->limit($limit)
                 ->get()
                 ->map(fn (Chronicle $c): array => [
