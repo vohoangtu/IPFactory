@@ -13,7 +13,8 @@ class ObservatoryController extends Controller
 {
     public function __construct(
         private readonly GetObservatoryFeedAction $getObservatoryFeedAction
-    ) {}
+    ) {
+    }
 
     public function feed(Request $request, int $universeId): JsonResponse
     {
