@@ -4,11 +4,14 @@ namespace App\Modules\Simulation\Models;
 
 use App\Modules\World\Models\Universe;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UniverseSnapshot extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'universe_id', 'tick', 'state_vector', 'entropy', 'stability_index', 'metrics',
     ];

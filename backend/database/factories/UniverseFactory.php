@@ -17,7 +17,6 @@ class UniverseFactory extends Factory
             'world_id' => World::factory(),
             'current_tick' => 0,
             'entropy' => 0.5,
-            'stability_index' => 0.5,
             'status' => 'active',
             'state_vector' => [],
             'observation_load' => 0.0,

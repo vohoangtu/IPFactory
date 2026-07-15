@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Simulation;
 
-use App\Events\Simulation\SimulationEventStreamReceived;
+use App\Modules\Simulation\Events\SimulationEventStreamReceived;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
@@ -19,6 +19,14 @@ class KafkaEventStreamTest extends TestCase
         
         config(['worldos.event_stream.kafka_enabled' => true]);
         config(['worldos.event_stream.rest_proxy_url' => 'http://redpanda:8082']);
+
+        // worlds.primary_ruleset_id defaults to 'realistic_modern' (FK) — seed the row
+        DB::table('ruleset_definitions')->insertOrIgnore([
+            'id' => 'realistic_modern',
+            'name' => 'Realistic Modern (test stub)',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         // Mock Multiverse & Universe to bypass Foreign Key constraint
         $multiverseId = DB::table('multiverses')->insertGetId([
@@ -42,12 +50,10 @@ class KafkaEventStreamTest extends TestCase
             'id' => 999,
             'world_id' => $worldId,
             'name' => 'Kafka Universe',
-            'description' => 'Test',
             'entropy' => 0.0,
             'status' => 'active',
             'current_tick' => 45,
             'state_vector' => json_encode([]),
-            'laws_of_physics' => json_encode([]),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
