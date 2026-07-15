@@ -9,6 +9,7 @@ use App\Modules\WorldOS\Http\Controllers\Api\WorldController;
 use App\Modules\WorldOS\Http\Controllers\Api\TimelineController;
 use App\Modules\WorldOS\Http\Controllers\Api\AiConfigController;
 use App\Modules\WorldOS\Http\Controllers\Api\ServiceStatusController;
+use App\Modules\WorldOS\Http\Controllers\Api\ObservatoryController;
 
 Route::middleware('api')->prefix('worldos')->group(function () {
     // 0. Service Status (public)
@@ -54,6 +55,10 @@ Route::middleware('api')->prefix('worldos')->group(function () {
 
     // 5. Analytics
     Route::get('analytics/ticks', [\App\Modules\WorldOS\Http\Controllers\Api\AnalyticsController::class , 'getTickAnalytics'])->name('worldos.analytics.ticks');
+
+    // 5b. Observatory (GET — public)
+    Route::get('observatory/universes/{id}/feed', [ObservatoryController::class, 'feed'])
+        ->name('worldos.observatory.feed');
 
     // 6. System Configuration (GET)
     Route::get('config/keys', [AiConfigController::class , 'listKeys'])->name('worldos.config.keys.list');
