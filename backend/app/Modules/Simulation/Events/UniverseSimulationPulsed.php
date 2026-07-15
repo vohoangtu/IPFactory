@@ -2,8 +2,8 @@
 
 namespace App\Modules\Simulation\Events;
 
-use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
+use App\Modules\World\Models\Universe;
 use App\Support\Broadcasting\EmitsWorldEvent;
 use App\Support\Broadcasting\WorldEventBroadcast;
 use App\Support\Broadcasting\WorldEventEnvelope;
@@ -13,14 +13,18 @@ use Illuminate\Queue\SerializesModels;
 
 class UniverseSimulationPulsed implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public Universe $universe,
         public UniverseSnapshot $snapshot,
         public array $engineResponse = [],
         public array $engineEvents = []
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {

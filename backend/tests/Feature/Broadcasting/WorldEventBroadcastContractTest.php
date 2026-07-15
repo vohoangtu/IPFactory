@@ -151,4 +151,30 @@ class WorldEventBroadcastContractTest extends TestCase
         $this->assertEnvelope($data, 'simulation.event', 3, 5);
         $this->assertSame('engine.custom', $data['payload']['stream_type']);
     }
+
+    public function test_envelope_survives_queue_serialization_roundtrip(): void
+    {
+        $event = new ArtifactDiscovered(universeId: 5, tick: 42, zoneId: 1, artifactId: 7, mass: 1.5, knowledgeEncoded: 0.8);
+        $original = $event->envelope();
+
+        $restored = unserialize(serialize($event));
+
+        $this->assertSame($original->id, $restored->envelope()->id);
+        $this->assertSame($original->occurredAt, $restored->envelope()->occurredAt);
+        $this->assertSame($original->tick, $restored->envelope()->tick);
+    }
+
+    public function test_model_backed_envelope_survives_roundtrip_with_stable_tick(): void
+    {
+        $universe = Universe::factory()->create(['current_tick' => 7]);
+        $event = new AnomalyDetected($universe, ['title' => 'Spike', 'description' => 'x', 'severity' => 'high']);
+        $originalId = $event->envelope()->id;
+
+        // Simulate tick advancing after dispatch but before the queue worker runs
+        $universe->update(['current_tick' => 99]);
+        $restored = unserialize(serialize($event));
+
+        $this->assertSame($originalId, $restored->envelope()->id);
+        $this->assertSame(7, $restored->envelope()->tick);
+    }
 }

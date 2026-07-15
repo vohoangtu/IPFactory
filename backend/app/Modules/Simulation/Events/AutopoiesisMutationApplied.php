@@ -12,12 +12,16 @@ use Illuminate\Queue\SerializesModels;
 
 class AutopoiesisMutationApplied implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public int $universeId,
         public array $payload,
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {

@@ -2,20 +2,23 @@
 
 namespace App\Modules\Simulation\Events;
 
-use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
+use App\Modules\World\Models\Universe;
 use App\Support\Broadcasting\EmitsWorldEvent;
 use App\Support\Broadcasting\WorldEventBroadcast;
 use App\Support\Broadcasting\WorldEventEnvelope;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UniversePulsed implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     /**
      * Create a new event instance.
@@ -23,7 +26,9 @@ class UniversePulsed implements ShouldBroadcast, WorldEventBroadcast
     public function __construct(
         public Universe $universe,
         public UniverseSnapshot $snapshot
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     /**
      * Get the channels the event should broadcast on.

@@ -2,8 +2,8 @@
 
 namespace App\Modules\Simulation\Events;
 
-use App\Modules\World\Models\Universe;
 use App\Modules\World\Models\Epoch;
+use App\Modules\World\Models\Universe;
 use App\Support\Broadcasting\EmitsWorldEvent;
 use App\Support\Broadcasting\WorldEventBroadcast;
 use App\Support\Broadcasting\WorldEventEnvelope;
@@ -14,14 +14,18 @@ use Illuminate\Queue\SerializesModels;
 
 class EpochTransitioned implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public Universe $universe,
         public Epoch $oldEpoch,
         public Epoch $newEpoch,
         public int $tick
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {

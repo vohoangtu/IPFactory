@@ -5,15 +5,18 @@ namespace App\Modules\World\Events;
 use App\Support\Broadcasting\EmitsWorldEvent;
 use App\Support\Broadcasting\WorldEventBroadcast;
 use App\Support\Broadcasting\WorldEventEnvelope;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Broadcasting\Channel;
 
 class ArtifactDiscovered implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public readonly int $universeId,
@@ -22,7 +25,9 @@ class ArtifactDiscovered implements ShouldBroadcast, WorldEventBroadcast
         public readonly int $artifactId,
         public readonly float $mass,
         public readonly float $knowledgeEncoded
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {

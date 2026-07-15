@@ -14,12 +14,17 @@ use Illuminate\Queue\SerializesModels;
 
 class AnomalyDetected implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public Universe $universe,
         public array $anomaly
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {
@@ -51,4 +56,3 @@ class AnomalyDetected implements ShouldBroadcast, WorldEventBroadcast
         );
     }
 }
-

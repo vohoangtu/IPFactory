@@ -12,7 +12,9 @@ use Illuminate\Queue\SerializesModels;
 
 class SimulationEventStreamReceived implements ShouldBroadcastNow, WorldEventBroadcast
 {
-    use Dispatchable, SerializesModels, EmitsWorldEvent;
+    use Dispatchable;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public int $universeId,
@@ -20,7 +22,9 @@ class SimulationEventStreamReceived implements ShouldBroadcastNow, WorldEventBro
         public string $type,
         public array $payload,
         public string $occurredAt
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {
