@@ -10,10 +10,10 @@
 
 ## Global Constraints
 
-- **KHÔNG BAO GIỜ chạy `composer`/`npm`/`cargo` trên host.** Mọi lệnh chạy qua `docker compose -f deployment/docker-compose.prod.yml exec backend ...` (viết tắt dưới đây: `DC exec backend`).
+- **KHÔNG BAO GIỜ chạy `composer`/`npm`/`cargo` trên host.** Môi trường test là Incus container `worldos-dev` (PHP 8.4, project mount tại `/work`): mọi lệnh PHP chạy qua `incus exec worldos-dev -- sh -c 'cd /work/backend && ...'`.
 - PHP giữ `^8.3` trong `composer.json`.
 - File PHP MỚI: PSR-12 + `declare(strict_types=1)`. File sửa: giữ style hiện có, không thêm `strict_types` vào file cũ.
-- Baseline test hiện tại: Unit `~166 pass / 3 fail / 92 skip` — 3 fail là pre-existing (`MeaningEngineTest` ×2, `IntelligenceExplosionTest` ×1), KHÔNG tính là regression.
+- Baseline test (đo thật 2026-07-15 sau Task 0): Unit `168 pass / 1 fail / 92 skip` — 1 fail pre-existing (`IntelligenceExplosionTest`), KHÔNG tính là regression. Feature suite tổng có 91 fail pre-existing (test rot cũ) — cổng hồi quy của plan này là: Unit suite + `RawGenerationPostSnapshotHandlerTest|KafkaEventStreamTest|LoomSecurityTest` (8/8) + toàn bộ test mới của plan.
 - Controller mỏng → delegate cho Action (`implements \App\Contracts\ActionInterface` — marker interface, module WorldOS dùng method `handle()`).
 - Không import Service/Action/Repository chéo module (guardrail `tests/Unit/Architecture/ModuleBoundaryTest.php` sẽ fail). Import Event class và Model chéo module được phép.
 - Trả lời người dùng bằng tiếng Việt. Kết thúc phiên: cập nhật `.dev_status.md`.
@@ -110,7 +110,7 @@ Lưu ý: test này extends `PHPUnit\Framework\TestCase` thuần (không boot Lar
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventEnvelopeTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventEnvelopeTest'`
 Expected: FAIL — `Class "App\Support\Broadcasting\WorldEventEnvelope" not found`
 
 - [ ] **Step 3: Implement 3 file**
@@ -212,7 +212,7 @@ trait EmitsWorldEvent
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventEnvelopeTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventEnvelopeTest'`
 Expected: PASS (2 tests)
 
 - [ ] **Step 5: Commit**
@@ -287,7 +287,7 @@ class CentrifugoChannelAuthTest extends TestCase
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=CentrifugoChannelAuthTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=CentrifugoChannelAuthTest'`
 Expected: FAIL — `test_lens_channels_...` fail vì regex hiện tại `/^universes:(\d+)$/` từ chối các hậu tố `:narrative` v.v.
 
 - [ ] **Step 3: Sửa broadcaster**
@@ -319,7 +319,7 @@ $params = ['channel' => $channel, 'data' => $payload];
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=CentrifugoChannelAuthTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=CentrifugoChannelAuthTest'`
 Expected: PASS (3 tests)
 
 - [ ] **Step 5: Commit**
@@ -416,7 +416,7 @@ class WorldEventBroadcastContractTest extends TestCase
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: FAIL — kênh hiện tại là `universe.5.narrative`, `broadcastAs` là `ArtifactDiscovered`…
 
 - [ ] **Step 3: Sửa 3 event class**
@@ -486,10 +486,10 @@ payload: [
 
 - [ ] **Step 4: Chạy test contract + test hồi quy handler dispatch**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: PASS (3 tests)
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=RawGenerationPostSnapshotHandlerTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=RawGenerationPostSnapshotHandlerTest'`
 Expected: PASS (test hiện có assert dispatch 3 event này — constructor không đổi nên phải xanh)
 
 - [ ] **Step 5: Commit**
@@ -552,7 +552,7 @@ public function test_autopoiesis_mutation_contract(): void
 
 - [ ] **Step 2: Chạy test, xác nhận 2 test mới fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: 3 pass (task 3), 2 FAIL mới
 
 - [ ] **Step 3: Sửa 2 event class**
@@ -640,7 +640,7 @@ class AutopoiesisMutationApplied implements ShouldBroadcast, WorldEventBroadcast
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: PASS (5 tests)
 
 - [ ] **Step 5: Commit**
@@ -718,7 +718,7 @@ public function test_simulation_event_stream_received_contract(): void
 
 - [ ] **Step 2: Chạy test, xác nhận 3 test mới fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: 5 pass, 3 FAIL mới
 
 - [ ] **Step 3: Sửa 4 event class** (mẫu như Task 3-4: thêm `implements WorldEventBroadcast`, `use EmitsWorldEvent`, xóa `broadcastWith()` cũ nếu có)
@@ -824,10 +824,10 @@ protected function toEnvelope(): WorldEventEnvelope
 
 - [ ] **Step 4: Chạy test contract + hồi quy Kafka/pulse**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=WorldEventBroadcastContractTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=WorldEventBroadcastContractTest'`
 Expected: PASS (8 tests)
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter="KafkaEventStreamTest|SimulationPulseOrderTest|CollectiveUnconsciousRuntimeIntegrationTest"`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter="KafkaEventStreamTest|SimulationPulseOrderTest|CollectiveUnconsciousRuntimeIntegrationTest"'`
 Expected: PASS (các test này chỉ assert dispatch, constructor không đổi)
 
 - [ ] **Step 5: Commit**
@@ -901,7 +901,7 @@ class PersistWorldEventBroadcastTest extends TestCase
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=PersistWorldEventBroadcastTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=PersistWorldEventBroadcastTest'`
 Expected: FAIL — không có row nào trong `world_events`
 
 - [ ] **Step 3: Implement listener + đăng ký**
@@ -967,7 +967,7 @@ Event::listen([
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=PersistWorldEventBroadcastTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=PersistWorldEventBroadcastTest'`
 Expected: PASS (2 tests)
 
 - [ ] **Step 5: Commit**
@@ -1047,7 +1047,7 @@ Ghi chú: nếu `World::factory()` chưa tồn tại, tạo universe qua `Univer
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=LoomWebhookBroadcastTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=LoomWebhookBroadcastTest'`
 Expected: FAIL — body hiện phát trên `public:universes` với payload phẳng, không có `chronicle.generated`
 
 - [ ] **Step 3: Sửa 2 chỗ trong TimelineController**
@@ -1100,10 +1100,10 @@ try {
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=LoomWebhookBroadcastTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=LoomWebhookBroadcastTest'`
 Expected: PASS
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=LoomSecurityTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=LoomSecurityTest'`
 Expected: PASS (5 tests — không phá lớp bảo mật P0-3)
 
 - [ ] **Step 5: Commit**
@@ -1231,7 +1231,7 @@ Ghi chú: nếu `Chronicle::create` bị chặn mass-assignment, đổi sang `Ch
 
 - [ ] **Step 2: Chạy test, xác nhận fail**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=ObservatoryFeedTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=ObservatoryFeedTest'`
 Expected: FAIL — 404 (route chưa tồn tại)
 
 - [ ] **Step 3: Implement Action + Controller + route**
@@ -1379,7 +1379,7 @@ Trong `backend/app/Modules/WorldOS/routes/api.php` — thêm import `use App\Mod
 
 - [ ] **Step 4: Chạy test, xác nhận pass**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=ObservatoryFeedTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=ObservatoryFeedTest'`
 Expected: PASS (4 tests)
 
 - [ ] **Step 5: Commit**
@@ -1402,17 +1402,20 @@ git commit -m "feat(be): observatory feed — hợp nhất world_events + chroni
 
 - [ ] **Step 1: Chạy toàn bộ test suite**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test`
-Expected: pass-count ≥ baseline; đúng 3 fail pre-existing (`MeaningEngineTest` ×2, `IntelligenceExplosionTest` ×1). Nếu có fail MỚI → dừng, điều tra bằng skill systematic-debugging trước khi tiếp tục.
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --testsuite=Unit'`
+Expected: `168+ pass / 1 fail / 92 skip` — chỉ fail pre-existing `IntelligenceExplosionTest`.
+
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter="RawGenerationPostSnapshotHandlerTest|KafkaEventStreamTest|LoomSecurityTest|WorldEventEnvelopeTest|CentrifugoChannelAuthTest|WorldEventBroadcastContractTest|PersistWorldEventBroadcastTest|LoomWebhookBroadcastTest|ObservatoryFeedTest"'`
+Expected: 100% pass. Nếu có fail MỚI so với baseline → dừng, điều tra bằng skill systematic-debugging trước khi tiếp tục. (Feature suite tổng có 91 fail pre-existing — ngoài phạm vi plan.)
 
 - [ ] **Step 2: Chạy guardrail kiến trúc**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend php artisan test --filter=ModuleBoundaryTest`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter=ModuleBoundaryTest'`
 Expected: PASS (listener/action mới chỉ import Event + Model chéo module — được phép)
 
 - [ ] **Step 3: Lint**
 
-Run: `docker compose -f deployment/docker-compose.prod.yml exec backend vendor/bin/pint --dirty`
+Run: `incus exec worldos-dev -- sh -c 'cd /work/backend && vendor/bin/pint --dirty'`
 Expected: sửa format nếu có, không lỗi
 
 - [ ] **Step 4: Cập nhật `.dev_status.md`** — thêm mục session: Plan 1 Observatory hoàn thành (kênh chuẩn hóa, envelope, persist, feed endpoint), kèm kết quả test thật.
