@@ -63,6 +63,13 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     Route::post('centrifugo/token', [CentrifugoController::class , 'token'])->name('worldos.centrifugo.token');
 });
 
+// Webhook từ narrative-loom (internal service-to-service — không dùng auth:sanctum vì
+// caller không phải user đăng nhập; bảo vệ bằng shared secret, cùng cơ chế với
+// endpoint sinh đôi ở Narrative module — xem backend/app/Modules/Narrative/routes/api.php).
+Route::middleware(['api', 'loom.secret'])->prefix('worldos')->group(function () {
+    Route::post('narrative-loom/webhook', [TimelineController::class , 'loomWebhook'])->name('worldos.narrative-loom.webhook');
+});
+
 Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function () {
     // 1. Core Universe Management (POST/PATCH/DELETE — protected)
     Route::post('universes', [UniverseController::class , 'store'])->name('worldos.universes.store');
@@ -74,9 +81,6 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function ()
     // 3. Narrative & Chronicles (POST — protected)
     Route::post('universes/{id}/historian/generate', [TimelineController::class , 'generateHistory'])->name('worldos.universes.historian.generate');
     Route::get('universes/{id}/chronicles/raw', [TimelineController::class , 'getChronicles'])->name('worldos.universes.chronicles.raw');
-
-// Webhook từ narrative-loom (bỏ qua auth - được gọi từ internal network)
-Route::post('narrative-loom/webhook', [TimelineController::class , 'loomWebhook'])->name('worldos.narrative-loom.webhook');
 
 // Test route: generate-chronicle (bỏ qua auth tạm thời để test)
 Route::post('universes/{id}/generate-chronicle', [TimelineController::class , 'generateChronicle'])->name('worldos.universes.generate-chronicle');

@@ -118,15 +118,17 @@ class TimelineController extends Controller
 
             // Broadcast narrative completion via Centrifugo
             try {
-                $broadcaster = app(\App\Broadcasting\CentrifugoBroadcaster::class);
-                $broadcaster->broadcast(
-                    ["public:universes"],
-                    'narrative.completed',
-                    [
-                        'type' => 'chronicle_generated',
-                        'universe_id' => $universeId,
-                        'chronicle_id' => $chronicle->id,
-                    ]
+                $envelope = new \App\Support\Broadcasting\WorldEventEnvelope(
+                    type: 'chronicle.generated',
+                    tick: (int) $chronicle->to_tick,
+                    universeId: (int) $universeId,
+                    severity: 'notable',
+                    payload: ['chronicle_id' => $chronicle->id],
+                );
+                app(\App\Broadcasting\CentrifugoBroadcaster::class)->broadcast(
+                    ["universes:{$universeId}:narrative", 'public:universes'],
+                    'chronicle.generated',
+                    $envelope->toArray()
                 );
             } catch (\Throwable $e) {
                 Log::warning('Failed to broadcast narrative completion: ' . $e->getMessage());
@@ -204,17 +206,21 @@ class TimelineController extends Controller
 
             // Broadcast narrative completion via Centrifugo
             try {
-                $broadcaster = app(\App\Broadcasting\CentrifugoBroadcaster::class);
-                $broadcaster->broadcast(
-                    ["public:universes"],
-                    'narrative.completed',
-                    [
-                        'type' => 'chronicle_generated',
-                        'universe_id' => $universe->id,
+                $envelope = new \App\Support\Broadcasting\WorldEventEnvelope(
+                    type: 'chronicle.generated',
+                    tick: (int) $chronicle->to_tick,
+                    universeId: (int) $universe->id,
+                    severity: 'notable',
+                    payload: [
                         'chronicle_id' => $chronicle->id,
                         'task_id' => $taskId,
                         'headline' => $newsHeadline,
-                    ]
+                    ],
+                );
+                app(\App\Broadcasting\CentrifugoBroadcaster::class)->broadcast(
+                    ["universes:{$universe->id}:narrative", 'public:universes'],
+                    'chronicle.generated',
+                    $envelope->toArray()
                 );
             } catch (\Throwable $e) {
                 Log::warning('Failed to broadcast narrative completion: ' . $e->getMessage());
