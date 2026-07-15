@@ -587,9 +587,9 @@ class AnomalyDetected implements ShouldBroadcast, WorldEventBroadcast
             tick: (int) $this->universe->current_tick,
             universeId: (int) $this->universe->id,
             worldId: $this->universe->world_id !== null ? (int) $this->universe->world_id : null,
-            severity: match ($this->anomaly['severity'] ?? null) {
-                'low' => 'info',
-                'medium' => 'notable',
+            severity: match (strtolower((string) ($this->anomaly['severity'] ?? ''))) {
+                'low', 'info' => 'info',
+                'medium', 'warn', 'warning' => 'notable',
                 default => 'critical',
             },
             payload: [
