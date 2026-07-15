@@ -7,8 +7,13 @@ namespace Tests\Feature\Broadcasting;
 use App\Modules\Narrative\Events\HistoricalEpochShifted;
 use App\Modules\Simulation\Events\AnomalyDetected;
 use App\Modules\Simulation\Events\AutopoiesisMutationApplied;
+use App\Modules\Simulation\Events\EpochTransitioned;
+use App\Modules\Simulation\Events\SimulationEventStreamReceived;
+use App\Modules\Simulation\Events\UniversePulsed;
+use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\SocialGraph\Events\CelebrityEmerged;
 use App\Modules\World\Events\ArtifactDiscovered;
+use App\Modules\World\Models\Epoch;
 use App\Modules\World\Models\Universe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -104,5 +109,46 @@ class WorldEventBroadcastContractTest extends TestCase
         $data = $event->broadcastWith();
         $this->assertEnvelope($data, 'autopoiesis.mutation', 12, 5);
         $this->assertSame('gravity_v2', $data['payload']['rule']);
+    }
+
+    public function test_universe_pulsed_contract(): void
+    {
+        $universe = Universe::factory()->create();
+        $snapshot = (new UniverseSnapshot())->forceFill([
+            'tick' => 8, 'entropy' => 0.42, 'stability_index' => 0.9, 'metrics' => ['population' => 10],
+        ]);
+        $event = new UniversePulsed($universe, $snapshot);
+
+        $this->assertSame(["universes:{$universe->id}"], $this->channelNames($event));
+        $this->assertSame('universe.pulsed', $event->broadcastAs());
+        $data = $event->broadcastWith();
+        $this->assertEnvelope($data, 'universe.pulsed', 8, $universe->id);
+        $this->assertSame(0.42, $data['payload']['entropy']);
+    }
+
+    public function test_epoch_transitioned_contract(): void
+    {
+        $universe = Universe::factory()->create();
+        $old = (new Epoch())->forceFill(['id' => 1, 'name' => 'Bronze']);
+        $new = (new Epoch())->forceFill(['id' => 2, 'name' => 'Iron']);
+        $event = new EpochTransitioned($universe, $old, $new, 100);
+
+        $this->assertSame(["universes:{$universe->id}", 'public:universes'], $this->channelNames($event));
+        $this->assertSame('epoch.transitioned', $event->broadcastAs());
+        $data = $event->broadcastWith();
+        $this->assertEnvelope($data, 'epoch.transitioned', 100, $universe->id);
+        $this->assertSame('notable', $data['severity']);
+        $this->assertSame('Iron', $data['payload']['new_epoch']['name']);
+    }
+
+    public function test_simulation_event_stream_received_contract(): void
+    {
+        $event = new SimulationEventStreamReceived(universeId: 5, tick: 3, type: 'engine.custom', payload: ['x' => 1], occurredAt: '2026-07-15T00:00:00+00:00');
+
+        $this->assertSame(['universes:5'], $this->channelNames($event));
+        $this->assertSame('simulation.event', $event->broadcastAs());
+        $data = $event->broadcastWith();
+        $this->assertEnvelope($data, 'simulation.event', 3, 5);
+        $this->assertSame('engine.custom', $data['payload']['stream_type']);
     }
 }

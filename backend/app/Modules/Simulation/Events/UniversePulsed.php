@@ -4,15 +4,18 @@ namespace App\Modules\Simulation\Events;
 
 use App\Modules\World\Models\Universe;
 use App\Modules\Simulation\Models\UniverseSnapshot;
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UniversePulsed implements ShouldBroadcast
+class UniversePulsed implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
 
     /**
      * Create a new event instance.
@@ -23,34 +26,32 @@ class UniversePulsed implements ShouldBroadcast
     ) {}
 
     /**
-     * Get the data to broadcast.
-     *
-     * @return array<string, mixed>
-     */
-    public function broadcastWith(): array
-    {
-        return [
-            'universe_id' => $this->universe->id,
-            'world_id' => $this->universe->world_id,
-            'tick' => $this->snapshot->tick,
-            'entropy' => $this->snapshot->entropy,
-            'stability_index' => $this->snapshot->stability_index,
-            'metrics' => $this->snapshot->metrics,
-            'pulsed_at' => now()->toIso8601String(),
-        ];
-    }
-
-    /**
      * Get the channels the event should broadcast on.
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array
     {
-        return [
-            new Channel("universes.{$this->universe->id}"),
-            new Channel("worlds.{$this->universe->world_id}"),
-        ];
+        return [new Channel("universes:{$this->universe->id}")];
+    }
+
+    public function broadcastAs(): string
+    {
+        return 'universe.pulsed';
+    }
+
+    protected function toEnvelope(): WorldEventEnvelope
+    {
+        return new WorldEventEnvelope(
+            type: 'universe.pulsed',
+            tick: (int) $this->snapshot->tick,
+            universeId: (int) $this->universe->id,
+            worldId: $this->universe->world_id !== null ? (int) $this->universe->world_id : null,
+            payload: [
+                'entropy' => $this->snapshot->entropy,
+                'stability_index' => $this->snapshot->stability_index,
+                'metrics' => $this->snapshot->metrics,
+            ],
+        );
     }
 }
-
