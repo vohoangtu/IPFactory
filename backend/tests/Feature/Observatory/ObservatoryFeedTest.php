@@ -42,7 +42,8 @@ class ObservatoryFeedTest extends TestCase
         $this->assertSame([20, 10, 5], $ticks);
         $kinds = collect($response->json('data'))->pluck('kind')->all();
         $this->assertSame(['event', 'chronicle', 'event'], $kinds);
-        $this->assertSame(5, $response->json('meta.next_before_tick'));
+        // Page is complete (3 items <= default limit 50) — no further pages remain.
+        $this->assertNull($response->json('meta.next_before_tick'));
     }
 
     public function test_feed_filters_by_types_and_tick_window(): void
@@ -70,8 +71,35 @@ class ObservatoryFeedTest extends TestCase
 
         $response = $this->getJson("/api/worldos/observatory/universes/{$universe->id}/feed?limit=2");
 
+        // merged count (3) > limit (2) => boundary = tick 2 => page = ticks [3, 2], next_before_tick = 2.
         $this->assertCount(2, $response->json('data'));
         $this->assertSame([3, 2], collect($response->json('data'))->pluck('tick')->all());
+        $this->assertSame(2, $response->json('meta.next_before_tick'));
+        // Universe isolation: the other universe's tick=99 event must never leak in.
+        $this->assertNotContains(99, collect($response->json('data'))->pluck('tick')->all());
+    }
+
+    public function test_feed_keeps_all_items_at_boundary_tick_and_does_not_drop_same_tick_events(): void
+    {
+        $universe = Universe::factory()->create();
+        $this->seedEvent($universe->id, 20, 'anomaly.detected');
+        $this->seedEvent($universe->id, 10, 'anomaly.detected');
+        $this->seedEvent($universe->id, 10, 'anomaly.detected');
+        $this->seedEvent($universe->id, 10, 'anomaly.detected');
+
+        $response = $this->getJson("/api/worldos/observatory/universes/{$universe->id}/feed?limit=2");
+
+        $response->assertOk();
+        $ticks = collect($response->json('data'))->pluck('tick')->all();
+        $this->assertCount(4, $ticks);
+        $this->assertSame(20, $ticks[0]);
+        $this->assertSame([10, 10, 10], array_slice($ticks, 1));
+        $this->assertSame(10, $response->json('meta.next_before_tick'));
+
+        $next = $this->getJson("/api/worldos/observatory/universes/{$universe->id}/feed?limit=2&before_tick=10");
+        $next->assertOk();
+        $this->assertSame([], $next->json('data'));
+        $this->assertNull($next->json('meta.next_before_tick'));
     }
 
     public function test_feed_empty_universe_returns_ok_with_empty_data(): void
