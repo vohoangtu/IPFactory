@@ -2,15 +2,18 @@
 
 namespace App\Modules\SocialGraph\Events;
 
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Broadcasting\Channel;
 
-class CelebrityEmerged implements ShouldBroadcast
+class CelebrityEmerged implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
 
     public function __construct(
         public readonly int $universeId,
@@ -21,13 +24,29 @@ class CelebrityEmerged implements ShouldBroadcast
         public readonly string $vocation
     ) {}
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new Channel("universe.{$this->universeId}.narrative");
+        return [new Channel("universes:{$this->universeId}:narrative")];
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
-        return 'CelebrityEmerged';
+        return 'celebrity.emerged';
+    }
+
+    protected function toEnvelope(): WorldEventEnvelope
+    {
+        return new WorldEventEnvelope(
+            type: 'celebrity.emerged',
+            tick: $this->tick,
+            universeId: $this->universeId,
+            severity: 'notable',
+            payload: [
+                'zone_id' => $this->zoneId,
+                'agent_id' => $this->agentId,
+                'fame' => $this->fame,
+                'vocation' => $this->vocation,
+            ],
+        );
     }
 }

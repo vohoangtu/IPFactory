@@ -2,15 +2,18 @@
 
 namespace App\Modules\World\Events;
 
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Broadcasting\Channel;
 
-class ArtifactDiscovered implements ShouldBroadcast
+class ArtifactDiscovered implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, EmitsWorldEvent;
 
     public function __construct(
         public readonly int $universeId,
@@ -21,13 +24,29 @@ class ArtifactDiscovered implements ShouldBroadcast
         public readonly float $knowledgeEncoded
     ) {}
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new Channel("universe.{$this->universeId}.narrative");
+        return [new Channel("universes:{$this->universeId}:narrative")];
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
-        return 'ArtifactDiscovered';
+        return 'artifact.discovered';
+    }
+
+    protected function toEnvelope(): WorldEventEnvelope
+    {
+        return new WorldEventEnvelope(
+            type: 'artifact.discovered',
+            tick: $this->tick,
+            universeId: $this->universeId,
+            severity: 'notable',
+            payload: [
+                'zone_id' => $this->zoneId,
+                'artifact_id' => $this->artifactId,
+                'mass' => $this->mass,
+                'knowledge_encoded' => $this->knowledgeEncoded,
+            ],
+        );
     }
 }
