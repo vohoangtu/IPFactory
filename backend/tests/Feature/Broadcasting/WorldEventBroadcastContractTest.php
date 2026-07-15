@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Broadcasting;
 
 use App\Modules\Narrative\Events\HistoricalEpochShifted;
+use App\Modules\Simulation\Events\AnomalyDetected;
+use App\Modules\Simulation\Events\AutopoiesisMutationApplied;
 use App\Modules\SocialGraph\Events\CelebrityEmerged;
 use App\Modules\World\Events\ArtifactDiscovered;
+use App\Modules\World\Models\Universe;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -15,6 +19,8 @@ use Tests\TestCase;
  */
 class WorldEventBroadcastContractTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @return string[] */
     private function channelNames(object $event): array
     {
@@ -62,5 +68,33 @@ class WorldEventBroadcastContractTest extends TestCase
         $this->assertSame('history.shifted', $event->broadcastAs());
         $this->assertEnvelope($event->broadcastWith(), 'history.shifted', 42, 5);
         $this->assertSame('notable', $event->broadcastWith()['severity']);
+    }
+
+    public function test_anomaly_detected_contract(): void
+    {
+        $universe = Universe::factory()->create(['current_tick' => 77]);
+        $event = new AnomalyDetected($universe, [
+            'title' => 'Entropy spike',
+            'description' => 'Entropy vượt ngưỡng',
+            'severity' => 'medium',
+        ]);
+
+        $this->assertSame(["universes:{$universe->id}:anomaly"], $this->channelNames($event));
+        $this->assertSame('anomaly.detected', $event->broadcastAs());
+        $data = $event->broadcastWith();
+        $this->assertEnvelope($data, 'anomaly.detected', 77, $universe->id);
+        $this->assertSame('notable', $data['severity']); // medium → notable
+        $this->assertSame('Entropy spike', $data['payload']['title']);
+    }
+
+    public function test_autopoiesis_mutation_contract(): void
+    {
+        $event = new AutopoiesisMutationApplied(universeId: 5, payload: ['tick' => 12, 'rule' => 'gravity_v2']);
+
+        $this->assertSame(['universes:5:autopoiesis'], $this->channelNames($event));
+        $this->assertSame('autopoiesis.mutation', $event->broadcastAs());
+        $data = $event->broadcastWith();
+        $this->assertEnvelope($data, 'autopoiesis.mutation', 12, 5);
+        $this->assertSame('gravity_v2', $data['payload']['rule']);
     }
 }
