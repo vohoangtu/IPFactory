@@ -43,7 +43,7 @@ class CentrifugoBroadcaster extends Broadcaster
         }
 
         // Universe-specific channels: verify the universe exists and is accessible
-        if (preg_match('/^universes:(\d+)$/', $channel, $matches)) {
+        if (preg_match('/^universes:(\d+)(?::(narrative|anomaly|autopoiesis))?$/', $channel, $matches)) {
             $universeId = (int) $matches[1];
 
             return Cache::remember(
@@ -125,14 +125,7 @@ class CentrifugoBroadcaster extends Broadcaster
         // Build newline-delimited JSON body for batch publishing
         $body = "";
         foreach ($this->formatChannels($channels) as $channel) {
-            $isBinary = isset($payload['tick']); // Nếu là nhịp đập vũ trụ, phát dạng nhị phân
-
-            $params = ['channel' => $channel];
-            if ($isBinary) {
-                $params['data_base64'] = base64_encode(json_encode($payload));
-            } else {
-                $params['data'] = $payload;
-            }
+            $params = ['channel' => $channel, 'data' => $payload];
 
             $body .= json_encode([
                 'method' => 'publish',
