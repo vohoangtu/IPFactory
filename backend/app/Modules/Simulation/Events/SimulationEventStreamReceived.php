@@ -2,13 +2,19 @@
 
 namespace App\Modules\Simulation\Events;
 
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SimulationEventStreamReceived implements ShouldBroadcastNow
+class SimulationEventStreamReceived implements ShouldBroadcastNow, WorldEventBroadcast
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public int $universeId,
@@ -16,16 +22,28 @@ class SimulationEventStreamReceived implements ShouldBroadcastNow
         public string $type,
         public array $payload,
         public string $occurredAt
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {
-        // Broadcast specifically to the universe channel, but can also use public:universes channel
-        return ['public:universes'];
+        return [new Channel("universes:{$this->universeId}")];
     }
 
     public function broadcastAs(): string
     {
-        return 'simulation_event_stream_received';
+        return 'simulation.event';
+    }
+
+    protected function toEnvelope(): WorldEventEnvelope
+    {
+        return new WorldEventEnvelope(
+            type: 'simulation.event',
+            tick: $this->tick,
+            universeId: $this->universeId,
+            payload: ['stream_type' => $this->type, 'data' => $this->payload],
+            occurredAt: $this->occurredAt,
+        );
     }
 }

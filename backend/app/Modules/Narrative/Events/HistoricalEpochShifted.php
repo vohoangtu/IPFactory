@@ -2,15 +2,21 @@
 
 namespace App\Modules\Narrative\Events;
 
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Broadcasting\Channel;
 
-class HistoricalEpochShifted implements ShouldBroadcast
+class HistoricalEpochShifted implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public readonly int $universeId,
@@ -19,15 +25,33 @@ class HistoricalEpochShifted implements ShouldBroadcast
         public readonly string $eventType,
         public readonly float $impactScore,
         public readonly array $triggerData
-    ) {}
-
-    public function broadcastOn()
-    {
-        return new Channel("universe.{$this->universeId}.narrative");
+    ) {
+        $this->envelope();
     }
 
-    public function broadcastAs()
+    public function broadcastOn(): array
     {
-        return 'HistoricalEpochShifted';
+        return [new Channel("universes:{$this->universeId}:narrative")];
+    }
+
+    public function broadcastAs(): string
+    {
+        return 'history.shifted';
+    }
+
+    protected function toEnvelope(): WorldEventEnvelope
+    {
+        return new WorldEventEnvelope(
+            type: 'history.shifted',
+            tick: $this->tick,
+            universeId: $this->universeId,
+            severity: 'notable',
+            payload: [
+                'zone_id' => $this->zoneId,
+                'event_type' => $this->eventType,
+                'impact_score' => $this->impactScore,
+                'trigger_data' => $this->triggerData,
+            ],
+        );
     }
 }

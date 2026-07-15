@@ -3,27 +3,32 @@
 namespace App\Modules\Simulation\Events;
 
 use App\Modules\World\Models\Universe;
+use App\Support\Broadcasting\EmitsWorldEvent;
+use App\Support\Broadcasting\WorldEventBroadcast;
+use App\Support\Broadcasting\WorldEventEnvelope;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AnomalyDetected implements ShouldBroadcast
+class AnomalyDetected implements ShouldBroadcast, WorldEventBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
+    use EmitsWorldEvent;
 
     public function __construct(
         public Universe $universe,
         public array $anomaly
-    ) {}
+    ) {
+        $this->envelope();
+    }
 
     public function broadcastOn(): array
     {
-        return [
-            new Channel('universe.' . $this->universe->id),
-            new Channel('simulation.alerts')
-        ];
+        return [new Channel("universes:{$this->universe->id}:anomaly")];
     }
 
     public function broadcastAs(): string
@@ -31,17 +36,23 @@ class AnomalyDetected implements ShouldBroadcast
         return 'anomaly.detected';
     }
 
-    public function broadcastWith(): array
+    protected function toEnvelope(): WorldEventEnvelope
     {
-        return [
-            'id' => uniqid('anomaly_'),
-            'universe_id' => $this->universe->id,
-            'title' => $this->anomaly['title'],
-            'description' => $this->anomaly['description'],
-            'severity' => $this->anomaly['severity'],
-            'tick' => $this->universe->current_tick,
-            'timestamp' => now()->toIso8601String(),
-        ];
+        return new WorldEventEnvelope(
+            type: 'anomaly.detected',
+            tick: (int) $this->universe->current_tick,
+            universeId: (int) $this->universe->id,
+            worldId: $this->universe->world_id !== null ? (int) $this->universe->world_id : null,
+            severity: match (strtolower((string) ($this->anomaly['severity'] ?? ''))) {
+                'low', 'info' => 'info',
+                'medium', 'warn', 'warning' => 'notable',
+                default => 'critical',
+            },
+            payload: [
+                'title' => $this->anomaly['title'] ?? null,
+                'description' => $this->anomaly['description'] ?? null,
+                'raw_severity' => $this->anomaly['severity'] ?? null,
+            ],
+        );
     }
 }
-
