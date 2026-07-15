@@ -1133,7 +1133,9 @@ git commit -m "feat(be): envelope hóa narrative.completed → chronicle.generat
  "meta": {"count": 2, "next_before_tick": 10}}
 ```
 
-`data` sắp giảm dần theo tick; `types` là danh sách phẩy (`epoch.transitioned,chronicle`); mục chronicle có `payload.{chronicle_id, chronicle_type, importance, content, has_animation}`.
+`data` sắp giảm dần theo tick; mỗi item có thêm `universe_id`; `types` là danh sách phẩy (`epoch.transitioned,chronicle`); mục chronicle có `payload.{chronicle_id, chronicle_type, importance, content, has_animation}`.
+
+**Semantics phân trang (as-built, sau final review):** trang luôn TRỌN tick biên — nếu tick cuối trang còn item, toàn bộ item của tick đó được gộp vào trang (trang có thể vượt nhẹ `limit`); `meta.next_before_tick = null` nghĩa là HẾT dữ liệu, khác null thì trang kế dùng `before_tick=<giá trị đó>` (strict `<`) và không rơi item nào. Backfill sau reconnect: FE nên gọi `after_tick = tick-cuối-đã-thấy - 1` và dedup theo `id` envelope (id ổn định giữa broadcast và persist — envelope build eager tại constructor).
 
 - [ ] **Step 1: Viết test fail**
 
