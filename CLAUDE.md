@@ -66,7 +66,12 @@ DC exec frontend npm run dev        # Dev server (port 5000)
 DC exec frontend npm run build      # Production build
 DC exec frontend npm run check      # TypeScript + ESLint check
 DC exec frontend npm run lint       # ESLint only
+DC exec frontend npm run test       # Run all Vitest tests
+DC exec frontend npm run test -- src/lib/__tests__/api.test.ts   # Run single test file
+DC exec frontend npm run test:watch # Vitest watch mode
 ```
+
+Frontend tests use Vitest + Testing Library (jsdom); test files live in `__tests__/` directories next to the code they cover.
 
 ### Engine (Rust)
 
@@ -140,6 +145,13 @@ Next.js App Router (`frontend/src/app/`). Key libraries: React Three Fiber (3D),
 
 **Dashboard decomposition:** Tab components live in `frontend/src/components/dashboard/tabs/`. Layout uses a `DashboardShell` client component wrapper to preserve SSR in the layout itself.
 
+**Workspace architecture (newer code):** The `(workspace)` route group (`/multiverse`, `/u/[id]/live`, plus `/login`) uses a layered architecture enforced by ESLint `no-restricted-imports`:
+- `src/app/(workspace)/` → thin route pages
+- `src/features/<name>/` → feature modules (actors, multiverse, simulation, universe-workspace, wavefunction, …). Import a feature **only via its `index.ts` public API** (`@/features/<name>`), never its internals.
+- `src/shared/` → cross-feature code (`ui/`, `lib/`, `realtime/`, `store/`, `config/`, `types/`). Do not import anything under a `internal/` directory.
+
+Layering direction is app → features → shared; violations fail `npm run lint`.
+
 ### Python Services
 
 - **narrative-loom/** — LangGraph-based narrative pipeline. Connects to multiple LLM providers (OpenAI, Anthropic, Google, Groq, local).
@@ -186,7 +198,9 @@ Trait indices are defined as named constants in `engine/worldos-core/src/agent.r
 - `docs/WORLDOS_V6.md` (53KB) — Main architecture document
 - `docs/ULTIMATE_ARCHITECTURE.md` — High-level design
 - `docs/WORLDOS_ACTOR_ARCHETYPE_SYSTEM.md` (336KB) — Actor system specification
+- `AGENTS.md` — Detailed agent-facing project reference (assumes zero prior knowledge)
 - `AI_CONTEXT.md` — Vietnamese-language AI agent context
+- `openspec/` — Spec-driven change management (`changes/` for in-flight proposals, `specs/` for accepted specs)
 - `.cursorrules` — Cursor IDE rules
 - `.dev_status.md` — Current development session state
 - `DOCKER_GUIDE.md` — Docker setup guide
