@@ -32,7 +32,12 @@ class PsychologyServiceProvider extends ServiceProvider
         $this->app->singleton(MemoryInfluenceAnalyzer::class);
         $this->app->singleton(GoalGenerator::class);
         $this->app->singleton(DecisionEngine::class);
-        
+
+        $this->app->singleton(
+            \App\Contracts\ActorPsycheProjectorInterface::class,
+            \App\Modules\Psychology\Services\ActorPsycheProjector::class,
+        );
+
         // Phase 2 Services
         $this->app->singleton(\App\Modules\Psychology\Services\SocialMemoryService::class);
         $this->app->singleton(\App\Modules\Psychology\Services\IdentityEvolutionService::class);
