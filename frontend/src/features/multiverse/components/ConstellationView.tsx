@@ -53,7 +53,7 @@ export function ConstellationView({ bloom, resonance }: Props) {
           </span>
         )}
       </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="Bản đồ chòm sao các vũ trụ">
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full">
         {worlds.map((w, wi) => (
           <g key={w.id}>
             <text
