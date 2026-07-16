@@ -10,10 +10,15 @@ export interface Universe {
 }
 
 export interface LiveMetrics {
-  stability: number;
-  entropy: number;
-  era: number;
-  [key: string]: number;
+  entropy?: number;
+  stability?: number;
+  [key: string]: number | undefined;
+}
+
+export interface MetricPoint {
+  tick: number;
+  entropy: number | null;
+  stability: number | null;
 }
 
 export interface SimEvent {
