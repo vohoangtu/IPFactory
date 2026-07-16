@@ -2,12 +2,13 @@
 
 namespace App\Modules\World\Models;
 
+use App\Modules\Institutions\Models\SupremeEntity;
+use App\Modules\Simulation\Models\UniverseSnapshot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Modules\Simulation\Models\UniverseSnapshot;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -75,7 +76,7 @@ class Universe extends Model
     {
         return $this->hasMany(BranchEvent::class);
     }
-    
+
     public function supremeEntities(): HasMany
     {
         return $this->hasMany(SupremeEntity::class);
