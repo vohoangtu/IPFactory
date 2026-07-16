@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 
-import type { ActorSummary } from '@/types/api';
+import type { ActorSummary } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import ProgressBar from '@/components/ui/shared/ProgressBar';
 

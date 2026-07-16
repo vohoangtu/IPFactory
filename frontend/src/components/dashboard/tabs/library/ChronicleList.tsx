@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Clock, Film } from 'lucide-react';
 import Link from 'next/link';
 
-import type { Chronicle } from '@/types/api';
+import type { Chronicle } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import EmptyState from '@/components/ui/shared/EmptyState';
 

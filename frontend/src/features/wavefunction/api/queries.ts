@@ -8,7 +8,7 @@ import type {
   ConsciousnessField,
   AscensionFilterData,
   StateDelta,
-} from '@/types/api';
+} from '@/shared/types/api';
 
 export const wavefunctionQueries = {
   snapshot: (universeId: number) =>

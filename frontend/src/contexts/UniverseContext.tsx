@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { useUniverseOptions } from '@/features/universe/hooks';
-import type { UniverseOption } from '@/types/api';
+import type { UniverseOption } from '@/shared/types/api';
 
 interface UniverseContextValue {
   universes: UniverseOption[];

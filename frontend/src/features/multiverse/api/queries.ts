@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import { apiClient } from '@/shared/lib/apiClient';
 import { takeData } from '@/shared/lib/unwrap';
 import { qk } from '@/shared/config/queryKeys';
-import type { MultiverseBloom, MultiverseResonance } from '@/types/api';
+import type { MultiverseBloom, MultiverseResonance } from '@/shared/types/api';
 
 export const multiverseQueries = {
   bloom: () =>

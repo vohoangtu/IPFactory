@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ConstellationView } from '../components/ConstellationView';
-import type { MultiverseBloom, MultiverseResonance } from '@/types/api';
+import type { MultiverseBloom, MultiverseResonance } from '@/shared/types/api';
 
 const bloom: MultiverseBloom = {
   id: 'm1', label: 'Multiverse', sub: '',

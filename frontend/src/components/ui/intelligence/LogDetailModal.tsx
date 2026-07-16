@@ -4,7 +4,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Command, Code2, AlertTriangle, Clock, Zap } from 'lucide-react';
 
-import type { AiLog, JsonValue } from '@/types/api';
+import type { AiLog, JsonValue } from '@/shared/types/api';
 import { resolveLogModel } from '@/lib/log-utils';
 
 interface LogDetailModalProps {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Activity, Cpu, Zap } from 'lucide-react';
-import type { AiStats } from '@/types/api';
+import type { AiStats } from '@/shared/types/api';
 
 interface StatsBentoProps {
   stats: AiStats | undefined;

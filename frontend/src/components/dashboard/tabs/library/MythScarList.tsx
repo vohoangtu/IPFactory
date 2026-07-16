@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, AlertTriangle } from 'lucide-react';
 
-import type { MythScar } from '@/types/api';
+import type { MythScar } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import EmptyState from '@/components/ui/shared/EmptyState';
 

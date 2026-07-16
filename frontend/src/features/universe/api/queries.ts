@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import api from '@/lib/api';
-import type { UniverseOption, UniverseMetrics, UniverseDossier } from '@/types/api';
+import type { UniverseOption, UniverseMetrics, UniverseDossier } from '@/shared/types/api';
 
 // ── Universe list ────────────────────────────────
 

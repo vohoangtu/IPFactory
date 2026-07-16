@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { routes } from '@/shared/config/routes';
-import type { MultiverseBloom, MultiverseResonance, MultiverseUniverse } from '@/types/api';
+import type { MultiverseBloom, MultiverseResonance, MultiverseUniverse } from '@/shared/types/api';
 
 const W = 900;
 const H = 360;

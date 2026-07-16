@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import api from '@/lib/api';
 import { useCentrifugoConnection, useAdaptiveRefetchInterval } from '@/hooks/useCentrifugo';
-import type { Chronicle, MythScar, Artifact } from '@/types/api';
+import type { Chronicle, MythScar, Artifact } from '@/shared/types/api';
 
 // ── Chronicles ─────────────────────────────────
 

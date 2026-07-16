@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Activity, RefreshCcw, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAiLogs, useAiStats, useAiPool } from '@/features/intelligence/hooks';
-import type { AiLog } from '@/types/api';
+import type { AiLog } from '@/shared/types/api';
 import LogDetailModal from '@/components/ui/intelligence/LogDetailModal';
 import StatsBento from '@/components/dashboard/intelligence/StatsBento';
 import LogFilters from '@/components/dashboard/intelligence/LogFilters';

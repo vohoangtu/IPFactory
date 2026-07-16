@@ -1,4 +1,4 @@
-import type { AiLog } from '@/types/api';
+import type { AiLog } from '@/shared/types/api';
 
 /**
  * Extract a string value from a potentially nested object or return the raw string.

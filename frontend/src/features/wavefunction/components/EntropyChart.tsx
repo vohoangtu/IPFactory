@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { WavefunctionData, StateDelta } from '@/types/api';
+import type { WavefunctionData, StateDelta } from '@/shared/types/api';
 
 interface Props {
   wavefunction: WavefunctionData | undefined;

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Activity } from 'lucide-react';
 import { useMultiverseResonance } from '@/features/multiverse/hooks';
-import type { ResonancePollen } from '@/types/api';
+import type { ResonancePollen } from '@/shared/types/api';
 
 function formatTickerItem(event: ResonancePollen): string {
   const parts: string[] = [];

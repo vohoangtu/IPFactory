@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Globe2, Sparkles } from 'lucide-react';
-import type { MultiverseBloom, MultiverseWorld, MultiverseUniverse } from '@/types/api';
+import type { MultiverseBloom, MultiverseWorld, MultiverseUniverse } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import EmptyState from '@/components/ui/shared/EmptyState';
 

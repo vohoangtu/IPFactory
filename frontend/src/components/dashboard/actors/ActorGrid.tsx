@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { ChevronUp, ChevronDown, Search, Users } from 'lucide-react';
-import type { ActorSummary } from '@/types/api';
+import type { ActorSummary } from '@/shared/types/api';
 import EmptyState from '@/components/ui/shared/EmptyState';
 
 interface ActorGridProps {

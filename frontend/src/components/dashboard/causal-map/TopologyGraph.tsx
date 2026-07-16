@@ -14,7 +14,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import Dagre from 'dagre';
 
-import type { TopologyData } from '@/types/api';
+import type { TopologyData } from '@/shared/types/api';
 import ZoneNode from './ZoneNode';
 import MapControls from './MapControls';
 

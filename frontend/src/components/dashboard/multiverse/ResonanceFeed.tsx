@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Radio } from 'lucide-react';
-import type { MultiverseResonance, ResonancePollen } from '@/types/api';
+import type { MultiverseResonance, ResonancePollen } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import ProgressBar from '@/components/ui/shared/ProgressBar';
 import EmptyState from '@/components/ui/shared/EmptyState';

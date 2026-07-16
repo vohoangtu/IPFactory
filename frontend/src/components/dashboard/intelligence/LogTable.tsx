@@ -3,7 +3,7 @@
 import { Activity, Clock, ExternalLink } from 'lucide-react';
 import { LogStatusBadge } from '@/components/ui/intelligence/LogStatusBadge';
 import { resolveLogModel } from '@/lib/log-utils';
-import type { AiLog, PaginatedAiLogs } from '@/types/api';
+import type { AiLog, PaginatedAiLogs } from '@/shared/types/api';
 
 interface LogTableProps {
   logs: AiLog[];

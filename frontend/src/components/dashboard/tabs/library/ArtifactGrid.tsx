@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Gem } from 'lucide-react';
 
-import type { Artifact } from '@/types/api';
+import type { Artifact } from '@/shared/types/api';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import EmptyState from '@/components/ui/shared/EmptyState';
 

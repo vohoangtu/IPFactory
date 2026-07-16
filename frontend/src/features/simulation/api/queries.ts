@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import api from '@/lib/api';
-import type { Snapshot, BranchSummary } from '@/types/api';
+import type { Snapshot, BranchSummary } from '@/shared/types/api';
 
 /**
  * Default polling interval (15s) when WebSocket is not connected.

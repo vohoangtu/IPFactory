@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
-import type { Chronicle } from '@/types/api';
+import type { Chronicle } from '@/shared/types/api';
 
 export function useChronicleDetail(chronicleId: number | null) {
     const { data, error, isLoading } = useQuery<Chronicle>({

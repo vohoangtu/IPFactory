@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { universeQueries } from '../api/queries';
-import type { UniverseOption } from '@/types/api';
+import type { UniverseOption } from '@/shared/types/api';
 
 type ResourceCollection<T> = { data?: T[] };
 

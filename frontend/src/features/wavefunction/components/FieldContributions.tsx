@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 
 import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { InformationalMass } from '@/types/api';
+import type { InformationalMass } from '@/shared/types/api';
 
 interface Props {
   informationalMass: InformationalMass | undefined;

@@ -20,7 +20,7 @@ import {
   useForkUniverse,
   useCompareBranch,
 } from '@/features/simulation/hooks';
-import type { BranchComparison } from '@/types/api';
+import type { BranchComparison } from '@/shared/types/api';
 
 export default function ForkPanel() {
   const { activeUniverseId } = useUniverse();

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import BadgeLabel from '@/components/ui/shared/BadgeLabel';
 import ProgressBar from '@/components/ui/shared/ProgressBar';
 import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { AscensionFilterData } from '@/types/api';
+import type { AscensionFilterData } from '@/shared/types/api';
 
 interface Props {
   data: AscensionFilterData | undefined;

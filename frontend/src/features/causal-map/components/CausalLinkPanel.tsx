@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Loader2, Search, Unlink } from 'lucide-react';
 import { useCausalLinks } from '../hooks';
-import type { CausalLink } from '@/types/api';
+import type { CausalLink } from '@/shared/types/api';
 
 interface CausalLinkPanelProps {
   universeId: number | null;
