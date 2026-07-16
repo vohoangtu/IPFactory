@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithClient } from '@/test/render';
 import { useSimStore } from '@/shared/store/simStore';
+import type { WorldEventEnvelope } from '@/shared/realtime/envelope';
 
 vi.mock('@/shared/lib/apiClient', () => ({
   TOKEN_KEY: 'worldos_token',
@@ -16,7 +17,12 @@ describe('ContextBar', () => {
 
   it('shows selected universe + live tick from store', async () => {
     useSimStore.getState().selectUniverse(2);
-    useSimStore.getState().applyTick({ tick: 42, status: 'active' });
+    const pulse: WorldEventEnvelope = {
+      id: 'p42', type: 'universe.pulsed', tick: 42, universe_id: 2, world_id: 1,
+      severity: 'info', occurred_at: '2026-07-15T00:00:00+00:00',
+      payload: {},
+    };
+    useSimStore.getState().applyPulse(pulse);
     renderWithClient(<ContextBar />);
     await waitFor(() => expect(screen.getByText('Demo World')).toBeTruthy());
     expect(screen.getByText(/Tick 42/)).toBeTruthy();
