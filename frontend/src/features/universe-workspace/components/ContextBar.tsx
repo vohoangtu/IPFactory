@@ -15,7 +15,7 @@ export function ContextBar() {
   const selected = universes.find((u) => u.id === selectedId);
 
   return (
-    <header className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
+    <div className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
       <select
         aria-label="Chọn Universe"
         className="rounded-lg border border-white/15 bg-black/40 px-2 py-1 text-sm text-gray-200"
@@ -34,6 +34,6 @@ export function ContextBar() {
         <Pill tone={status === 'paused' ? 'paused' : status === 'halted' ? 'halted' : 'active'}>{status ?? selected?.status ?? '—'}</Pill>
         <Pill tone={connection === 'connected' ? 'active' : 'neutral'}>{connection === 'connected' ? '● LIVE' : connection}</Pill>
       </span>
-    </header>
+    </div>
   );
 }
