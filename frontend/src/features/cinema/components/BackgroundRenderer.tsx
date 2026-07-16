@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import type { VAFBackground } from '@/lib/vaf/types';
+import type { VAFBackground } from '../lib/vaf/types';
 
 // ──────────────────────────────────────────────
 // BackgroundRenderer

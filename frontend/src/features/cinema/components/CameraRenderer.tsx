@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import type { VAFCameraMovement } from '@/lib/vaf/types';
+import type { VAFCameraMovement } from '../lib/vaf/types';
 
 // ──────────────────────────────────────────────
 // CameraRenderer

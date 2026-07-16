@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMemo } from 'react';
-import type { VAFAtmosphere, VAFAtmosphereFilter, VAFWeather } from '@/lib/vaf/types';
+import type { VAFAtmosphere, VAFAtmosphereFilter, VAFWeather } from '../lib/vaf/types';
 
 // ──────────────────────────────────────────────
 // AtmosphereRenderer

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw } from 'lucide-react';
-import type { TimelineState } from '@/lib/vaf/timeline';
+import type { TimelineState } from '../lib/vaf/timeline';
 
 // ──────────────────────────────────────────────
 // PlayerControls

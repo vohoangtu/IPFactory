@@ -36,4 +36,21 @@ describe('ChronicleEntry', () => {
     render(<ChronicleEntry item={base({ type: 'unknown.thing', severity: 'info' })} />);
     expect(screen.getByText(/unknown\.thing/)).toBeTruthy();
   });
+
+  it('chronicle entry có link mở cinema theo payload.chronicle_id', () => {
+    render(<ChronicleEntry item={base({
+      type: 'chronicle', kind: 'chronicle',
+      payload: { chronicle_id: 42, content: 'Sử thi', has_animation: true },
+    })} />);
+    const link = screen.getByRole('link', { name: /Xem cinema/i });
+    expect(link.getAttribute('href')).toBe('/chronicle/42');
+  });
+
+  it('chronicle entry không có chronicle_id → không render link', () => {
+    render(<ChronicleEntry item={base({
+      type: 'chronicle', kind: 'chronicle',
+      payload: { content: 'Sử thi' },
+    })} />);
+    expect(screen.queryByRole('link')).toBeNull();
+  });
 });

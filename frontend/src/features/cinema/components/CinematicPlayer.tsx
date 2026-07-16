@@ -10,11 +10,11 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 
-import type { AnimationScript } from '@/lib/vaf/types';
-import { computeSceneElapsedMs } from '@/lib/vaf/timeline';
-import { useVAFPlayer } from '@/hooks/useVAFPlayer';
-import SceneCompositor from '@/components/vaf/SceneCompositor';
-import PlayerControls from '@/components/vaf/PlayerControls';
+import type { AnimationScript } from '../lib/vaf/types';
+import { computeSceneElapsedMs } from '../lib/vaf/timeline';
+import { useVAFPlayer } from '../hooks/useVAFPlayer';
+import SceneCompositor from './SceneCompositor';
+import PlayerControls from './PlayerControls';
 
 // ── Props ──────────────────────────────────────
 

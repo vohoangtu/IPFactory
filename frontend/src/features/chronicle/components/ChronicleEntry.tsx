@@ -1,9 +1,11 @@
 'use client';
 import type { CSSProperties, ReactNode } from 'react';
+import Link from 'next/link';
 import {
   Activity, AlertTriangle, BookOpen, Crown, Dna, Gem, Landmark, ScrollText,
 } from 'lucide-react';
 import type { FeedItem } from '@/shared/realtime/envelope';
+import { routes } from '@/shared/config/routes';
 
 type Tone = 'accent' | 'primary' | 'danger' | 'amber' | 'emerald' | 'info' | 'muted';
 
@@ -49,9 +51,19 @@ function visualFor(item: FeedItem): Visual {
         icon: <ScrollText size={15} strokeWidth={1.75} />,
         tone: 'accent',
         body: (
-          <p className="leading-relaxed text-[var(--color-text-primary)]">
-            {(p.content as string) ?? '(chưa có nội dung tường thuật)'}
-          </p>
+          <div>
+            <p className="leading-relaxed text-[var(--color-text-primary)]">
+              {(p.content as string) ?? '(chưa có nội dung tường thuật)'}
+            </p>
+            {typeof p.chronicle_id === 'number' && (
+              <Link
+                href={routes.chronicle(p.chronicle_id)}
+                className="mt-1.5 inline-flex items-center gap-1 text-xs text-[var(--color-accent)] underline-offset-2 hover:underline"
+              >
+                ▶ Xem cinema{p.has_animation === true ? '' : ' (bản chữ)'}
+              </Link>
+            )}
+          </div>
         ),
       };
     case 'epoch.transitioned': {

@@ -7,15 +7,15 @@
 
 import { useReducer, useRef, useEffect, useCallback, useMemo } from 'react';
 
-import type { AnimationScript } from '@/lib/vaf/types';
-import type { VAFEffect, VAFScene } from '@/lib/vaf/types';
-import type { TimelineState } from '@/lib/vaf/timeline';
+import type { AnimationScript } from '../lib/vaf/types';
+import type { VAFEffect, VAFScene } from '../lib/vaf/types';
+import type { TimelineState } from '../lib/vaf/timeline';
 import {
   timelineReducer,
   computeSceneIndex,
   computeSceneElapsedMs,
-} from '@/lib/vaf/timeline';
-import { EffectScheduler } from '@/lib/vaf/scheduler';
+} from '../lib/vaf/timeline';
+import { EffectScheduler } from '../lib/vaf/scheduler';
 
 // ── Initial State Factory ───────────────────────
 
