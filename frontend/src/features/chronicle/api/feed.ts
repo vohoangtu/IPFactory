@@ -1,0 +1,20 @@
+import { apiClient } from '@/shared/lib/apiClient';
+import type { FeedItem } from '@/shared/realtime/envelope';
+
+export interface FeedPage {
+  data: FeedItem[];
+  meta: { count: number; next_before_tick: number | null };
+}
+
+const DEFAULT_LIMIT = 50;
+
+/** Body feed có 2 key (data+meta) nên interceptor unwrapEnvelope không bóc — đọc nguyên body. */
+export async function fetchFeed(
+  universeId: number,
+  params: { before_tick?: number; after_tick?: number; limit?: number } = {},
+): Promise<FeedPage> {
+  const res = await apiClient.get(`/worldos/observatory/universes/${universeId}/feed`, {
+    params: { limit: DEFAULT_LIMIT, ...params },
+  });
+  return res.data as FeedPage;
+}
