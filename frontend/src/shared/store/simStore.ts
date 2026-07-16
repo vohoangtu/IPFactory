@@ -1,44 +1,54 @@
 import { create } from 'zustand';
-import type { LiveMetrics, SimEvent } from '@/shared/types/domain';
+import type { LiveMetrics, MetricPoint } from '@/shared/types/domain';
+import type { WorldEventEnvelope } from '@/shared/realtime/envelope';
 
-export type SimMode = 'live' | 'replay' | 'multiverse';
-const MAX_EVENTS = 200;
+const MAX_HISTORY = 120;
 
-interface LiveState { tick: number; metrics: LiveMetrics | null; events: SimEvent[]; status: string | null; }
-interface ViewState { mode: SimMode; replayTick: number | null; selectedActorId: number | null; }
+interface LiveState {
+  tick: number;
+  metrics: LiveMetrics | null;
+  status: string | null;
+  history: MetricPoint[];
+}
 
 export interface SimStore {
   connection: 'connecting' | 'connected' | 'disconnected';
   selectedUniverseId: number | null;
   live: LiveState;
-  view: ViewState;
   selectUniverse: (id: number | null) => void;
   setConnection: (c: SimStore['connection']) => void;
-  applyTick: (p: { tick: number; metrics?: LiveMetrics; event?: SimEvent; status?: string }) => void;
-  setMode: (m: SimMode) => void;
-  setReplayTick: (t: number | null) => void;
+  applyPulse: (env: WorldEventEnvelope) => void;
   reset: () => void;
 }
 
-const emptyLive = (): LiveState => ({ tick: 0, metrics: null, events: [], status: null });
-const emptyView = (): ViewState => ({ mode: 'live', replayTick: null, selectedActorId: null });
+const emptyLive = (): LiveState => ({ tick: 0, metrics: null, status: null, history: [] });
 
 export const useSimStore = create<SimStore>((set) => ({
   connection: 'disconnected',
   selectedUniverseId: null,
   live: emptyLive(),
-  view: emptyView(),
   selectUniverse: (id) => set({ selectedUniverseId: id, live: emptyLive() }),
   setConnection: (connection) => set({ connection }),
-  applyTick: (p) => set((s) => ({
-    live: {
-      tick: p.tick ?? s.live.tick,
-      metrics: p.metrics ?? s.live.metrics,
-      status: p.status ?? s.live.status,
-      events: p.event ? [p.event, ...s.live.events].slice(0, MAX_EVENTS) : s.live.events,
-    },
-  })),
-  setMode: (mode) => set((s) => ({ view: { ...s.view, mode } })),
-  setReplayTick: (replayTick) => set((s) => ({ view: { ...s.view, replayTick } })),
-  reset: () => set({ connection: 'disconnected', selectedUniverseId: null, live: emptyLive(), view: emptyView() }),
+  applyPulse: (env) => set((s) => {
+    const p = env.payload as { entropy?: number; stability_index?: number; metrics?: Record<string, number> };
+    const entropy = typeof p.entropy === 'number' ? p.entropy : null;
+    const stability = typeof p.stability_index === 'number' ? p.stability_index : null;
+    const rawMetrics =
+      typeof p.metrics === 'object' && p.metrics !== null && !Array.isArray(p.metrics) ? p.metrics : {};
+    const metrics: LiveMetrics = {
+      ...(s.live.metrics ?? {}),
+      ...rawMetrics,
+      ...(entropy != null ? { entropy } : {}),
+      ...(stability != null ? { stability } : {}),
+    };
+    return {
+      live: {
+        tick: env.tick,
+        metrics,
+        status: s.live.status,
+        history: [...s.live.history, { tick: env.tick, entropy, stability }].slice(-MAX_HISTORY),
+      },
+    };
+  }),
+  reset: () => set({ connection: 'disconnected', selectedUniverseId: null, live: emptyLive() }),
 }));

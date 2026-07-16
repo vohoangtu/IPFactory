@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/features/auth';
 import { Button } from '@/shared/ui/Button';
+import { routes } from '@/shared/config/routes';
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -12,7 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try { await login(email, password); router.replace('/multiverse'); }
+    try { await login(email, password); router.replace(routes.multiverse()); }
     catch { setError('Đăng nhập thất bại'); }
   };
   return (

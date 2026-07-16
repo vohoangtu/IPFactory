@@ -14,7 +14,7 @@ const eslintConfig = defineConfig([
   },
   // Architecture guardrail: enforce app → features → shared layering; no cross-feature internals.
   {
-    files: ["src/shared/**/*.{ts,tsx}", "src/features/**/*.{ts,tsx}", "src/app/(workspace)/**/*.{ts,tsx}"],
+    files: ["src/shared/**/*.{ts,tsx}", "src/features/**/*.{ts,tsx}", "src/app/(observatory)/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": ["error", {
         patterns: [

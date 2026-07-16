@@ -13,14 +13,15 @@ export function ContextBar() {
   const status = useSimStore((s) => s.live.status);
   const connection = useSimStore((s) => s.connection);
   const selected = universes.find((u) => u.id === selectedId);
+  const effectiveStatus = status ?? selected?.status ?? null;
 
   return (
-    <header className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
+    <div className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
       <select
         aria-label="Chọn Universe"
         className="rounded-lg border border-white/15 bg-black/40 px-2 py-1 text-sm text-gray-200"
         value={selectedId ?? ''}
-        onChange={(e) => { const id = Number(e.target.value); router.push(routes.live(id)); }}
+        onChange={(e) => { const id = Number(e.target.value); router.push(routes.universe(id)); }}
       >
         <option value="" disabled>Chọn Universe…</option>
         {universes.map((u) => <option key={u.id} value={u.id}>{u.name}</option>)}
@@ -31,9 +32,9 @@ export function ContextBar() {
         </span>
       )}
       <span className="ml-auto flex items-center gap-2">
-        <Pill tone={status === 'paused' ? 'paused' : status === 'halted' ? 'halted' : 'active'}>{status ?? selected?.status ?? '—'}</Pill>
+        <Pill tone={effectiveStatus === 'paused' ? 'paused' : effectiveStatus === 'halted' ? 'halted' : 'active'}>{effectiveStatus ?? '—'}</Pill>
         <Pill tone={connection === 'connected' ? 'active' : 'neutral'}>{connection === 'connected' ? '● LIVE' : connection}</Pill>
       </span>
-    </header>
+    </div>
   );
 }
