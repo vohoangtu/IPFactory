@@ -53,4 +53,20 @@ describe('useUniverseChannels', () => {
     fake.resubscribe('universes:5');
     expect(onLiveGap).toHaveBeenCalledTimes(1);
   });
+
+  it('unmount rồi mount lại cùng universe không throw và subscribe lại đủ kênh', () => {
+    const first = renderHook(() => useUniverseChannels(5));
+    first.unmount();
+    expect(() => renderHook(() => useUniverseChannels(5))).not.toThrow();
+    expect(fake.subscribedChannels()).toEqual(
+      expect.arrayContaining(['universes:5', 'universes:5:narrative', 'universes:5:anomaly', 'universes:5:autopoiesis']),
+    );
+  });
+
+  it('client disconnect → connection store phản ánh disconnected', () => {
+    renderHook(() => useUniverseChannels(5));
+    expect(useSimStore.getState().connection).toBe('connected');
+    fake.emitClient('disconnected');
+    expect(useSimStore.getState().connection).toBe('disconnected');
+  });
 });

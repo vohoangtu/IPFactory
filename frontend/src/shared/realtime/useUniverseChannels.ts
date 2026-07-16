@@ -30,6 +30,11 @@ export function useUniverseChannels(universeId: number | null, opts: Options = {
     setConnection('connecting');
     centrifuge.connect();
 
+    const onConnecting = () => setConnection('connecting');
+    const onDisconnected = () => setConnection('disconnected');
+    centrifuge.on('connecting', onConnecting);
+    centrifuge.on('disconnected', onDisconnected);
+
     const onPublication = (ctx: PublicationContext) => {
       const env = parseEnvelope(ctx.data);
       if (!env || env.universe_id !== universeId) return;
@@ -53,7 +58,9 @@ export function useUniverseChannels(universeId: number | null, opts: Options = {
     });
 
     return () => {
-      subs.forEach((sub) => { sub.removeAllListeners(); sub.unsubscribe(); });
+      subs.forEach((sub) => { sub.removeAllListeners(); centrifuge.removeSubscription(sub); });
+      centrifuge.removeListener('connecting', onConnecting);
+      centrifuge.removeListener('disconnected', onDisconnected);
       setConnection('disconnected');
     };
   }, [universeId, applyPulse, pushLive, setConnection]);

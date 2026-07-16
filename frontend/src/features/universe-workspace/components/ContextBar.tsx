@@ -13,6 +13,7 @@ export function ContextBar() {
   const status = useSimStore((s) => s.live.status);
   const connection = useSimStore((s) => s.connection);
   const selected = universes.find((u) => u.id === selectedId);
+  const effectiveStatus = status ?? selected?.status ?? null;
 
   return (
     <div className="flex items-center gap-4 border-b border-white/10 bg-black/40 px-4 py-2">
@@ -31,7 +32,7 @@ export function ContextBar() {
         </span>
       )}
       <span className="ml-auto flex items-center gap-2">
-        <Pill tone={status === 'paused' ? 'paused' : status === 'halted' ? 'halted' : 'active'}>{status ?? selected?.status ?? '—'}</Pill>
+        <Pill tone={effectiveStatus === 'paused' ? 'paused' : effectiveStatus === 'halted' ? 'halted' : 'active'}>{effectiveStatus ?? '—'}</Pill>
         <Pill tone={connection === 'connected' ? 'active' : 'neutral'}>{connection === 'connected' ? '● LIVE' : connection}</Pill>
       </span>
     </div>

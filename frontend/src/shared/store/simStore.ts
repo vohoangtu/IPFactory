@@ -33,9 +33,11 @@ export const useSimStore = create<SimStore>((set) => ({
     const p = env.payload as { entropy?: number; stability_index?: number; metrics?: Record<string, number> };
     const entropy = typeof p.entropy === 'number' ? p.entropy : null;
     const stability = typeof p.stability_index === 'number' ? p.stability_index : null;
+    const rawMetrics =
+      typeof p.metrics === 'object' && p.metrics !== null && !Array.isArray(p.metrics) ? p.metrics : {};
     const metrics: LiveMetrics = {
       ...(s.live.metrics ?? {}),
-      ...(p.metrics ?? {}),
+      ...rawMetrics,
       ...(entropy != null ? { entropy } : {}),
       ...(stability != null ? { stability } : {}),
     };
