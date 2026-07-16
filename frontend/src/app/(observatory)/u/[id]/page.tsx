@@ -1,9 +1,15 @@
 'use client';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { AlertTriangle } from 'lucide-react';
 import { WorkspaceLayout, useObservedUniverse } from '@/features/universe-workspace';
-import { ChronicleStream, MetricsSparkline, useChronicleFeed } from '@/features/chronicle';
+import {
+  ChronicleStream,
+  MetricsSparkline,
+  useChronicleFeed,
+  FeedFilterChips,
+  typesForFilters,
+} from '@/features/chronicle';
 import { useSimStore, type SimStore } from '@/shared/store/simStore';
 import { Panel } from '@/shared/ui/Panel';
 
@@ -27,8 +33,14 @@ export default function UniverseHeroPage() {
   const connection = useSimStore((s) => s.connection);
   const history = useSimStore((s) => s.live.history);
 
-  const feed = useChronicleFeed(universeId);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const filterTypes = useMemo(() => typesForFilters(activeFilters), [activeFilters]);
+  const feed = useChronicleFeed(universeId, { types: filterTypes });
   useObservedUniverse(universeId, { onLiveGap: feed.backfillLatest });
+
+  const toggleFilter = (key: string) => {
+    setActiveFilters((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
+  };
 
   const latest = history.length > 0 ? history[history.length - 1] : null;
   const connMeta = CONNECTION_META[connection];
@@ -46,15 +58,18 @@ export default function UniverseHeroPage() {
       )}
       <div className="grid h-full min-h-0 grid-cols-1 gap-4 lg:grid-cols-3">
         <section className="min-h-0 lg:col-span-2" aria-label="Dòng biên niên sử">
-          <div className="mb-3 flex items-center justify-between">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-text-muted)]">
               Biên niên sử
             </h2>
-            {feed.items.length > 0 && (
-              <span className="font-mono text-[11px] tabular-nums text-[var(--color-text-disabled)]">
-                {feed.items.length} mục
-              </span>
-            )}
+            <div className="flex items-center gap-3">
+              <FeedFilterChips active={activeFilters} onToggle={toggleFilter} />
+              {feed.items.length > 0 && (
+                <span className="font-mono text-[11px] tabular-nums text-[var(--color-text-disabled)]">
+                  {feed.items.length} mục
+                </span>
+              )}
+            </div>
           </div>
           <ChronicleStream
             items={feed.items}

@@ -80,4 +80,19 @@ describe('useChronicleFeed', () => {
     await act(async () => { result.current.backfillLatest(); });
     await waitFor(() => expect(mockGet).toHaveBeenCalledTimes(3));
   });
+
+  it('truyền types vào query param dạng CSV và lọc live items', async () => {
+    useFeedStore.getState().pushLive({ ...makeItem('live-anom', 20), type: 'anomaly.detected' });
+    useFeedStore.getState().pushLive({ ...makeItem('live-chr', 21), type: 'chronicle' });
+    mockGet.mockResolvedValueOnce({ data: { data: [], meta: { count: 0, next_before_tick: null } } });
+
+    const { result } = renderHook(() => useChronicleFeed(1, { types: ['anomaly.detected'] }), { wrapper });
+
+    await waitFor(() => expect(mockGet).toHaveBeenCalled());
+    expect(mockGet).toHaveBeenCalledWith(
+      '/worldos/observatory/universes/1/feed',
+      expect.objectContaining({ params: expect.objectContaining({ types: 'anomaly.detected' }) }),
+    );
+    await waitFor(() => expect(result.current.items.map((i) => i.id)).toEqual(['live-anom']));
+  });
 });
