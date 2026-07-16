@@ -20,7 +20,7 @@ export function ContextBar() {
         aria-label="Chọn Universe"
         className="rounded-lg border border-white/15 bg-black/40 px-2 py-1 text-sm text-gray-200"
         value={selectedId ?? ''}
-        onChange={(e) => { const id = Number(e.target.value); router.push(routes.live(id)); }}
+        onChange={(e) => { const id = Number(e.target.value); router.push(routes.universe(id)); }}
       >
         <option value="" disabled>Chọn Universe…</option>
         {universes.map((u) => <option key={u.id} value={u.id}>{u.name}</option>)}
