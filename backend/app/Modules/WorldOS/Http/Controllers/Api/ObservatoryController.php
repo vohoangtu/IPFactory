@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\WorldOS\Actions\GetActorPsycheAction;
 use App\Modules\WorldOS\Actions\GetObservatoryFeedAction;
 use App\Modules\WorldOS\Actions\GetUniverseCivilizationAction;
+use App\Modules\WorldOS\Actions\GetUniverseWorldAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class ObservatoryController extends Controller
     public function __construct(
         private readonly GetObservatoryFeedAction $getObservatoryFeedAction,
         private readonly GetActorPsycheAction $getActorPsycheAction,
-        private readonly GetUniverseCivilizationAction $getUniverseCivilizationAction
+        private readonly GetUniverseCivilizationAction $getUniverseCivilizationAction,
+        private readonly GetUniverseWorldAction $getUniverseWorldAction
     ) {
     }
 
@@ -49,5 +51,10 @@ class ObservatoryController extends Controller
     public function civilization(int $id): JsonResponse
     {
         return response()->json($this->getUniverseCivilizationAction->handle($id));
+    }
+
+    public function world(int $id): JsonResponse
+    {
+        return response()->json($this->getUniverseWorldAction->handle($id));
     }
 }
