@@ -124,6 +124,7 @@ class WorldEventBroadcastContractTest extends TestCase
         $data = $event->broadcastWith();
         $this->assertEnvelope($data, 'universe.pulsed', 8, $universe->id);
         $this->assertSame(0.42, $data['payload']['entropy']);
+        $this->assertSame('active', $data['payload']['status']);
     }
 
     public function test_epoch_transitioned_contract(): void

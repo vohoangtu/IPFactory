@@ -59,6 +59,12 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     // 5b. Observatory (GET — public)
     Route::get('observatory/universes/{id}/feed', [ObservatoryController::class, 'feed'])
         ->name('worldos.observatory.feed');
+    Route::get('observatory/actors/{actorId}/psyche', [ObservatoryController::class, 'actorPsyche'])
+        ->name('worldos.observatory.actor-psyche');
+    Route::get('observatory/universes/{id}/civilization', [ObservatoryController::class, 'civilization'])
+        ->name('worldos.observatory.civilization');
+    Route::get('observatory/universes/{id}/world', [ObservatoryController::class, 'world'])
+        ->name('worldos.observatory.world');
 
     // 6. System Configuration (GET)
     Route::get('config/keys', [AiConfigController::class , 'listKeys'])->name('worldos.config.keys.list');

@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { VAFScene, VAFEffect } from '@/lib/vaf/types';
+import type { VAFScene, VAFEffect } from '../lib/vaf/types';
 import BackgroundRenderer from './BackgroundRenderer';
 import AtmosphereRenderer from './AtmosphereRenderer';
 import CameraRenderer from './CameraRenderer';

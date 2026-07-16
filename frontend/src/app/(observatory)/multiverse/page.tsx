@@ -1,11 +1,14 @@
 'use client';
 import Link from 'next/link';
 import { useUniverses, WorkspaceLayout } from '@/features/universe-workspace';
+import { useMultiverseBloom, useMultiverseResonance, ConstellationView } from '@/features/multiverse';
 import { Pill } from '@/shared/ui/Pill';
 import { routes } from '@/shared/config/routes';
 
 export default function MultiversePage() {
   const { data: universes, isLoading, isError } = useUniverses();
+  const { bloom } = useMultiverseBloom();
+  const { resonance } = useMultiverseResonance();
   const isEmpty = !isLoading && !isError && (universes ?? []).length === 0;
 
   return (
@@ -17,6 +20,8 @@ export default function MultiversePage() {
         <p className="mb-6 max-w-xl text-sm text-[var(--color-text-secondary)]">
           Mỗi thẻ là một dòng thời gian đang sống. Chọn một vũ trụ để bước vào Living Chronicle của nó.
         </p>
+
+        <ConstellationView bloom={bloom ?? null} resonance={resonance ?? null} />
 
         {isLoading && (
           <div

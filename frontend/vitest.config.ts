@@ -18,7 +18,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary'],
-      include: ['src/lib/vaf/**/*.ts'],
+      include: ['src/features/cinema/lib/vaf/**/*.ts'],
     },
   },
 });

@@ -1,12 +1,17 @@
 'use client';
-import { useEffect, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { AlertTriangle } from 'lucide-react';
-import { WorkspaceLayout } from '@/features/universe-workspace';
-import { ChronicleStream, MetricsSparkline, useChronicleFeed } from '@/features/chronicle';
-import { useUniverseChannels } from '@/shared/realtime/useUniverseChannels';
+import { WorkspaceLayout, useObservedUniverse } from '@/features/universe-workspace';
+import {
+  ChronicleStream,
+  MetricsSparkline,
+  useChronicleFeed,
+  FeedFilterChips,
+  typesForFilters,
+} from '@/features/chronicle';
+import { NotableActorsPanel } from '@/features/actors';
 import { useSimStore, type SimStore } from '@/shared/store/simStore';
-import { useFeedStore } from '@/shared/store/feedStore';
 import { Panel } from '@/shared/ui/Panel';
 
 const CONNECTION_META: Record<SimStore['connection'], { label: string; color: string; pulse: boolean }> = {
@@ -26,47 +31,46 @@ export default function UniverseHeroPage() {
     return Number.isFinite(n) ? n : null;
   }, [params?.id]);
 
-  const selectUniverse = useSimStore((s) => s.selectUniverse);
-  const selectedUniverseId = useSimStore((s) => s.selectedUniverseId);
   const connection = useSimStore((s) => s.connection);
   const history = useSimStore((s) => s.live.history);
-  const clearFeed = useFeedStore((s) => s.clear);
 
-  useEffect(() => {
-    if (universeId != null && selectedUniverseId !== universeId) {
-      clearFeed();
-      selectUniverse(universeId);
-    }
-  }, [universeId, selectedUniverseId, selectUniverse, clearFeed]);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const filterTypes = useMemo(() => typesForFilters(activeFilters), [activeFilters]);
+  const feed = useChronicleFeed(universeId, { types: filterTypes });
+  useObservedUniverse(universeId, { onLiveGap: feed.backfillLatest });
 
-  const feed = useChronicleFeed(universeId);
-  useUniverseChannels(universeId, { onLiveGap: feed.refetchLatest });
+  const toggleFilter = (key: string) => {
+    setActiveFilters((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
+  };
 
   const latest = history.length > 0 ? history[history.length - 1] : null;
   const connMeta = CONNECTION_META[connection];
 
   return (
-    <WorkspaceLayout>
+    <WorkspaceLayout universeId={universeId}>
       {feed.isError && (
         <div
           className="mb-3 flex items-center gap-2 rounded-lg border border-[var(--color-amber)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-[var(--color-amber)]"
           role="alert"
         >
-          <AlertTriangle size={15} strokeWidth={1.75} className="shrink-0" />
+          <AlertTriangle size={15} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
           Chế độ suy giảm: không tải được lịch sử — chỉ hiển thị sự kiện realtime.
         </div>
       )}
       <div className="grid h-full min-h-0 grid-cols-1 gap-4 lg:grid-cols-3">
         <section className="min-h-0 lg:col-span-2" aria-label="Dòng biên niên sử">
-          <div className="mb-3 flex items-center justify-between">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-text-muted)]">
               Biên niên sử
             </h2>
-            {feed.items.length > 0 && (
-              <span className="font-mono text-[11px] tabular-nums text-[var(--color-text-disabled)]">
-                {feed.items.length} mục
-              </span>
-            )}
+            <div className="flex items-center gap-3">
+              <FeedFilterChips active={activeFilters} onToggle={toggleFilter} />
+              {feed.items.length > 0 && (
+                <span className="font-mono text-[11px] tabular-nums text-[var(--color-text-disabled)]">
+                  {feed.items.length} mục
+                </span>
+              )}
+            </div>
           </div>
           <ChronicleStream
             items={feed.items}
@@ -90,6 +94,9 @@ export default function UniverseHeroPage() {
                 </span>
               </div>
             )}
+          </Panel>
+          <Panel title="Actor nổi bật">
+            {universeId != null && <NotableActorsPanel universeId={universeId} />}
           </Panel>
           <Panel title="Kết nối">
             <div className="flex items-center gap-2">

@@ -1,5 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
-import api from '@/lib/api';
+import { apiClient } from '@/shared/lib/apiClient';
+import { takeData } from '@/shared/lib/unwrap';
+import { qk } from '@/shared/config/queryKeys';
 import type {
   WavefunctionData,
   InformationalMass,
@@ -11,9 +13,9 @@ import type {
 export const wavefunctionQueries = {
   snapshot: (universeId: number) =>
     queryOptions({
-      queryKey: ['wavefunction', universeId] as const,
-      queryFn: (): Promise<WavefunctionData> =>
-        api.get(`/apex/wavefunction/${universeId}`).then((r) => r.data),
+      queryKey: qk.wavefunction(universeId),
+      queryFn: async (): Promise<WavefunctionData> =>
+        takeData<WavefunctionData>((await apiClient.get(`/apex/wavefunction/${universeId}`)).data),
       staleTime: 4_000,
       refetchInterval: 5_000,
       enabled: universeId > 0,
@@ -21,9 +23,9 @@ export const wavefunctionQueries = {
 
   informationalMass: (universeId: number) =>
     queryOptions({
-      queryKey: ['informational-mass', universeId] as const,
-      queryFn: (): Promise<InformationalMass> =>
-        api.get(`/apex/informational-mass/${universeId}`).then((r) => r.data),
+      queryKey: qk.informationalMass(universeId),
+      queryFn: async (): Promise<InformationalMass> =>
+        takeData<InformationalMass>((await apiClient.get(`/apex/informational-mass/${universeId}`)).data),
       staleTime: 8_000,
       refetchInterval: 10_000,
       enabled: universeId > 0,
@@ -31,11 +33,11 @@ export const wavefunctionQueries = {
 
   consciousness: (universeId: number) =>
     queryOptions({
-      queryKey: ['consciousness', universeId] as const,
-      queryFn: (): Promise<ConsciousnessField> =>
-        api
-          .get(`/apex/v10/universes/${universeId}/consciousness`)
-          .then((r) => r.data),
+      queryKey: qk.consciousness(universeId),
+      queryFn: async (): Promise<ConsciousnessField> =>
+        takeData<ConsciousnessField>(
+          (await apiClient.get(`/apex/v10/universes/${universeId}/consciousness`)).data,
+        ),
       staleTime: 8_000,
       refetchInterval: 10_000,
       enabled: universeId > 0,
@@ -43,11 +45,11 @@ export const wavefunctionQueries = {
 
   ascensionFilters: (universeId: number) =>
     queryOptions({
-      queryKey: ['ascension-filters', universeId] as const,
-      queryFn: (): Promise<AscensionFilterData> =>
-        api
-          .get(`/apex/v10/universes/${universeId}/ascension-filters`)
-          .then((r) => r.data),
+      queryKey: qk.ascensionFilters(universeId),
+      queryFn: async (): Promise<AscensionFilterData> =>
+        takeData<AscensionFilterData>(
+          (await apiClient.get(`/apex/v10/universes/${universeId}/ascension-filters`)).data,
+        ),
       staleTime: 8_000,
       refetchInterval: 10_000,
       enabled: universeId > 0,
@@ -55,11 +57,9 @@ export const wavefunctionQueries = {
 
   stateDelta: (universeId: number) =>
     queryOptions({
-      queryKey: ['state-delta', universeId] as const,
-      queryFn: (): Promise<StateDelta> =>
-        api
-          .get(`/apex/v10/universes/${universeId}/delta`)
-          .then((r) => r.data),
+      queryKey: qk.stateDelta(universeId),
+      queryFn: async (): Promise<StateDelta> =>
+        takeData<StateDelta>((await apiClient.get(`/apex/v10/universes/${universeId}/delta`)).data),
       staleTime: 12_000,
       refetchInterval: 15_000,
       enabled: universeId > 0,

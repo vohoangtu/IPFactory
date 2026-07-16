@@ -30,7 +30,12 @@ export const useSimStore = create<SimStore>((set) => ({
   selectUniverse: (id) => set({ selectedUniverseId: id, live: emptyLive() }),
   setConnection: (connection) => set({ connection }),
   applyPulse: (env) => set((s) => {
-    const p = env.payload as { entropy?: number; stability_index?: number; metrics?: Record<string, number> };
+    const p = env.payload as {
+      entropy?: number;
+      stability_index?: number;
+      metrics?: Record<string, number>;
+      status?: string;
+    };
     const entropy = typeof p.entropy === 'number' ? p.entropy : null;
     const stability = typeof p.stability_index === 'number' ? p.stability_index : null;
     const rawMetrics =
@@ -45,7 +50,7 @@ export const useSimStore = create<SimStore>((set) => ({
       live: {
         tick: env.tick,
         metrics,
-        status: s.live.status,
+        status: typeof p.status === 'string' ? p.status : s.live.status,
         history: [...s.live.history, { tick: env.tick, entropy, stability }].slice(-MAX_HISTORY),
       },
     };

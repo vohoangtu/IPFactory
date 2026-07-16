@@ -2,7 +2,7 @@
 // Shared API response types for WorldOS V6 Dashboard
 // ──────────────────────────────────────────────
 
-import type { AnimationScript } from '@/lib/vaf/types';
+import type { AnimationScript } from '@/features/cinema/lib/vaf/types';
 
 // ── Actors ───────────────────────────────────
 

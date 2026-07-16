@@ -34,4 +34,23 @@ describe('simStore', () => {
     expect(useSimStore.getState().live.history).toEqual([]);
     expect(useSimStore.getState().selectedUniverseId).toBe(6);
   });
+
+  it('applyPulse set status từ payload', () => {
+    useSimStore.getState().applyPulse({
+      id: 'e1', type: 'universe.pulsed', tick: 5, universe_id: 1, world_id: null,
+      severity: 'info', occurred_at: '', payload: { entropy: 0.4, stability_index: 0.8, status: 'paused' },
+    });
+    expect(useSimStore.getState().live.status).toBe('paused');
+  });
+  it('applyPulse giữ status cũ khi payload không có status', () => {
+    useSimStore.getState().applyPulse({
+      id: 'e1', type: 'universe.pulsed', tick: 5, universe_id: 1, world_id: null,
+      severity: 'info', occurred_at: '', payload: { entropy: 0.4, stability_index: 0.8, status: 'paused' },
+    });
+    useSimStore.getState().applyPulse({
+      id: 'e2', type: 'universe.pulsed', tick: 6, universe_id: 1, world_id: null,
+      severity: 'info', occurred_at: '', payload: { entropy: 0.4 },
+    });
+    expect(useSimStore.getState().live.status).toBe('paused');
+  });
 });

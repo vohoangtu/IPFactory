@@ -5,14 +5,20 @@ declare(strict_types=1);
 namespace App\Modules\WorldOS\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Modules\WorldOS\Actions\GetActorPsycheAction;
 use App\Modules\WorldOS\Actions\GetObservatoryFeedAction;
+use App\Modules\WorldOS\Actions\GetUniverseCivilizationAction;
+use App\Modules\WorldOS\Actions\GetUniverseWorldAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ObservatoryController extends Controller
 {
     public function __construct(
-        private readonly GetObservatoryFeedAction $getObservatoryFeedAction
+        private readonly GetObservatoryFeedAction $getObservatoryFeedAction,
+        private readonly GetActorPsycheAction $getActorPsycheAction,
+        private readonly GetUniverseCivilizationAction $getUniverseCivilizationAction,
+        private readonly GetUniverseWorldAction $getUniverseWorldAction
     ) {
     }
 
@@ -35,5 +41,20 @@ class ObservatoryController extends Controller
             'types' => $types !== [] ? $types : null,
             'limit' => $validated['limit'] ?? null,
         ]));
+    }
+
+    public function actorPsyche(int $actorId): JsonResponse
+    {
+        return response()->json($this->getActorPsycheAction->handle($actorId));
+    }
+
+    public function civilization(int $id): JsonResponse
+    {
+        return response()->json($this->getUniverseCivilizationAction->handle($id));
+    }
+
+    public function world(int $id): JsonResponse
+    {
+        return response()->json($this->getUniverseWorldAction->handle($id));
     }
 }

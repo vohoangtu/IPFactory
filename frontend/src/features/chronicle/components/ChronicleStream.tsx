@@ -18,7 +18,7 @@ export function ChronicleStream({ items, hasOlder, isLoadingOlder, onLoadOlder }
           className="flex h-11 w-11 items-center justify-center rounded-full"
           style={{ background: 'rgba(255, 255, 255, 0.04)', border: '1px solid var(--border-muted)' }}
         >
-          <ScrollText size={18} strokeWidth={1.5} className="text-[var(--color-text-disabled)]" />
+          <ScrollText size={18} strokeWidth={1.5} className="text-[var(--color-text-disabled)]" aria-hidden="true" />
         </span>
         <p className="max-w-xs text-sm text-[var(--color-text-muted)]">
           Vũ trụ chưa có biến cố nào — hãy chạy tick để lịch sử bắt đầu.
@@ -28,7 +28,12 @@ export function ChronicleStream({ items, hasOlder, isLoadingOlder, onLoadOlder }
   }
 
   return (
-    <div className="custom-scrollbar flex h-full flex-col gap-2 overflow-y-auto pr-1">
+    <div
+      role="log"
+      aria-live="polite"
+      aria-label="Dòng sự kiện trực tiếp"
+      className="custom-scrollbar overscroll-contain flex h-full flex-col gap-2 overflow-y-auto pr-1"
+    >
       {items.map((item) => (
         <ChronicleEntry key={item.id} item={item} />
       ))}

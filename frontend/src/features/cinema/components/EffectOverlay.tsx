@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { VAFEffect } from '@/lib/vaf/types';
+import type { VAFEffect } from '../lib/vaf/types';
 
 // ──────────────────────────────────────────────
 // EffectOverlay

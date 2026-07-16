@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useCallback } from 'react';
-import type { VAFEffect } from '@/lib/vaf/types';
+import type { VAFEffect } from '../lib/vaf/types';
 
 // ──────────────────────────────────────────────
 // ParticleRenderer

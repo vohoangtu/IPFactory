@@ -1,9 +1,11 @@
 'use client';
 import type { CSSProperties, ReactNode } from 'react';
+import Link from 'next/link';
 import {
   Activity, AlertTriangle, BookOpen, Crown, Dna, Gem, Landmark, ScrollText,
 } from 'lucide-react';
 import type { FeedItem } from '@/shared/realtime/envelope';
+import { routes } from '@/shared/config/routes';
 
 type Tone = 'accent' | 'primary' | 'danger' | 'amber' | 'emerald' | 'info' | 'muted';
 
@@ -49,9 +51,19 @@ function visualFor(item: FeedItem): Visual {
         icon: <ScrollText size={15} strokeWidth={1.75} />,
         tone: 'accent',
         body: (
-          <p className="leading-relaxed text-[var(--color-text-primary)]">
-            {(p.content as string) ?? '(chưa có nội dung tường thuật)'}
-          </p>
+          <div>
+            <p className="leading-relaxed text-[var(--color-text-primary)]">
+              {(p.content as string) ?? '(chưa có nội dung tường thuật)'}
+            </p>
+            {typeof p.chronicle_id === 'number' && (
+              <Link
+                href={routes.chronicle(p.chronicle_id)}
+                className="mt-1.5 inline-flex items-center gap-1 text-xs text-[var(--color-accent)] underline-offset-2 hover:underline"
+              >
+                ▶ Xem cinema{p.has_animation === true ? '' : ' (bản chữ)'}
+              </Link>
+            )}
+          </div>
         ),
       };
     case 'epoch.transitioned': {
@@ -124,7 +136,11 @@ export function ChronicleEntry({ item }: { item: FeedItem }) {
       className="glass animate-fade-in-up flex items-start gap-3 rounded-lg p-3 transition-colors duration-200 hover:bg-white/[0.03]"
       style={cardStyle}
     >
-      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full" style={chipStyle}>
+      <span
+        className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
+        style={chipStyle}
+        aria-hidden="true"
+      >
         {v.icon}
       </span>
       <div className="min-w-0 flex-1 pt-0.5">{v.body}</div>

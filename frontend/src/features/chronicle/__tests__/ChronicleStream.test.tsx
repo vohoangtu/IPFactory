@@ -26,4 +26,10 @@ describe('ChronicleStream', () => {
     render(<ChronicleStream items={[item('a', 2)]} hasOlder={false} isLoadingOlder={false} onLoadOlder={() => {}} />);
     expect(screen.queryByRole('button', { name: /Tải thêm quá khứ/ })).toBeNull();
   });
+
+  it('container stream có role log + aria-live polite', () => {
+    render(<ChronicleStream items={[item('a', 2)]} hasOlder={false} isLoadingOlder={false} onLoadOlder={() => {}} />);
+    const log = screen.getByRole('log');
+    expect(log.getAttribute('aria-live')).toBe('polite');
+  });
 });
