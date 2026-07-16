@@ -8,6 +8,7 @@ vi.mock('@/shared/lib/centrifugo', () => ({ getCentrifuge: () => fake.centrifuge
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
   useParams: () => ({ id: '5' }),
+  usePathname: () => '/u/5',
 }));
 vi.mock('@/shared/lib/apiClient', () => ({
   TOKEN_KEY: 'worldos_token',

@@ -1,12 +1,10 @@
 'use client';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { AlertTriangle } from 'lucide-react';
-import { WorkspaceLayout } from '@/features/universe-workspace';
+import { WorkspaceLayout, useObservedUniverse } from '@/features/universe-workspace';
 import { ChronicleStream, MetricsSparkline, useChronicleFeed } from '@/features/chronicle';
-import { useUniverseChannels } from '@/shared/realtime/useUniverseChannels';
 import { useSimStore, type SimStore } from '@/shared/store/simStore';
-import { useFeedStore } from '@/shared/store/feedStore';
 import { Panel } from '@/shared/ui/Panel';
 
 const CONNECTION_META: Record<SimStore['connection'], { label: string; color: string; pulse: boolean }> = {
@@ -26,27 +24,17 @@ export default function UniverseHeroPage() {
     return Number.isFinite(n) ? n : null;
   }, [params?.id]);
 
-  const selectUniverse = useSimStore((s) => s.selectUniverse);
-  const selectedUniverseId = useSimStore((s) => s.selectedUniverseId);
   const connection = useSimStore((s) => s.connection);
   const history = useSimStore((s) => s.live.history);
-  const clearFeed = useFeedStore((s) => s.clear);
-
-  useEffect(() => {
-    if (universeId != null && selectedUniverseId !== universeId) {
-      clearFeed();
-      selectUniverse(universeId);
-    }
-  }, [universeId, selectedUniverseId, selectUniverse, clearFeed]);
 
   const feed = useChronicleFeed(universeId);
-  useUniverseChannels(universeId, { onLiveGap: feed.refetchLatest });
+  useObservedUniverse(universeId, { onLiveGap: feed.refetchLatest });
 
   const latest = history.length > 0 ? history[history.length - 1] : null;
   const connMeta = CONNECTION_META[connection];
 
   return (
-    <WorkspaceLayout>
+    <WorkspaceLayout universeId={universeId}>
       {feed.isError && (
         <div
           className="mb-3 flex items-center gap-2 rounded-lg border border-[var(--color-amber)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-[var(--color-amber)]"

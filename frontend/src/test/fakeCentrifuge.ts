@@ -50,6 +50,7 @@ export function makeFakeCentrifugeMulti() {
         }
       }
     }),
+    getSubscription: vi.fn((channel: string) => registry.get(channel) ?? null),
   };
 
   return {
