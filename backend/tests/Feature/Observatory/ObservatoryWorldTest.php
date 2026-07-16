@@ -23,8 +23,8 @@ class ObservatoryWorldTest extends TestCase
         $universe = Universe::factory()->create(['current_tick' => 50]);
         Epoch::create(['world_id' => $universe->world_id, 'name' => 'Bronze', 'start_tick' => 0, 'end_tick' => 30, 'status' => 'ended']);
         Epoch::create(['world_id' => $universe->world_id, 'name' => 'Iron', 'start_tick' => 31, 'status' => 'active']);
-        Religion::create(['universe_id' => $universe->id, 'name' => 'Solism', 'followers' => 120, 'spread_rate' => 0.3]);
         Religion::create(['universe_id' => $universe->id, 'name' => 'Lunism', 'followers' => 40, 'spread_rate' => 0.1]);
+        Religion::create(['universe_id' => $universe->id, 'name' => 'Solism', 'followers' => 120, 'spread_rate' => 0.3]);
         DiplomaticTreaty::create(['universe_id' => $universe->id, 'source_civ_id' => 1, 'target_civ_id' => 2, 'treaty_type' => 'trade', 'started_at_tick' => 10, 'is_active' => true]);
         DiplomaticTreaty::create(['universe_id' => $universe->id, 'source_civ_id' => 1, 'target_civ_id' => 3, 'treaty_type' => 'war', 'started_at_tick' => 5, 'is_active' => false]);
 
