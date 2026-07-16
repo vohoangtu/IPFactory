@@ -6,7 +6,7 @@ import type { MultiverseBloom, MultiverseResonance, MultiverseUniverse } from '@
 const W = 900;
 const H = 360;
 const STATUS_COLOR: Record<string, string> = {
-  active: 'var(--color-primary)', paused: 'var(--color-amber)', halted: 'var(--color-text-disabled)',
+  active: 'var(--color-primary)', paused: 'var(--color-amber)', halted: 'var(--color-amber)', archived: 'var(--color-text-disabled)',
 };
 
 /** Vị trí sao deterministic: world = cột cụm, universe rải quanh tâm cụm theo index (vòng xoắn vàng). */
@@ -62,7 +62,7 @@ export function ConstellationView({ bloom, resonance }: Props) {
             >
               {w.label}
             </text>
-            {w.universes.map((u, ui) => {
+            {w.universes.filter((u) => Number.isFinite(Number(u.id))).map((u, ui) => {
               const pos = starPosition(wi, worlds.length, ui, w.universes.length);
               return <Star key={u.id} u={u} x={pos.x} y={pos.y} />;
             })}

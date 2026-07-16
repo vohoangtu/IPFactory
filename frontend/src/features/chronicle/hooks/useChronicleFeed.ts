@@ -60,7 +60,7 @@ export function useChronicleFeed(
         const page = await fetchFeed(universeId, { after_tick: Math.max(0, latestTick - 1), types });
         const push = useFeedStore.getState().pushLive;
         page.data.forEach(push);
-        if (page.meta.count >= FEED_PAGE_LIMIT) void refetch(); // có thể còn sót nhiều hơn 1 trang
+        if (page.meta.next_before_tick != null || page.meta.count >= FEED_PAGE_LIMIT) void refetch(); // có thể còn sót nhiều hơn 1 trang
       } catch {
         void refetch(); // backfill lỗi → refetch toàn bộ như cũ
       }

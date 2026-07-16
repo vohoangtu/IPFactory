@@ -81,6 +81,19 @@ describe('useChronicleFeed', () => {
     await waitFor(() => expect(mockGet).toHaveBeenCalledTimes(3));
   });
 
+  it('backfillLatest fallback refetch khi count < limit nhưng next_before_tick khác null', async () => {
+    mockGet.mockResolvedValueOnce({ data: { data: [makeItem('a', 10)], meta: { count: 1, next_before_tick: null } } });
+    const { result } = renderHook(() => useChronicleFeed(1), { wrapper });
+    await waitFor(() => expect(result.current.items).toHaveLength(1));
+
+    mockGet.mockResolvedValueOnce({ data: { data: [makeItem('b', 12)], meta: { count: 1, next_before_tick: 12 } } });
+    // refetch (trang đầu mới) sau fallback
+    mockGet.mockResolvedValueOnce({ data: { data: [makeItem('fresh', 99)], meta: { count: 1, next_before_tick: null } } });
+
+    await act(async () => { result.current.backfillLatest(); });
+    await waitFor(() => expect(mockGet).toHaveBeenCalledTimes(3));
+  });
+
   it('truyền types vào query param dạng CSV và lọc live items', async () => {
     useFeedStore.getState().pushLive({ ...makeItem('live-anom', 20), type: 'anomaly.detected' });
     useFeedStore.getState().pushLive({ ...makeItem('live-chr', 21), type: 'chronicle' });
