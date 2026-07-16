@@ -6,7 +6,7 @@ export interface FeedPage {
   meta: { count: number; next_before_tick: number | null };
 }
 
-const DEFAULT_LIMIT = 50;
+export const FEED_PAGE_LIMIT = 50;
 
 /** Body feed có 2 key (data+meta) nên interceptor unwrapEnvelope không bóc — đọc nguyên body. */
 export async function fetchFeed(
@@ -14,7 +14,7 @@ export async function fetchFeed(
   params: { before_tick?: number; after_tick?: number; limit?: number } = {},
 ): Promise<FeedPage> {
   const res = await apiClient.get(`/worldos/observatory/universes/${universeId}/feed`, {
-    params: { limit: DEFAULT_LIMIT, ...params },
+    params: { limit: FEED_PAGE_LIMIT, ...params },
   });
   return res.data as FeedPage;
 }

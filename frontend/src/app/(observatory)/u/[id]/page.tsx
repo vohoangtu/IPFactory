@@ -28,7 +28,7 @@ export default function UniverseHeroPage() {
   const history = useSimStore((s) => s.live.history);
 
   const feed = useChronicleFeed(universeId);
-  useObservedUniverse(universeId, { onLiveGap: feed.refetchLatest });
+  useObservedUniverse(universeId, { onLiveGap: feed.backfillLatest });
 
   const latest = history.length > 0 ? history[history.length - 1] : null;
   const connMeta = CONNECTION_META[connection];
@@ -40,7 +40,7 @@ export default function UniverseHeroPage() {
           className="mb-3 flex items-center gap-2 rounded-lg border border-[var(--color-amber)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-[var(--color-amber)]"
           role="alert"
         >
-          <AlertTriangle size={15} strokeWidth={1.75} className="shrink-0" />
+          <AlertTriangle size={15} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
           Chế độ suy giảm: không tải được lịch sử — chỉ hiển thị sự kiện realtime.
         </div>
       )}

@@ -124,7 +124,11 @@ export function ChronicleEntry({ item }: { item: FeedItem }) {
       className="glass animate-fade-in-up flex items-start gap-3 rounded-lg p-3 transition-colors duration-200 hover:bg-white/[0.03]"
       style={cardStyle}
     >
-      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full" style={chipStyle}>
+      <span
+        className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
+        style={chipStyle}
+        aria-hidden="true"
+      >
         {v.icon}
       </span>
       <div className="min-w-0 flex-1 pt-0.5">{v.body}</div>
