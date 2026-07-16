@@ -55,6 +55,7 @@ class UniversePulsed implements ShouldBroadcast, WorldEventBroadcast
             payload: [
                 'entropy' => $this->snapshot->entropy,
                 'stability_index' => $this->snapshot->stability_index,
+                'status' => (string) $this->universe->status,
                 'metrics' => $this->snapshot->metrics,
             ],
         );
