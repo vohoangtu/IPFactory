@@ -10,6 +10,7 @@ import {
   FeedFilterChips,
   typesForFilters,
 } from '@/features/chronicle';
+import { NotableActorsPanel } from '@/features/actors';
 import { useSimStore, type SimStore } from '@/shared/store/simStore';
 import { Panel } from '@/shared/ui/Panel';
 
@@ -93,6 +94,9 @@ export default function UniverseHeroPage() {
                 </span>
               </div>
             )}
+          </Panel>
+          <Panel title="Actor nổi bật">
+            {universeId != null && <NotableActorsPanel universeId={universeId} />}
           </Panel>
           <Panel title="Kết nối">
             <div className="flex items-center gap-2">
