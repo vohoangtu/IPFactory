@@ -2,8 +2,6 @@
 // Shared API response types for WorldOS V6 Dashboard
 // ──────────────────────────────────────────────
 
-import type { AnimationScript } from '@/features/cinema/lib/vaf/types';
-
 // ── Actors ───────────────────────────────────
 
 export interface ActorSummary {
@@ -134,7 +132,8 @@ export interface Chronicle {
   actor_id: number | null;
   world_event_id: number | null;
   has_animation: boolean;
-  animation_script: AnimationScript | null;
+  /** VAF script thô — features/cinema parse bằng parseAnimationScript(raw: unknown) */
+  animation_script: unknown;
 }
 
 export type ChronicleDetail = Chronicle;
