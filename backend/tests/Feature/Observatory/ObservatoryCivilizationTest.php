@@ -17,8 +17,8 @@ class ObservatoryCivilizationTest extends TestCase
     public function test_civilization_returns_persisted_metrics_and_complexity(): void
     {
         $universe = Universe::factory()->create(['entropy' => 0.42, 'structural_coherence' => 0.9, 'current_tick' => 33]);
-        UniverseSnapshot::factory()->create(['universe_id' => $universe->id, 'tick' => 30, 'stability_index' => 0.7, 'metrics' => ['population' => 12]]);
         UniverseSnapshot::factory()->create(['universe_id' => $universe->id, 'tick' => 33, 'stability_index' => 0.66, 'metrics' => ['population' => 15]]);
+        UniverseSnapshot::factory()->create(['universe_id' => $universe->id, 'tick' => 30, 'stability_index' => 0.7, 'metrics' => ['population' => 12]]);
         Actor::create(['universe_id' => $universe->id, 'name' => 'A1', 'is_alive' => true, 'archetype' => 'sage', 'traits' => []]);
         Actor::create(['universe_id' => $universe->id, 'name' => 'A2', 'is_alive' => false, 'archetype' => 'sage', 'traits' => []]);
 
