@@ -40,12 +40,4 @@ export const simulationQueries = {
       refetchInterval,
       enabled: universeId > 0,
     }),
-
-  /** Settings / config (no refetch interval — manual refresh) */
-  config: () =>
-    queryOptions({
-      queryKey: ['simulation', 'settings'] as const,
-      queryFn: async () => takeData((await apiClient.get('/apex/settings')).data),
-      staleTime: 30_000,
-    }),
 };

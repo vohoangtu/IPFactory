@@ -90,8 +90,6 @@ export function useCompareBranch(
   return { comparison: data ?? null, isLoading, isFetching, isError: !!error };
 }
 
-export const useBranchComparison = useCompareBranch;
-
 // ── Advance / Toggle ─────────────────────────────────────────────────
 
 export function useAdvanceSimulation() {
