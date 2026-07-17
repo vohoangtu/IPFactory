@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import { apiClient } from '@/shared/lib/apiClient';
 import { takeData } from '@/shared/lib/unwrap';
 import { qk } from '@/shared/config/queryKeys';
-import type { TopologyData, CausalLinkData, RealityState } from '@/types/api';
+import type { TopologyData, CausalLinkData, RealityState } from '@/shared/types/api';
 
 export const causalMapQueries = {
   topology: (universeId: number) =>

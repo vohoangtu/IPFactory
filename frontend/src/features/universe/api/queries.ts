@@ -1,12 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
-import api from '@/lib/api';
-import type { UniverseOption, UniverseMetrics, UniverseDossier } from '@/types/api';
+import { apiClient } from '@/shared/lib/apiClient';
+import { takeData } from '@/shared/lib/unwrap';
+import type { UniverseOption, UniverseMetrics, UniverseDossier } from '@/shared/types/api';
 
 // ── Universe list ────────────────────────────────
-
-interface ResourceCollection<T> {
-  data?: T[];
-}
 
 /**
  * Default polling intervals when WebSocket is not connected.
@@ -20,8 +17,8 @@ export const universeQueries = {
   list: (refetchInterval: number | false = LIST_POLL_MS) =>
     queryOptions({
       queryKey: ['universes'] as const,
-      queryFn: (): Promise<UniverseOption[] | ResourceCollection<UniverseOption>> =>
-        api.get('/worldos/universes').then((r) => r.data),
+      queryFn: async (): Promise<UniverseOption[]> =>
+        takeData<UniverseOption[]>((await apiClient.get('/worldos/universes')).data),
       staleTime: 10_000,
       refetchInterval,
     }),
@@ -30,8 +27,8 @@ export const universeQueries = {
   metrics: (id: number, refetchInterval: number | false = DETAIL_POLL_MS) =>
     queryOptions({
       queryKey: ['universes', id, 'metrics'] as const,
-      queryFn: (): Promise<UniverseMetrics> =>
-        api.get(`/worldos/universes/${id}/metrics`).then((r) => r.data),
+      queryFn: async (): Promise<UniverseMetrics> =>
+        takeData<UniverseMetrics>((await apiClient.get(`/worldos/universes/${id}/metrics`)).data),
       staleTime: 8_000,
       refetchInterval,
       enabled: id > 0,
@@ -41,8 +38,8 @@ export const universeQueries = {
   dossier: (id: number, refetchInterval: number | false = DETAIL_POLL_MS) =>
     queryOptions({
       queryKey: ['universes', id, 'dossier'] as const,
-      queryFn: (): Promise<UniverseDossier> =>
-        api.get(`/worldos/universes/${id}/dossier`).then((r) => r.data),
+      queryFn: async (): Promise<UniverseDossier> =>
+        takeData<UniverseDossier>((await apiClient.get(`/worldos/universes/${id}/dossier`)).data),
       staleTime: 8_000,
       refetchInterval,
       enabled: id > 0,

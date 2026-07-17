@@ -1,8 +1,8 @@
 'use client';
 
-import BadgeLabel from '@/components/ui/shared/BadgeLabel';
-import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { WavefunctionData } from '@/types/api';
+import BadgeLabel from '@/shared/ui/BadgeLabel';
+import SectionPanel from '@/shared/ui/SectionPanel';
+import type { WavefunctionData } from '@/shared/types/api';
 
 interface Props {
   autopoiesis: WavefunctionData['autopoiesis'] | undefined;

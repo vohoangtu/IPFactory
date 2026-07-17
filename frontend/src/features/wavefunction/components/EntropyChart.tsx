@@ -11,8 +11,8 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { WavefunctionData, StateDelta } from '@/types/api';
+import SectionPanel from '@/shared/ui/SectionPanel';
+import type { WavefunctionData, StateDelta } from '@/shared/types/api';
 
 interface Props {
   wavefunction: WavefunctionData | undefined;

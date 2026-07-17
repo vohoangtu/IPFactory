@@ -12,8 +12,8 @@ import {
   Cell,
 } from 'recharts';
 
-import SectionPanel from '@/components/ui/shared/SectionPanel';
-import type { InformationalMass } from '@/types/api';
+import SectionPanel from '@/shared/ui/SectionPanel';
+import type { InformationalMass } from '@/shared/types/api';
 
 interface Props {
   informationalMass: InformationalMass | undefined;

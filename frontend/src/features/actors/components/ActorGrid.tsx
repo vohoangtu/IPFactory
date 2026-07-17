@@ -1,5 +1,5 @@
 'use client';
-import type { ActorSummary } from '@/types/api';
+import type { ActorSummary } from '@/shared/types/api';
 
 interface Props { actors: ActorSummary[]; selectedId: number | null; onSelect: (id: number) => void }
 

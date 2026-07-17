@@ -7,4 +7,10 @@ export const routes = {
   universeCausality: (id: number) => `/u/${id}/causality`,
   universeWavefunction: (id: number) => `/u/${id}/wavefunction`,
   chronicle: (chronicleId: number) => `/chronicle/${chronicleId}`,
+  opsSimulation: () => '/ops/simulation',
+  opsLoom: () => '/ops/loom',
+  opsAiRuntime: () => '/ops/ai-runtime',
+  opsSettings: () => '/ops/settings',
+  opsSystem: () => '/ops/system',
+  opsIntelligence: () => '/ops/intelligence',
 } as const;

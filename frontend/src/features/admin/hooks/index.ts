@@ -2,8 +2,8 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import api from '@/lib/api';
-import { useAdaptiveRefetchInterval, useCentrifugoConnection } from '@/hooks/useCentrifugo';
+import { apiClient } from '@/shared/lib/apiClient';
+import { takeData } from '@/shared/lib/unwrap';
 import { adminQueries } from '../api/queries';
 import type {
   AiDiagnosticsResult,
@@ -88,8 +88,8 @@ export function useSimulationSettings() {
   const query = useQuery(adminQueries.simulationSettings());
 
   const updateMutation = useMutation({
-    mutationFn: (settings: SimulationSetting[]) =>
-      api.post('/apex/settings/update', { settings }).then((response) => response.data),
+    mutationFn: async (settings: SimulationSetting[]) =>
+      takeData((await apiClient.post('/apex/settings/update', { settings })).data),
     onSuccess: async () => {
       toast.success('Simulation settings updated.');
       await queryClient.invalidateQueries({
@@ -99,8 +99,10 @@ export function useSimulationSettings() {
   });
 
   const resetMutation = useMutation({
-    mutationFn: (group?: string) =>
-      api.post('/apex/settings/reset', group ? { group } : {}).then((response) => response.data),
+    mutationFn: async (group?: string) =>
+      takeData(
+        (await apiClient.post('/apex/settings/reset', group ? { group } : {})).data,
+      ),
     onSuccess: async () => {
       toast.success('Simulation settings reset.');
       await queryClient.invalidateQueries({
@@ -120,9 +122,7 @@ export function useSimulationSettings() {
 }
 
 export function useServiceStatus() {
-  const { state } = useCentrifugoConnection();
-  const refetchInterval = useAdaptiveRefetchInterval(state, 30_000);
-  const query = useQuery(adminQueries.serviceStatus(refetchInterval));
+  const query = useQuery(adminQueries.serviceStatus());
 
   const healthyCount = query.data
     ? Object.values(query.data.services).filter((service) => service.status === 'ok').length
@@ -166,12 +166,12 @@ export function useUpdateAiSetting() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: {
+    mutationFn: async (payload: {
       key: string;
       value: unknown;
       group?: string;
       is_secret?: boolean;
-    }) => api.post('/ai-settings/update', payload).then((response) => response.data),
+    }) => takeData((await apiClient.post('/ai-settings/update', payload)).data),
     onSuccess: async (_data, variables) => {
       toast.success('AI runtime setting updated.');
       await Promise.all([
@@ -188,7 +188,7 @@ export function useSyncAiSettings() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => api.post('/ai-settings/sync').then((response) => response.data),
+    mutationFn: async () => takeData((await apiClient.post('/ai-settings/sync')).data),
     onSuccess: async () => {
       toast.success('AI runtime cache synchronized.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.aiSettings().queryKey });
@@ -200,7 +200,7 @@ export function useImportAiSettings() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => api.post('/ai-settings/import').then((response) => response.data),
+    mutationFn: async () => takeData((await apiClient.post('/ai-settings/import')).data),
     onSuccess: async () => {
       toast.success('Imported AI runtime defaults.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.aiSettings().queryKey });
@@ -212,8 +212,8 @@ export function useImportLoomAgents() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () =>
-      api.post('/ai-settings/import-loom-agents').then((response) => response.data),
+    mutationFn: async () =>
+      takeData((await apiClient.post('/ai-settings/import-loom-agents')).data),
     onSuccess: async () => {
       toast.success('Imported Loom agent routing.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.loomAgents().queryKey });
@@ -223,8 +223,10 @@ export function useImportLoomAgents() {
 
 export function useRunAiDiagnostics() {
   return useMutation({
-    mutationFn: (payload: { driver?: string; prompt?: string }) =>
-      api.post<AiDiagnosticsResult>('/ai-settings/diagnostics', payload).then((response) => response.data),
+    mutationFn: async (payload: { driver?: string; prompt?: string }) =>
+      takeData<AiDiagnosticsResult>(
+        (await apiClient.post('/ai-settings/diagnostics', payload)).data,
+      ),
   });
 }
 
@@ -240,8 +242,8 @@ export function useCreateProviderModel() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: Partial<AiProviderModel>) =>
-      api.post('/ai-provider-models', payload).then((response) => response.data),
+    mutationFn: async (payload: Partial<AiProviderModel>) =>
+      takeData((await apiClient.post('/ai-provider-models', payload)).data),
     onSuccess: async () => {
       toast.success('Provider model created.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.providerModels().queryKey });
@@ -253,8 +255,8 @@ export function useUpdateProviderModel() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<AiProviderModel> }) =>
-      api.put(`/ai-provider-models/${id}`, data).then((response) => response.data),
+    mutationFn: async ({ id, data }: { id: number; data: Partial<AiProviderModel> }) =>
+      takeData((await apiClient.put(`/ai-provider-models/${id}`, data)).data),
     onSuccess: async () => {
       toast.success('Provider model updated.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.providerModels().queryKey });
@@ -266,7 +268,8 @@ export function useDeleteProviderModel() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/ai-provider-models/${id}`).then((response) => response.data),
+    mutationFn: async (id: number) =>
+      takeData((await apiClient.delete(`/ai-provider-models/${id}`)).data),
     onSuccess: async () => {
       toast.success('Provider model deleted.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.providerModels().queryKey });
@@ -276,7 +279,7 @@ export function useDeleteProviderModel() {
 
 export function useExportProviderModels() {
   return useMutation({
-    mutationFn: () => api.get('/ai-provider-models/export').then((response) => response.data),
+    mutationFn: async () => takeData((await apiClient.get('/ai-provider-models/export')).data),
   });
 }
 
@@ -284,8 +287,8 @@ export function useImportProviderModels() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: unknown) =>
-      api.post('/ai-provider-models/import', { data }).then((response) => response.data),
+    mutationFn: async (data: unknown) =>
+      takeData((await apiClient.post('/ai-provider-models/import', { data })).data),
     onSuccess: async () => {
       toast.success('Provider models imported.');
       await queryClient.invalidateQueries({ queryKey: adminQueries.providerModels().queryKey });
@@ -298,23 +301,24 @@ export function useKeyPool() {
   const query = useQuery(adminQueries.keyPool());
 
   const addMutation = useMutation({
-    mutationFn: (newKey: AiKeyPayload & { key: string }) =>
-      api.post('/ai-key-pool', newKey).then((response) => response.data),
+    mutationFn: async (newKey: AiKeyPayload & { key: string }) =>
+      takeData((await apiClient.post('/ai-key-pool', newKey)).data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: adminQueries.keyPool().queryKey });
     },
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: AiKeyPayload }) =>
-      api.put(`/ai-key-pool/${id}`, data).then((response) => response.data),
+    mutationFn: async ({ id, data }: { id: number; data: AiKeyPayload }) =>
+      takeData((await apiClient.put(`/ai-key-pool/${id}`, data)).data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: adminQueries.keyPool().queryKey });
     },
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete(`/ai-key-pool/${id}`).then((response) => response.data),
+    mutationFn: async (id: number) =>
+      takeData((await apiClient.delete(`/ai-key-pool/${id}`)).data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: adminQueries.keyPool().queryKey });
     },

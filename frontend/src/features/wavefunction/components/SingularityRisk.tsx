@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Shield, AlertTriangle, Zap } from 'lucide-react';
 
-import SectionPanel from '@/components/ui/shared/SectionPanel';
+import SectionPanel from '@/shared/ui/SectionPanel';
 
 interface Props {
   risk: 'NORMAL' | 'HIGH' | 'CRITICAL' | undefined;

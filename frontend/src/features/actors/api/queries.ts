@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import { apiClient } from '@/shared/lib/apiClient';
 import { takeData } from '@/shared/lib/unwrap';
 import { qk } from '@/shared/config/queryKeys';
-import type { ActorSummary, ActorDetail, ActorEvent, ActorDecision, SupremeEntity } from '@/types/api';
+import type { ActorSummary, ActorDetail, ActorEvent, ActorDecision, SupremeEntity } from '@/shared/types/api';
 import type { ActorPsyche } from '../types';
 
 export const actorQueries = {

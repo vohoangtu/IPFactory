@@ -2,8 +2,8 @@
 
 import { Activity, Shield, AlertTriangle, Database } from 'lucide-react';
 
-import GaugeCard from '@/components/ui/shared/GaugeCard';
-import type { WavefunctionData, InformationalMass } from '@/types/api';
+import GaugeCard from '@/shared/ui/GaugeCard';
+import type { WavefunctionData, InformationalMass } from '@/shared/types/api';
 
 interface Props {
   wavefunction: WavefunctionData | undefined;

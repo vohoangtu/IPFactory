@@ -1,36 +1,26 @@
 'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { intelligenceQueries } from '../api/queries';
-import api from '@/lib/api';
-import { useCentrifugoConnection, useAdaptiveRefetchInterval } from '@/hooks/useCentrifugo';
+import { apiClient } from '@/shared/lib/apiClient';
+import { intelligenceQueries, type AiLogFilters } from '../api/queries';
 
-export function useAiLogs(
-  filters: {
-    feature?: string;
-    driver?: string;
-    model?: string;
-    status?: string;
-    search?: string;
-    page?: number;
-    limit?: number;
-  } = {},
-) {
+export function useAiLogs(filters: AiLogFilters = {}) {
   const queryClient = useQueryClient();
-  const { state } = useCentrifugoConnection();
-  const refetchInterval = useAdaptiveRefetchInterval(state, 5_000);
 
-  const { data, error, isLoading } = useQuery({
-    ...intelligenceQueries.logs(filters),
-    refetchInterval,
-  });
+  const { data, error, isLoading } = useQuery(intelligenceQueries.logs(filters));
 
   const clearLogs = async () => {
-    await api.delete('/ai-logs/clear');
-    await queryClient.invalidateQueries({ queryKey: ['ai-logs'] });
+    await apiClient.delete('/ai-logs/clear');
+    // Key cũ lồng ['ai-logs', 'stats'] dưới prefix ['ai-logs'] nên purge cũng làm mất hiệu lực
+    // cache stats; qk mới tách ['ops','ai-logs'] / ['ops','ai-stats'] là 2 nhánh song song nên
+    // phải invalidate rõ cả hai để giữ đúng hành vi cũ.
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['ops', 'ai-logs'] }),
+      queryClient.invalidateQueries({ queryKey: ['ops', 'ai-stats'] }),
+    ]);
   };
 
-  const mutate = () => queryClient.invalidateQueries({ queryKey: ['ai-logs'] });
+  const mutate = () => queryClient.invalidateQueries({ queryKey: ['ops', 'ai-logs'] });
 
   return {
     logs: data?.data ?? [],
@@ -50,9 +40,9 @@ export function useAiLogs(
 
 export function useAiPool() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ['ai-settings', 'pool'],
+    queryKey: ['ops', 'ai-settings', 'pool'],
     queryFn: async () => {
-      const response = await api.get<{ key: string; value: unknown }[]>('/ai-settings');
+      const response = await apiClient.get<{ key: string; value: unknown }[]>('/ai-settings');
       const usePoolRecord = response.data.find((record) => record.key === 'use_pool');
       const value = usePoolRecord?.value;
       return typeof value === 'boolean' ? value : String(value).toLowerCase() === 'true';
@@ -69,15 +59,10 @@ export function useAiPool() {
 
 export function useAiStats() {
   const queryClient = useQueryClient();
-  const { state } = useCentrifugoConnection();
-  const refetchInterval = useAdaptiveRefetchInterval(state, 5_000);
 
-  const { data, error, isLoading } = useQuery({
-    ...intelligenceQueries.stats(),
-    refetchInterval,
-  });
+  const { data, error, isLoading } = useQuery(intelligenceQueries.stats());
 
-  const mutate = () => queryClient.invalidateQueries({ queryKey: ['ai-logs', 'stats'] });
+  const mutate = () => queryClient.invalidateQueries({ queryKey: ['ops', 'ai-stats'] });
 
   return {
     stats: data,
