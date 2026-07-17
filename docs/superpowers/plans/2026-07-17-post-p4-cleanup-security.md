@@ -137,6 +137,54 @@ git add -A backend && git commit -m "chore(be): xoa 3 route 0-consumer history-t
 
 ---
 
+### Task 2b: BE — vá nút Advance: wire `simulation/advance` vào handler thật + dọn `simulation-status`
+
+> Bổ sung ngoài plan gốc (controller, sau phát hiện Task 2, đã verify curl thật): `POST /worldos/simulation/advance` — endpoint mà nút "Advance Simulation" của `/ops/simulation` gọi (`features/simulation/hooks/index.ts:109`, payload `{universe_id, ticks}`) — trỏ `UniverseController::advance` KHÔNG TỒN TẠI từ commit Init → 500 "Call to undefined method". Handler đúng có sẵn: `App\Modules\Simulation\Services\Meta\UniverseRuntimeService::advance(int $universeId, int $ticks): array` (delegate `AdvanceSimulationAction`). Cùng bệnh: `GET worlds/{id}/simulation-status` → `UniverseController::status` không tồn tại.
+
+**Files:**
+- Modify: `backend/app/Modules/WorldOS/Http/Controllers/UniverseController.php` (thêm method `advance`)
+- Modify: `backend/app/Modules/WorldOS/routes/api.php` (xóa route `worlds/{id}/simulation-status` nếu gate 0 consumer)
+- Modify: `backend/tests/Feature/WorldosRouteAuthTest.php` (case 401 + case simulation-status 404)
+- Delete (gộp minor Task 2): `backend/app/Modules/WorldOS/Http/Resources/TimelineEventResource.php` nếu grep gate 0 consumer
+- Create: `backend/tests/Feature/SimulationAdvanceRouteTest.php`
+
+**Interfaces:**
+- Consumes: `UniverseRuntimeService::advance(int, int): array`; hợp đồng FE: POST body `{universe_id: number, ticks: number}`, response được FE đọc qua `takeData` → trả `{data: <array kết quả>}`.
+- Produces: endpoint advance hoạt động; route surface sạch.
+
+- [ ] **Step 1: Grep gate** — `grep -rn "simulation-status" backend frontend/src --include='*.php' --include='*.ts' --include='*.tsx' | grep -v routes/api.php` (kỳ vọng 0 → xóa route); `grep -rn "TimelineEventResource" backend/app backend/tests | grep -v "Resources/TimelineEventResource.php"` (kỳ vọng 0 → xóa file).
+
+- [ ] **Step 2: Viết test fail** — `SimulationAdvanceRouteTest.php`: (a) case không token → 401 (không cần DB); (b) case có auth → KHÔNG còn 500 "undefined method": dùng `Laravel\Sanctum\Sanctum::actingAs(User::factory()->create())` + bind mock `UniverseRuntimeService` vào container (`$this->mock(UniverseRuntimeService::class)->shouldReceive('advance')->once()->with(5, 3)->andReturn(['tick' => 8])`) → POST `{universe_id: 5, ticks: 3}` → 200 + json `data.tick == 8`; (c) case thiếu `universe_id` → 422. Nếu hạ tầng test auth (User factory/model) vướng test-rot pre-existing không dựng nổi actingAs → giữ case (a) + viết case (b/c) dạng skip có lý do rõ, ghi report (KHÔNG được im lặng bỏ).
+Thêm vào `WorldosRouteAuthTest`: `test_worlds_simulation_status_route_is_removed` → getJson 404.
+
+- [ ] **Step 3: Implement** — `UniverseController` thêm (composition root — import cross-module Service ở controller là hợp lệ theo miễn trừ ModuleBoundaryTest):
+
+```php
+    public function advance(\Illuminate\Http\Request $request): \Illuminate\Http\JsonResponse
+    {
+        $validated = $request->validate([
+            'universe_id' => 'required|integer',
+            'ticks' => 'sometimes|integer|min:1|max:100',
+        ]);
+
+        $result = app(\App\Modules\Simulation\Services\Meta\UniverseRuntimeService::class)
+            ->advance((int) $validated['universe_id'], (int) ($validated['ticks'] ?? 1));
+
+        return response()->json(['data' => $result]);
+    }
+```
+(Style import/DI theo file thật — nếu controller đã dùng constructor injection thì theo; use-statement thay FQN inline theo chuẩn file.) Xóa route `simulation-status` + `TimelineEventResource.php` theo gate Step 1.
+
+- [ ] **Step 4: Test + Unit suite + pint file đã sửa + commit**
+
+```bash
+incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --filter="SimulationAdvanceRouteTest|WorldosRouteAuthTest" 2>&1 | tail -5'
+incus exec worldos-dev -- sh -c 'cd /work/backend && php artisan test --testsuite=Unit 2>&1 | tail -3'
+git add -A backend && git commit -m "fix(be): wire simulation/advance vao UniverseRuntimeService — nut Advance /ops/simulation het 500; don simulation-status + TimelineEventResource"
+```
+
+---
+
 ### Task 3: BE — fix shadowing `ai-provider-models/{id}` che `/export`
 
 **Files:**
