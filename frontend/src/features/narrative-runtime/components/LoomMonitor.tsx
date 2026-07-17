@@ -34,8 +34,8 @@ const DEFAULT_NODES: Node[] = [
   { id: "News_Anchor", position: { x: 0, y: 900 }, data: { label: "News Anchor" } },
 ];
 
-export function LoomMonitor({ universeId }: { universeId: number | null }) {
-  const { pipelineNodes, progress, currentAgent } = useNarrativeRuntime(universeId);
+export function LoomMonitor({ runtime }: { runtime: ReturnType<typeof useNarrativeRuntime> }) {
+  const { pipelineNodes, progress, currentAgent } = runtime;
   const { nodes: manifestNodes } = usePipelineManifest();
 
   const baseNodes = useMemo(

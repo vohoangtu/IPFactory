@@ -63,7 +63,7 @@ export function LoomOps({ universeId }: LoomOpsProps) {
         <RunTab runtime={runtime} activeUniverseId={String(universeId)} />
       )}
       {activeTab === 'review' && <ReviewTab runtime={runtime} />}
-      {activeTab === 'monitor' && <LoomMonitor universeId={universeId} />}
+      {activeTab === 'monitor' && <LoomMonitor runtime={runtime} />}
       {activeTab === 'actor' && <ActorIntentTab universeId={universeId} />}
       {activeTab === 'scribe' && <ScribeTab universeId={universeId} />}
       {activeTab === 'forge' && <AssetForgeTab universeId={universeId} />}

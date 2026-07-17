@@ -7,6 +7,28 @@ vi.mock('../useNarrativeRuntime', () => ({
   useNarrativeRuntime: mockRuntime,
 }));
 
+// LoomMonitor render thật (không mock) để chứng minh nó KHÔNG tự gọi lại
+// useNarrativeRuntime nữa — chỉ cần stub các phụ thuộc không liên quan (react-query
+// hook + @xyflow/react) vốn không tương thích với jsdom/không có QueryClientProvider.
+vi.mock('../hooks', () => ({
+  usePipelineManifest: () => ({
+    manifest: undefined,
+    nodes: [],
+    nodeMap: {},
+    edges: [],
+    totalNodes: 0,
+    isLoading: false,
+    isError: false,
+  }),
+}));
+
+vi.mock('@xyflow/react', () => ({
+  ReactFlow: () => <div data-testid="reactflow-mock" />,
+  Background: () => null,
+  Controls: () => null,
+  useNodesState: (initial: unknown) => [initial, vi.fn(), vi.fn()],
+}));
+
 import { LoomOps } from '../components/LoomOps';
 
 function idleRuntime() {
@@ -74,6 +96,28 @@ describe('LoomOps', () => {
     fireEvent.click(screen.getByRole('tab', { name: 'Actor Intent' }));
 
     expect(screen.getByText('Actor Profile')).toBeTruthy();
+  });
+
+  it('đổi tab: click Monitor không làm useNarrativeRuntime bị gọi thêm lần nào ngoài re-render của LoomOps (LoomMonitor nhận runtime qua prop)', () => {
+    mockRuntime.mockReturnValue(idleRuntime());
+    render(<LoomOps universeId={1} />);
+
+    const callsBeforeMonitor = mockRuntime.mock.calls.length;
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Monitor' }));
+
+    // Chỉ có 1 lệnh gọi mới: re-render của LoomOps do setActiveTab. Nếu
+    // LoomMonitor tự invoke useNarrativeRuntime(universeId) như trước khi fix,
+    // số lệnh gọi sẽ tăng thêm 2 (LoomOps re-render + LoomMonitor mount).
+    expect(mockRuntime.mock.calls.length).toBe(callsBeforeMonitor + 1);
+    expect(screen.getByRole('tab', { name: 'Monitor' }).getAttribute('aria-selected')).toBe('true');
+
+    // Đổi qua lại Run rồi Monitor lần nữa vẫn không phát sinh thêm lệnh gọi nào
+    // ngoài các re-render bình thường của LoomOps.
+    fireEvent.click(screen.getByRole('tab', { name: 'Run' }));
+    const callsAfterBackToRun = mockRuntime.mock.calls.length;
+    fireEvent.click(screen.getByRole('tab', { name: 'Monitor' }));
+    expect(mockRuntime.mock.calls.length).toBe(callsAfterBackToRun + 1);
   });
 
   it('universeId=null → hiển thị empty note, không render tab', () => {
