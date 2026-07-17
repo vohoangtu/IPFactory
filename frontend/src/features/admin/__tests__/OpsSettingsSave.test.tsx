@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const { mockMutateAsync, mockUseLoomAgents, mockUseAiSettings, toastSuccess, toastError, toastInfo } = vi.hoisted(
   () => ({
@@ -42,6 +43,17 @@ vi.mock('@/features/admin', async (importOriginal) => {
 // Import sau khi mock để component nhận đúng module đã mock.
 import OpsSettingsPage from '@/app/(ops)/ops/settings/page';
 
+// Page dùng useQueryClient() để invalidate 1 lần sau khi batch save xong (silent flag) —
+// cần QueryClientProvider thật bao quanh, nếu không useQueryClient() throw.
+function renderPage() {
+  const qc = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: 0 } } });
+  return render(
+    <QueryClientProvider client={qc}>
+      <OpsSettingsPage />
+    </QueryClientProvider>,
+  );
+}
+
 describe('/ops/settings — save that qua useUpdateAiSetting', () => {
   beforeEach(() => {
     mockMutateAsync.mockReset();
@@ -55,7 +67,7 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
   it('click Save gọi mutateAsync 3 lần (2 agent + 1 epistemic) với key/value đúng', async () => {
     mockMutateAsync.mockResolvedValue({});
 
-    render(<OpsSettingsPage />);
+    renderPage();
     fireEvent.click(screen.getByRole('button', { name: /save changes/i }));
 
     await waitFor(() => expect(mockMutateAsync).toHaveBeenCalledTimes(3));
@@ -77,6 +89,9 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
         max_tokens: 2048,
         retry_attempts: 3,
       },
+      // Batch save phai gan silent:true tren tung mutateAsync — hook se bo qua
+      // toast/invalidate per-call, trang tu invalidate 1 lan sau Promise.all.
+      silent: true,
     });
 
     const epistemicCall = mockMutateAsync.mock.calls.find(
@@ -86,6 +101,7 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
       key: 'narrative.epistemic',
       group: 'narrative',
       value: { noise_level: 0.3, tier: 'historian', strict_mode: false },
+      silent: true,
     });
 
     await waitFor(() => expect(toastSuccess).toHaveBeenCalled());
@@ -95,7 +111,7 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
   it('mutateAsync reject -> hiện toast.error', async () => {
     mockMutateAsync.mockRejectedValue(new Error('network down'));
 
-    render(<OpsSettingsPage />);
+    renderPage();
     fireEvent.click(screen.getByRole('button', { name: /save changes/i }));
 
     await waitFor(() => expect(toastError).toHaveBeenCalled());
@@ -119,7 +135,7 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
     });
     mockMutateAsync.mockResolvedValue({});
 
-    render(<OpsSettingsPage />);
+    renderPage();
 
     // Doi model tren UI (routing tab la default) de mo phong nguoi dung sua sau khi hydrate.
     const selects = screen.getAllByRole('combobox');

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { RotateCcw, Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { UniverseSelect } from '@/features/ops-shell';
@@ -9,6 +10,7 @@ import { useNarrativeRuntime, NARRATIVE_PIPELINE_NODES } from '@/features/narrat
 import { RoutingTab, ParamsTab, EpistemicTab, useUpdateAiSetting, useLoomAgents, useAiSettings } from '@/features/admin';
 import type { AgentConfig, EpistemicConfig } from '@/features/admin';
 import PanelButton from '@/shared/ui/PanelButton';
+import { qk } from '@/shared/config/queryKeys';
 
 const DEFAULT_AGENT_CONFIG = (id: string): AgentConfig => ({
   agentId: id,
@@ -27,6 +29,7 @@ const TABS: Array<{ id: ActiveSection; label: string }> = [
 ];
 
 export default function OpsSettingsPage() {
+  const queryClient = useQueryClient();
   const universeId = useSimStore((s) => s.selectedUniverseId);
   const runtime = useNarrativeRuntime(universeId);
   const updateSetting = useUpdateAiSetting();
@@ -114,13 +117,19 @@ export default function OpsSettingsPage() {
               max_tokens: cfg.maxTokens,
               retry_attempts: cfg.retryAttempts,
             },
+            silent: true,
           });
         }),
         updateSetting.mutateAsync({
           key: 'narrative.epistemic',
           group: 'narrative',
           value: { noise_level: epistemic.noiseLevel, tier: epistemic.tier, strict_mode: epistemic.strictMode },
+          silent: true,
         }),
+      ]);
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: qk.aiSettings() }),
+        queryClient.invalidateQueries({ queryKey: qk.loomAgents() }),
       ]);
       toast.success('Đã lưu cấu hình.');
     } catch {

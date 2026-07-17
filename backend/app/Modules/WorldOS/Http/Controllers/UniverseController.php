@@ -218,7 +218,7 @@ class UniverseController extends Controller
     {
         $validated = $request->validate([
             'universe_id' => 'required|integer',
-            'ticks' => 'sometimes|integer|min:1|max:100',
+            'ticks' => 'sometimes|integer|min:1|max:1000',
         ]);
 
         $result = app(UniverseRuntimeService::class)

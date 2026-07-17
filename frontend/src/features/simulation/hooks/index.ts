@@ -102,7 +102,7 @@ export function useAdvanceSimulation() {
       universeId: number;
       ticks: number;
     }) =>
-      takeData<{ ok: boolean }>(
+      takeData<Record<string, unknown>>(
         (
           await apiClient.post('/worldos/simulation/advance', {
             universe_id: universeId,

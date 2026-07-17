@@ -79,4 +79,22 @@ class SimulationAdvanceRouteTest extends TestCase
             'ticks' => 3,
         ])->assertStatus(422);
     }
+
+    /**
+     * Khoa bien tren cua `ticks`: FE (`TickAdvancePanel`) cho phep toi 1000 (kem
+     * confirm dialog khi >100), BE phai dong bo max:1000 — 1001 phai bi tu choi
+     * o tang validation, khong duoc lot xuong goi UniverseRuntimeService.
+     */
+    public function test_advance_with_ticks_over_1000_returns_422(): void
+    {
+        $this->actingAsUser();
+
+        $this->mock(UniverseRuntimeService::class)
+            ->shouldNotReceive('advance');
+
+        $this->postJson('/api/worldos/simulation/advance', [
+            'universe_id' => 5,
+            'ticks' => 1001,
+        ])->assertStatus(422);
+    }
 }
