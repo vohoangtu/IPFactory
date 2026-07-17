@@ -15,12 +15,6 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     // 0. Service Status (public)
     Route::get('service-status', ServiceStatusController::class)->name('worldos.service-status');
 
-    // Test route (tạm thời - không cần auth). Kích hoạt LLM nên phải throttle chống cost-DoS.
-    // TODO(bảo mật): xóa hoặc đưa vào auth:sanctum trước khi lên production.
-    Route::post('test-weave/{id}', [TimelineController::class , 'generateChronicle'])
-        ->middleware('throttle:10,1')
-        ->name('worldos.test-weave');
-
     // 1. Core Universe Management (GET — public)
     Route::get('universes', [UniverseController::class , 'index'])->name('worldos.universes.index');
     Route::get('universes/{id}', [UniverseController::class , 'show'])->name('worldos.universes.show');
@@ -92,7 +86,7 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function ()
     // 3. Narrative & Chronicles (POST — protected)
     Route::post('universes/{id}/historian/generate', [TimelineController::class , 'generateHistory'])->name('worldos.universes.historian.generate');
 
-    // Test route: generate-chronicle (bỏ qua auth tạm thời để test)
+    // Sinh chronicle theo yêu cầu — mutation, cần auth:sanctum như mọi POST khác trong group này.
     Route::post('universes/{id}/generate-chronicle', [TimelineController::class , 'generateChronicle'])->name('worldos.universes.generate-chronicle');
 
     // 4. Actors (POST — protected)

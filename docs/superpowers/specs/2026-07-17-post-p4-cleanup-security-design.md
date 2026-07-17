@@ -54,3 +54,9 @@ CI/GitHub Actions & build verify; realtime stack (Centrifugo/subscribe proxy); n
 - Nút Export `/ops/ai-runtime` tải file thật (hết shadowing).
 - Save ở `/ops/settings` persist qua reload (đọc lại từ `/ai-settings`).
 - Grep `Services/Transition` = 0 hit; baseline test không tụt ngoài chủ đích.
+
+## Hiệu chỉnh sau khảo sát live (2026-07-17)
+
+- **S1 SAI MỘT NỬA:** `POST universes/{id}/generate-chronicle` (routes/api.php:96) nằm TRONG group `auth:sanctum` (mở ở dòng 84) — curl không token trả **401**. Comment dòng 95 "bỏ qua auth tạm thời để test" là comment CŨ gây hiểu nhầm (final review P4 + `.dev_status.md` đều ghi sai theo nó). Việc cần làm: xóa comment sai + test khóa 401 (regression). KHÔNG cần đổi middleware.
+- **Lỗ hổng thật là `test-weave`:** `POST test-weave/{id}` (dòng 20-22, group public `middleware('api')`, chỉ `throttle:10,1`) trả **200 không cần token** và gọi cùng method `TimelineController::generateChronicle` (kích hoạt LLM). Đã có sẵn TODO bảo mật trong comment. 0 consumer FE/Python → XÓA (S2).
+- `worlds/{id}/pulse` (dòng 103) cũng ĐÃ trong group sanctum — curl trả 401. Xóa vì 0 consumer (dead surface), không phải vì bảo mật.
