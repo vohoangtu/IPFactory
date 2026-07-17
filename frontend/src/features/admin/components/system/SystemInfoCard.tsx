@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Info, Settings2 } from 'lucide-react';
+import { routes } from '@/shared/config/routes';
 
 export default function SystemInfoCard() {
   return (
@@ -19,7 +20,7 @@ export default function SystemInfoCard() {
         </div>
       </div>
       <Link
-        href="/dashboard/ai-runtime"
+        href={routes.opsAiRuntime()}
         className="inline-flex items-center gap-2 rounded-md border border-brand-info/20 bg-brand-info/10 px-4 py-3 text-sm font-black text-cyan-300 transition hover:bg-cyan-500/20"
       >
         <Settings2 size={16} />

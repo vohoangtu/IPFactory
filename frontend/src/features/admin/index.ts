@@ -4,6 +4,7 @@ export { default as SystemInfoCard } from './components/system/SystemInfoCard';
 export { default as RoutingTab } from './components/ai-settings/RoutingTab';
 export { default as ParamsTab } from './components/ai-settings/ParamsTab';
 export { default as EpistemicTab } from './components/ai-settings/EpistemicTab';
+export { default as AiRuntimeOps } from './components/ai-runtime/AiRuntimeOps';
 export {
   asString,
   createFeatureProfile,
