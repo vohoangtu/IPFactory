@@ -14,12 +14,13 @@ const eslintConfig = defineConfig([
   },
   // Architecture guardrail: enforce app → features → shared layering; no cross-feature internals.
   {
-    files: ["src/shared/**/*.{ts,tsx}", "src/features/**/*.{ts,tsx}", "src/app/(observatory)/**/*.{ts,tsx}", "src/app/(cinema)/**/*.{ts,tsx}"],
+    files: ["src/shared/**/*.{ts,tsx}", "src/features/**/*.{ts,tsx}", "src/app/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": ["error", {
         patterns: [
           { group: ["@/features/*/*", "!@/features/*/index", "!@/features/*"], message: "Import features only via their index.ts (public API)." },
           { group: ["@/shared/*/**/internal/*"], message: "Do not import shared internals." },
+          { group: ["@/lib/*", "@/hooks/*", "@/contexts/*", "@/components/*", "@/types/*"], message: "Legacy architecture đã xóa ở P4 — dùng @/shared/* hoặc @/features/*." },
         ],
       }],
     },
