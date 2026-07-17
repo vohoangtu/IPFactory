@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Copy, Download, Film } from 'lucide-react';
 import { toast } from 'sonner';
+import { routes } from '@/shared/config/routes';
 import { useNarrativeRuntime } from '../useNarrativeRuntime';
 import IntermediateOutputsPanel from './IntermediateOutputsPanel';
 
@@ -59,7 +60,7 @@ export default function ReviewTab({ runtime }: ReviewTabProps) {
               </button>
               {runtime.chronicleId && (
                 <Link
-                  href={`/narrative-cinema/${runtime.chronicleId}`}
+                  href={routes.chronicle(Number(runtime.chronicleId))}
                   className="flex items-center gap-1.5 rounded border border-amber-700/50 bg-amber-900/20 px-3 py-1.5 text-xs text-amber-300 hover:bg-amber-900/30"
                 >
                   <Film size={13} />
