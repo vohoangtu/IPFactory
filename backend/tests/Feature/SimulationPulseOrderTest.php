@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\World\Models\Multiverse;
 use App\Modules\World\Models\Universe;
-use App\Modules\Simulation\Models\UniverseSnapshot;
-use App\Modules\WorldOS\Models\User;
 use App\Modules\World\Models\World;
+use App\Modules\WorldOS\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -63,7 +63,7 @@ class SimulationPulseOrderTest extends TestCase
     public function test_virtual_tick_does_not_increase_snapshot_count(): void
     {
         $universe = Universe::firstOrFail();
-        \Illuminate\Support\Facades\Event::fake([\App\Events\Simulation\UniverseSimulationPulsed::class]);
+        \Illuminate\Support\Facades\Event::fake([\App\Modules\Simulation\Events\UniverseSimulationPulsed::class]);
         $countBefore = UniverseSnapshot::where('universe_id', $universe->id)->count();
 
         $response = $this->postJson('/api/worldos/simulation/advance', [

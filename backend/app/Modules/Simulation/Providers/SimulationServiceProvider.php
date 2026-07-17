@@ -2,8 +2,8 @@
 
 namespace App\Modules\Simulation\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 class SimulationServiceProvider extends ServiceProvider
 {
@@ -21,11 +21,6 @@ class SimulationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        \Illuminate\Support\Facades\Event::listen(
-            \App\Modules\Simulation\Events\PowerSystemTransitionTriggered::class,
-            \App\Modules\Simulation\Listeners\HandlePowerSystemTransition::class
-        );
-
         \Illuminate\Support\Facades\Event::listen(
             \App\Modules\Simulation\Events\EpochTransitioned::class,
             \App\Modules\Simulation\Listeners\HandleEpochTransition::class

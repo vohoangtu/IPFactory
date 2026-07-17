@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Modules\WorldOS\Http\Controllers\UniverseController;
-use App\Modules\WorldOS\Http\Controllers\NarrativeController;
 use App\Modules\WorldOS\Http\Controllers\Api\ActorController;
-use App\Modules\WorldOS\Http\Controllers\Api\CentrifugoController;
-use App\Modules\WorldOS\Http\Controllers\Api\WorldController;
-use App\Modules\WorldOS\Http\Controllers\Api\TimelineController;
 use App\Modules\WorldOS\Http\Controllers\Api\AiConfigController;
-use App\Modules\WorldOS\Http\Controllers\Api\ServiceStatusController;
+use App\Modules\WorldOS\Http\Controllers\Api\CentrifugoController;
 use App\Modules\WorldOS\Http\Controllers\Api\ObservatoryController;
+use App\Modules\WorldOS\Http\Controllers\Api\ServiceStatusController;
+use App\Modules\WorldOS\Http\Controllers\Api\TimelineController;
+use App\Modules\WorldOS\Http\Controllers\Api\WorldController;
+use App\Modules\WorldOS\Http\Controllers\NarrativeController;
+use App\Modules\WorldOS\Http\Controllers\UniverseController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->prefix('worldos')->group(function () {
     // 0. Service Status (public)
@@ -91,10 +91,9 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function ()
 
     // 3. Narrative & Chronicles (POST — protected)
     Route::post('universes/{id}/historian/generate', [TimelineController::class , 'generateHistory'])->name('worldos.universes.historian.generate');
-    Route::get('universes/{id}/chronicles/raw', [TimelineController::class , 'getChronicles'])->name('worldos.universes.chronicles.raw');
 
-// Test route: generate-chronicle (bỏ qua auth tạm thời để test)
-Route::post('universes/{id}/generate-chronicle', [TimelineController::class , 'generateChronicle'])->name('worldos.universes.generate-chronicle');
+    // Test route: generate-chronicle (bỏ qua auth tạm thời để test)
+    Route::post('universes/{id}/generate-chronicle', [TimelineController::class , 'generateChronicle'])->name('worldos.universes.generate-chronicle');
 
     // 4. Actors (POST — protected)
     Route::post('actors/{id}/mind-meld', [ActorController::class , 'mindMeld'])->name('worldos.actors.mind-meld');

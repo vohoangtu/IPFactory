@@ -3,16 +3,16 @@
 namespace App\Modules\WorldOS\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Modules\World\Models\Universe;
 use App\Modules\Narrative\Services\ChronicleSynthesisEngine;
 use App\Modules\Narrative\Services\NarrativeAiService;
 use App\Modules\Narrative\Services\UniverseHistoryGenerator;
+use App\Modules\World\Models\Universe;
 use App\Modules\WorldOS\Http\Resources\TimelineEventResource;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TimelineController extends Controller
 {
@@ -36,52 +36,6 @@ class TimelineController extends Controller
                 ])
                 ->response();
         });
-    }
-
-    public function getChronicles(string $id, Request $request): JsonResponse
-    {
-        $universeId = (int) $id;
-        $universe = Universe::findOrFail($universeId);
-
-        $fromTick = $request->input('from_tick');
-        $toTick = $request->input('to_tick');
-
-        if ($fromTick === null || $fromTick === '') {
-            $first = $universe->snapshots()->orderBy('tick')->first();
-            $latest = $universe->snapshots()->orderByDesc('tick')->first();
-            $fromTick = $first ? (int) $first->tick : 0;
-            $toTick = $toTick !== null && $toTick !== '' ? (int) $toTick : ($latest ? (int) $latest->tick : $fromTick);
-        } else {
-            $fromTick = (int) $fromTick;
-            $latest = $universe->snapshots()->orderByDesc('tick')->first();
-            $toTick = $toTick !== null && $toTick !== '' ? (int) $toTick : ($latest ? (int) $latest->tick : $fromTick);
-        }
-
-        // Fetch chronicles from database
-        $chronicles = \App\Modules\Narrative\Models\Chronicle::where('universe_id', $universeId)
-            ->where('from_tick', '>=', $fromTick)
-            ->where('to_tick', '<=', $toTick)
-            ->orderBy('from_tick')
-            ->get();
-
-        // Normalize format cho narrative-loom
-        $events = $chronicles->map(function ($chronicle) {
-            return [
-                'tick' => (int) $chronicle->from_tick,
-                'type' => $chronicle->type ?? 'chronicle',
-                'raw_payload' => $chronicle->raw_payload ?? [],
-                'content' => $chronicle->content ?? null,
-                'importance' => (float) ($chronicle->importance ?? 0.0),
-            ];
-        })->toArray();
-
-        return response()->json([
-            'data' => [
-                'from_tick' => (int) $fromTick,
-                'to_tick' => (int) $toTick,
-                'events' => $events,
-            ],
-        ]);
     }
 
     public function generateChronicle(string $id, Request $request, NarrativeAiService $narrativeAi, \App\Modules\Narrative\Services\NarrativeLoomService $loomService): JsonResponse
