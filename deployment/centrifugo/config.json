@@ -1,4 +1,5 @@
 {
+  "_readme": "client.insecure=true + không có subscribe_proxy: auth() phía Laravel CHƯA được gọi ở runtime. Khi hardening: bật client.subscribe_proxy trỏ /api/worldos/centrifugo (xem CentrifugoBroadcaster::auth — đã cover public:*, universes:{id}[:lens], global_universe, narrative:{world}:{task}), rồi đặt client.insecure=false. Chỉ làm khi có stack chạy để verify.",
   "client": {
     "insecure": true,
     "allowed_origins": [

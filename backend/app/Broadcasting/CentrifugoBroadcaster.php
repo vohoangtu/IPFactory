@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Broadcasting;
 
 use App\Modules\World\Models\Universe;
+use Firebase\JWT\JWT;
 use Illuminate\Broadcasting\Broadcasters\Broadcaster;
+use Illuminate\Broadcasting\BroadcastException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Firebase\JWT\JWT;
-use Illuminate\Broadcasting\BroadcastException;
 
 /**
  * Centrifugo WebSocket broadcaster with dead-letter-queue resilience.
@@ -53,6 +53,16 @@ class CentrifugoBroadcaster extends Broadcaster
                     ->whereIn('status', ['active', 'paused'])
                     ->exists()
             );
+        }
+
+        // Kênh hệ thống: soundtrack toàn cục (SoundtrackChanged) — read-only, cho phép mọi client đã kết nối.
+        if ($channel === 'global_universe') {
+            return true;
+        }
+
+        // Kênh task tường thuật: narrative:{worldId}:{taskId} — publish từ narrative-loom, client chỉ nghe.
+        if (preg_match('/^narrative:\d+:[A-Za-z0-9_-]+$/', $channel)) {
+            return true;
         }
 
         // Unknown channel pattern: deny
