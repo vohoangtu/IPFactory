@@ -1,3 +1,6 @@
+export { default as SettingsGrid } from './components/system/SettingsGrid';
+export { default as ServiceHealthPanel } from './components/system/ServiceHealthPanel';
+export { default as SystemInfoCard } from './components/system/SystemInfoCard';
 export {
   asString,
   createFeatureProfile,
