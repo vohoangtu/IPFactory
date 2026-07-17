@@ -103,10 +103,11 @@ Located in `sim/social-engine/`. FastAPI service using CAMEL/OASIS framework to 
 
 Located in `frontend/`. Next.js 16 App Router (`src/app/`). Dark-only theme (`#080810` base, cyan/violet accents).
 
-- Data fetching: TanStack React Query v5 with feature-based colocation (`features/<domain>/api/queries.ts`).
-- Real-time: Centrifuge WebSocket client.
+- Layering (enforced by ESLint `no-restricted-imports` over `src/app/**` + `src/features/**` + `src/shared/**`): `app` (thin route pages, route groups `(observatory)`, `(cinema)`, `(ops)`, plus `/login` and `/`) -> `features/<name>` (imported only via `@/features/<name>` public `index.ts`) -> `shared` (`ui/`, `lib/`, `realtime/`, `store/`, `config/`, `types/`). Legacy `src/components/`, `src/hooks/`, `src/lib/`, `src/contexts/`, `src/types/` were removed in the Observatory P4 cleanup.
+- Data fetching: TanStack React Query v5 with feature-based colocation (`features/<domain>/hooks/`, `features/<domain>/api/queries.ts`), HTTP via `@/shared/lib/apiClient`.
+- Real-time: Centrifuge WebSocket client via `@/shared/realtime/useUniverseChannels`.
 - 3D visualization: React Three Fiber + Drei.
-- Custom animation pipeline: **VAF** (Visual Animation Format) under `src/lib/vaf/` and `src/components/vaf/`.
+- Custom animation pipeline: **VAF** (Visual Animation Format) under `src/features/cinema/lib/vaf/` and `src/features/cinema/components/`.
 
 ---
 
@@ -135,11 +136,9 @@ IPFactory/
 │   └── proto/            # Protobuf definitions
 ├── frontend/             # Next.js 16
 │   ├── src/
-│   │   ├── app/          # App Router pages
-│   │   ├── components/   # UI primitives, dashboard, VAF renderers
-│   │   ├── features/     # Feature-based API colocation
-│   │   ├── hooks/        # Shared React hooks
-│   │   └── lib/          # Axios, Centrifugo, VAF pipeline, utils
+│   │   ├── app/          # App Router pages: (observatory)/(cinema)/(ops) route groups, /login, /
+│   │   ├── features/     # Feature modules (actors, admin, cinema, multiverse, ops-shell, ...), each with its own index.ts public API
+│   │   └── shared/       # Cross-feature: ui/, lib/ (apiClient, utils), realtime/ (useUniverseChannels), store/ (zustand), config/, types/
 │   └── package.json
 ├── narrative-loom/       # Python FastAPI + LangGraph + Celery
 │   ├── agents/           # 16 LLM agent nodes

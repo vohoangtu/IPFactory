@@ -67,7 +67,7 @@ DC exec frontend npm run build      # Production build
 DC exec frontend npm run check      # TypeScript + ESLint check
 DC exec frontend npm run lint       # ESLint only
 DC exec frontend npm run test       # Run all Vitest tests
-DC exec frontend npm run test -- src/lib/__tests__/api.test.ts   # Run single test file
+DC exec frontend npm run test -- src/shared/lib/__tests__/apiClient.test.ts   # Run single test file
 DC exec frontend npm run test:watch # Vitest watch mode
 ```
 
@@ -139,18 +139,15 @@ Each module follows a consistent structure: `Actions/`, `Services/`, `Entities/`
 
 Next.js App Router (`frontend/src/app/`). Key libraries: React Three Fiber (3D), ReactFlow, Recharts, TanStack React Query (data fetching), Centrifuge client (real-time), Framer Motion.
 
-**Data fetching:** All hooks use TanStack React Query (`useQuery`/`useMutation`). Hooks are in `frontend/src/hooks/`.
+**Route groups:**
+- `(observatory)` — `/multiverse` (universe grid landing) và `/u/[id]` (hero "Living Chronicle") + lens con `actors|civilization|causality|wavefunction`. AuthGate.
+- `(cinema)` — `/chronicle/[chronicleId]` (trình chiếu VAF). Public, không AuthGate.
+- `(ops)` — `/ops/simulation`, `/ops/loom`, `/ops/ai-runtime`, `/ops/settings`, `/ops/system`, `/ops/intelligence`. AuthGate.
+- `/login` và `/` (landing) ở gốc `src/app/`.
 
-**Shared utilities:** `frontend/src/lib/centrifugo.ts` (WebSocket factory), `frontend/src/lib/api.ts` (Axios client), `frontend/src/lib/log-utils.ts` (log parsing).
+**Layering:** `src/app/**` (thin route pages) → `src/features/<name>/` (feature modules: actors, admin, auth, causal-map, chronicle, cinema, civilization, intelligence, multiverse, narrative-runtime, ops-shell, simulation, universe, universe-workspace, wavefunction) → `src/shared/` (cross-feature: `ui/`, `lib/`, `realtime/`, `store/`, `config/`, `types/`). Import a feature **only via its `index.ts` public API** (`@/features/<name>`), never its internals. ESLint `no-restricted-imports` guardrail covers all of `src/app/**` + `src/features/**` + `src/shared/**` and forbids `@/lib/*`, `@/hooks/*`, `@/contexts/*`, `@/components/*`, `@/types/*` (legacy paths — deleted at P4).
 
-**Dashboard decomposition:** Tab components live in `frontend/src/components/dashboard/tabs/`. Layout uses a `DashboardShell` client component wrapper to preserve SSR in the layout itself.
-
-**Workspace architecture (newer code):** The `(workspace)` route group (`/multiverse`, `/u/[id]/live`, plus `/login`) uses a layered architecture enforced by ESLint `no-restricted-imports`:
-- `src/app/(workspace)/` → thin route pages
-- `src/features/<name>/` → feature modules (actors, multiverse, simulation, universe-workspace, wavefunction, …). Import a feature **only via its `index.ts` public API** (`@/features/<name>`), never its internals.
-- `src/shared/` → cross-feature code (`ui/`, `lib/`, `realtime/`, `store/`, `config/`, `types/`). Do not import anything under a `internal/` directory.
-
-Layering direction is app → features → shared; violations fail `npm run lint`.
+**Data layer:** TanStack React Query (`useQuery`/`useMutation`) hooks colocated per feature (`features/<name>/hooks/`). HTTP via `@/shared/lib/apiClient` (Axios client) + `takeData` helper (`@/shared/lib/unwrap.ts`) to unwrap envelope responses. Real-time via `@/shared/realtime/useUniverseChannels` (subscribes 4 Centrifugo channels per universe, parses the P1 event envelope). Client state in zustand stores `@/shared/store/simStore` (live pulse/history) and `@/shared/store/feedStore` (chronicle/event feed).
 
 ### Python Services
 
