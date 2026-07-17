@@ -29,7 +29,6 @@ Route::middleware('api')->prefix('worldos')->group(function () {
 
     // 2. World Management (Basic Only)
     Route::get('worlds', [WorldController::class , 'index'])->name('worldos.worlds.index');
-    Route::get('worlds/{id}/simulation-status', [UniverseController::class , 'status'])->name('worldos.worlds.status');
 
     // 3. Narrative & Chronicles (Results)
     Route::get('universes/{id}/chronicles', [NarrativeController::class , 'chronicles'])->name('worldos.universes.chronicles');

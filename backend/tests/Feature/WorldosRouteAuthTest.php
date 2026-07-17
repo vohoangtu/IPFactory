@@ -34,4 +34,9 @@ class WorldosRouteAuthTest extends TestCase
     {
         $this->postJson('/api/worldos/worlds/1/pulse')->assertStatus(404);
     }
+
+    public function test_worlds_simulation_status_route_is_removed(): void
+    {
+        $this->getJson('/api/worldos/worlds/1/simulation-status')->assertStatus(404);
+    }
 }

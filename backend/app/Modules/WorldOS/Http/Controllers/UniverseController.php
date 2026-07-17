@@ -7,6 +7,7 @@ namespace App\Modules\WorldOS\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Simulation\Models\UniverseSnapshot;
 use App\Modules\Simulation\Repositories\UniverseSnapshotRepository;
+use App\Modules\Simulation\Services\Meta\UniverseRuntimeService;
 use App\Modules\World\Models\Universe;
 use App\Modules\WorldOS\Actions\CreateGenesisUniverseAction;
 use App\Modules\WorldOS\Actions\ForkUniverseAction;
@@ -211,6 +212,19 @@ class UniverseController extends Controller
             'ok' => true,
             'data' => (new UniverseDetailResource($universe))->resolve(),
         ], 201);
+    }
+
+    public function advance(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'universe_id' => 'required|integer',
+            'ticks' => 'sometimes|integer|min:1|max:100',
+        ]);
+
+        $result = app(UniverseRuntimeService::class)
+            ->advance((int) $validated['universe_id'], (int) ($validated['ticks'] ?? 1));
+
+        return response()->json(['data' => $result]);
     }
 
     public function realityState(
