@@ -30,6 +30,7 @@ export const qk = {
   providerModels: () => ['ops', 'provider-models'] as const,
   keyPool: () => ['ops', 'key-pool'] as const,
   loomAgents: () => ['ops', 'loom-agents'] as const,
+  aiDrivers: () => ['ops', 'ai-drivers'] as const,
   aiLogs: (filters: string) => ['ops', 'ai-logs', filters] as const,
   aiStats: () => ['ops', 'ai-stats'] as const,
   loomStatus: () => ['loom', 'status'] as const,

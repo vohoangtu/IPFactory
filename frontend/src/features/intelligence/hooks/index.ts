@@ -2,6 +2,7 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/shared/lib/apiClient';
+import { takeData } from '@/shared/lib/unwrap';
 import { intelligenceQueries, type AiLogFilters } from '../api/queries';
 
 export function useAiLogs(filters: AiLogFilters = {}) {
@@ -42,8 +43,9 @@ export function useAiPool() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['ops', 'ai-settings', 'pool'],
     queryFn: async () => {
-      const response = await apiClient.get<{ key: string; value: unknown }[]>('/ai-settings');
-      const usePoolRecord = response.data.find((record) => record.key === 'use_pool');
+      const response = await apiClient.get('/ai-settings');
+      const records = takeData<{ key: string; value: unknown }[]>(response.data);
+      const usePoolRecord = records.find((record) => record.key === 'use_pool');
       const value = usePoolRecord?.value;
       return typeof value === 'boolean' ? value : String(value).toLowerCase() === 'true';
     },

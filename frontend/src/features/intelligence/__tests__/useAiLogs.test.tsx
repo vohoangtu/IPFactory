@@ -11,7 +11,7 @@ vi.mock('@/shared/lib/apiClient', () => ({
   apiClient: { get: mockGet, delete: mockDelete },
 }));
 
-import { useAiLogs } from '../hooks';
+import { useAiLogs, useAiPool } from '../hooks';
 
 const wrapper = ({ children }: { children: ReactNode }) => {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: 0 } } });
@@ -75,5 +75,38 @@ describe('useAiLogs', () => {
     await result.current.clearLogs();
 
     expect(mockDelete).toHaveBeenCalledWith('/ai-logs/clear');
+  });
+});
+
+describe('useAiPool', () => {
+  beforeEach(() => {
+    mockGet.mockReset();
+    mockDelete.mockReset();
+  });
+
+  it('đọc use_pool khi body là {data} thuần (interceptor đã tự bóc, takeData no-op)', async () => {
+    // apiClient thật đã tự bóc envelope 1-key {data} trong interceptor, nên response.data
+    // (giá trị apiClient.get trả về) chính là mảng đã bóc — mock ở đây mô phỏng đúng hành vi đó.
+    mockGet.mockResolvedValueOnce({
+      data: [{ key: 'use_pool', value: true }],
+    });
+
+    const { result } = renderHook(() => useAiPool(), { wrapper });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.usePool).toBe(true);
+    expect(result.current.isError).toBe(false);
+  });
+
+  it('đọc use_pool khi body là {data, meta} (interceptor không bóc, takeData phải tự bóc)', async () => {
+    mockGet.mockResolvedValueOnce({
+      data: { data: [{ key: 'use_pool', value: true }], meta: {} },
+    });
+
+    const { result } = renderHook(() => useAiPool(), { wrapper });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.usePool).toBe(true);
+    expect(result.current.isError).toBe(false);
   });
 });
