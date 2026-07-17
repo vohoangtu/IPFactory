@@ -1,12 +1,16 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 
-const { mockMutateAsync, toastSuccess, toastError, toastInfo } = vi.hoisted(() => ({
-  mockMutateAsync: vi.fn(),
-  toastSuccess: vi.fn(),
-  toastError: vi.fn(),
-  toastInfo: vi.fn(),
-}));
+const { mockMutateAsync, mockUseLoomAgents, mockUseAiSettings, toastSuccess, toastError, toastInfo } = vi.hoisted(
+  () => ({
+    mockMutateAsync: vi.fn(),
+    mockUseLoomAgents: vi.fn(),
+    mockUseAiSettings: vi.fn(),
+    toastSuccess: vi.fn(),
+    toastError: vi.fn(),
+    toastInfo: vi.fn(),
+  }),
+);
 
 vi.mock('sonner', () => ({
   toast: { success: toastSuccess, error: toastError, info: toastInfo },
@@ -30,8 +34,8 @@ vi.mock('@/features/admin', async (importOriginal) => {
   return {
     ...actual,
     useUpdateAiSetting: () => ({ mutateAsync: mockMutateAsync }),
-    useLoomAgents: () => ({ data: [] }),
-    useAiSettings: () => ({ data: [] }),
+    useLoomAgents: mockUseLoomAgents,
+    useAiSettings: mockUseAiSettings,
   };
 });
 
@@ -41,6 +45,8 @@ import OpsSettingsPage from '@/app/(ops)/ops/settings/page';
 describe('/ops/settings — save that qua useUpdateAiSetting', () => {
   beforeEach(() => {
     mockMutateAsync.mockReset();
+    mockUseLoomAgents.mockReset().mockReturnValue({ data: [] });
+    mockUseAiSettings.mockReset().mockReturnValue({ data: [] });
     toastSuccess.mockReset();
     toastError.mockReset();
     toastInfo.mockReset();
@@ -94,5 +100,45 @@ describe('/ops/settings — save that qua useUpdateAiSetting', () => {
 
     await waitFor(() => expect(toastError).toHaveBeenCalled());
     expect(toastSuccess).not.toHaveBeenCalled();
+  });
+
+  it('merge-preserve: giu tier/provider cu tu loomAgentRecords khi save, chi ghi de field UI so huu (model/temperature/...)', async () => {
+    mockUseLoomAgents.mockReturnValue({
+      data: [
+        {
+          id: 1,
+          key: 'loom_agents.Event_Normalizer',
+          agent_name: 'Event_Normalizer',
+          value: { tier: 'pro', provider: 'openrouter', model: 'old-model' },
+          group: 'loom_agents',
+          is_secret: false,
+          created_at: '2026-01-01T00:00:00Z',
+          updated_at: '2026-01-01T00:00:00Z',
+        },
+      ],
+    });
+    mockMutateAsync.mockResolvedValue({});
+
+    render(<OpsSettingsPage />);
+
+    // Doi model tren UI (routing tab la default) de mo phong nguoi dung sua sau khi hydrate.
+    const selects = screen.getAllByRole('combobox');
+    fireEvent.change(selects[0], { target: { value: 'gpt-4o' } });
+
+    fireEvent.click(screen.getByRole('button', { name: /save changes/i }));
+
+    await waitFor(() => expect(mockMutateAsync).toHaveBeenCalledTimes(3));
+
+    const agentCall = mockMutateAsync.mock.calls.find(
+      ([payload]) => payload.key === 'loom_agents.Event_Normalizer',
+    )?.[0];
+
+    // tier/provider tu record cu duoc giu nguyen (khong bi merge-drop).
+    expect(agentCall.value).toMatchObject({ tier: 'pro', provider: 'openrouter' });
+    // model la gia tri hien tai cua form (da doi qua UI), khong phai gia tri cu 'old-model'.
+    expect(agentCall.value.model).toBe('gpt-4o');
+    expect(agentCall.value.temperature).toBe(0.7);
+    expect(agentCall.value.max_tokens).toBe(2048);
+    expect(agentCall.value.retry_attempts).toBe(3);
   });
 });

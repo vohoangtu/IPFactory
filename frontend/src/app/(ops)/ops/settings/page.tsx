@@ -101,18 +101,21 @@ export default function OpsSettingsPage() {
     setIsSaving(true);
     try {
       await Promise.all([
-        ...agentConfigs.map((cfg) =>
-          updateSetting.mutateAsync({
+        ...agentConfigs.map((cfg) => {
+          const existing = loomAgentRecords?.find((r) => r.key === `loom_agents.${cfg.agentId}`)?.value;
+          const preserved = typeof existing === 'object' && existing !== null ? existing : {};
+          return updateSetting.mutateAsync({
             key: `loom_agents.${cfg.agentId}`,
             group: 'loom_agents',
             value: {
+              ...preserved,
               model: cfg.model,
               temperature: cfg.temperature,
               max_tokens: cfg.maxTokens,
               retry_attempts: cfg.retryAttempts,
             },
-          }),
-        ),
+          });
+        }),
         updateSetting.mutateAsync({
           key: 'narrative.epistemic',
           group: 'narrative',
