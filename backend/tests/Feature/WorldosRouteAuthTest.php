@@ -19,4 +19,19 @@ class WorldosRouteAuthTest extends TestCase
         $this->postJson('/api/worldos/test-weave/1')
             ->assertStatus(404);
     }
+
+    public function test_history_timeline_route_is_removed(): void
+    {
+        $this->getJson('/api/worldos/universes/1/history-timeline')->assertStatus(404);
+    }
+
+    public function test_analytics_ticks_route_is_removed(): void
+    {
+        $this->getJson('/api/worldos/analytics/ticks')->assertStatus(404);
+    }
+
+    public function test_worlds_pulse_route_is_removed(): void
+    {
+        $this->postJson('/api/worldos/worlds/1/pulse')->assertStatus(404);
+    }
 }
