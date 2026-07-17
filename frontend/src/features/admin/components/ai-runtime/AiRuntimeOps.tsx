@@ -2,7 +2,7 @@
 
 // Port của app/dashboard/ai-runtime/page.tsx (366 dòng) — khung trang gốc chuyển thành
 // component trong feature. `page.tsx` ở (ops)/ops/ai-runtime chỉ render component này.
-// Đổi: PageHeader/TabBar (@/components/ui/shared, không được import trong code mới) ->
+// Đổi: PageHeader/TabBar (components/ui/shared cũ, không được import trong code mới) ->
 // JSX nội tuyến cùng style, theo đúng pattern các trang (ops)/ops/settings, /ops/system.
 // Button -> PanelButton (@/shared/ui/PanelButton, cùng API).
 

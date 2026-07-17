@@ -12,7 +12,7 @@ import {
   Cell,
 } from 'recharts';
 
-import SectionPanel from '@/components/ui/shared/SectionPanel';
+import SectionPanel from '@/shared/ui/SectionPanel';
 import type { InformationalMass } from '@/shared/types/api';
 
 interface Props {

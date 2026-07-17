@@ -1,5 +1,5 @@
 /**
- * Bóc wrapper Laravel {data, meta?, links?} — parity với interceptor của client cũ (@/lib/api).
+ * Bóc wrapper Laravel {data, meta?, links?} — parity với interceptor của client cũ (đã xóa, thanh lý Task 13).
  * apiClient chỉ tự bóc body 1-key {data}; endpoint list cũ có thể kèm meta/links → dùng helper này.
  */
 export function takeData<T>(body: unknown): T {
