@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { ReactFlow, Background, Controls, useNodesState, Node } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { useUniverse } from "@/contexts/UniverseContext";
 import { useNarrativeRuntime } from "@/features/narrative-runtime/useNarrativeRuntime";
 import { usePipelineManifest } from "@/features/narrative-runtime/hooks";
 
@@ -35,7 +36,8 @@ const DEFAULT_NODES: Node[] = [
 ];
 
 export function LoomMonitor() {
-  const { pipelineNodes, progress, currentAgent } = useNarrativeRuntime();
+  const { activeUniverseId } = useUniverse();
+  const { pipelineNodes, progress, currentAgent } = useNarrativeRuntime(activeUniverseId);
   const { nodes: manifestNodes } = usePipelineManifest();
 
   const baseNodes = useMemo(

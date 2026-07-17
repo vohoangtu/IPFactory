@@ -21,7 +21,7 @@ export default function LoomWorkshopPage() {
   const { activeUniverseId } = useUniverse();
   const [activeTab, setActiveTab] = useState<WorkshopTab>('run');
   const [activeUtilityTab, setActiveUtilityTab] = useState<UtilityTab>('actor');
-  const runtime = useNarrativeRuntime();
+  const runtime = useNarrativeRuntime(activeUniverseId);
 
   const mainTabs: Array<{ id: WorkshopTab; label: string; icon: React.ReactNode }> = [
     { id: 'run', label: 'Run', icon: <PlayCircle size={14} /> },

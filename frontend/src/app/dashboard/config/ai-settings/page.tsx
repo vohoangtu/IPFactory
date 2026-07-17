@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { RotateCcw, Save } from 'lucide-react';
 import { toast } from 'sonner';
+import { useUniverse } from '@/contexts/UniverseContext';
 import { useNarrativeRuntime } from '@/features/narrative-runtime/useNarrativeRuntime';
 import { NARRATIVE_PIPELINE_NODES } from '@/features/narrative-runtime/types';
 import PageHeader from '@/components/ui/shared/PageHeader';
@@ -24,7 +25,8 @@ const DEFAULT_AGENT_CONFIG = (id: string): AgentConfig => ({
 type ActiveSection = 'routing' | 'params' | 'epistemic';
 
 export default function AISettingsPage() {
-  const runtime = useNarrativeRuntime();
+  const { activeUniverseId } = useUniverse();
+  const runtime = useNarrativeRuntime(activeUniverseId);
   const [activeSection, setActiveSection] = useState<ActiveSection>('routing');
   const [expandedAgent, setExpandedAgent] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);

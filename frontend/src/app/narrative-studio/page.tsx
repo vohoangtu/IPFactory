@@ -9,7 +9,7 @@ import OutputPanel from '@/components/dashboard/narrative-studio/OutputPanel';
 
 export default function NarrativeStudioPage() {
   const { activeUniverseId } = useUniverse();
-  const runtime = useNarrativeRuntime();
+  const runtime = useNarrativeRuntime(activeUniverseId);
 
   return (
     <div className="space-y-6">

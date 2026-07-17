@@ -1,27 +1,27 @@
 import { queryOptions } from '@tanstack/react-query';
-import api from '@/lib/api';
+import { apiClient } from '@/shared/lib/apiClient';
+import { takeData } from '@/shared/lib/unwrap';
+import { qk } from '@/shared/config/queryKeys';
 import type { LoomStatus, LoomTaskStatusPayload, PipelineManifest } from '../types';
 
-const LOOM_STATUS_KEY = ['loom', 'status'] as const;
-const LOOM_TASK_KEY = (taskId: string) => ['loom', 'tasks', taskId] as const;
 const LOOM_MANIFEST_KEY = ['loom', 'pipeline-manifest'] as const;
 
 /** Normalized loom status from /loom-status endpoint */
 export const narrativeQueries = {
   loomStatus: () =>
     queryOptions({
-      queryKey: LOOM_STATUS_KEY,
-      queryFn: (): Promise<LoomStatus> =>
-        api.get('/loom-status').then((r) => r.data),
+      queryKey: qk.loomStatus(),
+      queryFn: async (): Promise<LoomStatus> =>
+        takeData<LoomStatus>((await apiClient.get('/loom-status')).data),
       staleTime: 10_000,
       refetchInterval: 60_000,
     }),
 
   loomTaskStatus: (taskId: string | null) =>
     queryOptions({
-      queryKey: LOOM_TASK_KEY(taskId ?? ''),
-      queryFn: (): Promise<LoomTaskStatusPayload> =>
-        api.get(`/loom-tasks/${taskId}/status`).then((r) => r.data),
+      queryKey: qk.loomTask(taskId ?? ''),
+      queryFn: async (): Promise<LoomTaskStatusPayload> =>
+        takeData<LoomTaskStatusPayload>((await apiClient.get(`/loom-tasks/${taskId}/status`)).data),
       staleTime: 5_000,
       refetchInterval: 5_000,
       enabled: !!taskId,
@@ -30,8 +30,8 @@ export const narrativeQueries = {
   pipelineManifest: () =>
     queryOptions({
       queryKey: LOOM_MANIFEST_KEY,
-      queryFn: (): Promise<PipelineManifest> =>
-        api.get('/loom/pipeline-manifest').then((r) => r.data),
+      queryFn: async (): Promise<PipelineManifest> =>
+        takeData<PipelineManifest>((await apiClient.get('/loom/pipeline-manifest')).data),
       staleTime: Infinity,
     }),
 };
@@ -44,7 +44,7 @@ export interface GenerateChronicleResponse {
 }
 
 export async function generateChronicle(universeId: number): Promise<GenerateChronicleResponse> {
-  const response = await api.post(`/worldos/universes/${universeId}/generate-chronicle`);
+  const response = await apiClient.post(`/worldos/universes/${universeId}/generate-chronicle`);
   const payload =
     response.data && typeof response.data === 'object' && 'data' in response.data
       ? (response.data as { data?: Record<string, unknown> }).data

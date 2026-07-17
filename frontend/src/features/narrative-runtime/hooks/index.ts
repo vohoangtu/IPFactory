@@ -2,8 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { narrativeQueries, generateChronicle } from '../api/queries';
-import { useAdaptiveRefetchInterval } from '@/hooks/useCentrifugo';
-import { useCentrifugoConnection } from '@/hooks/useCentrifugo';
+import { useCentrifugoConnection } from './useCentrifugoConnection';
 
 export function useLoomStatus() {
   const { data, error, isLoading, refetch } = useQuery(narrativeQueries.loomStatus());
@@ -18,7 +17,7 @@ export function useLoomStatus() {
 
 export function useLoomTaskStatus(taskId: string | null) {
   const { state: connectionState } = useCentrifugoConnection();
-  const refetchInterval = useAdaptiveRefetchInterval(connectionState, 5_000);
+  const refetchInterval = connectionState === 'connected' ? false : 5_000;
 
   const { data, error, isLoading } = useQuery({
     ...narrativeQueries.loomTaskStatus(taskId),

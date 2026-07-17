@@ -2,9 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useUniverse } from '@/contexts/UniverseContext';
-import { getCentrifuge } from '@/lib/centrifugo';
-import { useCentrifugoConnection } from '@/hooks/useCentrifugo';
+import { getCentrifuge } from '@/shared/lib/centrifugo';
+import { useCentrifugoConnection } from './hooks/useCentrifugoConnection';
 import type {
   AgentDetails,
   IntermediateOutputs,
@@ -82,8 +81,8 @@ function inferLegacyEventType(event: NarrativeEvent): string {
   return 'unknown';
 }
 
-export function useNarrativeRuntime() {
-  const { activeUniverseId } = useUniverse();
+export function useNarrativeRuntime(universeId: number | null) {
+  const activeUniverseId = universeId;
   const { state: connectionState } = useCentrifugoConnection();
   const queryClient = useQueryClient();
 
