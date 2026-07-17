@@ -218,31 +218,6 @@ class EngineServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Modules\Simulation\Services\Core\FfiActorEngine::class);
         $this->app->singleton(\App\Modules\Simulation\Services\FeatureExtractionService::class);
 
-        // Phase 100: Power System Transition (Decoupling Era from Power System)
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Transformers\EntropyTransformer::class);
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Transformers\StabilityBinder::class);
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Transformers\CausalityRewriter::class);
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Transformers\RealityStrainSimulator::class);
-
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Guards\EnergyInvariantGuard::class);
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\Guards\CausalityInvariantGuard::class);
-
-        $this->app->singleton(\App\Modules\Simulation\Services\Transition\TransitionProcessor::class, function ($app) {
-            $transformers = [
-                $app->make(\App\Modules\Simulation\Services\Transition\Transformers\EntropyTransformer::class),
-                $app->make(\App\Modules\Simulation\Services\Transition\Transformers\StabilityBinder::class),
-                $app->make(\App\Modules\Simulation\Services\Transition\Transformers\CausalityRewriter::class),
-                $app->make(\App\Modules\Simulation\Services\Transition\Transformers\RealityStrainSimulator::class),
-            ];
-
-            $guards = [
-                $app->make(\App\Modules\Simulation\Services\Transition\Guards\EnergyInvariantGuard::class),
-                $app->make(\App\Modules\Simulation\Services\Transition\Guards\CausalityInvariantGuard::class),
-            ];
-
-            return new \App\Modules\Simulation\Services\Transition\TransitionProcessor($transformers, $guards);
-        });
-
         // Advanced V10 Engines
         $this->app->singleton(\App\Modules\Simulation\Core\Engines\Meta\InformationPropagationEngine::class);
         $this->app->singleton(\App\Modules\Simulation\Core\Engines\Meta\PowerStructureEngine::class);
