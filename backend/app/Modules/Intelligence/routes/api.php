@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Modules\Intelligence\Http\Controllers\AuthController;
-use App\Modules\Intelligence\Http\Controllers\AiLogController;
-use App\Modules\Intelligence\Http\Controllers\AiSettingsController;
 use App\Modules\Intelligence\Http\Controllers\AiDiagnosticsController;
 use App\Modules\Intelligence\Http\Controllers\AiKeyPoolController;
+use App\Modules\Intelligence\Http\Controllers\AiLogController;
 use App\Modules\Intelligence\Http\Controllers\AiProviderModelsController;
+use App\Modules\Intelligence\Http\Controllers\AiSettingsController;
+use App\Modules\Intelligence\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
 
 // Authentication (public — throttle chống brute-force / spam đăng ký)
 Route::middleware('api')->group(function () {
@@ -31,7 +30,7 @@ Route::middleware('api')->group(function () {
     Route::get('ai-key-pool/{ai_key_pool}', [AiKeyPoolController::class, 'show']);
 
     Route::get('ai-provider-models', [AiProviderModelsController::class, 'index']);
-    Route::get('ai-provider-models/{id}', [AiProviderModelsController::class, 'show']);
+    Route::get('ai-provider-models/{id}', [AiProviderModelsController::class, 'show'])->whereNumber('id');
 
     Route::get('/ai-logs/stats', [AiLogController::class, 'stats']);
     Route::get('/ai-logs', [AiLogController::class, 'index']);
