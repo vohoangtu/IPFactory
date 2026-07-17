@@ -1,14 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { RotateCcw, Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { UniverseSelect } from '@/features/ops-shell';
 import { useSimStore } from '@/shared/store/simStore';
 import { useNarrativeRuntime, NARRATIVE_PIPELINE_NODES } from '@/features/narrative-runtime';
-import { RoutingTab, ParamsTab, EpistemicTab } from '@/features/admin';
+import { RoutingTab, ParamsTab, EpistemicTab, useUpdateAiSetting, useLoomAgents, useAiSettings } from '@/features/admin';
 import type { AgentConfig, EpistemicConfig } from '@/features/admin';
 import PanelButton from '@/shared/ui/PanelButton';
+import { qk } from '@/shared/config/queryKeys';
 
 const DEFAULT_AGENT_CONFIG = (id: string): AgentConfig => ({
   agentId: id,
@@ -27,8 +29,12 @@ const TABS: Array<{ id: ActiveSection; label: string }> = [
 ];
 
 export default function OpsSettingsPage() {
+  const queryClient = useQueryClient();
   const universeId = useSimStore((s) => s.selectedUniverseId);
   const runtime = useNarrativeRuntime(universeId);
+  const updateSetting = useUpdateAiSetting();
+  const { data: loomAgentRecords } = useLoomAgents();
+  const { data: aiSettings } = useAiSettings();
   const [activeSection, setActiveSection] = useState<ActiveSection>('routing');
   const [expandedAgent, setExpandedAgent] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -57,6 +63,39 @@ export default function OpsSettingsPage() {
     );
   }, [runtime.loomStatus]);
 
+  // Hydrate agentConfigs từ bản đã lưu (một lần khi data về; loomStatus sync vẫn giữ nguyên effect cũ)
+  useEffect(() => {
+    if (!loomAgentRecords?.length) return;
+    setAgentConfigs((prev) =>
+      prev.map((cfg) => {
+        const saved = loomAgentRecords.find((r) => r.key === `loom_agents.${cfg.agentId}`)?.value as
+          | { model?: string; temperature?: number; max_tokens?: number; retry_attempts?: number }
+          | undefined;
+        return saved
+          ? {
+              ...cfg,
+              model: saved.model ?? cfg.model,
+              temperature: saved.temperature ?? cfg.temperature,
+              maxTokens: saved.max_tokens ?? cfg.maxTokens,
+              retryAttempts: saved.retry_attempts ?? cfg.retryAttempts,
+            }
+          : cfg;
+      }),
+    );
+  }, [loomAgentRecords]);
+
+  // Hydrate epistemic từ key narrative.epistemic
+  useEffect(() => {
+    const rec = aiSettings?.find((s) => s.key === 'narrative.epistemic');
+    if (!rec) return;
+    const v = rec.value as { noise_level?: number; tier?: EpistemicConfig['tier']; strict_mode?: boolean };
+    setEpistemic((prev) => ({
+      noiseLevel: v.noise_level ?? prev.noiseLevel,
+      tier: v.tier ?? prev.tier,
+      strictMode: v.strict_mode ?? prev.strictMode,
+    }));
+  }, [aiSettings]);
+
   const update = (agentId: string, patch: Partial<AgentConfig>) => {
     setAgentConfigs((prev) => prev.map((c) => (c.agentId === agentId ? { ...c, ...patch } : c)));
   };
@@ -64,10 +103,37 @@ export default function OpsSettingsPage() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await new Promise((r) => setTimeout(r, 600));
-      toast.success('Configuration saved.');
+      await Promise.all([
+        ...agentConfigs.map((cfg) => {
+          const existing = loomAgentRecords?.find((r) => r.key === `loom_agents.${cfg.agentId}`)?.value;
+          const preserved = typeof existing === 'object' && existing !== null ? existing : {};
+          return updateSetting.mutateAsync({
+            key: `loom_agents.${cfg.agentId}`,
+            group: 'loom_agents',
+            value: {
+              ...preserved,
+              model: cfg.model,
+              temperature: cfg.temperature,
+              max_tokens: cfg.maxTokens,
+              retry_attempts: cfg.retryAttempts,
+            },
+            silent: true,
+          });
+        }),
+        updateSetting.mutateAsync({
+          key: 'narrative.epistemic',
+          group: 'narrative',
+          value: { noise_level: epistemic.noiseLevel, tier: epistemic.tier, strict_mode: epistemic.strictMode },
+          silent: true,
+        }),
+      ]);
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: qk.aiSettings() }),
+        queryClient.invalidateQueries({ queryKey: qk.loomAgents() }),
+      ]);
+      toast.success('Đã lưu cấu hình.');
     } catch {
-      toast.error('Failed to save.');
+      toast.error('Lưu thất bại.');
     } finally {
       setIsSaving(false);
     }

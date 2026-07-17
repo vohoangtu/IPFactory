@@ -122,6 +122,12 @@ export default function TickAdvancePanel({
           <><Play size={14} />Advance Simulation</>
         )}
       </button>
+
+      {advanceMutation.isError && (
+        <p className="mt-2 text-xs text-red-400">
+          Advance thất bại — kiểm tra engine/kết nối.
+        </p>
+      )}
     </SectionPanel>
   );
 }

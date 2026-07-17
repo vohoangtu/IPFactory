@@ -171,8 +171,18 @@ export function useUpdateAiSetting() {
       value: unknown;
       group?: string;
       is_secret?: boolean;
-    }) => takeData((await apiClient.post('/ai-settings/update', payload)).data),
+      silent?: boolean;
+    }) => {
+      const body = {
+        key: payload.key,
+        value: payload.value,
+        ...(payload.group !== undefined ? { group: payload.group } : {}),
+        ...(payload.is_secret !== undefined ? { is_secret: payload.is_secret } : {}),
+      };
+      return takeData((await apiClient.post('/ai-settings/update', body)).data);
+    },
     onSuccess: async (_data, variables) => {
+      if (variables.silent) return;
       toast.success('AI runtime setting updated.');
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueries.aiSettings().queryKey }),

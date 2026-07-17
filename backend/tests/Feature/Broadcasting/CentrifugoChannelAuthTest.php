@@ -54,4 +54,10 @@ class CentrifugoChannelAuthTest extends TestCase
         $this->assertTrue((bool) $this->authFor('narrative:12:task-abc_123'));
         $this->assertFalse((bool) $this->authFor('narrative:abc'));
     }
+
+    public function test_auth_denies_global_universe_with_suffix(): void
+    {
+        $this->assertFalse((bool) $this->authFor('global_universe:x'));
+        $this->assertFalse((bool) $this->authFor('global_universe_x'));
+    }
 }

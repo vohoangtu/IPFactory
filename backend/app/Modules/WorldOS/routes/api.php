@@ -15,12 +15,6 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     // 0. Service Status (public)
     Route::get('service-status', ServiceStatusController::class)->name('worldos.service-status');
 
-    // Test route (tạm thời - không cần auth). Kích hoạt LLM nên phải throttle chống cost-DoS.
-    // TODO(bảo mật): xóa hoặc đưa vào auth:sanctum trước khi lên production.
-    Route::post('test-weave/{id}', [TimelineController::class , 'generateChronicle'])
-        ->middleware('throttle:10,1')
-        ->name('worldos.test-weave');
-
     // 1. Core Universe Management (GET — public)
     Route::get('universes', [UniverseController::class , 'index'])->name('worldos.universes.index');
     Route::get('universes/{id}', [UniverseController::class , 'show'])->name('worldos.universes.show');
@@ -35,14 +29,12 @@ Route::middleware('api')->prefix('worldos')->group(function () {
 
     // 2. World Management (Basic Only)
     Route::get('worlds', [WorldController::class , 'index'])->name('worldos.worlds.index');
-    Route::get('worlds/{id}/simulation-status', [UniverseController::class , 'status'])->name('worldos.worlds.status');
 
     // 3. Narrative & Chronicles (Results)
     Route::get('universes/{id}/chronicles', [NarrativeController::class , 'chronicles'])->name('worldos.universes.chronicles');
     Route::get('chronicles/{chronicle}', [NarrativeController::class , 'show'])->name('worldos.chronicles.show');
     Route::get('universes/{id}/myth-scars', [NarrativeController::class , 'mythScars'])->name('worldos.universes.myth-scars');
     Route::get('universes/{id}/artifacts', [NarrativeController::class , 'artifacts'])->name('worldos.universes.artifacts');
-    Route::get('universes/{id}/history-timeline', [TimelineController::class , 'history'])->name('worldos.universes.history-timeline');
     Route::get('universes/{id}/causal-links', [TimelineController::class , 'causalLinks'])->name('worldos.universes.causal-links');
 
     // 4. Actors & Supreme Entities (Simulation Entities)
@@ -52,9 +44,6 @@ Route::middleware('api')->prefix('worldos')->group(function () {
     Route::get('actors/{id}/decisions', [ActorController::class , 'decisions'])->name('worldos.actors.decisions');
 
     Route::get('universes/{id}/supreme-entities', [ActorController::class , 'supremeEntities'])->name('worldos.universes.supreme-entities');
-
-    // 5. Analytics
-    Route::get('analytics/ticks', [\App\Modules\WorldOS\Http\Controllers\Api\AnalyticsController::class , 'getTickAnalytics'])->name('worldos.analytics.ticks');
 
     // 5b. Observatory (GET — public)
     Route::get('observatory/universes/{id}/feed', [ObservatoryController::class, 'feed'])
@@ -92,7 +81,7 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function ()
     // 3. Narrative & Chronicles (POST — protected)
     Route::post('universes/{id}/historian/generate', [TimelineController::class , 'generateHistory'])->name('worldos.universes.historian.generate');
 
-    // Test route: generate-chronicle (bỏ qua auth tạm thời để test)
+    // Sinh chronicle theo yêu cầu — mutation, cần auth:sanctum như mọi POST khác trong group này.
     Route::post('universes/{id}/generate-chronicle', [TimelineController::class , 'generateChronicle'])->name('worldos.universes.generate-chronicle');
 
     // 4. Actors (POST — protected)
@@ -100,7 +89,6 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('worldos')->group(function ()
 
     // 5. Simulation Logic & Control (POST — protected)
     Route::post('simulation/advance', [UniverseController::class , 'advance'])->name('worldos.simulation.advance');
-    Route::post('worlds/{id}/pulse', [UniverseController::class , 'pulse'])->name('worldos.worlds.pulse');
     Route::post('universes/{id}/fork', [UniverseController::class , 'fork'])->name('worldos.universes.fork');
 
     // 6. System Configuration (POST/DELETE — protected)

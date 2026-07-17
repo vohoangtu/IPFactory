@@ -90,8 +90,6 @@ export function useCompareBranch(
   return { comparison: data ?? null, isLoading, isFetching, isError: !!error };
 }
 
-export const useBranchComparison = useCompareBranch;
-
 // ── Advance / Toggle ─────────────────────────────────────────────────
 
 export function useAdvanceSimulation() {
@@ -104,7 +102,7 @@ export function useAdvanceSimulation() {
       universeId: number;
       ticks: number;
     }) =>
-      takeData<{ ok: boolean }>(
+      takeData<Record<string, unknown>>(
         (
           await apiClient.post('/worldos/simulation/advance', {
             universe_id: universeId,

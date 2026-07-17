@@ -4,7 +4,6 @@ export {
   useForks,
   useForkUniverse,
   useCompareBranch,
-  useBranchComparison,
   useAdvanceSimulation,
   useToggleUniverse,
   useCreateUniverse,

@@ -46,7 +46,7 @@ export const adminQueries = {
 
   aiDrivers: () =>
     queryOptions({
-      queryKey: ['admin', 'ai-drivers'] as const,
+      queryKey: qk.aiDrivers(),
       queryFn: async (): Promise<DriverName[]> =>
         takeData<DriverName[]>((await apiClient.get('/ai-settings/drivers')).data),
       staleTime: 30_000,

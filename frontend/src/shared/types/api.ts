@@ -354,13 +354,6 @@ export interface MultiverseResonance {
 
 // ── Universe Dossier ─────────────────────────
 
-export interface UniverseOption {
-  id: number;
-  name?: string | null;
-  status?: string | null;
-  current_tick?: number;
-}
-
 export interface UniverseMetrics {
   universe_id: number;
   status: string;
@@ -376,20 +369,6 @@ export interface UniverseMetrics {
   religion_count: number;
   material_identity: Record<string, unknown>;
   culture_identity: Record<string, unknown>;
-}
-
-export interface UniverseDossier {
-  universe_id: number;
-  name: string | null;
-  tick: number;
-  status: string;
-  material_identity: Record<string, unknown>;
-  culture_identity: Record<string, unknown>;
-  civilization_profile: Record<string, unknown>;
-  civilization: Record<string, unknown>;
-  myths: Record<string, unknown>;
-  religions: Record<string, unknown>;
-  history: Record<string, unknown>;
 }
 
 // ── AI Logs ──────────────────────────────────

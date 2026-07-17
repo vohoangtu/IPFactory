@@ -11,7 +11,7 @@ vi.mock('@/shared/lib/apiClient', () => ({
   apiClient: { get: mockGet, delete: mockDelete },
 }));
 
-import { useAiLogs } from '../hooks';
+import { useAiLogs, useAiPool } from '../hooks';
 
 const wrapper = ({ children }: { children: ReactNode }) => {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: 0 } } });
@@ -75,5 +75,62 @@ describe('useAiLogs', () => {
     await result.current.clearLogs();
 
     expect(mockDelete).toHaveBeenCalledWith('/ai-logs/clear');
+  });
+
+  it('clearLogs invalidate ca 2 nhanh qk — ["ops","ai-logs"] va ["ops","ai-stats"] (regression dual-invalidation)', async () => {
+    mockGet.mockResolvedValue({
+      data: { data: [], current_page: 1, last_page: 1, total: 0, per_page: 15 },
+    });
+    mockDelete.mockResolvedValueOnce({ data: { ok: true } });
+
+    const qc = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: 0 } } });
+    const invalidateSpy = vi.spyOn(qc, 'invalidateQueries');
+    const localWrapper = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={qc}>{children}</QueryClientProvider>
+    );
+
+    const { result } = renderHook(() => useAiLogs(), { wrapper: localWrapper });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    await result.current.clearLogs();
+
+    // Key cu long ['ai-logs', 'stats'] duoi prefix ['ai-logs'] nen purge cung lam mat hieu luc
+    // cache stats; qk moi tach ['ops','ai-logs'] / ['ops','ai-stats'] la 2 nhanh song song nen
+    // clearLogs phai invalidate ro ca hai — khoa lai hanh vi nay de tranh regression.
+    expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['ops', 'ai-logs'] });
+    expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['ops', 'ai-stats'] });
+  });
+});
+
+describe('useAiPool', () => {
+  beforeEach(() => {
+    mockGet.mockReset();
+    mockDelete.mockReset();
+  });
+
+  it('đọc use_pool khi body là {data} thuần (interceptor đã tự bóc, takeData no-op)', async () => {
+    // apiClient thật đã tự bóc envelope 1-key {data} trong interceptor, nên response.data
+    // (giá trị apiClient.get trả về) chính là mảng đã bóc — mock ở đây mô phỏng đúng hành vi đó.
+    mockGet.mockResolvedValueOnce({
+      data: [{ key: 'use_pool', value: true }],
+    });
+
+    const { result } = renderHook(() => useAiPool(), { wrapper });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.usePool).toBe(true);
+    expect(result.current.isError).toBe(false);
+  });
+
+  it('đọc use_pool khi body là {data, meta} (interceptor không bóc, takeData phải tự bóc)', async () => {
+    mockGet.mockResolvedValueOnce({
+      data: { data: [{ key: 'use_pool', value: true }], meta: {} },
+    });
+
+    const { result } = renderHook(() => useAiPool(), { wrapper });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.usePool).toBe(true);
+    expect(result.current.isError).toBe(false);
   });
 });

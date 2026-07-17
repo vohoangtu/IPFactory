@@ -69,14 +69,24 @@ export default function OpsSystemPage() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-text-muted)]">Hệ thống</h1>
         <div className="flex flex-wrap items-center gap-2">
-          <PanelButton variant="secondary" size="sm" onClick={() => setLocalChanges({})} disabled={isUpdating}>
+          <PanelButton
+            variant="secondary"
+            size="sm"
+            onClick={() => setLocalChanges({})}
+            disabled={isUpdating || isLoading}
+          >
             Discard Changes
           </PanelButton>
-          <PanelButton variant="danger" size="sm" onClick={handleReset} disabled={isResetting || isUpdating}>
+          <PanelButton
+            variant="danger"
+            size="sm"
+            onClick={handleReset}
+            disabled={isResetting || isUpdating || isLoading}
+          >
             <RefreshCcw size={14} />
             Reset Defaults
           </PanelButton>
-          <PanelButton variant="primary" size="sm" onClick={handleSave} disabled={isUpdating}>
+          <PanelButton variant="primary" size="sm" onClick={handleSave} disabled={isUpdating || isLoading}>
             <Save size={14} />
             Save Runtime
           </PanelButton>
